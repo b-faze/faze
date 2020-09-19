@@ -36,7 +36,7 @@ namespace Faze.Games.Skulls.Tests
         [Fact]
         public void GameExample1()
         {
-            IGameState<SkullsMove, WinLoseResult<int>, int> state = initialState;
+            IGameState<ISkullsMove, WinLoseResult<int>, int> state = initialState;
 
             state = state.Move(new SkullsPlacementMove(SkullsTokenType.Flower));
 

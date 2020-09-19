@@ -1,6 +1,6 @@
 ﻿namespace Faze.Instances.Games.Skulls
 {
-    public class SkullsPlacementMove : SkullsMove
+    public struct SkullsPlacementMove : ISkullsMove
     {
         public SkullsPlacementMove(SkullsTokenType token)
         {

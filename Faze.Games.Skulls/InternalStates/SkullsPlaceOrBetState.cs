@@ -13,7 +13,7 @@ namespace Faze.Instances.Games.Skulls
         {
         }
 
-        public override IGameState<SkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(SkullsMove move)
+        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             if (move is SkullsPlacementMove placementMove)
             {
@@ -39,17 +39,19 @@ namespace Faze.Instances.Games.Skulls
             throw new Exception("Invalid move");
         }
 
-        protected override SkullsMove[] GetAvailableMoves()
+        protected override ISkullsMove[] GetAvailableMoves()
         {
-            var moves = new List<SkullsMove>();
+            var moves = new List<ISkullsMove>();
 
-            moves.AddRange(playerEnvironments.GetForPlayer(currentPlayerIndex).GetPlacementMoves());
-            moves.AddRange(GetBetMoves());
+            moves.AddRange(playerEnvironments.GetForPlayer(currentPlayerIndex).GetPlacementMoves()
+                .Select(x => (ISkullsMove)x));
+            moves.AddRange(GetBetMoves()
+                .Select(x => (ISkullsMove)x));
 
             return moves.ToArray();
         }
 
-        private IEnumerable<SkullsMove> GetBetMoves()
+        private IEnumerable<SkullsBetMove> GetBetMoves()
         {
             return Enumerable.Range(1, playerEnvironments.GetMaxPossibleBet())
                 .Select(x => new SkullsBetMove(x));

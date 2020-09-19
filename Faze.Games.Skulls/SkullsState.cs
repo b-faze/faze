@@ -3,7 +3,7 @@ using Faze.Abstractions.GameResults;
 
 namespace Faze.Instances.Games.Skulls
 {
-    public abstract class SkullsState<TPlayer> : IGameState<SkullsMove, WinLoseResult<TPlayer>, TPlayer>
+    public abstract class SkullsState<TPlayer> : IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer>
     {
         protected readonly TPlayer[] players;
         protected SkullsPlayerEnvironments playerEnvironments;
@@ -23,11 +23,11 @@ namespace Faze.Instances.Games.Skulls
         }
 
         public TPlayer CurrentPlayer => players[currentPlayerIndex];
-        public SkullsMove[] AvailableMoves => GetAvailableMoves();
+        public ISkullsMove[] AvailableMoves => GetAvailableMoves();
         public WinLoseResult<TPlayer> Result { get; protected set; }
 
-        public abstract IGameState<SkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(SkullsMove move);
+        public abstract IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move);
 
-        protected abstract SkullsMove[] GetAvailableMoves();
+        protected abstract ISkullsMove[] GetAvailableMoves();
     }
 }

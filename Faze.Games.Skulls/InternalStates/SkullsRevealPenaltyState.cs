@@ -15,7 +15,7 @@ namespace Faze.Instances.Games.Skulls
             this.playerIndexWithPenalty = currentPlayerIndex;
         }
 
-        public override IGameState<SkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(SkullsMove move)
+        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             if (!(move is SkullsPenaltyDiscardMove discardMove))
                 throw new Exception("Only discard moves allowed");
@@ -26,11 +26,12 @@ namespace Faze.Instances.Games.Skulls
             return new SkullsPlaceOrBetState<TPlayer>(players, newEnvironments, newPlayerIndex);
         }
 
-        protected override SkullsMove[] GetAvailableMoves()
+        protected override ISkullsMove[] GetAvailableMoves()
         {
             return playerEnvironments
                 .GetForPlayer(playerIndexWithPenalty)
-                .GetPenaltyDiscardtMoves()
+                .GetPenaltyDiscardMoves()
+                .Select(x => (ISkullsMove)x)
                 .ToArray();
         }
     }

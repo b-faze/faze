@@ -1,6 +1,6 @@
 ﻿namespace Faze.Instances.Games.Skulls
 {
-    public class SkullsBetMove : SkullsMove
+    public struct SkullsBetMove : ISkullsMove
     {
         public SkullsBetMove(int? bet)
         {

@@ -17,7 +17,7 @@ namespace Faze.Instances.Games.Skulls
             this.targetBet = targetBet;
         }
 
-        public override IGameState<SkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(SkullsMove move)
+        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             if (!(move is SkullsRevealMove revealMove))
                 throw new Exception("Only reveal moves allowed during reveal phase");
@@ -45,12 +45,13 @@ namespace Faze.Instances.Games.Skulls
             return new SkullsRevealState<TPlayer>(players, newPlayerEnvironments, currentPlayerIndex, targetBet);
         }
 
-        protected override SkullsMove[] GetAvailableMoves()
+        protected override ISkullsMove[] GetAvailableMoves()
         {
             if (playerEnvironments.GetForPlayer(currentPlayerIndex).CanReveal())
-                return new[] { new SkullsRevealMove(currentPlayerIndex) };
+                return new ISkullsMove[] { new SkullsRevealMove(currentPlayerIndex) };
 
-            return playerEnvironments.GetRevealMoves().ToArray();
+            return playerEnvironments.GetRevealMoves()
+                .ToArray();
         }
     }
 

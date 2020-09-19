@@ -12,7 +12,7 @@ namespace Faze.Instances.Games.Skulls
         {
         }
 
-        public override IGameState<SkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(SkullsMove move)
+        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             if (!(move is SkullsPlacementMove placementMove))
                 throw new Exception("The provided SkullMove is not supported");
@@ -29,9 +29,13 @@ namespace Faze.Instances.Games.Skulls
             return new SkullsInitialPlacementState<TPlayer>(players, newPlayerEnvironments, newPlayerIndex);
         }
 
-        protected override SkullsMove[] GetAvailableMoves()
+        protected override ISkullsMove[] GetAvailableMoves()
         {
-            return playerEnvironments.GetForPlayer(currentPlayerIndex).GetPlacementMoves().ToArray();
+            return playerEnvironments
+                .GetForPlayer(currentPlayerIndex)
+                .GetPlacementMoves()
+                .Select(x => (ISkullsMove)x)
+                .ToArray();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Faze.Instances.Games.Skulls
         public SkullsTokenType[] Hand { get; private set; }
         public bool HasWin { get; private set; }
         public bool IsOut { get; private set; }
-        public SkullsBetMove Bet { get; private set; }
+        public SkullsBetMove? Bet { get; private set; }
 
         public void Place(SkullsTokenType token)
         {
@@ -61,14 +61,14 @@ namespace Faze.Instances.Games.Skulls
             return RevealedStack.Any(x => x == SkullsTokenType.Skull);
         }
 
-        internal IEnumerable<SkullsMove> GetPlacementMoves()
+        internal IEnumerable<ISkullsMove> GetPlacementMoves()
         {
-            return Hand.Select(x => new SkullsPlacementMove(x));
+            return Hand.Select(x => (ISkullsMove)new SkullsPlacementMove(x));
         }
 
-        internal IEnumerable<SkullsMove> GetPenaltyDiscardtMoves()
+        internal IEnumerable<ISkullsMove> GetPenaltyDiscardMoves()
         {
-            return Hand.Select((x, i) => new SkullsPenaltyDiscardMove(i));
+            return Hand.Select((x, i) => (ISkullsMove)new SkullsPenaltyDiscardMove(i));
         }
 
         internal int GetTotalRevealed()

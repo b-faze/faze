@@ -15,14 +15,14 @@ namespace Faze.Instances.Games.Skulls
             Result = result;
         }
 
-        public override IGameState<SkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(SkullsMove move)
+        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             throw new Exception("Invalid move. Game is already over");
         }
 
-        protected override SkullsMove[] GetAvailableMoves()
+        protected override ISkullsMove[] GetAvailableMoves()
         {
-            return new SkullsMove[0];
+            return new ISkullsMove[0];
         }
     }
 }

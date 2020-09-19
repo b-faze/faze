@@ -48,7 +48,7 @@ namespace Faze.Instances.Games.Skulls
         {
             for (var i = 0; i < environments.Length; i++)
             {
-                if (!environments[i].Bet.Skipped)
+                if (!environments[i].Bet.Value.Skipped)
                     yield return i;
             }
         }
@@ -69,7 +69,7 @@ namespace Faze.Instances.Games.Skulls
             return clone;
         }
 
-        internal IEnumerable<SkullsRevealMove> GetRevealMoves()
+        internal IEnumerable<ISkullsMove> GetRevealMoves()
         {
             for (var i = 0; i < environments.Length; i++)
             {
@@ -83,7 +83,7 @@ namespace Faze.Instances.Games.Skulls
             return environments
                 .Select(x => x.Bet)
                 .Where(x => x != null)
-                .Max(x => x.Bet);
+                .Max(x => x.Value.Bet);
         }
 
         public SkullsPlayerEnvironments Reveal(int playerIndex)
