@@ -4,18 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Faze.Instances.Games.Skulls
+namespace Faze.Games.Skulls
 {
     internal class SkullsResultState<TPlayer> : SkullsState<TPlayer>
     {
-        public SkullsResultState(TPlayer[] players, SkullsPlayerEnvironments playerEnvironments, int currentPlayerIndex,
-            WinLoseResult<TPlayer> result)
-            : base(players, playerEnvironments, currentPlayerIndex)
+        public SkullsResultState(SkullsPlayerEnvironments<TPlayer> playerEnvironments, int currentPlayerIndex,
+            SkullsResult<TPlayer> result)
+            : base(playerEnvironments, currentPlayerIndex)
         {
             Result = result;
         }
 
-        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
+        public override IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             throw new Exception("Invalid move. Game is already over");
         }

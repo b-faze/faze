@@ -1,6 +1,6 @@
 using Faze.Abstractions;
 using Faze.Abstractions.GameResults;
-using Faze.Instances.Games.Skulls;
+using Faze.Games.Skulls;
 using Shouldly;
 using System;
 using System.Linq;
@@ -36,7 +36,7 @@ namespace Faze.Games.Skulls.Tests
         [Fact]
         public void GameExample1()
         {
-            IGameState<ISkullsMove, WinLoseResult<int>, int> state = initialState;
+            IGameState<ISkullsMove, SkullsResult<int>, int> state = initialState;
 
             state = state.Move(new SkullsPlacementMove(SkullsTokenType.Flower));
 
@@ -56,18 +56,18 @@ namespace Faze.Games.Skulls.Tests
             state.CurrentPlayer.ShouldBe(p1, "p1 is still the current player as they need to start revealing");
 
             state.AvailableMoves.Length.ShouldBe(1, "p1 needs to reveal their top token first");
-            var revealMove = state.AvailableMoves.First().ShouldBeOfType<SkullsRevealMove>();
-            revealMove.PlayerIndex.ShouldBe(0, "p1 to reveal their own stack first");
+            var revealMove = state.AvailableMoves.First().ShouldBeOfType<SkullsRevealMove<int>>();
+            revealMove.TargetPlayer.ShouldBe(p1, "p1 to reveal their own stack first");
 
             state = state.Move(revealMove);
 
             state.CurrentPlayer.ShouldBe(p1, "p1 still needs to reveal 1 more for bet of 2");
 
             state.AvailableMoves.Length.ShouldBe(1);
-            state.AvailableMoves.First().ShouldBeOfType<SkullsRevealMove>()
-                .PlayerIndex.ShouldBe(1, "p1 to reveal p2's stack as it is the only option");
+            state.AvailableMoves.First().ShouldBeOfType<SkullsRevealMove<int>>()
+                .TargetPlayer.ShouldBe(p2, "p1 to reveal p2's stack as it is the only option");
 
-            state = state.Move(new SkullsRevealMove(1));
+            state = state.Move(new SkullsRevealMove<int>(p2));
 
             state.CurrentPlayer.ShouldBe(p2, "p1 has won their first bet, player 'left' of p1 to start next round");
 
@@ -82,10 +82,9 @@ namespace Faze.Games.Skulls.Tests
             state = state.Move(new SkullsBetMove(1));
             state = state.Move(SkullsBetMove.Skip());
 
-            state = state.Move(new SkullsRevealMove(0));
+            state = state.Move(new SkullsRevealMove<int>(p1));
 
-            state.Result.ResultFor(p1).ShouldBe(WinLoseDrawResult.Win);
-
+            state.Result.IsWinningPlayer(p1).ShouldBeTrue();
         }
     }
 }

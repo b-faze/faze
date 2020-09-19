@@ -1,12 +1,12 @@
-﻿namespace Faze.Instances.Games.Skulls
+﻿namespace Faze.Games.Skulls
 {
-    public struct SkullsRevealMove : ISkullsMove
+    public struct SkullsRevealMove<TPlayer> : ISkullsMove
     {
-        public SkullsRevealMove(int playerIndex)
+        public SkullsRevealMove(TPlayer targetPlayer)
         {
-            PlayerIndex = playerIndex;
+            TargetPlayer = targetPlayer;
         }
 
-        public int PlayerIndex { get; set; }
+        public TPlayer TargetPlayer { get; set; }
     }
 }

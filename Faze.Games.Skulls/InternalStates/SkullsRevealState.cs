@@ -5,50 +5,51 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Faze.Instances.Games.Skulls
+namespace Faze.Games.Skulls
 {
     internal class SkullsRevealState<TPlayer> : SkullsState<TPlayer>
     {
         private readonly int targetBet;
 
-        public SkullsRevealState(TPlayer[] players, SkullsPlayerEnvironments playerEnvironments, int currentPlayerIndex, int targetBet)
-            : base(players, playerEnvironments, currentPlayerIndex)
+        public SkullsRevealState(SkullsPlayerEnvironments<TPlayer> playerEnvironments, int currentPlayerIndex, int targetBet)
+            : base(playerEnvironments, currentPlayerIndex)
         {
             this.targetBet = targetBet;
         }
 
-        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
+        public override IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
-            if (!(move is SkullsRevealMove revealMove))
+            if (!(move is SkullsRevealMove<TPlayer> revealMove))
                 throw new Exception("Only reveal moves allowed during reveal phase");
 
-            var revealPlayerIndex = revealMove.PlayerIndex;
-            var newPlayerEnvironments = playerEnvironments.Reveal(revealPlayerIndex);
+            var revealTargetPlayer = revealMove.TargetPlayer;
+            var newPlayerEnvironments = playerEnvironments.Reveal(revealTargetPlayer);
+            var revealTargetPlayerIndex = playerEnvironments.GetPlayerIndex(revealTargetPlayer);
 
             if (newPlayerEnvironments.IsSkullRevealed())
-                return new SkullsRevealPenaltyState<TPlayer>(players, playerEnvironments, currentPlayerIndex, revealPlayerIndex);
+                return new SkullsRevealPenaltyState<TPlayer>(playerEnvironments, currentPlayerIndex, revealTargetPlayerIndex);
 
             if (newPlayerEnvironments.GetTotalRevealed() == targetBet)
             {
                 // if the player already has a win - they win the game!
                 if (newPlayerEnvironments.GetForPlayer(currentPlayerIndex).HasWin) 
                 {
-                    var result = WinLoseResult<TPlayer>.Win(CurrentPlayer);
-                    return new SkullsResultState<TPlayer>(players, newPlayerEnvironments, currentPlayerIndex, result);
+                    var result = new SkullsResult<TPlayer>(CurrentPlayer);
+                    return new SkullsResultState<TPlayer>(newPlayerEnvironments, currentPlayerIndex, result);
                 }
 
                 var nextEnvironments = newPlayerEnvironments.MarkWinning(currentPlayerIndex);
                 var newPlayerIndex = nextEnvironments.GetNextPlayerIndex(currentPlayerIndex);
-                return new SkullsPlaceOrBetState<TPlayer>(players, nextEnvironments, newPlayerIndex);
+                return new SkullsPlaceOrBetState<TPlayer>(nextEnvironments, newPlayerIndex);
             }
 
-            return new SkullsRevealState<TPlayer>(players, newPlayerEnvironments, currentPlayerIndex, targetBet);
+            return new SkullsRevealState<TPlayer>(newPlayerEnvironments, currentPlayerIndex, targetBet);
         }
 
         protected override ISkullsMove[] GetAvailableMoves()
         {
             if (playerEnvironments.GetForPlayer(currentPlayerIndex).CanReveal())
-                return new ISkullsMove[] { new SkullsRevealMove(currentPlayerIndex) };
+                return new ISkullsMove[] { new SkullsRevealMove<TPlayer>(CurrentPlayer) };
 
             return playerEnvironments.GetRevealMoves()
                 .ToArray();

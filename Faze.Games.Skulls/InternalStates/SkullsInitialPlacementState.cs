@@ -3,16 +3,16 @@ using Faze.Abstractions.GameResults;
 using System;
 using System.Linq;
 
-namespace Faze.Instances.Games.Skulls
+namespace Faze.Games.Skulls
 {
     internal class SkullsInitialPlacementState<TPlayer> : SkullsState<TPlayer>
     {
-        public SkullsInitialPlacementState(TPlayer[] players, SkullsPlayerEnvironments playerEnvironments, int currentPlayerIndex)
-            : base(players, playerEnvironments, currentPlayerIndex)
+        public SkullsInitialPlacementState(SkullsPlayerEnvironments<TPlayer> playerEnvironments, int currentPlayerIndex)
+            : base(playerEnvironments, currentPlayerIndex)
         {
         }
 
-        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
+        public override IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             if (!(move is SkullsPlacementMove placementMove))
                 throw new Exception("The provided SkullMove is not supported");
@@ -23,10 +23,10 @@ namespace Faze.Instances.Games.Skulls
             // if we've come back around to the first player then move into the next phase
             if (newPlayerIndex == 0) 
             {
-                return new SkullsPlaceOrBetState<TPlayer>(players, newPlayerEnvironments, newPlayerIndex);
+                return new SkullsPlaceOrBetState<TPlayer>(newPlayerEnvironments, newPlayerIndex);
             }
 
-            return new SkullsInitialPlacementState<TPlayer>(players, newPlayerEnvironments, newPlayerIndex);
+            return new SkullsInitialPlacementState<TPlayer>(newPlayerEnvironments, newPlayerIndex);
         }
 
         protected override ISkullsMove[] GetAvailableMoves()

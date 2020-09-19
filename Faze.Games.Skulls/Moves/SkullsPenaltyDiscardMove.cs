@@ -1,4 +1,4 @@
-﻿namespace Faze.Instances.Games.Skulls
+﻿namespace Faze.Games.Skulls
 {
     public struct SkullsPenaltyDiscardMove : ISkullsMove
     {

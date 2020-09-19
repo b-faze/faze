@@ -4,16 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Faze.Instances.Games.Skulls
+namespace Faze.Games.Skulls
 {
     public class SkullsBetState<TPlayer> : SkullsState<TPlayer>
     {
-        public SkullsBetState(TPlayer[] players, SkullsPlayerEnvironments playerEnvironments, int currentPlayerIndex)
-            : base(players, playerEnvironments, currentPlayerIndex)
+        public SkullsBetState(SkullsPlayerEnvironments<TPlayer> playerEnvironments, int currentPlayerIndex)
+            : base(playerEnvironments, currentPlayerIndex)
         {
         }
 
-        public override IGameState<ISkullsMove, WinLoseResult<TPlayer>, TPlayer> Move(ISkullsMove move)
+        public override IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move)
         {
             if (!(move is SkullsBetMove betMove))
                 throw new Exception("Not supported move");
@@ -23,7 +23,7 @@ namespace Faze.Instances.Games.Skulls
             var bet = betMove.Bet;
             var maxBet = newPlayerEnvironments.GetMaxPossibleBet();
             if (bet == maxBet)
-                return new SkullsRevealState<TPlayer>(players, newPlayerEnvironments, currentPlayerIndex, bet.Value);
+                return new SkullsRevealState<TPlayer>(newPlayerEnvironments, currentPlayerIndex, bet.Value);
 
             // if everyone else has skipped, move on to the reveal
             if (!newPlayerEnvironments.AnyPlayersStillToBet())
@@ -32,13 +32,13 @@ namespace Faze.Instances.Games.Skulls
                 if (playerIndexesWithBets.Length == 1)
                 {
                     var onlyBetPlayerIndex = playerIndexesWithBets[0];
-                    return new SkullsRevealState<TPlayer>(players, newPlayerEnvironments, onlyBetPlayerIndex, playerEnvironments.GetForPlayer(onlyBetPlayerIndex).Bet.Value.Bet.Value);
+                    return new SkullsRevealState<TPlayer>(newPlayerEnvironments, onlyBetPlayerIndex, playerEnvironments.GetForPlayer(onlyBetPlayerIndex).Bet.Value.Bet.Value);
                 }
             }
 
             var newPlayerIndex = newPlayerEnvironments.GetNextPlayerIndex(currentPlayerIndex);
 
-            return new SkullsBetState<TPlayer>(players, newPlayerEnvironments, newPlayerIndex);
+            return new SkullsBetState<TPlayer>(newPlayerEnvironments, newPlayerIndex);
         }
 
         protected override ISkullsMove[] GetAvailableMoves()
