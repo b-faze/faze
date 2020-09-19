@@ -86,5 +86,40 @@ namespace Faze.Games.Skulls.Tests
 
             state.Result.IsWinningPlayer(p1).ShouldBeTrue();
         }
+
+        [Fact]
+        public void WinByElimination()
+        {
+            IGameState<ISkullsMove, SkullsResult<int>, int> state = initialState;
+
+            state = WinByEliminationHelper(state);
+            state = WinByEliminationHelper(state);
+            state = WinByEliminationHelper(state);
+            state = WinByEliminationHelper(state);
+
+            state.Result.ShouldNotBeNull();
+            state.Result.IsWinningPlayer(p1).ShouldBeTrue();
+        }
+
+        private IGameState<ISkullsMove, SkullsResult<int>, int> WinByEliminationHelper(IGameState<ISkullsMove, SkullsResult<int>, int> state)
+        {            
+            // initial placement
+            state = state.Move(new SkullsPlacementMove(SkullsTokenType.Skull));
+            // p2 just makes the first move (assumed order of placement moves is Flowers then Skull
+            state = state.Move(state.AvailableMoves.First());
+
+            state = state.Move(new SkullsBetMove(1));
+            state = state.Move(new SkullsBetMove(2));
+
+            state.CurrentPlayer.ShouldBe(p2, "p2 has made the max bet");
+
+            state = state.Move(new SkullsRevealMove<int>(p2));
+            state = state.Move(new SkullsRevealMove<int>(p1));
+
+            // p2 penalty for picking a skull
+            state = state.Move(new SkullsPenaltyDiscardMove(0));
+
+            return state;
+        }
     }
 }

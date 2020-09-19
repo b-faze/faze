@@ -21,9 +21,15 @@ namespace Faze.Games.Skulls
                 throw new Exception("Only discard moves allowed");
 
             var newEnvironments = playerEnvironments.Discard(playerIndexWithPenalty, discardMove.HandIndex);
-            var newPlayerIndex = newEnvironments.GetNextPlayerIndex(currentPlayerIndex);
 
-            return new SkullsPlaceOrBetState<TPlayer>(newEnvironments, newPlayerIndex);
+            if (newEnvironments.OnlyOnePlayerRemaining()) 
+            {
+                var result = new SkullsResult<TPlayer>(CurrentPlayer);
+                return new SkullsResultState<TPlayer>(newEnvironments, currentPlayerIndex, result);
+            }
+
+            // Player who had the skull starts the next round.
+            return new SkullsInitialPlacementState<TPlayer>(newEnvironments, currentPlayerIndex);
         }
 
         protected override ISkullsMove[] GetAvailableMoves()

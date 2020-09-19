@@ -8,7 +8,6 @@ namespace Faze.Games.Skulls
     public class SkullsPlayerEnvironments<TPlayer>
     {
         private readonly SkullsPlayerEnvironment<TPlayer>[] environments;
-        private IEnumerable<SkullsPlayerEnvironment<TPlayer>> activeEnvironments => environments.Where(x => !x.IsOut);
 
         private SkullsPlayerEnvironments(SkullsPlayerEnvironment<TPlayer>[] environments)
         {
@@ -24,6 +23,11 @@ namespace Faze.Games.Skulls
             }
 
             return new SkullsPlayerEnvironments<TPlayer>(playerEnvironments);
+        }
+
+        internal bool OnlyOnePlayerRemaining()
+        {
+            return environments.Length == 1;
         }
 
         internal int GetMaxPossibleBet()
@@ -45,7 +49,14 @@ namespace Faze.Games.Skulls
         internal SkullsPlayerEnvironments<TPlayer> Discard(int playerIndexWithPenalty, int handIndex)
         {
             var clone = Clone();
-            clone.environments[playerIndexWithPenalty].Discard(handIndex);
+            clone.PickUpStacks();
+            
+            var playerWithPenalty = clone.environments[playerIndexWithPenalty];
+            playerWithPenalty.Discard(handIndex);
+
+            // remove player with no more tokens from the game
+            if (playerWithPenalty.Hand.Length == 0)
+                clone = new SkullsPlayerEnvironments<TPlayer>(clone.environments.Where(x => x != playerWithPenalty).ToArray());
 
             return clone;
         }
@@ -107,7 +118,7 @@ namespace Faze.Games.Skulls
 
         internal bool IsSkullRevealed()
         {
-            return activeEnvironments.Any(x => x.IsSkullRevealed());
+            return environments.Any(x => x.IsSkullRevealed());
         }
 
         internal int GetNextPlayerIndex(int currentPlayerIndex)
@@ -116,8 +127,6 @@ namespace Faze.Games.Skulls
             {
                 var nextIndex = (currentPlayerIndex + i) % environments.Length;
                 var nextEnvironment = environments[nextIndex];
-                if (nextEnvironment.IsOut)
-                    continue;
 
                 return nextIndex;
             }
@@ -138,19 +147,24 @@ namespace Faze.Games.Skulls
 
         internal int GetTotalRevealed()
         {
-            return activeEnvironments.Sum(x => x.GetTotalRevealed());
+            return environments.Sum(x => x.GetTotalRevealed());
         }
 
         internal SkullsPlayerEnvironments<TPlayer> MarkWinning(int currentPlayerIndex)
         {
             var clone = Clone();
             clone.environments[currentPlayerIndex].MarkWinning();
-            foreach (var environment in clone.environments)
+            clone.PickUpStacks();
+
+            return clone;
+        }
+
+        private void PickUpStacks()
+        {
+            foreach (var environment in environments)
             {
                 environment.PickUpStacks();
             }
-
-            return clone;
         }
     }
 }

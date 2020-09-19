@@ -32,7 +32,6 @@ namespace Faze.Games.Skulls
         public SkullsTokenType[] RevealedStack { get; private set; }
         public SkullsTokenType[] Hand { get; private set; }
         public bool HasWin { get; private set; }
-        public bool IsOut { get; private set; }
         public SkullsBetMove? Bet { get; private set; }
 
         public void Place(SkullsTokenType token)
