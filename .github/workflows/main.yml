@@ -54,7 +54,7 @@ jobs:
         uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
         with:
           # Path of NuPkg
-          nupkg-path: './bin/release/*.nupkg'
+          nupkg-path: './bin/Release/*.nupkg'
           # package repository owner
           repo-owner: 'b-hub'
           # user account
