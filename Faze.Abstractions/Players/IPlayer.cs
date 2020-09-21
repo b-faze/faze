@@ -1,6 +1,6 @@
-﻿using Faze.Abstractions;
+﻿using Faze.Abstractions.GameStates;
 
-namespace Faze.Abstractions
+namespace Faze.Abstractions.Players
 {
     public interface IPlayer
     {

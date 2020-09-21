@@ -1,4 +1,4 @@
-﻿namespace Faze.Abstractions
+﻿namespace Faze.Abstractions.GameStates
 {
     public interface IGridGameState<TMove, out TResult, out TPlayer> : IGameState<TMove, TResult, TPlayer>
     {

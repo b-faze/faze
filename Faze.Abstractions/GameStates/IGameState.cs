@@ -1,4 +1,4 @@
-﻿namespace Faze.Abstractions
+﻿namespace Faze.Abstractions.GameStates
 {
     public interface IGameState<TMove, out TResult, out TPlayer>
     {
