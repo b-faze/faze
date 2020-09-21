@@ -3,8 +3,10 @@ using Faze.Abstractions.GameResults;
 using Faze.Games.Skulls;
 using Shouldly;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.ComTypes;
 using Xunit;
 
@@ -105,7 +107,6 @@ namespace Faze.Games.Skulls.Tests
         {            
             // initial placement
             state = state.Move(new SkullsPlacementMove(SkullsTokenType.Skull));
-            // p2 just makes the first move (assumed order of placement moves is Flowers then Skull
             state = state.Move(state.AvailableMoves.First());
 
             state = state.Move(new SkullsBetMove(1));
