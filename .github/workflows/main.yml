@@ -47,3 +47,17 @@ jobs:
           #NUGET_SOURCE: # optional, default is https://api.nuget.org
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           #INCLUDE_SYMBOLS: # optional
+            
+      - name: Push Nupkg to GitHub Packages
+        # You may pin to the exact commit or the version.
+        # uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@462b6006e5c90f732d030b0ace2c3e7ee9d550bc
+        uses: tanaka-takayoshi/nuget-publish-to-github-packages-action@v2.1
+        with:
+          # Path of NuPkg
+          nupkg-path: './artifacts/*.nupkg'
+          # package repository owner
+          repo-owner: 'b-hub'
+          # user account
+          gh-user: 'b-hub'
+          # access token
+          token: a95bfd53aa3146804ac73a07b4878bb29f333e40
