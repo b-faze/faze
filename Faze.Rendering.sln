@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Rendering", "Faze.Rendering\Faze.Rendering.csproj", "{3B1CF3F6-7E70-4D7B-B37A-B87587E6A701}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering", "Faze.Rendering\Faze.Rendering.csproj", "{3B1CF3F6-7E70-4D7B-B37A-B87587E6A701}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Rendering.Tests", "Faze.Rendering.Tests\Faze.Rendering.Tests.csproj", "{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3B1CF3F6-7E70-4D7B-B37A-B87587E6A701}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B1CF3F6-7E70-4D7B-B37A-B87587E6A701}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B1CF3F6-7E70-4D7B-B37A-B87587E6A701}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
