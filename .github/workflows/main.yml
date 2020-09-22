@@ -42,8 +42,23 @@ jobs:
           # Format of the git tag, [*] gets replaced with actual version
           #TAG_FORMAT: # optional, default is v*
           # API key to authenticate with NuGet server
-          #NUGET_KEY: # optional
+          NUGET_KEY: ${{secrets.NUGET_KEY}}
           # NuGet server uri hosting the packages, defaults to https://api.nuget.org
           #NUGET_SOURCE: # optional, default is https://api.nuget.org
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           #INCLUDE_SYMBOLS: # optional
+
+      - name: Setup .NET Core @ Latest
+        uses: actions/setup-dotnet@v1
+        with:
+          source-url: https://nuget.pkg.github.com/b-faze/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Build solution and generate NuGet package
+        run: |  
+          cd ./Faze.Abstractions
+          dotnet build -c Release
+          
+      - name: Push generated package to GitHub registry
+        run: dotnet nuget push ./Faze.Abstractions/bin/Release/*.nupkg --skip-duplicate --no-symbols true
