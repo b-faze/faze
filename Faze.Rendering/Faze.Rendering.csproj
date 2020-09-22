@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>1.0.0-pre.1</Version>
+    <Authors>b-hub;b-faze</Authors>
+    <Company>b-faze</Company>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/b-faze/Faze.Rendering</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/b-faze/Faze.Rendering/wiki</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Tools to visualise GameStates/games
+</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Faze.Abstractions" Version="1.0.0-pre.4" />
+  </ItemGroup>
+
+</Project>
