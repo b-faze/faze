@@ -1,8 +1,6 @@
 ﻿using Faze.Abstractions.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 namespace Faze.Abstractions.Core
 {
