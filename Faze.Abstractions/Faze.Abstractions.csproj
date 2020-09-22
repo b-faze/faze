@@ -8,9 +8,9 @@
     <RepositoryUrl>https://github.com/b-faze/Faze.Abstractions</RepositoryUrl>
     <Authors>b-faze;b-hub</Authors>
     <Company>b-faze</Company>
-    <Product>Faze</Product>
+    <Product>Faze.Abstractions</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-pre.2</Version>
+    <Version>1.0.0-pre.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
