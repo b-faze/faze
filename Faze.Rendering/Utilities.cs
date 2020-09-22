@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace Faze.Rendering
@@ -44,6 +45,11 @@ namespace Faze.Rendering
                     yield return (i, j);
                 }
             }
+        }
+
+        public static IEnumerable<(int x, int y)> GetPixels(Bitmap img)
+        {
+            return GetPixels(0, 0, img.Width, img.Height);
         }
     }
 

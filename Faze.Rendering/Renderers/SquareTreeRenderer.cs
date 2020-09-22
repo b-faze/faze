@@ -73,7 +73,7 @@ namespace Faze.Rendering.Renderers
                         DrawHelper(childImg, child, depth + 1, maxDepth);
 
                         var (x, y, width, height) = Utilities.Flatten(new[] { childIndex }, options.Size, innerSize, innerSize);
-                        foreach (var (pX, pY) in Utilities.GetPixels(0, 0, childSize, childSize))
+                        foreach (var (pX, pY) in Utilities.GetPixels(childImg))
                         {
                             img.SetPixel(x + borderOffset + pX, y + borderOffset + pY, childImg.GetPixel(pX, pY));
                         }
