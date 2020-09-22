@@ -7,6 +7,6 @@ namespace Faze.Abstractions.Rendering
 {
     public interface IPaintedTreeRenderer
     {
-        Bitmap Draw(IPaintedTree tree, int size, int? maxDepth = null);
+        Bitmap Draw(PaintedTree tree, int size, int? maxDepth = null);
     }
 }
