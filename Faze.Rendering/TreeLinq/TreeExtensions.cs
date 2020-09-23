@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using Faze.Abstractions.Core;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
-using Faze.Rendering.Painters;
 
 namespace Faze.Rendering.TreeLinq
 {

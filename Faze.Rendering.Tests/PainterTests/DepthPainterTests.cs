@@ -1,13 +1,9 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
-using Faze.Rendering.Painters;
-using Faze.Rendering.Renderers;
+using Faze.Rendering.TreePainters;
+using Faze.Rendering.TreeRenderers;
 using Faze.Rendering.Tests.Utilities;
-using System;
-using System.Collections.Generic;
 using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using System.Text;
 using Xunit;
 
 namespace Faze.Rendering.Tests.PainterTests

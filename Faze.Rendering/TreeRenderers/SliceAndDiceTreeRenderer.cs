@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 
-namespace Faze.Rendering.Renderers
+namespace Faze.Rendering.TreeRenderers
 {
     public class SliceAndDiceTreeRendererOptions
     {

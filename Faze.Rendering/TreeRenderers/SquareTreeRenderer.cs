@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 
-namespace Faze.Rendering.Renderers
+namespace Faze.Rendering.TreeRenderers
 {
     public class SquareTreeRendererOptions
     {

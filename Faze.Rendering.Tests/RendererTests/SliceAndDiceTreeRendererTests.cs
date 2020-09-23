@@ -1,6 +1,6 @@
 using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
-using Faze.Rendering.Renderers;
+using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

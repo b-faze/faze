@@ -1,13 +1,11 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeLinq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 
-namespace Faze.Rendering.Painters
+namespace Faze.Rendering.TreePainters
 {
     public class DepthPainter : ITreePainter
     {

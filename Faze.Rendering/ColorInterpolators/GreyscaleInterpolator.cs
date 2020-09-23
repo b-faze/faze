@@ -1,7 +1,7 @@
 ﻿using Faze.Abstractions.Rendering;
 using System.Drawing;
 
-namespace Faze.Rendering.Painters
+namespace Faze.Rendering.ColorInterpolators
 {
     public class GreyscaleInterpolator : LinearColorInterpolator, IColorInterpolator
     {
