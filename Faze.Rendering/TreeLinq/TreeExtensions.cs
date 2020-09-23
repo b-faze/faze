@@ -59,11 +59,6 @@ namespace Faze.Rendering.TreeLinq
             return new Tree<TOutValue>(newValue, newChildren);
         }
 
-        public static Tree<Color> Map(this Tree<double> tree, IColorInterpolator colorInterpolator)
-        {
-            return tree.Map(colorInterpolator.GetColor);
-        }
-
         public static Tree<TOutValue> Map<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn)
         {
             var info = new TreeMapInfo(0, 0);
@@ -77,6 +72,11 @@ namespace Faze.Rendering.TreeLinq
                 ?.Select((c, i) => MapHelper(c, fn, new TreeMapInfo(info.Depth + 1, i)));
 
             return new Tree<TOutValue>(newValue, newChildren);
+        }
+
+        public static Tree<Color> Map(this Tree<double> tree, IColorInterpolator colorInterpolator)
+        {
+            return tree.Map(colorInterpolator.GetColor);
         }
 
         public static IEnumerable<Tree<TValue>> GetLeaves<TValue>(this Tree<TValue> tree)
