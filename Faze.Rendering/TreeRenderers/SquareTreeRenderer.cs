@@ -18,7 +18,6 @@ namespace Faze.Rendering.TreeRenderers
 
         public int Size { get; set; }
         public double BorderProportions { get; set; }
-        public bool IgnoreRootNode { get; set; }
     }
 
     public class SquareTreeRenderer : IPaintedTreeRenderer
@@ -58,9 +57,7 @@ namespace Faze.Rendering.TreeRenderers
             if (node.Children == null)
                 return;
 
-            var borderOffset = options.IgnoreRootNode && depth == 0
-                ? 0
-                : (int)(img.Width * options.BorderProportions);
+            var borderOffset = (int)(img.Width * options.BorderProportions);
             var innerSize = img.Width - borderOffset * 2;
             var childSize = innerSize / options.Size;
             if (childSize > 1) 
