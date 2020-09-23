@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http.Headers;
 using Faze.Abstractions.Core;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
@@ -11,6 +12,42 @@ namespace Faze.Rendering.TreeLinq
 
     public static class TreeExtensions
     {
+        public static IEnumerable<TValue> SelectDepthFirst<TValue>(this Tree<TValue> tree)
+        {
+            yield return tree.Value;
+
+            if (tree.Children == null)
+                yield break;
+
+            foreach (var child in tree.Children)
+            {
+                foreach (var value in child.SelectDepthFirst())
+                {
+                    yield return value;
+                }
+            }
+        }
+
+        public static IEnumerable<TValue> SelectBreadthFirst<TValue>(this Tree<TValue> tree)
+        {
+            var queue = new Queue<Tree<TValue>>();
+            queue.Enqueue(tree);
+
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue();
+                yield return node.Value;
+
+                if (node.Children != null)
+                {
+                    foreach (var child in node.Children)
+                    {
+                        queue.Enqueue(child);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Creates a new Tree with values mapped using the provided function
         /// </summary>
