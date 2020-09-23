@@ -11,7 +11,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using Xunit;
 
-namespace Faze.Rendering.Tests
+namespace Faze.Rendering.Tests.RendererTests
 {
     public class SliceAndDiceTreeRendererTests
     {

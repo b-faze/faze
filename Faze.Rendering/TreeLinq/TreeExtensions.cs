@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Faze.Abstractions.Core;
 using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Rendering;
 using Faze.Rendering.Painters;
 
 namespace Faze.Rendering.TreeLinq
@@ -19,7 +20,7 @@ namespace Faze.Rendering.TreeLinq
         public static Tree<TOutValue> Map<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn)
         {
             var newValue = fn(tree.Value);
-            var newChildren = tree.Children.Select(c => Map(c, fn));
+            var newChildren = tree.Children?.Select(c => Map(c, fn));
 
             return new Tree<TOutValue>(newValue, newChildren);
         }
@@ -39,7 +40,7 @@ namespace Faze.Rendering.TreeLinq
         {
             var newValue = fn(tree.Value, info);
             var newChildren = tree.Children
-                .Select((c, i) => MapHelper(c, fn, new TreeMapInfo(info.Depth + 1, i)));
+                ?.Select((c, i) => MapHelper(c, fn, new TreeMapInfo(info.Depth + 1, i)));
 
             return new Tree<TOutValue>(newValue, newChildren);
         }
@@ -48,7 +49,11 @@ namespace Faze.Rendering.TreeLinq
         {
             var children = tree.Children;
             if (children == null || !children.Any())
+            {
                 yield return tree;
+                yield break;
+            }
+
 
             foreach (var child in children)
             {

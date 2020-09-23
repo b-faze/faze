@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Faze.Abstractions.Rendering;
+using System.Drawing;
 
 namespace Faze.Rendering.Painters
 {

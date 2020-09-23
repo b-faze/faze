@@ -3,7 +3,6 @@ using Faze.Abstractions.Rendering;
 using Faze.Rendering.TreeLinq;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,6 +16,14 @@ namespace Faze.Rendering.Painters
         public DepthPainter() 
         {
             this.colorInterpolator = new GreyscaleInterpolator();
+        }
+
+        public DepthPainter(IColorInterpolator colorInterpolator)
+        {
+            if (colorInterpolator == null)
+                throw new NullReferenceException(nameof(colorInterpolator));
+
+            this.colorInterpolator = colorInterpolator;
         }
 
         public PaintedTree Paint<T>(Tree<T> tree)
@@ -34,20 +41,5 @@ namespace Faze.Rendering.Painters
 
             return new PaintedTree(colorTree.Value, colorTree.Children);
         }
-    }
-
-    public interface ITreePainter
-    {
-        PaintedTree Paint<T>(Tree<T> tree);
-    }
-
-    public interface IColorInterpolator 
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="d">Value between 0 and 1</param>
-        /// <returns>Color</returns>
-        Color GetColor(double d);
     }
 }
