@@ -12,6 +12,8 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
 {
     public class DrawColorInterpolatorScaleTests
     {
+        private const int Width = 600;
+        private const int Height = 50;
         private readonly ColorScaleRenderer renderer;
 
         public DrawColorInterpolatorScaleTests() 
@@ -26,7 +28,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             var filename = FileUtilities.GetTestOutputPath(
                 nameof(DrawColorInterpolatorScaleTests), $"{nameof(DrawGreyscale)}.png");
 
-            using (var img = renderer.Draw(colorInterpolator, 600, 100))
+            using (var img = renderer.Draw(colorInterpolator, Width, Height))
             {
                 img.Save(filename, ImageFormat.Png);
             }
@@ -39,7 +41,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             var filename = FileUtilities.GetTestOutputPath(
                 nameof(DrawColorInterpolatorScaleTests), $"{nameof(DrawReverseGreyscale)}.png");
 
-            using (var img = renderer.Draw(colorInterpolator, 600, 100))
+            using (var img = renderer.Draw(colorInterpolator, Width, Height))
             {
                 img.Save(filename, ImageFormat.Png);
             }
@@ -52,7 +54,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             var filename = FileUtilities.GetTestOutputPath(
                 nameof(DrawColorInterpolatorScaleTests), $"{nameof(DrawLinearBlueRed)}.png");
 
-            using (var img = renderer.Draw(colorInterpolator, 600, 100))
+            using (var img = renderer.Draw(colorInterpolator, Width, Height))
             {
                 img.Save(filename, ImageFormat.Png);
             }
@@ -65,7 +67,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             var filename = FileUtilities.GetTestOutputPath(
                 nameof(DrawColorInterpolatorScaleTests), $"{nameof(DrawGold)}.png");
 
-            using (var img = renderer.Draw(colorInterpolator, 600, 100))
+            using (var img = renderer.Draw(colorInterpolator, Width, Height))
             {
                 img.Save(filename, ImageFormat.Png);
             }
