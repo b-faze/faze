@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeLinq;
 using Shouldly;
 using System;
@@ -27,11 +28,13 @@ namespace Faze.Rendering.Tests.Utilities
         {
             var tree = CreateSquareTree(size, maxDepth, depth);
             var nodeCount = tree.SelectDepthFirst().Count();
+            var colorInterpolator = new TurboInterpolator();
 
             var i = 0;
             var coloredTree = tree
                 .Map(v => i++)
-                .Map(v => ToUniqueColor(v));
+                .Map(v => (double)v/nodeCount)
+                .Map(colorInterpolator);
 
             return new PaintedTree(coloredTree.Value, coloredTree.Children);
         }
