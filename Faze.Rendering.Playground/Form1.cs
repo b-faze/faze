@@ -13,28 +13,54 @@ using System.Windows.Forms;
 namespace Faze.Rendering.Playground
 {
     public partial class Form1 : Form
-    {     
+    {
+        private readonly RecursiveTemplateUI template;
+
         public Form1()
         {
             InitializeComponent();
+
+            this.template = new RecursiveTemplateUI(new RecursiveTemplate(), pictureBox);
+            this.timer1.Start();
         }
 
-        private void renderBtn_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            SKImageInfo imageInfo = new SKImageInfo(300, 250);
+            template.Clear();
+        }
 
-            using (SKSurface surface = SKSurface.Create(imageInfo))
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            template.AddChild();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            template.Draw();
+        }
+
+        private void pictureBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            var x = (float)e.X / pictureBox.Width;
+            var y = (float)e.Y / pictureBox.Height;
+
+            template.Select(x, y);
+        }
+
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            var x = (float)e.X / pictureBox.Width;
+            var y = (float)e.Y / pictureBox.Height;
+
+            if (e.Button == MouseButtons.Left)
             {
-                var canvas = surface.Canvas;
-                canvas.DrawColor(SKColors.Red);
+                template.MoveSelected(x, y);
+                return;
+            }
 
-                using (SKImage image = surface.Snapshot())
-                using (SKData data = image.Encode(SKEncodedImageFormat.Png, 100))
-                using (MemoryStream mStream = new MemoryStream(data.ToArray()))
-                {
-                    Bitmap bm = new Bitmap(mStream, false);
-                    pictureBox.Image = bm;
-                }
+            if (e.Button == MouseButtons.None)
+            {
+                template.Hover(x, y);
             }
         }
     }
