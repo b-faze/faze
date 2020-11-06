@@ -17,12 +17,11 @@ namespace Faze.Games.Chess
 
         private readonly IGame game;
 
-        private ChessState(TPlayer p1, TPlayer p2, IGame game, string fen) 
+        private ChessState(TPlayer p1, TPlayer p2, IGame game) 
         {
             this.p1 = p1;
             this.p2 = p2;
             this.game = game;
-            this.game.NewGame(fen);
         }
 
         public static ChessState<TPlayer> Initial(TPlayer p1, TPlayer p2)
@@ -31,8 +30,9 @@ namespace Faze.Games.Chess
             var pieceValue = new PieceValue();
             var position = new Position(board, pieceValue);
             var game = GameFactory.Create(position);
+            game.NewGame(Fen.StartPositionFen);
 
-            return new ChessState<TPlayer>(p1, p2, game, Fen.StartPositionFen);
+            return new ChessState<TPlayer>(p1, p2, game);
         }
 
         public TPlayer CurrentPlayer => game.CurrentPlayer().IsWhite ? p1 : p2;
@@ -41,9 +41,15 @@ namespace Faze.Games.Chess
 
         public IGameState<ChessMove, ChessResult<TPlayer>, TPlayer> Move(ChessMove move)
         {
-            game.Pos.MakeMove(move.move, new State());
+            var board = new Board();
+            var pieceValue = new PieceValue();
+            var position = new Position(board, pieceValue);
+            var newGame = GameFactory.Create(position);
+            newGame.NewGame(game.GetFen().ToString());
 
-            return new ChessState<TPlayer>(p1, p2, game, game.GetFen().ToString());
+            newGame.Pos.MakeMove(move.move, new State());
+
+            return new ChessState<TPlayer>(p1, p2, newGame);
         }
 
         private IEnumerable<ChessMove> GetAvailableMoves()
