@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.0-pre.1</Version>
+    <Version>1.0.0-pre.2</Version>
     <Authors>b-faze;b-hub</Authors>
     <Company>b-faze</Company>
     <PackageProjectUrl>https://github.com/b-faze/Faze.Engine</PackageProjectUrl>

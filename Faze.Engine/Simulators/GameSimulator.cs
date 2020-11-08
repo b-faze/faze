@@ -21,11 +21,35 @@ namespace Faze.Engine.Simulators
             return result;
         }
 
-        public IEnumerable<TResult> Sample<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state, int n)
+        public TMove[] SimulatePath<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state, int maxDepth)
+        {
+            var path = new List<TMove>();
+            var depth = 0;
+            while (maxDepth > depth && state.Result == null)
+            {
+                var move = state.CurrentPlayer.ChooseMove(state);
+
+                state = state.Move(move);
+                path.Add(move);
+                depth++;
+            }
+
+            return path.ToArray();
+        }
+
+        public IEnumerable<TResult> SampleResults<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state, int n)
         {
             while (n-- > 0)
             {
                 yield return Simulate(state);
+            }
+        }
+
+        public IEnumerable<TMove[]> SamplePaths<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state, int n, int maxDepth)
+        {
+            while (n-- > 0)
+            {
+                yield return SimulatePath(state, maxDepth);
             }
         }
     }
