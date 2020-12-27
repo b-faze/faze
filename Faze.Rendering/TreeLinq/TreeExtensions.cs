@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Net.Http.Headers;
 using Faze.Abstractions.Core;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
@@ -77,6 +76,23 @@ namespace Faze.Rendering.TreeLinq
         public static Tree<Color> Map(this Tree<double> tree, IColorInterpolator colorInterpolator)
         {
             return tree.Map(colorInterpolator.GetColor);
+        }
+
+        public static Tree<TValue> LimitDepth<TValue>(this Tree<TValue> tree, int depth)
+        {
+            return tree;
+        }
+
+        private static Tree<TValue> LimitDepthHelper<TValue>(this Tree<TValue> tree, int depth, TreeMapInfo info)
+        {
+            if (info.Depth >= depth)
+            {
+                return new Tree<TValue>(tree.Value, new Tree<TValue>[0]);
+            }
+
+            var children = tree.Children?.Select((c, i) => LimitDepthHelper(c, depth, new TreeMapInfo(info.Depth + 1, i)));
+
+            return new Tree<TValue>(tree.Value, children);
         }
 
         public static IEnumerable<Tree<TValue>> GetLeaves<TValue>(this Tree<TValue> tree)
