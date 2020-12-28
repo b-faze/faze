@@ -60,7 +60,7 @@ namespace Faze.Rendering.TreeRenderers
             var borderOffset = (int)(img.Width * options.BorderProportions);
             var innerSize = img.Width - borderOffset * 2;
             var childSize = innerSize / options.Size;
-            if (childSize > 1) 
+            if (childSize > 1 && childSize < innerSize) 
             {
                 var childIndex = 0;
                 foreach (var child in node.Children)

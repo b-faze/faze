@@ -11,4 +11,8 @@
     <PackageReference Include="SkiaSharp.Views.Desktop.Common" Version="2.80.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Faze.Rendering\Faze.Rendering.csproj" />
+  </ItemGroup>
+
 </Project>
