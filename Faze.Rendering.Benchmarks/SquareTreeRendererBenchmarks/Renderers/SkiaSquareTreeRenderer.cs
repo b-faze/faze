@@ -26,7 +26,7 @@ namespace Faze.Rendering.TreeRenderers
             var imageInfo = new SKImageInfo(size, size);
             using SKSurface surface = SKSurface.Create(imageInfo);
 
-            DrawHelper(surface.Canvas, tree, new SKRect(0, 0, size, size), 0, maxDepth);
+            DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, size, size), 0, maxDepth);
 
             using SKImage image = surface.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
@@ -50,17 +50,18 @@ namespace Faze.Rendering.TreeRenderers
 
             var borderOffset = options.BorderProportions;
             var borderSize = rect.Width * borderOffset;
+            if (borderSize < 1) borderSize = 0; // 
             var innerRectSize = rect.Width - 2 * borderSize;
-            var innerRect = new SKRect(rect.Left + borderSize, rect.Top + borderSize, rect.Left + innerRectSize, rect.Top + innerRectSize);
+            var innerRect = SKRect.Create(rect.Left + borderSize, rect.Top + borderSize, rect.Left + innerRectSize, rect.Top + innerRectSize);
             var childSize = innerRectSize / options.Size;
 
-            if (childSize > 1 && childSize < innerRectSize) 
+            if (childSize > 1 && childSize < innerRectSize)
             {
                 var childIndex = 0;
                 foreach (var child in node.Children)
                 {
                     var (x, y, _) = Utilities.Flatten(new[] { childIndex }, options.Size);
-                    var childRect = new SKRect(innerRect.Left + innerRectSize * x, innerRect.Top + innerRectSize * y, childSize, childSize);
+                    var childRect = SKRect.Create(innerRect.Left + innerRectSize * x, innerRect.Top + innerRectSize * y, childSize, childSize);
                     DrawHelper(canvas, child, childRect, depth + 1, maxDepth);
 
                     childIndex++;

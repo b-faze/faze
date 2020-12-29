@@ -15,15 +15,15 @@ namespace Faze.Rendering
             for (var i = 0; i < path.Length; i++)
             {
                 var move = path[i];
-                var subFactor = (float)Math.Pow(dimension, i + 1);
+                var subFactor = (int)Math.Pow(dimension, i + 1);
                 var (dx, dy) = To2D(move, dimension);
 
-                x += subFactor * dx;
-                y += subFactor * dy;
+                x += 1f / subFactor * dx;
+                y += 1f / subFactor * dy;
             }
 
-            float factor = (float)Math.Pow(dimension, path.Length);
-            return (x, y, factor);
+            int factor = (int)Math.Pow(dimension, path.Length);
+            return (x, y, 1f / factor);
         }
 
         public static (int x, int y, int width, int height) Flatten(int[] path, int dimension, int width, int height)

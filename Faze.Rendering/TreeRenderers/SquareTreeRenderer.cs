@@ -1,7 +1,9 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using SkiaSharp;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace Faze.Rendering.TreeRenderers
@@ -29,15 +31,21 @@ namespace Faze.Rendering.TreeRenderers
             this.options = options;
         }
 
-
         public Bitmap Draw(PaintedTree tree, int size, int? maxDepth = null)
         {
-            var img = new Bitmap(size, size);
-            DrawHelper(img, tree, 0, maxDepth);
-            return img;
+            var imageInfo = new SKImageInfo(size, size);
+            using SKSurface surface = SKSurface.Create(imageInfo);
+
+            DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, size, size), 0, maxDepth);
+
+            using SKImage image = surface.Snapshot();
+            using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
+            using MemoryStream mStream = new MemoryStream(data.ToArray());
+
+            return new Bitmap(mStream, false);
         }
 
-        private void DrawHelper(Bitmap img, Tree<Color> node, int depth, int? maxDepth = null)
+        private void DrawHelper(SKCanvas canvas, Tree<Color> node, SKRect rect, int depth, int? maxDepth = null)
         {
             if (node == null)
                 return;
@@ -45,36 +53,26 @@ namespace Faze.Rendering.TreeRenderers
             if (maxDepth.HasValue && depth > maxDepth.Value)
                 return;
 
-            var color = node.Value;
-            if (!color.IsEmpty)
-            {
-                foreach (var (pX, pY) in Utilities.GetPixels(0, 0, img.Width, img.Height))
-                {
-                    img.SetPixel(pX, pY, color);
-                }
-            }
+            canvas.DrawRect(rect, new SKPaint() { Color = new SKColor((uint)node.Value.ToArgb()) });
 
             if (node.Children == null)
                 return;
 
-            var borderOffset = (int)(img.Width * options.BorderProportions);
-            var innerSize = img.Width - borderOffset * 2;
-            var childSize = innerSize / options.Size;
-            if (childSize > 1 && childSize < innerSize) 
+            var borderOffset = options.BorderProportions;
+            var borderSize = rect.Width * borderOffset;
+            if (borderSize < 1) borderSize = 0; // 
+            var innerRectSize = rect.Width - 2 * borderSize;
+            var innerRect = SKRect.Create(rect.Left + borderSize, rect.Top + borderSize, rect.Left + innerRectSize, rect.Top + innerRectSize);
+            var childSize = innerRectSize / options.Size;
+
+            if (childSize > 1 && childSize < innerRectSize)
             {
                 var childIndex = 0;
                 foreach (var child in node.Children)
                 {
-                    using (var childImg = new Bitmap(childSize, childSize))
-                    {
-                        DrawHelper(childImg, child, depth + 1, maxDepth);
-
-                        var (x, y, width, height) = Utilities.Flatten(new[] { childIndex }, options.Size, innerSize, innerSize);
-                        foreach (var (pX, pY) in Utilities.GetPixels(childImg))
-                        {
-                            img.SetPixel(x + borderOffset + pX, y + borderOffset + pY, childImg.GetPixel(pX, pY));
-                        }
-                    }
+                    var (x, y, _) = Utilities.Flatten(new[] { childIndex }, options.Size);
+                    var childRect = SKRect.Create(innerRect.Left + innerRectSize * x, innerRect.Top + innerRectSize * y, childSize, childSize);
+                    DrawHelper(canvas, child, childRect, depth + 1, maxDepth);
 
                     childIndex++;
                 }
