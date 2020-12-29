@@ -24,7 +24,7 @@ namespace Faze.Rendering.Tests.RendererTests
         [InlineData(3, 2, 0.1)]
         [InlineData(3, 3, 0.1)]
         [InlineData(3, 4, 0.1)]
-        public void Test1(int squareSize, int depth, double borderProportion)
+        public void Test1(int squareSize, int depth, float borderProportion)
         {
             var rendererOptions = new SquareTreeRendererOptions(squareSize)
             {
@@ -58,7 +58,7 @@ namespace Faze.Rendering.Tests.RendererTests
         [InlineData(3, 2, 0.1)]
         [InlineData(3, 3, 0.1)]
         [InlineData(3, 4, 0.1)]
-        public void RainbowTests(int squareSize, int depth, double borderProportion)
+        public void RainbowTests(int squareSize, int depth, float borderProportion)
         {
             var testName = nameof(RainbowTests);
             var rendererOptions = new SquareTreeRendererOptions(squareSize)
@@ -81,12 +81,12 @@ namespace Faze.Rendering.Tests.RendererTests
         [InlineData(2, 3)]
         public void RainbowBorderTests(int squareSize, int depth)
         {
-            var minBorder = 0;
-            var maxBorder = 0.2;
+            float minBorder = 0;
+            float maxBorder = 0.2f;
             var steps = 10;
             for (var i = 0; i < steps; i++)
             {
-                var borderProportion = minBorder + (maxBorder - minBorder) * ((double)i / steps);
+                float borderProportion = minBorder + (maxBorder - minBorder) * ((float)i / steps);
                 var testName = nameof(RainbowBorderTests);
                 var rendererOptions = new SquareTreeRendererOptions(squareSize)
                 {

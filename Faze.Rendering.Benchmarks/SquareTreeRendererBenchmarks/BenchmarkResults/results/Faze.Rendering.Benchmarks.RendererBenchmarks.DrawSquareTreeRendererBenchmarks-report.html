@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Faze.Rendering.Benchmarks.RendererBenchmarks.DrawSquareTreeRendererBenchmarks-20201229-155601</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.18363.1256 (1909/November2018Update/19H2)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=3.1.403
+  [Host]     : .NET Core 3.1.9 (CoreCLR 4.700.20.47201, CoreFX 4.700.20.47203), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.9 (CoreCLR 4.700.20.47201, CoreFX 4.700.20.47203), X64 RyuJIT
+</code></pre>
+<pre><code></code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>TreeSize</th><th>ImageSize</th><th>     Mean</th><th>  Error</th><th> StdDev</th><th>Ratio</th><th>RatioSD</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Standard</td><td>1</td><td>100</td><td>2,137.3 &mu;s</td><td>5.98 &mu;s</td><td>5.59 &mu;s</td><td>1.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>165 B</td>
+</tr><tr><td>Skia</td><td>1</td><td>100</td><td>487.1 &mu;s</td><td>2.96 &mu;s</td><td>2.63 &mu;s</td><td>0.23</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>2296 B</td>
+</tr><tr><td>Standard</td><td>1</td><td>500</td><td>53,390.1 &mu;s</td><td>352.83 &mu;s</td><td>294.63 &mu;s</td><td>1.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>160 B</td>
+</tr><tr><td>Skia</td><td>1</td><td>500</td><td>10,224.9 &mu;s</td><td>109.56 &mu;s</td><td>97.13 &mu;s</td><td>0.19</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>4072 B</td>
+</tr><tr><td>Standard</td><td>1</td><td>1000</td><td>217,255.0 &mu;s</td><td>684.38 &mu;s</td><td>571.49 &mu;s</td><td>1.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>160 B</td>
+</tr><tr><td>Skia</td><td>1</td><td>1000</td><td>41,699.5 &mu;s</td><td>828.33 &mu;s</td><td>886.31 &mu;s</td><td>0.19</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>8192 B</td>
+</tr><tr><td>Standard</td><td>1</td><td>2000</td><td>859,832.1 &mu;s</td><td>1,364.22 &mu;s</td><td>1,276.09 &mu;s</td><td>1.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>160 B</td>
+</tr><tr><td>Skia</td><td>1</td><td>2000</td><td>164,599.4 &mu;s</td><td>1,177.51 &mu;s</td><td>1,101.44 &mu;s</td><td>0.19</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>22282 B</td>
+</tr><tr><td>Standard</td><td>3</td><td>100</td><td>28,204.3 &mu;s</td><td>429.73 &mu;s</td><td>401.97 &mu;s</td><td>1.00</td><td>0.00</td><td>218.7500</td><td>-</td><td>-</td><td>924176 B</td>
+</tr><tr><td>Skia</td><td>3</td><td>100</td><td>970.1 &mu;s</td><td>12.71 &mu;s</td><td>11.26 &mu;s</td><td>0.03</td><td>0.00</td><td>87.8906</td><td>42.9688</td><td>-</td><td>374075 B</td>
+</tr><tr><td>Standard</td><td>3</td><td>500</td><td>1,591,529.3 &mu;s</td><td>8,051.08 &mu;s</td><td>7,530.99 &mu;s</td><td>1.000</td><td>0.00</td><td>17000.0000</td><td>-</td><td>-</td><td>74932256 B</td>
+</tr><tr><td>Skia</td><td>3</td><td>500</td><td>14,907.7 &mu;s</td><td>280.79 &mu;s</td><td>288.35 &mu;s</td><td>0.009</td><td>0.00</td><td>265.6250</td><td>125.0000</td><td>-</td><td>1128216 B</td>
+</tr><tr><td>Standard</td><td>3</td><td>1000</td><td>3,951,643.3 &mu;s</td><td>11,566.90 &mu;s</td><td>9,658.88 &mu;s</td><td>1.00</td><td>0.00</td><td>17000.0000</td><td>-</td><td>-</td><td>74933512 B</td>
+</tr><tr><td>Skia</td><td>3</td><td>1000</td><td>66,876.3 &mu;s</td><td>1,312.12 &mu;s</td><td>1,611.40 &mu;s</td><td>0.02</td><td>0.00</td><td>750.0000</td><td>375.0000</td><td>-</td><td>3389352 B</td>
+</tr><tr><td>Standard</td><td>3</td><td>2000</td><td>21,259,488.1 &mu;s</td><td>84,005.07 &mu;s</td><td>78,578.39 &mu;s</td><td>1.00</td><td>0.00</td><td>161000.0000</td><td>2000.0000</td><td>-</td><td>674397704 B</td>
+</tr><tr><td>Skia</td><td>3</td><td>2000</td><td>295,652.8 &mu;s</td><td>4,632.80 &mu;s</td><td>4,333.52 &mu;s</td><td>0.01</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>3403192 B</td>
+</tr><tr><td>Standard</td><td>4</td><td>100</td><td>16,993.3 &mu;s</td><td>49.33 &mu;s</td><td>46.15 &mu;s</td><td>1.00</td><td>0.00</td><td>62.5000</td><td>-</td><td>-</td><td>307202 B</td>
+</tr><tr><td>Skia</td><td>4</td><td>100</td><td>1,038.4 &mu;s</td><td>20.33 &mu;s</td><td>33.97 &mu;s</td><td>0.06</td><td>0.00</td><td>82.0313</td><td>41.0156</td><td>-</td><td>349288 B</td>
+</tr><tr><td>Standard</td><td>4</td><td>500</td><td>524,224.9 &mu;s</td><td>1,318.06 &mu;s</td><td>1,232.91 &mu;s</td><td>1.00</td><td>0.00</td><td>1000.0000</td><td>-</td><td>-</td><td>4927448 B</td>
+</tr><tr><td>Skia</td><td>4</td><td>500</td><td>19,136.5 &mu;s</td><td>197.97 &mu;s</td><td>185.18 &mu;s</td><td>0.04</td><td>0.00</td><td>312.5000</td><td>156.2500</td><td>-</td><td>1407856 B</td>
+</tr><tr><td>Standard</td><td>4</td><td>1000</td><td>3,172,005.7 &mu;s</td><td>6,841.96 &mu;s</td><td>5,713.35 &mu;s</td><td>1.00</td><td>0.00</td><td>18000.0000</td><td>-</td><td>-</td><td>78853880 B</td>
+</tr><tr><td>Skia</td><td>4</td><td>1000</td><td>73,786.5 &mu;s</td><td>393.68 &mu;s</td><td>328.74 &mu;s</td><td>0.02</td><td>0.00</td><td>285.7143</td><td>142.8571</td><td>-</td><td>1412176 B</td>
+</tr><tr><td>Standard</td><td>4</td><td>2000</td><td>10,825,300.5 &mu;s</td><td>23,848.72 &mu;s</td><td>18,619.51 &mu;s</td><td>1.00</td><td>0.00</td><td>18000.0000</td><td>1000.0000</td><td>-</td><td>78853408 B</td>
+</tr><tr><td>Skia</td><td>4</td><td>2000</td><td>513,526.0 &mu;s</td><td>5,537.64 &mu;s</td><td>4,908.97 &mu;s</td><td>0.05</td><td>0.00</td><td>1000.0000</td><td>-</td><td>-</td><td>5653376 B</td>
+</tr><tr><td>Standard</td><td>10</td><td>100</td><td>9,332.8 &mu;s</td><td>26.21 &mu;s</td><td>23.23 &mu;s</td><td>1.00</td><td>0.00</td><td>15.6250</td><td>-</td><td>-</td><td>113164 B</td>
+</tr><tr><td>Skia</td><td>10</td><td>100</td><td>674.2 &mu;s</td><td>6.31 &mu;s</td><td>5.90 &mu;s</td><td>0.07</td><td>0.00</td><td>24.4141</td><td>11.7188</td><td>-</td><td>105681 B</td>
+</tr><tr><td>Standard</td><td>10</td><td>500</td><td>476,611.4 &mu;s</td><td>2,176.15 &mu;s</td><td>1,817.18 &mu;s</td><td>1.00</td><td>0.00</td><td>2000.0000</td><td>-</td><td>-</td><td>11393144 B</td>
+</tr><tr><td>Skia</td><td>10</td><td>500</td><td>40,970.6 &mu;s</td><td>330.51 &mu;s</td><td>309.16 &mu;s</td><td>0.09</td><td>0.00</td><td>230.7692</td><td>76.9231</td><td>-</td><td>1139480 B</td>
+</tr><tr><td>Standard</td><td>10</td><td>1000</td><td>1,539,178.0 &mu;s</td><td>9,334.84 &mu;s</td><td>7,795.02 &mu;s</td><td>1.00</td><td>0.00</td><td>2000.0000</td><td>-</td><td>-</td><td>11393144 B</td>
+</tr><tr><td>Skia</td><td>10</td><td>1000</td><td>157,790.0 &mu;s</td><td>639.84 &mu;s</td><td>534.30 &mu;s</td><td>0.10</td><td>0.00</td><td>250.0000</td><td>-</td><td>-</td><td>1143922 B</td>
+</tr><tr><td>Standard</td><td>10</td><td>2000</td><td>20,917,837.9 &mu;s</td><td>161,670.41 &mu;s</td><td>143,316.61 &mu;s</td><td>1.00</td><td>0.00</td><td>272000.0000</td><td>2000.0000</td><td>-</td><td>1139393520 B</td>
+</tr><tr><td>Skia</td><td>10</td><td>2000</td><td>7,830,830.4 &mu;s</td><td>81,641.50 &mu;s</td><td>197,173.40 &mu;s</td><td>0.38</td><td>0.02</td><td>2000.0000</td><td>1000.0000</td><td>-</td><td>11477400 B</td>
+</tr></tbody></table>
+</body>
+</html>

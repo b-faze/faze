@@ -98,7 +98,7 @@ namespace Faze.Rendering.Playground
             {
                 Size = sizeTrackBar.Value,
                 RenderDepth = maxDepthTrackBar.Value,
-                Border = (double)borderTrackBar.Value / 100
+                Border = (float)borderTrackBar.Value / 100
             };
         }
 

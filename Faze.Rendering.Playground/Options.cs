@@ -4,6 +4,6 @@
     {
         public int Size { get; set; }
         public int RenderDepth { get; set; }
-        public double Border { get; set; }
+        public float Border { get; set; }
     }
 }

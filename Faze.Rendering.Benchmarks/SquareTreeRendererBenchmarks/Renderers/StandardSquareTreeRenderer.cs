@@ -6,25 +6,11 @@ using System.Linq;
 
 namespace Faze.Rendering.TreeRenderers
 {
-    public class SquareTreeRendererOptions
-    {
-        public SquareTreeRendererOptions(int size) 
-        {
-            if (size <= 0)
-                throw new Exception("Size must be > 0");
-
-            Size = size;
-        }
-
-        public int Size { get; set; }
-        public float BorderProportions { get; set; }
-    }
-
-    public class SquareTreeRenderer : IPaintedTreeRenderer
+    public class StandardSquareTreeRenderer : IPaintedTreeRenderer
     {
         private readonly SquareTreeRendererOptions options;
 
-        public SquareTreeRenderer(SquareTreeRendererOptions options) 
+        public StandardSquareTreeRenderer(SquareTreeRendererOptions options) 
         {
             this.options = options;
         }

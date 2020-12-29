@@ -5,8 +5,27 @@ using System.Text;
 
 namespace Faze.Rendering
 {
-    internal static class Utilities
+    public static class Utilities
     {
+        public static (float x, float y, float size) Flatten(int[] path, int dimension)
+        {
+            float x = 0;
+            float y = 0;
+
+            for (var i = 0; i < path.Length; i++)
+            {
+                var move = path[i];
+                var subFactor = (float)Math.Pow(dimension, i + 1);
+                var (dx, dy) = To2D(move, dimension);
+
+                x += subFactor * dx;
+                y += subFactor * dy;
+            }
+
+            float factor = (float)Math.Pow(dimension, path.Length);
+            return (x, y, factor);
+        }
+
         public static (int x, int y, int width, int height) Flatten(int[] path, int dimension, int width, int height)
         {
             var x = 0;

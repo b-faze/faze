@@ -19,7 +19,7 @@ namespace Faze.Rendering.Tests.PainterTests
             this.tree = TreeUtilities.CreateSquareTree(treeSize, 10);
             this.renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(treeSize)
             {
-                BorderProportions = 0.1
+                BorderProportions = 0.1f
             });
         }
 
