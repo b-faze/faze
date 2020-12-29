@@ -1,0 +1,12 @@
+{
+  "Presets": [
+    {
+      "Name": "Preset 1",
+      "Options": {
+        "Size": 3,
+        "RenderDepth": 3,
+        "Border": 0.01
+      }
+    }
+  ]
+}

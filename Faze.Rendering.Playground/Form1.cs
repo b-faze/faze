@@ -13,21 +13,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Faze.Rendering.TreeLinq;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Faze.Rendering.Playground
 {
     public partial class Form1 : Form
     {
-        private CanvasUI canvasUI;
+        private readonly CanvasUI canvasUI;
+        private FormSettings settings;
 
         public Form1()
         {
             InitializeComponent();
 
+            this.canvasUI = new CanvasUI(pictureBox, GetOptions());
             this.timer1.Start();
             borderTrackBarChanged(null, null);
             sizeTrackBarChanged(null, null);
             maxDepthTrackBarChanged(null, null);
+
+            this.settings = JsonConvert.DeserializeObject<FormSettings>(File.ReadAllText(@"../../../Resources/settings.json"));
+            presetDdl.DataSource = settings.Presets;
+            presetDdl.DisplayMember = nameof(OptionPreset.Name);
+            presetDdl.ValueMember = nameof(OptionPreset.Options);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -78,49 +87,37 @@ namespace Faze.Rendering.Playground
             UpdateCanvas();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SetOptions((Options)presetDdl.SelectedValue);
+        }
+
+        private Options GetOptions()
+        {
+            return new Options
+            {
+                Size = sizeTrackBar.Value,
+                RenderDepth = maxDepthTrackBar.Value,
+                Border = (double)borderTrackBar.Value / 100
+            };
+        }
+
+        private void SetOptions(Options options) 
+        {
+            sizeTrackBar.Value = options.Size;
+            maxDepthTrackBar.Value = options.RenderDepth;
+            borderTrackBar.Value = (int)(options.Border * 100);
+        }
+
         private void UpdateCanvas() 
         {
-            canvasUI = CreateCanvasUI();
-            canvasUI.Draw();
+            canvasUI.SetOptions(GetOptions());
         }
 
-        private CanvasUI CreateCanvasUI() 
+        private void saveBtn_Click(object sender, EventArgs e)
         {
-            var renderer = CreateRenderer();
-            var tree = CreateGreyPaintedSquareTree(sizeTrackBar.Value, maxDepthTrackBar.Value + 1);
-            return new CanvasUI(pictureBox, renderer, tree);
-        }
-
-        private IPaintedTreeRenderer CreateRenderer()
-        {
-            return new SquareTreeRenderer(new SquareTreeRendererOptions(sizeTrackBar.Value)
-            {
-                BorderProportions = (double)borderTrackBar.Value / 100
-            });
-        }
-
-        private static PaintedTree CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
-        {
-            var tree = CreateSquareTree(size, maxDepth, depth)
-                .Map((v, info) => info.Depth)
-                .Map(v => (int)(255 * (1 - (double)v / maxDepth)))
-                .Map(v => Color.FromArgb(v, v, v));
-
-            return new PaintedTree(tree.Value, tree.Children);
-        }
-
-        private static Tree<int> CreateSquareTree(int size, int maxDepth, int depth = 0)
-        {
-            if (depth == maxDepth)
-                return new Tree<int>(depth);
-
-            var children = new List<Tree<int>>();
-            for (var i = 0; i < size * size; i++)
-            {
-                children.Add(CreateSquareTree(size, maxDepth, depth + 1));
-            }
-
-            return new Tree<int>(depth, children);
+            canvasUI.Save();
+            MessageBox.Show("Saved");
         }
     }
 }

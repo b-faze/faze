@@ -10,23 +10,50 @@ using System.Text;
 using System.Windows.Forms;
 using Faze.Rendering.TreeLinq;
 using SkiaSharp.Views.Desktop;
+using System.Linq;
+using System.Drawing.Imaging;
 
 namespace Faze.Rendering.Playground
 {
     public class CanvasUI
     {
         private readonly PictureBox pictureBox;
-        private readonly PaintedTree tree;
+        private PaintedTree tree;
         private IPaintedTreeRenderer renderer;
+        private Options options;
         private bool canDraw;
 
-        public CanvasUI(PictureBox pictureBox, IPaintedTreeRenderer renderer, PaintedTree tree)
+        public CanvasUI(PictureBox pictureBox, Options options)
         {
             this.pictureBox = pictureBox;
-            this.renderer = renderer;
-
-            this.tree = tree;
             this.canDraw = true;
+
+            SetOptions(options);
+        }
+
+        internal void SetOptions(Options options)
+        {
+            canDraw = false;
+
+            this.options = options;
+            this.renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(options.Size)
+            {
+                BorderProportions = options.Border
+            });
+
+            this.tree = CreateGreyPaintedSquareTree(options.Size, options.RenderDepth + 1);
+
+            canDraw = true;
+        }
+
+        internal void Save()
+        {
+            var imageInfo = new SKImageInfo(pictureBox.Width, pictureBox.Height);
+            using SKSurface surface = SKSurface.Create(imageInfo);
+            var bitmap = new Bitmap(pictureBox.Image).ToSKBitmap();
+            surface.Canvas.DrawBitmap(bitmap, new SKPoint(0, 0));
+
+            Save(surface, @$"../../../Saves/{options.Size}_{options.RenderDepth}_{options.Border}.png");
         }
 
         internal void Draw()
@@ -44,7 +71,7 @@ namespace Faze.Rendering.Playground
             using SKSurface surface = SKSurface.Create(imageInfo);
             var canvas = surface.Canvas;
 
-            var bitmap = renderer.Draw(tree, width, 3).ToSKBitmap();
+            var bitmap = renderer.Draw(tree, width, options.RenderDepth).ToSKBitmap();
             canvas.DrawBitmap(bitmap, new SKPoint(0, 0));
 
             Draw(surface);
@@ -58,6 +85,39 @@ namespace Faze.Rendering.Playground
 
             pictureBox.Image?.Dispose();
             pictureBox.Image = new Bitmap(mStream, false);
+        }
+
+        private void Save(SKSurface surface, string filename)
+        {
+            var directory = Path.GetDirectoryName(filename);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+
+            using SKImage image = surface.Snapshot();
+            using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
+            using FileStream fileStream = new FileStream(filename, FileMode.OpenOrCreate);
+            data.SaveTo(fileStream);
+        }
+
+        private static PaintedTree CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
+        {
+            var tree = CreateSquareTree(size, maxDepth, depth)
+                .Map((v, info) => info.Depth)
+                .Map(v => (int)(255 * (1 - (double)v / maxDepth)))
+                .Map(v => Color.FromArgb(v, v, v));
+
+            return new PaintedTree(tree.Value, tree.Children);
+        }
+
+        private static Tree<int> CreateSquareTree(int size, int maxDepth, int depth = 0)
+        {
+            if (depth == maxDepth)
+                return new Tree<int>(depth);
+
+            var children = Enumerable.Range(0, size * size).Select(i => CreateSquareTree(size, maxDepth, depth + 1));
+
+            return new Tree<int>(depth, children);
         }
     }
 }

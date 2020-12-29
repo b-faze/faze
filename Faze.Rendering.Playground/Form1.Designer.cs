@@ -41,6 +41,10 @@
             this.maxDepthTrackBar = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
             this.maxDepthTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.presetDdl = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.saveBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.borderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeTrackBar)).BeginInit();
@@ -129,7 +133,6 @@
             // maxDepthTrackBar
             // 
             this.maxDepthTrackBar.Location = new System.Drawing.Point(624, 135);
-            this.maxDepthTrackBar.Minimum = 1;
             this.maxDepthTrackBar.Name = "maxDepthTrackBar";
             this.maxDepthTrackBar.Size = new System.Drawing.Size(163, 45);
             this.maxDepthTrackBar.TabIndex = 6;
@@ -141,9 +144,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(518, 114);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 15);
+            this.label3.Size = new System.Drawing.Size(79, 15);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Max Depth";
+            this.label3.Text = "Render Depth";
             // 
             // maxDepthTextBox
             // 
@@ -153,11 +156,52 @@
             this.maxDepthTextBox.Size = new System.Drawing.Size(100, 23);
             this.maxDepthTextBox.TabIndex = 5;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(519, 216);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(39, 15);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Preset";
+            // 
+            // presetDdl
+            // 
+            this.presetDdl.FormattingEnabled = true;
+            this.presetDdl.Location = new System.Drawing.Point(518, 235);
+            this.presetDdl.Name = "presetDdl";
+            this.presetDdl.Size = new System.Drawing.Size(188, 23);
+            this.presetDdl.TabIndex = 8;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(712, 234);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 9;
+            this.button2.Text = "Load";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // saveBtn
+            // 
+            this.saveBtn.Location = new System.Drawing.Point(522, 489);
+            this.saveBtn.Name = "saveBtn";
+            this.saveBtn.Size = new System.Drawing.Size(75, 23);
+            this.saveBtn.TabIndex = 10;
+            this.saveBtn.Text = "Save";
+            this.saveBtn.UseVisualStyleBackColor = true;
+            this.saveBtn.Click += new System.EventHandler(this.saveBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 524);
+            this.Controls.Add(this.saveBtn);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.presetDdl);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.maxDepthTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.maxDepthTrackBar);
@@ -194,6 +238,10 @@
         private System.Windows.Forms.TrackBar maxDepthTrackBar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox maxDepthTextBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox presetDdl;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button saveBtn;
     }
 }
 
