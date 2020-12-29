@@ -102,10 +102,18 @@ namespace Faze.Rendering.Playground
 
         private static PaintedTree CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
         {
+            var rnd = new Random();
             var tree = CreateSquareTree(size, maxDepth, depth)
                 .Map((v, info) => info.Depth)
                 .Map(v => (int)(255 * (1 - (double)v / maxDepth)))
-                .Map(v => Color.FromArgb(v, v, v));
+                .Map(v =>
+                {
+                    var d = Math.Min(255 - v, v) / 2;
+                    var dr = rnd.Next(0, d) - d / 2;
+                    var dg = rnd.Next(0, d) - d / 2;
+                    var db = rnd.Next(0, d) - d / 2;
+                    return Color.FromArgb(v + dr, v + dg, v + db);
+                });
 
             return new PaintedTree(tree.Value, tree.Children);
         }

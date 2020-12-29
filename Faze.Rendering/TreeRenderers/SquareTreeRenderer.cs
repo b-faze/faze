@@ -60,7 +60,7 @@ namespace Faze.Rendering.TreeRenderers
 
             var borderOffset = options.BorderProportions;
             var borderSize = rect.Width * borderOffset;
-            if (borderSize < 1) borderSize = 0; // 
+            if (borderSize < 1) borderSize = 0; // Don't render a border that is sub-pixel size
             var innerRectSize = rect.Width - 2 * borderSize;
             var innerRect = SKRect.Create(rect.Left + borderSize, rect.Top + borderSize, rect.Left + innerRectSize, rect.Top + innerRectSize);
             var childSize = innerRectSize / options.Size;
