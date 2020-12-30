@@ -1,9 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
+using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
 using Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks;
+using Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers;
 using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace Faze.Rendering.Benchmarks.RendererBenchmarks
@@ -11,7 +14,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
     [MemoryDiagnoser]
     public class DrawSquareTreeRendererBenchmarks
     {
-        private PaintedTree tree;
+        private Tree<Color> tree;
 
         [Params(1, 3, 4, 10)]
         public int TreeSize;
@@ -33,9 +36,10 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
                 BorderProportions = 0
             };
 
-            var renderer = new StandardSquareTreeRenderer(options);
+            var renderer = new StandardSquareTreeRenderer(options, ImageSize);
 
-            var result = renderer.Draw(tree, ImageSize);
+            renderer.Draw(tree, ViewPort.Default());
+            var img = renderer.GetBitmap();
         }
 
         [Benchmark]
@@ -46,9 +50,10 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
                 BorderProportions = 0
             };
 
-            var renderer = new SkiaSquareTreeRenderer(options);
+            var renderer = new SkiaSquareTreeRenderer(options, ImageSize);
 
-            var result = renderer.Draw(tree, ImageSize);
+            renderer.Draw(tree, ViewPort.Default());
+            var img = renderer.GetBitmap();
         }
     }
 }

@@ -6,21 +6,30 @@ using System.Linq;
 
 namespace Faze.Rendering.TreeRenderers
 {
-    public class StandardSquareTreeRenderer : IPaintedTreeRenderer
+    public class StandardSquareTreeRenderer : IPaintedTreeRenderer, IDisposable
     {
         private readonly SquareTreeRendererOptions options;
+        private readonly Bitmap bitmap;
 
-        public StandardSquareTreeRenderer(SquareTreeRendererOptions options) 
+        public StandardSquareTreeRenderer(SquareTreeRendererOptions options, int imageSize) 
         {
             this.options = options;
+            this.bitmap = new Bitmap(imageSize, imageSize);
         }
 
-
-        public Bitmap Draw(PaintedTree tree, int size, int? maxDepth = null)
+        public Tree<T> GetVisible<T>(Tree<T> tree, IViewPort viewPort)
         {
-            var img = new Bitmap(size, size);
-            DrawHelper(img, tree, 0, maxDepth);
-            return img;
+            throw new NotImplementedException();
+        }
+
+        public void Draw(Tree<Color> tree, IViewPort viewPort, int? maxDepth = null)
+        {
+            DrawHelper(bitmap, tree, 0, maxDepth);
+        }
+
+        public Bitmap GetBitmap()
+        {
+            return bitmap;
         }
 
         private void DrawHelper(Bitmap img, Tree<Color> node, int depth, int? maxDepth = null)
@@ -65,6 +74,11 @@ namespace Faze.Rendering.TreeRenderers
                     childIndex++;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            this.bitmap?.Dispose();
         }
     }
 }

@@ -14,17 +14,17 @@ namespace Faze.Rendering.Tests.Utilities
 {
     public class TreeUtilities
     {
-        public static PaintedTree CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
+        public static Tree<Color> CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
         {
             var tree = CreateSquareTree(size, maxDepth, depth)
                 .Map((v, info) => info.Depth)
                 .Map(v => (int)(255 * (1 - (double)v / maxDepth)))
                 .Map(v => Color.FromArgb(v, v, v));
 
-            return new PaintedTree(tree.Value, tree.Children);
+            return new Tree<Color>(tree.Value, tree.Children);
         }
 
-        public static PaintedTree CreateRainbowPaintedSquareTree(int size, int maxDepth, int depth = 0)
+        public static Tree<Color> CreateRainbowPaintedSquareTree(int size, int maxDepth, int depth = 0)
         {
             var tree = CreateSquareTree(size, maxDepth, depth);
             var nodeCount = tree.SelectDepthFirst().Count();
@@ -36,7 +36,7 @@ namespace Faze.Rendering.Tests.Utilities
                 .Map(v => (double)v/nodeCount)
                 .Map(colorInterpolator);
 
-            return new PaintedTree(coloredTree.Value, coloredTree.Children);
+            return new Tree<Color>(coloredTree.Value, coloredTree.Children);
         }
 
         private static Color ToRainbowColor(int i, int size) 

@@ -20,7 +20,7 @@ namespace Faze.Rendering.Tests.PainterTests
             this.renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(treeSize)
             {
                 BorderProportions = 0.1f
-            });
+            }, 600);
         }
 
         [Fact]
@@ -31,10 +31,9 @@ namespace Faze.Rendering.Tests.PainterTests
             var filename = FileUtilities.GetTestOutputPath(nameof(DepthPainterTests),
                 $"{nameof(DrawDefaultDepthPainter)}.png");
 
-            using (var img = renderer.Draw(paintedTree, 600))
-            {
-                img.Save(filename, ImageFormat.Png);
-            }
+            renderer.Draw(paintedTree, ViewPort.Default());
+            using var img = renderer.GetBitmap();
+            img.Save(filename, ImageFormat.Png);
 
         }
 
@@ -46,10 +45,9 @@ namespace Faze.Rendering.Tests.PainterTests
             var filename = FileUtilities.GetTestOutputPath(nameof(DepthPainterTests),
                 $"{nameof(DrawReverseDepthPainter)}.png");
 
-            using (var img = renderer.Draw(paintedTree, 600))
-            {
-                img.Save(filename, ImageFormat.Png);
-            }
+            renderer.Draw(paintedTree, ViewPort.Default());
+            using var img = renderer.GetBitmap();
+            img.Save(filename, ImageFormat.Png);
 
         }
     }

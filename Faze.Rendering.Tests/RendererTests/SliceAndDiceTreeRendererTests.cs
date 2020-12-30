@@ -43,12 +43,12 @@ namespace Faze.Rendering.Tests.RendererTests
         }
 
         // needs more work
-        private PaintedTree CreateIrregularTree(int size, Queue<int> sizeQueue, int maxDepth, int depth = 0) 
+        private Tree<Color> CreateIrregularTree(int size, Queue<int> sizeQueue, int maxDepth, int depth = 0) 
         {
             if (depth == maxDepth)
-                return new PaintedTree(Color.Black);
+                return new Tree<Color>(Color.Black);
 
-            var children = new List<PaintedTree>();
+            var children = new List<Tree<Color>>();
             var sizes = new List<int>();
             for (var i = 0; i < size; i++)
             {
@@ -64,21 +64,21 @@ namespace Faze.Rendering.Tests.RendererTests
             }
 
             var grey = (int)(255 * (1 - (double)depth / maxDepth));
-            return new PaintedTree(Color.FromArgb(grey, grey, grey), children);
+            return new Tree<Color>(Color.FromArgb(grey, grey, grey), children);
         }
 
-        private PaintedTree CreateTestTree()
+        private Tree<Color> CreateTestTree()
         {
-            var c1 = new PaintedTree(Color.Red);
-            var c2 = new PaintedTree(Color.Blue);
-            var c3 = new PaintedTree(Color.Green);
-            var c4 = new PaintedTree(Color.Cyan);
-            var c5 = new PaintedTree(Color.Chocolate);
+            var c1 = new Tree<Color>(Color.Red);
+            var c2 = new Tree<Color>(Color.Blue);
+            var c3 = new Tree<Color>(Color.Green);
+            var c4 = new Tree<Color>(Color.Cyan);
+            var c5 = new Tree<Color>(Color.Chocolate);
 
-            var c6 = new PaintedTree(Color.DarkViolet, new []{ c1, c2, c4 });
-            var c7 = new PaintedTree(Color.Firebrick, new[] { c5 });
+            var c6 = new Tree<Color>(Color.DarkViolet, new []{ c1, c2, c4 });
+            var c7 = new Tree<Color>(Color.Firebrick, new[] { c5 });
 
-            return new PaintedTree(Color.Black, new[] { c6, c7 });
+            return new Tree<Color>(Color.Black, new[] { c6, c7 });
         }
     }
 }

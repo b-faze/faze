@@ -11,14 +11,14 @@ namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks
 {
     public static class SquareTreeUtilities
     {
-        public static PaintedTree CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
+        public static Tree<Color> CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
         {
             var tree = CreateSquareTree(size, maxDepth, depth)
                 .Map((v, info) => info.Depth)
                 .Map(v => (int)(255 * (1 - (double)v / maxDepth)))
                 .Map(v => Color.FromArgb(v, v, v));
 
-            return new PaintedTree(tree.Value, tree.Children);
+            return new Tree<Color>(tree.Value, tree.Children);
         }
 
         private static Tree<int> CreateSquareTree(int size, int maxDepth, int depth = 0)

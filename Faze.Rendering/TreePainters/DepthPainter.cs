@@ -3,6 +3,7 @@ using Faze.Abstractions.Rendering;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeLinq;
 using System;
+using System.Drawing;
 using System.Linq;
 
 namespace Faze.Rendering.TreePainters
@@ -24,7 +25,7 @@ namespace Faze.Rendering.TreePainters
             this.colorInterpolator = colorInterpolator;
         }
 
-        public PaintedTree Paint<T>(Tree<T> tree)
+        public Tree<Color> Paint<T>(Tree<T> tree)
         {
             var depthTree = tree
                 .Map((v, info) => info.Depth);
@@ -37,7 +38,7 @@ namespace Faze.Rendering.TreePainters
                 .Map(x => (double)x / maxDepth)
                 .Map(colorInterpolator);
 
-            return new PaintedTree(colorTree.Value, colorTree.Children);
+            return new Tree<Color>(colorTree.Value, colorTree.Children);
         }
     }
 }

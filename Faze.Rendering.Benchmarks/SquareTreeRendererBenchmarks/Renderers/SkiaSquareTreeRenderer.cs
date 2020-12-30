@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Rendering.TreeRenderers;
 using Microsoft.Diagnostics.Tracing.Parsers;
 using SkiaSharp;
 using System;
@@ -9,25 +10,36 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 
-namespace Faze.Rendering.TreeRenderers
+namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers
 {
     public class SkiaSquareTreeRenderer : IPaintedTreeRenderer
     {
         private readonly SquareTreeRendererOptions options;
+        private readonly int imageSize;
+        private readonly SKSurface surface;
 
-        public SkiaSquareTreeRenderer(SquareTreeRendererOptions options) 
+        public SkiaSquareTreeRenderer(SquareTreeRendererOptions options, int imageSize)
         {
             this.options = options;
+            this.imageSize = imageSize;
+            var imageInfo = new SKImageInfo(imageSize, imageSize);
+            this.surface = SKSurface.Create(imageInfo);
         }
 
+        public SKSurface Surface => surface;
 
-        public Bitmap Draw(PaintedTree tree, int size, int? maxDepth = null)
+        public Tree<T> GetVisible<T>(Tree<T> tree, IViewPort viewPort)
         {
-            var imageInfo = new SKImageInfo(size, size);
-            using SKSurface surface = SKSurface.Create(imageInfo);
+            return tree;
+        }
 
-            DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, size, size), 0, maxDepth);
+        public void Draw(Tree<Color> tree, IViewPort viewPort, int? maxDepth = null)
+        {
+            DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, imageSize, imageSize), 0, maxDepth);
+        }
 
+        public Bitmap GetBitmap()
+        {
             using SKImage image = surface.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
             using MemoryStream mStream = new MemoryStream(data.ToArray());
@@ -50,7 +62,7 @@ namespace Faze.Rendering.TreeRenderers
 
             var borderOffset = options.BorderProportions;
             var borderSize = rect.Width * borderOffset;
-            if (borderSize < 1) borderSize = 0; // 
+            if (borderSize < 1) borderSize = 0; // Don't render a border that is sub-pixel size
             var innerRectSize = rect.Width - 2 * borderSize;
             var innerRect = SKRect.Create(rect.Left + borderSize, rect.Top + borderSize, rect.Left + innerRectSize, rect.Top + innerRectSize);
             var childSize = innerRectSize / options.Size;
@@ -67,6 +79,11 @@ namespace Faze.Rendering.TreeRenderers
                     childIndex++;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            this.surface?.Dispose();
         }
     }
 }

@@ -23,6 +23,8 @@ namespace Faze.Rendering.Playground
         private readonly CanvasUI canvasUI;
         private FormSettings settings;
 
+        private (float x, float y) lastMouseDragPoint;
+
         public Form1()
         {
             InitializeComponent();
@@ -32,16 +34,19 @@ namespace Faze.Rendering.Playground
             borderTrackBarChanged(null, null);
             sizeTrackBarChanged(null, null);
             maxDepthTrackBarChanged(null, null);
+            SetViewport(ViewPort.Default());
 
             this.settings = JsonConvert.DeserializeObject<FormSettings>(File.ReadAllText(@"../../../Resources/settings.json"));
             presetDdl.DataSource = settings.Presets;
             presetDdl.DisplayMember = nameof(OptionPreset.Name);
             presetDdl.ValueMember = nameof(OptionPreset.Options);
+
+            pictureBox.MouseWheel += new MouseEventHandler(this.pictureBox_MouseWheel);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            canvasUI.Draw();
+            canvasUI.Draw(GetViewport());
         }
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
@@ -49,7 +54,7 @@ namespace Faze.Rendering.Playground
             var x = (float)e.X / pictureBox.Width;
             var y = (float)e.Y / pictureBox.Height;
 
-            //template.Select(x, y);
+            lastMouseDragPoint = (x, y);
         }
 
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
@@ -59,14 +64,38 @@ namespace Faze.Rendering.Playground
 
             if (e.Button == MouseButtons.Left)
             {
-                //template.MoveSelected(x, y);
-                return;
+                var dx = x - lastMouseDragPoint.x;
+                var dy = y - lastMouseDragPoint.y;
+
+                var viewport = GetViewport();
+                var newViewport = new ViewPort(viewport.Left + dx, viewport.Top + dy, viewport.Scale);
+                SetViewport(newViewport);
             }
 
             if (e.Button == MouseButtons.None)
             {
                 //template.Hover(x, y);
             }
+
+            lastMouseDragPoint = (x, y);
+        }
+
+        private void pictureBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            const float wheelDeltaFactor = 0.1f;
+            var scaleIncrement = -e.Delta / 120 * wheelDeltaFactor;
+
+            var x = (float)e.Location.X / pictureBox.Width;
+            var y = (float)e.Location.Y / pictureBox.Height;
+
+            var viewport = GetViewport();
+
+            // center zoom around zoom point
+            var dx = -x * scaleIncrement;
+            var dy = -y * scaleIncrement;
+
+            var newViewport = new ViewPort(viewport.Left + dx, viewport.Top + dy, viewport.Scale + scaleIncrement);
+            SetViewport(newViewport);
         }
 
         private void borderTrackBarChanged(object sender, EventArgs e)
@@ -89,7 +118,9 @@ namespace Faze.Rendering.Playground
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SetOptions((Options)presetDdl.SelectedValue);
+            var options = (Options)presetDdl.SelectedValue;
+            SetOptions(options);
+            SetViewport(options.DefaultViewPort);
         }
 
         private Options GetOptions()
@@ -107,6 +138,18 @@ namespace Faze.Rendering.Playground
             sizeTrackBar.Value = options.Size;
             maxDepthTrackBar.Value = options.RenderDepth;
             borderTrackBar.Value = (int)(options.Border * 100);
+        }
+
+        private IViewPort GetViewport()
+        {
+            return new ViewPort(float.Parse(viewportLeftTxt.Text), float.Parse(viewportTopTxt.Text), float.Parse(viewportScaleTxt.Text));
+        }
+
+        private void SetViewport(IViewPort viewport)
+        {
+            viewportLeftTxt.Text = viewport.Left.ToString();
+            viewportTopTxt.Text = viewport.Top.ToString();
+            viewportScaleTxt.Text = viewport.Scale.ToString();
         }
 
         private void UpdateCanvas() 

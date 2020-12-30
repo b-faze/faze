@@ -22,7 +22,22 @@ namespace Faze.Rendering.TreeRenderers
             this.options = options;
         }
 
-        public Bitmap Draw(PaintedTree tree, int size, int? maxDepth = null)
+        public Tree<T> GetVisible<T>(Tree<T> tree, IViewPort viewPort)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Draw(Tree<Color> tree, IViewPort viewPort, int? maxDepth = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bitmap GetBitmap()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bitmap Draw(Tree<Color> tree, int size, int? maxDepth = null)
         {
             var img = new Bitmap(size, size);
             Draw(img, tree, 0, maxDepth);
@@ -109,6 +124,5 @@ namespace Faze.Rendering.TreeRenderers
         {
             return Math.Max(a, b) / Math.Min(a, b);
         }
-
     }
 }
