@@ -82,19 +82,21 @@ namespace Faze.Rendering.Playground
 
         private void pictureBox_MouseWheel(object sender, MouseEventArgs e)
         {
-            const float wheelDeltaFactor = 0.1f;
-            var scaleIncrement = -e.Delta / 120 * wheelDeltaFactor;
+            const float wheelDeltaFactor = 0.9f;
+
+            var viewport = GetViewport();
+            var scaleFactor = e.Delta / 120 * wheelDeltaFactor;
+            var newScale = scaleFactor > 0 ? viewport.Scale * scaleFactor : viewport.Scale / -scaleFactor;
+            var scaleChange = newScale - viewport.Scale;
 
             var x = (float)e.Location.X / pictureBox.Width;
             var y = (float)e.Location.Y / pictureBox.Height;
 
-            var viewport = GetViewport();
-
             // center zoom around zoom point
-            var dx = -x * scaleIncrement;
-            var dy = -y * scaleIncrement;
+            var dx = -x * scaleChange;
+            var dy = -y * scaleChange;
 
-            var newViewport = new ViewPort(viewport.Left + dx, viewport.Top + dy, viewport.Scale + scaleIncrement);
+            var newViewport = new ViewPort(viewport.Left + dx, viewport.Top + dy, newScale);
             SetViewport(newViewport);
         }
 
