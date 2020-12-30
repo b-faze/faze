@@ -1,14 +1,15 @@
 ﻿using Faze.Abstractions.Core;
+using System.Drawing;
 
 namespace Faze.Abstractions.Rendering
 {
     public interface ITreePainter
     {
-        PaintedTree Paint<T>(Tree<T> tree);
+        Tree<Color> Paint<T>(Tree<T> tree);
     }
 
     public interface ITreePainter<TValue>
     {
-        PaintedTree Paint(Tree<TValue> tree);
+        Tree<Color> Paint(Tree<TValue> tree);
     }
 }
