@@ -38,7 +38,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
 
             var renderer = new StandardSquareTreeRenderer(options, ImageSize);
 
-            renderer.Draw(tree, ViewPort.Default());
+            renderer.Draw(tree, Viewport.Default());
             var img = renderer.GetBitmap();
         }
 
@@ -52,7 +52,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
 
             var renderer = new SkiaSquareTreeRenderer(options, ImageSize);
 
-            renderer.Draw(tree, ViewPort.Default());
+            renderer.Draw(tree, Viewport.Default());
             var img = renderer.GetBitmap();
         }
     }

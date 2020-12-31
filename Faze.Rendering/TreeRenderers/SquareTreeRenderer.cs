@@ -39,18 +39,20 @@ namespace Faze.Rendering.TreeRenderers
 
         public SKSurface Surface => surface;
 
-        public Tree<T> GetVisible<T>(Tree<T> tree, IViewPort viewPort)
+        public Tree<T> GetVisible<T>(Tree<T> tree, IViewport viewPort)
         {
             return tree;
         }
 
-        public void Draw(Tree<Color> tree, IViewPort viewport, int? maxDepth = null)
+        public void Draw(Tree<Color> tree, IViewport viewport, int? maxDepth = null)
         {
             var viewportBorderSize = 5;
-            var viewportSize = viewport.Scale * imageSize - viewportBorderSize;
-            var viewportRect = SKRect.Create(viewport.Left * imageSize, viewport.Top * imageSize, viewportSize, viewportSize);
-            var viewportScaledRect = SKRect.Create(-viewportRect.Left / viewport.Scale, -viewportRect.Top / viewport.Scale, imageSize / viewport.Scale, imageSize / viewport.Scale);
-            var scaledViewportRect = SKRect.Create(0, 0, viewportRect.Width / viewport.Scale, viewportRect.Height / viewport.Scale);
+            var viewportScale = GetScale(viewport);
+            var viewportSize = viewportScale * imageSize;
+            var viewportRectSize = viewportSize - viewportBorderSize;
+            var viewportRect = SKRect.Create(viewport.Left * imageSize, viewport.Top * imageSize, viewportRectSize, viewportRectSize);
+            var viewportScaledRect = SKRect.Create(-viewportRect.Left / viewportScale, -viewportRect.Top / viewportScale, imageSize / viewportScale, imageSize / viewportScale);
+            var scaledViewportRect = SKRect.Create(0, 0, viewportSize / viewportScale, viewportSize / viewportScale);
 
             surface.Canvas.Clear();
             DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, maxDepth);
@@ -101,12 +103,18 @@ namespace Faze.Rendering.TreeRenderers
                     var (x, y, _) = Utilities.Flatten(new[] { childIndex++ }, options.Size);
                     var childRect = SKRect.Create(innerRect.Left + innerRectSize * x, innerRect.Top + innerRectSize * y, childSize, childSize);
 
-                    if (SKRect.Intersect(viewportRect, childRect).IsEmpty)
+                    var viewportIntersect = SKRect.Intersect(viewportRect, childRect);
+                    if (viewportIntersect.IsEmpty)
                         continue;
 
-                    DrawHelper(canvas, child, viewportRect, childRect, depth + 1, maxDepth);
+                    DrawHelper(canvas, child, viewportIntersect, childRect, depth + 1, maxDepth);
                 }
             }
+        }
+
+        private float GetScale(IViewport viewport)
+        {
+            return (float)(1 / Math.Pow(options.Size, viewport.Scale));
         }
 
         public void Dispose()

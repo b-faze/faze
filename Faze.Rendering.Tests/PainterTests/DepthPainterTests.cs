@@ -31,7 +31,7 @@ namespace Faze.Rendering.Tests.PainterTests
             var filename = FileUtilities.GetTestOutputPath(nameof(DepthPainterTests),
                 $"{nameof(DrawDefaultDepthPainter)}.png");
 
-            renderer.Draw(paintedTree, ViewPort.Default());
+            renderer.Draw(paintedTree, Viewport.Default());
             using var img = renderer.GetBitmap();
             img.Save(filename, ImageFormat.Png);
 
@@ -45,7 +45,7 @@ namespace Faze.Rendering.Tests.PainterTests
             var filename = FileUtilities.GetTestOutputPath(nameof(DepthPainterTests),
                 $"{nameof(DrawReverseDepthPainter)}.png");
 
-            renderer.Draw(paintedTree, ViewPort.Default());
+            renderer.Draw(paintedTree, Viewport.Default());
             using var img = renderer.GetBitmap();
             img.Save(filename, ImageFormat.Png);
 

@@ -23,7 +23,7 @@ namespace Faze.Rendering.Playground
         private SquareTreeRenderer renderer;
         private Options options;
 
-        private IViewPort lastViewport;
+        private IViewport lastViewport;
         private bool canDraw;
 
         public CanvasUI(PictureBox pictureBox, Options options)
@@ -55,7 +55,7 @@ namespace Faze.Rendering.Playground
             Save(this.renderer.Surface, @$"../../../Saves/{options.Size}_{options.RenderDepth}_{options.Border}.png");
         }
 
-        internal void Draw(IViewPort viewport)
+        internal void Draw(IViewport viewport)
         {
             if (!canDraw && !HasViewportChanged(viewport))
                 return;
@@ -69,7 +69,7 @@ namespace Faze.Rendering.Playground
             pictureBox.Image = renderer.GetBitmap();
         }
 
-        private bool HasViewportChanged(IViewPort viewport)
+        private bool HasViewportChanged(IViewport viewport)
         {
             return lastViewport.Left != viewport.Left
                 || lastViewport.Top != viewport.Top

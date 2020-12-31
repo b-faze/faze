@@ -34,7 +34,7 @@ namespace Faze.Rendering.Playground
             borderTrackBarChanged(null, null);
             sizeTrackBarChanged(null, null);
             maxDepthTrackBarChanged(null, null);
-            SetViewport(ViewPort.Default());
+            SetViewport(Viewport.Default());
 
             this.settings = JsonConvert.DeserializeObject<FormSettings>(File.ReadAllText(@"../../../Resources/settings.json"));
             presetDdl.DataSource = settings.Presets;
@@ -68,7 +68,7 @@ namespace Faze.Rendering.Playground
                 var dy = y - lastMouseDragPoint.y;
 
                 var viewport = GetViewport();
-                var newViewport = new ViewPort(viewport.Left + dx, viewport.Top + dy, viewport.Scale);
+                var newViewport = new Viewport(viewport.Left + dx, viewport.Top + dy, viewport.Scale);
                 SetViewport(newViewport);
             }
 
@@ -82,12 +82,13 @@ namespace Faze.Rendering.Playground
 
         private void pictureBox_MouseWheel(object sender, MouseEventArgs e)
         {
-            const float wheelDeltaFactor = 0.9f;
-
+            const float wheelDeltaFactor = 0.1f;
+            var options = GetOptions();
             var viewport = GetViewport();
-            var scaleFactor = e.Delta / 120 * wheelDeltaFactor;
-            var newScale = scaleFactor > 0 ? viewport.Scale * scaleFactor : viewport.Scale / -scaleFactor;
-            var scaleChange = newScale - viewport.Scale;
+
+            var depthChange = e.Delta / 120 * wheelDeltaFactor;
+            var newDepth = viewport.Scale + depthChange;
+            var scaleChange = (float)(1 / Math.Pow(options.Size, newDepth) - 1 / Math.Pow(options.Size, viewport.Scale));
 
             var x = (float)e.Location.X / pictureBox.Width;
             var y = (float)e.Location.Y / pictureBox.Height;
@@ -96,7 +97,7 @@ namespace Faze.Rendering.Playground
             var dx = -x * scaleChange;
             var dy = -y * scaleChange;
 
-            var newViewport = new ViewPort(viewport.Left + dx, viewport.Top + dy, newScale);
+            var newViewport = new Viewport(viewport.Left + dx, viewport.Top + dy, newDepth);
             SetViewport(newViewport);
         }
 
@@ -122,7 +123,7 @@ namespace Faze.Rendering.Playground
         {
             var options = (Options)presetDdl.SelectedValue;
             SetOptions(options);
-            SetViewport(options.DefaultViewPort);
+            SetViewport(options.DefaultViewport);
         }
 
         private Options GetOptions()
@@ -142,12 +143,12 @@ namespace Faze.Rendering.Playground
             borderTrackBar.Value = (int)(options.Border * 100);
         }
 
-        private IViewPort GetViewport()
+        private IViewport GetViewport()
         {
-            return new ViewPort(float.Parse(viewportLeftTxt.Text), float.Parse(viewportTopTxt.Text), float.Parse(viewportScaleTxt.Text));
+            return new Viewport(float.Parse(viewportLeftTxt.Text), float.Parse(viewportTopTxt.Text), float.Parse(viewportScaleTxt.Text));
         }
 
-        private void SetViewport(IViewPort viewport)
+        private void SetViewport(IViewport viewport)
         {
             viewportLeftTxt.Text = viewport.Left.ToString();
             viewportTopTxt.Text = viewport.Top.ToString();
