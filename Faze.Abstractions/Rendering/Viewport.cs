@@ -1,6 +1,6 @@
 ﻿namespace Faze.Abstractions.Rendering
 {
-    public struct Viewport : IViewport
+    public struct Viewport
     {
         public Viewport(float left, float top, float scale)
         {
