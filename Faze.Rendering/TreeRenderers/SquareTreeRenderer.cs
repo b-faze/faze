@@ -52,6 +52,7 @@ namespace Faze.Rendering.TreeRenderers
             var viewportScaledRect = SKRect.Create(-viewportRect.Left / viewport.Scale, -viewportRect.Top / viewport.Scale, imageSize / viewport.Scale, imageSize / viewport.Scale);
             var scaledViewportRect = SKRect.Create(0, 0, viewportRect.Width / viewport.Scale, viewportRect.Height / viewport.Scale);
 
+            surface.Canvas.Clear();
             DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, maxDepth);
 
             surface.Canvas.DrawRect(viewportRect, new SKPaint
