@@ -10,7 +10,7 @@
     <Company>b-faze</Company>
     <Product>Faze.Abstractions</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0-pre.9</Version>
+    <Version>1.0.0-pre.10</Version>
   </PropertyGroup>
 
   <ItemGroup>
