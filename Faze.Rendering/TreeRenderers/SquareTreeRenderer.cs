@@ -11,16 +11,20 @@ namespace Faze.Rendering.TreeRenderers
 {
     public class SquareTreeRendererOptions
     {
+        private const float DefaultMinChildDrawSize = 1;
+
         public SquareTreeRendererOptions(int size) 
         {
             if (size <= 0)
                 throw new Exception("Size must be > 0");
 
             Size = size;
+            MinChildDrawSize = DefaultMinChildDrawSize;
         }
 
         public int Size { get; set; }
         public float BorderProportions { get; set; }
+        public float MinChildDrawSize { get; set; }
     }
 
     public class SquareTreeRenderer : IPaintedTreeRenderer, IDisposable
@@ -57,12 +61,12 @@ namespace Faze.Rendering.TreeRenderers
             surface.Canvas.Clear();
             DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, maxDepth);
 
-            surface.Canvas.DrawRect(viewportRect, new SKPaint
-            {
-                IsStroke = true,
-                StrokeWidth = viewportBorderSize,
-                Color = new SKColor((uint)Color.Red.ToArgb())
-            });
+            //surface.Canvas.DrawRect(viewportRect, new SKPaint
+            //{
+            //    IsStroke = true,
+            //    StrokeWidth = viewportBorderSize,
+            //    Color = new SKColor((uint)Color.Red.ToArgb())
+            //});
         }
 
         public Bitmap GetBitmap()
@@ -90,12 +94,12 @@ namespace Faze.Rendering.TreeRenderers
             var scaledSize = rect.Width;
             var borderOffset = options.BorderProportions;
             var borderSize = scaledSize * borderOffset;
-            if (borderSize < 1) borderSize = 0; // Don't render a border that is sub-pixel size
+            //if (borderSize < 1) borderSize = 0; // Don't render a border that is sub-pixel size
             var innerRectSize = scaledSize - 2 * borderSize;
-            var innerRect = SKRect.Create(rect.Left + borderSize, rect.Top + borderSize, rect.Left + innerRectSize, rect.Top + innerRectSize);
+            var innerRect = SKRect.Create(rect.Left + borderSize, rect.Top + borderSize, innerRectSize, innerRectSize);
             var childSize = innerRectSize / options.Size;
 
-            if (childSize > 1 && childSize < innerRectSize)
+            if (childSize > options.MinChildDrawSize && childSize < innerRectSize)
             {
                 var childIndex = 0;
                 foreach (var child in node.Children)

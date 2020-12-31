@@ -48,10 +48,16 @@
             this.viewportLeftTxt = new System.Windows.Forms.TextBox();
             this.viewportTopTxt = new System.Windows.Forms.TextBox();
             this.viewportScaleTxt = new System.Windows.Forms.TextBox();
+            this.presetNameTxt = new System.Windows.Forms.TextBox();
+            this.presetSaveBtn = new System.Windows.Forms.Button();
+            this.minDrawSizeTxt = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.minDrawSizeRange = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.borderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxDepthTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minDrawSizeRange)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -162,20 +168,20 @@
             // presetDdl
             // 
             this.presetDdl.FormattingEnabled = true;
-            this.presetDdl.Location = new System.Drawing.Point(518, 31);
+            this.presetDdl.Location = new System.Drawing.Point(624, 31);
             this.presetDdl.Name = "presetDdl";
-            this.presetDdl.Size = new System.Drawing.Size(188, 23);
+            this.presetDdl.Size = new System.Drawing.Size(163, 23);
             this.presetDdl.TabIndex = 8;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(712, 30);
+            this.button2.Location = new System.Drawing.Point(793, 31);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 9;
             this.button2.Text = "Load";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.presetLoadBtn_Click);
             // 
             // saveBtn
             // 
@@ -220,11 +226,60 @@
             this.viewportScaleTxt.Size = new System.Drawing.Size(79, 23);
             this.viewportScaleTxt.TabIndex = 4;
             // 
+            // presetNameTxt
+            // 
+            this.presetNameTxt.Location = new System.Drawing.Point(518, 31);
+            this.presetNameTxt.Name = "presetNameTxt";
+            this.presetNameTxt.Size = new System.Drawing.Size(100, 23);
+            this.presetNameTxt.TabIndex = 5;
+            // 
+            // presetSaveBtn
+            // 
+            this.presetSaveBtn.Location = new System.Drawing.Point(874, 31);
+            this.presetSaveBtn.Name = "presetSaveBtn";
+            this.presetSaveBtn.Size = new System.Drawing.Size(75, 23);
+            this.presetSaveBtn.TabIndex = 9;
+            this.presetSaveBtn.Text = "Save";
+            this.presetSaveBtn.UseVisualStyleBackColor = true;
+            this.presetSaveBtn.Click += new System.EventHandler(this.presetSaveBtn_Click);
+            // 
+            // minDrawSizeTxt
+            // 
+            this.minDrawSizeTxt.Location = new System.Drawing.Point(518, 321);
+            this.minDrawSizeTxt.Name = "minDrawSizeTxt";
+            this.minDrawSizeTxt.ReadOnly = true;
+            this.minDrawSizeTxt.Size = new System.Drawing.Size(100, 23);
+            this.minDrawSizeTxt.TabIndex = 4;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(518, 303);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(79, 15);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Min draw size";
+            // 
+            // minDrawSizeRange
+            // 
+            this.minDrawSizeRange.Location = new System.Drawing.Point(624, 321);
+            this.minDrawSizeRange.Maximum = 100;
+            this.minDrawSizeRange.Name = "minDrawSizeRange";
+            this.minDrawSizeRange.Size = new System.Drawing.Size(163, 45);
+            this.minDrawSizeRange.TabIndex = 3;
+            this.minDrawSizeRange.Value = 100;
+            this.minDrawSizeRange.ValueChanged += new System.EventHandler(this.minDrawSizeChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 524);
+            this.ClientSize = new System.Drawing.Size(953, 524);
+            this.Controls.Add(this.minDrawSizeRange);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.minDrawSizeTxt);
+            this.Controls.Add(this.presetSaveBtn);
+            this.Controls.Add(this.presetNameTxt);
             this.Controls.Add(this.viewportScaleTxt);
             this.Controls.Add(this.viewportTopTxt);
             this.Controls.Add(this.viewportLeftTxt);
@@ -249,6 +304,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.borderTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sizeTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.maxDepthTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minDrawSizeRange)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,6 +331,11 @@
         private System.Windows.Forms.TextBox viewportLeftTxt;
         private System.Windows.Forms.TextBox viewportTopTxt;
         private System.Windows.Forms.TextBox viewportScaleTxt;
+        private System.Windows.Forms.TextBox presetNameTxt;
+        private System.Windows.Forms.Button presetSaveBtn;
+        private System.Windows.Forms.TextBox minDrawSizeTxt;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TrackBar minDrawSizeRange;
     }
 }
 

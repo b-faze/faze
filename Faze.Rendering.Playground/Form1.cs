@@ -20,6 +20,7 @@ namespace Faze.Rendering.Playground
 {
     public partial class Form1 : Form
     {
+        private const string SettingsJsonPath = @"../../../Resources/settings.json";
         private readonly CanvasUI canvasUI;
         private FormSettings settings;
 
@@ -34,9 +35,10 @@ namespace Faze.Rendering.Playground
             borderTrackBarChanged(null, null);
             sizeTrackBarChanged(null, null);
             maxDepthTrackBarChanged(null, null);
+            minDrawSizeChanged(null, null);
             SetViewport(Viewport.Default());
 
-            this.settings = JsonConvert.DeserializeObject<FormSettings>(File.ReadAllText(@"../../../Resources/settings.json"));
+            this.settings = JsonConvert.DeserializeObject<FormSettings>(File.ReadAllText(SettingsJsonPath));
             presetDdl.DataSource = settings.Presets;
             presetDdl.DisplayMember = nameof(OptionPreset.Name);
             presetDdl.ValueMember = nameof(OptionPreset.Options);
@@ -116,11 +118,22 @@ namespace Faze.Rendering.Playground
             UpdateCanvas();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void presetLoadBtn_Click(object sender, EventArgs e)
         {
             var options = (Options)presetDdl.SelectedValue;
+            presetNameTxt.Text = presetDdl.Text;
             SetOptions(options);
             SetViewport(options.DefaultViewport);
+        }
+
+        private void presetSaveBtn_Click(object sender, EventArgs e)
+        {
+            var options = GetOptions();
+            settings.UpdatePreset(presetNameTxt.Text, options);
+            presetDdl.DataSource = settings.Presets;
+            File.WriteAllText(SettingsJsonPath, JsonConvert.SerializeObject(settings, Formatting.Indented));
+
+            MessageBox.Show("Saved");
         }
 
         private Options GetOptions()
@@ -129,7 +142,8 @@ namespace Faze.Rendering.Playground
             {
                 Size = sizeTrackBar.Value,
                 RenderDepth = maxDepthTrackBar.Value,
-                Border = (float)borderTrackBar.Value / 100
+                Border = (float)borderTrackBar.Value / 100,
+                MinChildDrawSize = (float)minDrawSizeRange.Value / 100
             };
         }
 
@@ -161,6 +175,12 @@ namespace Faze.Rendering.Playground
         {
             canvasUI.Save();
             MessageBox.Show("Saved");
+        }
+
+        private void minDrawSizeChanged(object sender, EventArgs e)
+        {
+            minDrawSizeTxt.Text = minDrawSizeRange.Value.ToString();
+            UpdateCanvas();
         }
     }
 }

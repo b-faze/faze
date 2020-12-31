@@ -7,6 +7,7 @@ namespace Faze.Rendering.Playground
         public int Size { get; set; }
         public int RenderDepth { get; set; }
         public float Border { get; set; }
+        public float MinChildDrawSize { get; set; }
         public ViewportJson ViewportJson { get; set; }
         public Viewport DefaultViewport => ViewportJson != null
             ? new Viewport(ViewportJson.Left, ViewportJson.Top, ViewportJson.Scale)

@@ -42,7 +42,8 @@ namespace Faze.Rendering.Playground
             this.renderer?.Dispose();
             this.renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(options.Size)
             {
-                BorderProportions = options.Border
+                BorderProportions = options.Border,
+                MinChildDrawSize = options.MinChildDrawSize,
             }, Math.Min(pictureBox.Width, pictureBox.Height));
 
             this.tree = CreateRandomPaintedSquareTree(options.Size, options.RenderDepth + 1);
@@ -89,27 +90,13 @@ namespace Faze.Rendering.Playground
             data.SaveTo(fileStream);
         }
 
-        private static Tree<Color> CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
+        private static Tree<Color> CreateRandomPaintedSquareTree(int size, int depth = 0)
         {
             var rnd = new Random();
-            var tree = CreateSquareTree(size, maxDepth, depth)
-                .Map((v, info) => info.Depth)
-                .Map(v => (int)(255 * (1 - (double)v / maxDepth)))
-                .Map(v =>
-                {
-                    return Color.FromArgb(v, v, v);
-                });
-
-            return new Tree<Color>(tree.Value, tree.Children);
-        }
-
-        private static Tree<Color> CreateRandomPaintedSquareTree(int size, int maxDepth, int depth = 0)
-        {
-            var rnd = new Random();
-            var tree = CreateSquareTree(size, maxDepth, depth)
+            var tree = CreateSquareTree(size, depth)
                 .Map((v, info) =>
                 {
-                    var maxValue = (int)((double)info.Depth * 255 / maxDepth);
+                    var maxValue = 255;
                     var relativeChildIndex = (double)info.ChildIndex / (size * size);
                     var r = (int)(relativeChildIndex * maxValue);
                     var g = (int)(relativeChildIndex * maxValue / 2);
@@ -120,12 +107,9 @@ namespace Faze.Rendering.Playground
             return new Tree<Color>(tree.Value, tree.Children);
         }
 
-        private static Tree<int> CreateSquareTree(int size, int maxDepth, int index, int depth = 0)
+        private static Tree<int> CreateSquareTree(int size, int index, int depth = 0)
         {
-            if (depth == maxDepth)
-                return new Tree<int>(index);
-
-            var children = Enumerable.Range(0, size * size).Select(i => CreateSquareTree(size, maxDepth, i, depth + 1));
+            var children = Enumerable.Range(0, size * size).Select(i => CreateSquareTree(size, i, depth + 1));
 
             return new Tree<int>(depth, children);
         }
