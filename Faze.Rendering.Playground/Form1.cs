@@ -64,11 +64,13 @@ namespace Faze.Rendering.Playground
 
             if (e.Button == MouseButtons.Left)
             {
-                var dx = x - lastMouseDragPoint.x;
-                var dy = y - lastMouseDragPoint.y;
-
                 var viewport = GetViewport();
-                var newViewport = new Viewport(viewport.Left + dx, viewport.Top + dy, viewport.Scale);
+
+                var dx = (x - lastMouseDragPoint.x) * viewport.Scale;
+                var dy = (y - lastMouseDragPoint.y) * viewport.Scale;
+
+                
+                var newViewport = viewport.Pan(-dx, -dy);
                 SetViewport(newViewport);
             }
 
@@ -82,22 +84,17 @@ namespace Faze.Rendering.Playground
 
         private void pictureBox_MouseWheel(object sender, MouseEventArgs e)
         {
-            const float wheelDeltaFactor = 0.1f;
-            var options = GetOptions();
+            const float wheelDeltaFactor = 0.9f;
             var viewport = GetViewport();
 
-            var depthChange = e.Delta / 120 * wheelDeltaFactor;
-            var newDepth = viewport.Scale + depthChange;
-            var scaleChange = (float)(1 / Math.Pow(options.Size, newDepth) - 1 / Math.Pow(options.Size, viewport.Scale));
+            var wheelScaleFactor = e.Delta / 120 * wheelDeltaFactor;
+            var scaleFactor = wheelScaleFactor >= 0 ? wheelScaleFactor : 1 / -wheelScaleFactor;
+            var newScale = viewport.Scale * scaleFactor;
 
             var x = (float)e.Location.X / pictureBox.Width;
             var y = (float)e.Location.Y / pictureBox.Height;
 
-            // center zoom around zoom point
-            var dx = -x * scaleChange;
-            var dy = -y * scaleChange;
-
-            var newViewport = new Viewport(viewport.Left + dx, viewport.Top + dy, newDepth);
+            var newViewport = viewport.Zoom(x, y, newScale);
             SetViewport(newViewport);
         }
 
@@ -143,12 +140,12 @@ namespace Faze.Rendering.Playground
             borderTrackBar.Value = (int)(options.Border * 100);
         }
 
-        private IViewport GetViewport()
+        private Viewport GetViewport()
         {
             return new Viewport(float.Parse(viewportLeftTxt.Text), float.Parse(viewportTopTxt.Text), float.Parse(viewportScaleTxt.Text));
         }
 
-        private void SetViewport(IViewport viewport)
+        private void SetViewport(Viewport viewport)
         {
             viewportLeftTxt.Text = viewport.Left.ToString();
             viewportTopTxt.Text = viewport.Top.ToString();

@@ -39,15 +39,15 @@ namespace Faze.Rendering.TreeRenderers
 
         public SKSurface Surface => surface;
 
-        public Tree<T> GetVisible<T>(Tree<T> tree, IViewport viewPort)
+        public Tree<T> GetVisible<T>(Tree<T> tree, Viewport viewPort)
         {
             return tree;
         }
 
-        public void Draw(Tree<Color> tree, IViewport viewport, int? maxDepth = null)
+        public void Draw(Tree<Color> tree, Viewport viewport, int? maxDepth = null)
         {
             var viewportBorderSize = 5;
-            var viewportScale = GetScale(viewport);
+            var viewportScale = viewport.Scale;
             var viewportSize = viewportScale * imageSize;
             var viewportRectSize = viewportSize - viewportBorderSize;
             var viewportRect = SKRect.Create(viewport.Left * imageSize, viewport.Top * imageSize, viewportRectSize, viewportRectSize);
@@ -110,11 +110,6 @@ namespace Faze.Rendering.TreeRenderers
                     DrawHelper(canvas, child, viewportIntersect, childRect, depth + 1, maxDepth);
                 }
             }
-        }
-
-        private float GetScale(IViewport viewport)
-        {
-            return (float)(1 / Math.Pow(options.Size, viewport.Scale));
         }
 
         public void Dispose()
