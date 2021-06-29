@@ -1,4 +1,4 @@
-# Tree Render
+# Tree Rendering
 
 ### Introduction
 
