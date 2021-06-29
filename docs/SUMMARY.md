@@ -2,7 +2,10 @@
 
 * [Introduction](README.md)
 * [Overview](overview.md)
-* [Tree Rendering](tree-render.md)
+
+## Concept
+
+* [Tree Rendering](concept/tree-render.md)
 
 ## Blog
 

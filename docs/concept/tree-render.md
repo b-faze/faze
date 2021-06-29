@@ -2,7 +2,7 @@
 
 ### Introduction
 
-![](.gitbook/assets/squaretreemapping-treeflattening.png)
+![](../.gitbook/assets/squaretreemapping-treeflattening.png)
 
 The goal of a Tree Renderer is to produce an image given some hierarchical data. These are already used in data visualisation in the form of [tree mapping](https://en.wikipedia.org/wiki/Treemapping). If you are unfamiliar with tree mapping, there are some great interactive examples on Observable:
 
