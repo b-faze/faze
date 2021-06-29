@@ -17,3 +17,7 @@
 * [8 Queens Problem](gallery/8-queens-problem.md)
 * [Chess Pieces](gallery/chess-pieces.md)
 
+---
+
+* [GitHub Repository](https://github.com/b-faze/Faze)
+
