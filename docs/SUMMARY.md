@@ -1,5 +1,9 @@
 # Table of contents
 
-* [Initial page](README.md)
-* [New page](new-page.md)
+* [Introduction](README.md)
+
+## Blog
+
+* [Visualising games as fractals](https://www.purplecrane.com/blog/posts/2018/11/02/visualising-games-as-fractals)
+* [Showing player choice](https://www.purplecrane.com/blog/posts/2018/12/11/visualising-games-as-fractals-showing-player-choice)
 

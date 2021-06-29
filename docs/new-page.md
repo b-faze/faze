@@ -1,4 +1,0 @@
-# New page
-
-content...
-
