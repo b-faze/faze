@@ -1,1 +1,2 @@
-# Faze
+# Initial page
+
