@@ -19,5 +19,6 @@
 
 ---
 
+* [Gallery](https://b-faze.github.io/gallery)
 * [GitHub Repository](https://github.com/b-faze/Faze)
 
