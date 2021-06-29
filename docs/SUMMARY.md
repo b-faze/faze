@@ -10,4 +10,5 @@
 ## Gallery
 
 * [8 Queens Problem](gallery/8-queens-problem.md)
+* [Chess Pieces](gallery/chess-pieces.md)
 
