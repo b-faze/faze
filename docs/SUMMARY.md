@@ -1,7 +1,11 @@
 # Table of contents
 
 * [Introduction](README.md)
-* [Overview](overview.md)
+* [Documentation](overview/README.md)
+  * [Game State](overview/game-state.md)
+  * [Agent](overview/agent.md)
+  * [Simulate](overview/simulate.md)
+  * [Rendering](overview/rendering.md)
 
 ## Concept
 

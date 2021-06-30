@@ -1,8 +1,8 @@
 ---
-description: Project overview
+description: Overview
 ---
 
-# Overview
+# Documentation
 
 Faze can be broken down into the following sub-components:
 
