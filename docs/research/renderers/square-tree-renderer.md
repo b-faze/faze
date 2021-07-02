@@ -6,11 +6,11 @@ description: Research
 
 This renderer is responsible for being able to infinitely subdivide a space into equal squares to represent a tree structure. Each square or 'tile' can be mapped back to a set of nodes in the tree. Each pixel in the image can then be coloured according to the set of nodes it belongs to. The branching factor of the tree must be a square number.
 
-![](../.gitbook/assets/squaretreemapping-treeflattening.png)
+![](../../.gitbook/assets/squaretreemapping-treeflattening.png)
 
 The renderer must be able to handle zooming and translating an arbitrary amount while maintaining an accurate representation of the tree within the viewport.
 
-![](../.gitbook/assets/squaretreemapping-objective.png)
+![](../../.gitbook/assets/squaretreemapping-objective.png)
 
 It is not known at present, but ideally the renderer must allow for infinite zooming without loss of precision. It is an objective of this research to know whether it is possible or not.
 
@@ -20,7 +20,7 @@ It is not known at present, but ideally the renderer must allow for infinite zoo
 
 Given a point $$P$$ in space, find which tree nodes it represents.
 
-![](../.gitbook/assets/squaretreemapping-intro.png)
+![](../../.gitbook/assets/squaretreemapping-intro.png)
 
 In this example $$P = (0.68, 0.28)$$ and when we divide the space by 2 and 3 we see tiles \(1,0\) and \(2,0\) overlap with the point respectively.
 
@@ -28,7 +28,7 @@ So, is there a formula / algorithm that exists that can give us the coordinate o
 
 ### Finding the tile coordinate
 
-![](../.gitbook/assets/squaretreemapping-tilecoordinate.png)
+![](../../.gitbook/assets/squaretreemapping-tilecoordinate.png)
 
 The above diagram illustrates what happens when we scale our space by the lacunarity. We can now clearly see how we can get our tile coordinate, by multiplying our point by the lacunarity and then flooring the result.
 
@@ -46,15 +46,15 @@ E.g.
 
 So what if we kept going? We have found the first tile, but if we subdivide it again what is the next?
 
-![](../.gitbook/assets/squaretreemapping-subtile.png)
+![](../../.gitbook/assets/squaretreemapping-subtile.png)
 
 Looking back at our tile coordinate diagram, this step is simple too!
 
-![](../.gitbook/assets/squaretreemapping-intro.png)
+![](../../.gitbook/assets/squaretreemapping-intro.png)
 
 If instead of flooring the point we take the remainder. This then gives us the point relative to the first tile!
 
-![](../.gitbook/assets/squaretreemapping-steps.png)
+![](../../.gitbook/assets/squaretreemapping-steps.png)
 
 
 

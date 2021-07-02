@@ -24,8 +24,9 @@
 
 ## Research
 
-* [Square Tree Renderer](research/square-tree-renderer.md)
-* [Circle Edge Renderer](research/circle-edge-renderer.md)
+* [Renderers](research/renderers/README.md)
+  * [Square Tree Renderer](research/renderers/square-tree-renderer.md)
+  * [Circle Edge Renderer](research/renderers/circle-edge-renderer.md)
 
 ---
 
