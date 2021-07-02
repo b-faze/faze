@@ -28,7 +28,7 @@ This can be then written in terms of the radius of parent 'R' and child 'r'. Whe
 
 Given the above restrictions, the results for 1 - 4 children are listed below
 
-&lt;img&gt;
+ ![](../.gitbook/assets/proportional_1.png)![](../.gitbook/assets/proportional_2.png) ![](../.gitbook/assets/proportional_3.png) ![](../.gitbook/assets/proportional_4.png) 
 
 One question is to ask how does this render with more children, particularly if the children ever overlap. To find out we can draw the following diagram.
 
@@ -84,11 +84,11 @@ This method tweaks the equation for the child radius to achieve a desired gap be
 
 we can modify the equation for x to fix the value
 
-> $$r = \frac{1}{2}R\sqrt{2(1 - \cos(\frac{2\pi}{n}) - x)}$$
+> $$r = \frac{1}{\sqrt{2}}R\sqrt{1 - \cos(\frac{2\pi}{n})} - x$$
 
 Setting the gap size to zero
 
-&lt;img&gt;
+![](../.gitbook/assets/zerogap_1.png) ![](../.gitbook/assets/zerogap_2.png) ![](../.gitbook/assets/zerogap_3.png) ![](../.gitbook/assets/zerogap_4.png) 
 
 ![Adjusting the gap size](../.gitbook/assets/gapchange.gif)
 
