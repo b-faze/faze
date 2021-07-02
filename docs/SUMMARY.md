@@ -16,13 +16,18 @@
 * [Visualising games as fractals](https://www.purplecrane.com/blog/posts/2018/11/02/visualising-games-as-fractals)
 * [Visualising player choice](https://www.purplecrane.com/blog/posts/2018/12/11/visualising-games-as-fractals-showing-player-choice)
 
-## Gallery
+## Examples
 
-* [8 Queens Problem](gallery/8-queens-problem.md)
-* [Chess Pieces](gallery/chess-pieces.md)
+* [8 Queens Problem](examples/8-queens-problem.md)
+* [Chess Pieces](examples/chess-pieces.md)
+* [Gallery](https://b-faze.github.io/gallery)
+
+## Research
+
+* [Square Tree Renderer](research/square-tree-renderer.md)
+* [Circle Edge Renderer](research/circle-edge-renderer.md)
 
 ---
 
-* [Gallery](https://b-faze.github.io/gallery)
 * [GitHub Repository](https://github.com/b-faze/Faze)
 
