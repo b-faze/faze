@@ -1,7 +1,7 @@
 # Table of contents
 
 * [Introduction](README.md)
-* [Documentation](overview/README.md)
+* [Overview](overview/README.md)
   * [Game State](overview/game-state.md)
   * [Agent](overview/agent.md)
   * [Simulate](overview/simulate.md)
