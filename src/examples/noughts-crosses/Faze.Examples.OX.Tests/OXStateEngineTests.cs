@@ -25,7 +25,7 @@ namespace Faze.Examples.OX.Tests
             var engine = new GameSimulator();
             var p1 = new MonkeyAgent(rnd);
             var p2 = new MonkeyAgent(rnd);
-            IGameState<int, WinLoseDrawResult?, IAgent> state = OXState<IAgent>.Initial(p1, p2);
+            IGameState<int, WinLoseDrawResult?, IPlayer> state = OXState<IPlayer>.Initial(p1, p2);
 
             state = state.Move(0);
             state.Result.ShouldBeNull();

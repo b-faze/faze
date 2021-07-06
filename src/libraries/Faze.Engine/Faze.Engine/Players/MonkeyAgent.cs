@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Faze.Engine.Players
 {
-    public class MonkeyAgent : IAgent
+    public class MonkeyAgent : IPlayer
     {
         private readonly Random rnd;
 

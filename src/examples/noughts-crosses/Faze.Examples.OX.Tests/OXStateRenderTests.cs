@@ -19,7 +19,7 @@ namespace Faze.Examples.OX.Tests
         {
             var p1 = new MonkeyAgent();
             var p2 = new MonkeyAgent();
-            IGameState<int, WinLoseDrawResult?, IAgent> state = OXState<IAgent>.Initial(p1, p2);
+            IGameState<int, WinLoseDrawResult?, IPlayer> state = OXState<IPlayer>.Initial(p1, p2);
 
             var rendererOptions = new SquareTreeRendererOptions(3)
             {
