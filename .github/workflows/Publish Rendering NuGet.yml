@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Publish Faze.Engine NuGet
+name: Publish Faze.Rendering NuGet
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -28,7 +28,7 @@ jobs:
         uses: brandedoutcast/publish-nuget@v2.5.5
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: ./src/libraries/Faze.Engine/Faze.Engine/Faze.Engine.csproj
+          PROJECT_FILE_PATH: ./src/libraries/Faze.Rendering/Faze.Rendering/Faze.Rendering.csproj
           # NuGet package id, used for version detection & defaults to project name
           #PACKAGE_NAME: # optional
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
@@ -57,8 +57,8 @@ jobs:
 
       - name: Build solution and generate NuGet package
         run: |  
-          cd src/libraries/Faze.Engine/Faze.Engine
+          cd src/libraries/Faze.Rendering/Faze.Rendering
           dotnet build -c Release
           
       - name: Push generated package to GitHub registry
-        run: dotnet nuget push src/libraries/Faze.Engine/Faze.Engine/bin/Release/*.nupkg --skip-duplicate --no-symbols true
+        run: dotnet nuget push src/libraries/Faze.Rendering/Faze.Rendering/bin/Release/*.nupkg --skip-duplicate --no-symbols true
