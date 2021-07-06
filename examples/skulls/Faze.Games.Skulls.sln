@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Games.Skulls", "Faze.Games.Skulls\Faze.Games.Skulls.csproj", "{089F57DC-7CDF-4A92-9BF0-EB172632A524}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Games.Skulls.Tests", "Faze.Games.Skulls.Tests\Faze.Games.Skulls.Tests.csproj", "{82AF72D1-C154-4A74-98FB-7B46191C726A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{089F57DC-7CDF-4A92-9BF0-EB172632A524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{089F57DC-7CDF-4A92-9BF0-EB172632A524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{089F57DC-7CDF-4A92-9BF0-EB172632A524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{089F57DC-7CDF-4A92-9BF0-EB172632A524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82AF72D1-C154-4A74-98FB-7B46191C726A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82AF72D1-C154-4A74-98FB-7B46191C726A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82AF72D1-C154-4A74-98FB-7B46191C726A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82AF72D1-C154-4A74-98FB-7B46191C726A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4DB9E50-A277-4490-AC81-E0800C384F11}
+	EndGlobalSection
+EndGlobal
