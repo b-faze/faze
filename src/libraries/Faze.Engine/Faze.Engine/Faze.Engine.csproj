@@ -4,11 +4,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Version>1.0.0-pre.2</Version>
+    <Version>1.0.0-pre.13</Version>
     <Authors>b-faze;b-hub</Authors>
     <Company>b-faze</Company>
-    <PackageProjectUrl>https://github.com/b-faze/Faze.Engine</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/b-faze/Faze.Engine</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/b-faze/faze</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/b-faze/faze</RepositoryUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
