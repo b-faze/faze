@@ -52,6 +52,9 @@ namespace Faze.Rendering.TreeLinq
         /// </summary>
         public static Tree<TOutValue> Map<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn)
         {
+            if (tree == null)
+                return null;
+
             var newValue = fn(tree.Value);
             var newChildren = tree.Children?.Select(c => Map(c, fn));
 
@@ -60,6 +63,9 @@ namespace Faze.Rendering.TreeLinq
 
         public static Tree<TOutValue> Map<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn)
         {
+            if (tree == null)
+                return null;
+
             var info = new TreeMapInfo(0, 0);
             return MapHelper(tree, fn, info);
         }
@@ -119,6 +125,17 @@ namespace Faze.Rendering.TreeLinq
                 var newState = state.Move(move);
                 return ToStateTree(newState);
             });
+
+            return new Tree<IGameState<TMove, TResult, TPlayer>>(state, children);
+        }
+
+        public static Tree<IGameState<TMove, TResult, TPlayer>> ToStateTree<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state, Func<TMove, int> moveIndexer, int totalChildren)
+        {
+            var children = new Tree<IGameState<TMove, TResult, TPlayer>>[totalChildren];
+            foreach (var move in state.AvailableMoves) 
+            {
+                children[moveIndexer(move)] = ToStateTree(state.Move(move), moveIndexer, totalChildren);
+            }
 
             return new Tree<IGameState<TMove, TResult, TPlayer>>(state, children);
         }
