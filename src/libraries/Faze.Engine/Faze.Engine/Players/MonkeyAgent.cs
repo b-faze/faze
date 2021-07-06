@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Faze.Engine.Players
 {
-    public class MonkeyPlayer : IPlayer
+    public class MonkeyAgent : IAgent
     {
         private readonly Random rnd;
 
-        public MonkeyPlayer(Random rnd = null)
+        public MonkeyAgent(Random rnd = null)
         {
             this.rnd = rnd ?? ThreadSafeRandom.Random();
         }

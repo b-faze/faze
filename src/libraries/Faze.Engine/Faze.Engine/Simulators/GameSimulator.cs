@@ -9,7 +9,7 @@ namespace Faze.Engine.Simulators
 {
     public class GameSimulator : IGameSimulator
     {
-        public TResult Simulate<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state)
+        public TResult Simulate<TMove, TResult>(IGameState<TMove, TResult, IAgent> state)
         {
             TResult result;
             while ((result = state.Result) == null)
@@ -21,7 +21,7 @@ namespace Faze.Engine.Simulators
             return result;
         }
 
-        public TMove[] SimulatePath<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state, int maxDepth)
+        public TMove[] SimulatePath<TMove, TResult>(IGameState<TMove, TResult, IAgent> state, int maxDepth)
         {
             var path = new List<TMove>();
             var depth = 0;
@@ -37,7 +37,7 @@ namespace Faze.Engine.Simulators
             return path.ToArray();
         }
 
-        public IEnumerable<TResult> SampleResults<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state, int n)
+        public IEnumerable<TResult> SampleResults<TMove, TResult>(IGameState<TMove, TResult, IAgent> state, int n)
         {
             while (n-- > 0)
             {
@@ -45,7 +45,7 @@ namespace Faze.Engine.Simulators
             }
         }
 
-        public IEnumerable<TMove[]> SamplePaths<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state, int n, int maxDepth)
+        public IEnumerable<TMove[]> SamplePaths<TMove, TResult>(IGameState<TMove, TResult, IAgent> state, int n, int maxDepth)
         {
             while (n-- > 0)
             {

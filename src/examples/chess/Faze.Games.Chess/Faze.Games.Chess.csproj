@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Faze.Abstractions" Version="1.0.0-pre.5" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\..\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
     <ProjectReference Include="..\External\ChessLib\Chess\Chess.csproj" />
   </ItemGroup>
 

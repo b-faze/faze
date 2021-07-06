@@ -1,5 +1,4 @@
-﻿using Faze.Abstractions;
-using Faze.Abstractions.GameResults;
+﻿using Faze.Abstractions.GameStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;

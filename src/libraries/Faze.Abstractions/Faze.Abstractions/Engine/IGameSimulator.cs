@@ -5,6 +5,6 @@ namespace Faze.Abstractions.Engine
 {
     public interface IGameSimulator
     {
-        TResult Simulate<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state);
+        TResult Simulate<TMove, TResult>(IGameState<TMove, TResult, IAgent> state);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Faze.Abstractions.Players
 {
-    public interface IPlayer
+    public interface IAgent
     {
         TMove ChooseMove<TMove, TResult, TPlayer>(IGameState<TMove, TResult, TPlayer> state);
     }

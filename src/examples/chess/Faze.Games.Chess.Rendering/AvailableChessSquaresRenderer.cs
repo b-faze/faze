@@ -21,11 +21,13 @@ namespace Faze.Games.Chess.Rendering
             {
                 BorderProportions = 0
             };
-            var renderer = new SquareTreeRenderer(options);
+            var renderer = new SquareTreeRenderer(options, 1000);
             var tree = GetTree(state, maxDepth);
 
 
-            using var img = renderer.Draw(new PaintedTree(tree.Value, tree.Children), 1000);
+            renderer.Draw(tree, new Viewport());
+
+            using var img = renderer.GetBitmap();
             img.Save(filename, ImageFormat.Png);
         }
 
