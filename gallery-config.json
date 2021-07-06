@@ -1,5 +1,5 @@
 {
-  "input": "./gallery",
+  "input": "./src/pages/gallery",
   "output": "./build_output",
   "title": "Photo Gallery",
   "sort-albums-by": "title",
@@ -7,7 +7,7 @@
   "download-photos": "copy",
   "cleanup": true,
   "theme": "flow",
-  "theme-style": "./custom.css",
+  "theme-style": "./src/pages/custom.css",
   "footer": "b-faze 2021",
   "usage-stats": false
 }
