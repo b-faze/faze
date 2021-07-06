@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.0-pre.5</Version>
+    <Version>1.0.0-pre.13</Version>
     <Authors>b-hub;b-faze</Authors>
     <Company>b-faze</Company>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <RepositoryUrl>https://github.com/b-faze/Faze.Rendering</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/b-faze/Faze.Rendering/wiki</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/b-faze/faze</RepositoryUrl>
+    <PackageProjectUrl>https://b-hub.gitbook.io/faze/</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Tools to visualise GameStates/games
