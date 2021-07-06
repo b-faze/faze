@@ -1,0 +1,77 @@
+var $canvas = $('canvas');
+var ww = $(window).width();
+var wh = $(window).height();
+$canvas.attr('width', ww)
+.attr('height', wh);
+
+var canvas = $canvas[0];
+var ctx = canvas.getContext('2d');
+var centerP = {x: ww/2, y: wh/2};
+
+var R = 0.25 * wh;
+
+ctx.strokeStyle = '#FFF';
+ctx.beginPath();
+//ctx.arc(centerP.x, centerP.y, R, 0, 2 * Math.PI);
+ctx.stroke();
+ctx.closePath();
+
+var c1 = new Tree(0, []);
+var c2 = new Tree(0, []);
+var c3 = new Tree(0, []);
+var tree = new Tree(0, [c1, c2, c3]);
+
+renderTree(ctx, centerP, R, 0, 0, tree);
+
+function renderTree(ctx, centerP, parentR, n, i, tree) {
+  var delta = f(parentR, i, n);
+  var {x, y} = {x: centerP.x + delta.x, y: centerP.y + delta.y};
+  var r = fR(parentR, n, tree.x);
+  
+  ctx.fillStyle = '#F00';
+  ctx.beginPath();
+  ctx.arc(x, y, 10, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.closePath();
+  
+  ctx.strokeStyle = '#FFF';
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.closePath();
+  
+  var childrenN = tree.children.length;
+  for (var k = 0; k < childrenN; k++) {
+    renderTree(ctx, {x, y}, r, childrenN, k, tree.children[k]);
+  }
+}
+
+function f(rPrev, i, n) {
+  if (n === 0)
+    return {x: 0, y: 0};
+  
+  return {x: fX(rPrev, i, n), y: fY(rPrev, i, n)};
+}
+
+function fX(rPrev, i, n) {
+  return rPrev * Math.cos(2 * Math.PI * i / n);
+}
+
+function fY(rPrev, i, n) {
+  return rPrev * Math.sin(2 * Math.PI * i / n);
+}
+
+function fR(rPrev, n, x) {
+  if (n === 0)
+    return rPrev;
+  
+  return 0.5 * (rPrev * Math.sqrt(2 * (1 - Math.cos(2 * Math.PI / n))) - 0);
+}
+
+function Tree(x, children) {
+  this.x = x;
+  this.children = children;
+}
+
+
+

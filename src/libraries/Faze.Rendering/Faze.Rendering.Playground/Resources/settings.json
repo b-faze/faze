@@ -1,0 +1,34 @@
+{
+  "Presets": [
+    {
+      "Name": "Preset 1",
+      "Options": {
+        "Size": 3,
+        "RenderDepth": 3,
+        "Border": 0.01,
+        "MinChildDrawSize": 1.0,
+        "ViewportJson": null,
+        "DefaultViewport": {
+          "Left": 0.0,
+          "Top": 0.0,
+          "Scale": 1.0
+        }
+      }
+    },
+    {
+      "Name": "Preset 2",
+      "Options": {
+        "Size": 3,
+        "RenderDepth": 6,
+        "Border": 0.21,
+        "MinChildDrawSize": 1.0,
+        "ViewportJson": null,
+        "DefaultViewport": {
+          "Left": 0.0,
+          "Top": 0.0,
+          "Scale": 1.0
+        }
+      }
+    }
+  ]
+}
