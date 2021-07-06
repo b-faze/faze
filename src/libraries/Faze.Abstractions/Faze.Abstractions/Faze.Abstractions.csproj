@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/b-faze/faze</PackageProjectUrl>
+    <PackageProjectUrl>https://b-hub.gitbook.io/faze/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/b-faze/faze</RepositoryUrl>
     <Authors>b-faze;b-hub</Authors>
     <Company>b-faze</Company>
