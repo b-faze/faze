@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Abstractions", "src\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj", "{947B780F-644D-4BD3-A3D0-2CDFF7D27B4D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Engine", "src\libraries\Faze.Engine\Faze.Engine\Faze.Engine.csproj", "{ED1912AF-BF4E-4AD1-B315-F2BC498C94DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering", "src\libraries\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj", "{3842161F-9E0D-49D7-AF1E-8B5F9EA9515D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{36EBED6A-B078-4EA6-AA7B-95D3659FC8A9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Games.Chess", "examples\chess\Faze.Games.Chess\Faze.Games.Chess.csproj", "{FB01E25A-4B9A-4E7F-B3BA-486E1AA1BE0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Games.Skulls", "examples\skulls\Faze.Games.Skulls\Faze.Games.Skulls.csproj", "{05B8E666-6B83-407F-B746-04CA8A4F4330}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{947B780F-644D-4BD3-A3D0-2CDFF7D27B4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{947B780F-644D-4BD3-A3D0-2CDFF7D27B4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{947B780F-644D-4BD3-A3D0-2CDFF7D27B4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{947B780F-644D-4BD3-A3D0-2CDFF7D27B4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1912AF-BF4E-4AD1-B315-F2BC498C94DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1912AF-BF4E-4AD1-B315-F2BC498C94DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1912AF-BF4E-4AD1-B315-F2BC498C94DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1912AF-BF4E-4AD1-B315-F2BC498C94DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3842161F-9E0D-49D7-AF1E-8B5F9EA9515D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3842161F-9E0D-49D7-AF1E-8B5F9EA9515D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3842161F-9E0D-49D7-AF1E-8B5F9EA9515D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3842161F-9E0D-49D7-AF1E-8B5F9EA9515D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB01E25A-4B9A-4E7F-B3BA-486E1AA1BE0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB01E25A-4B9A-4E7F-B3BA-486E1AA1BE0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB01E25A-4B9A-4E7F-B3BA-486E1AA1BE0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB01E25A-4B9A-4E7F-B3BA-486E1AA1BE0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05B8E666-6B83-407F-B746-04CA8A4F4330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05B8E666-6B83-407F-B746-04CA8A4F4330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05B8E666-6B83-407F-B746-04CA8A4F4330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05B8E666-6B83-407F-B746-04CA8A4F4330}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB01E25A-4B9A-4E7F-B3BA-486E1AA1BE0B} = {36EBED6A-B078-4EA6-AA7B-95D3659FC8A9}
+		{05B8E666-6B83-407F-B746-04CA8A4F4330} = {36EBED6A-B078-4EA6-AA7B-95D3659FC8A9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF0267C9-5DB8-4A3A-8106-112CA497CA91}
+	EndGlobalSection
+EndGlobal
