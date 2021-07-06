@@ -28,7 +28,7 @@ jobs:
         uses: brandedoutcast/publish-nuget@v2.5.5
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: src/libraries/Faze.Abstractions/Faze.Abstractions.csproj
+          PROJECT_FILE_PATH: ./src/libraries/Faze.Abstractions/Faze.Abstractions/Faze.Abstractions.csproj
           # NuGet package id, used for version detection & defaults to project name
           #PACKAGE_NAME: # optional
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
@@ -57,8 +57,8 @@ jobs:
 
       - name: Build solution and generate NuGet package
         run: |  
-          cd src/libraries/Faze.Abstractions
+          cd src/libraries/Faze.Abstractions/Faze.Abstractions
           dotnet build -c Release
           
       - name: Push generated package to GitHub registry
-        run: dotnet nuget push src/libraries/Faze.Abstractions/bin/Release/*.nupkg --skip-duplicate --no-symbols true
+        run: dotnet nuget push src/libraries/Faze.Abstractions/Faze.Abstractions/bin/Release/*.nupkg --skip-duplicate --no-symbols true
