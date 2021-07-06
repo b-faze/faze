@@ -23,8 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Faze.Abstractions" Version="1.0.0-pre.11" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>
