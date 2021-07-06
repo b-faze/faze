@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Faze.Abstractions.Players;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Faze.Games.Skulls
 {
-    public class SkullsPlayerEnvironment<TPlayer>
+    public class SkullsPlayerEnvironment
     {
-        public SkullsPlayerEnvironment(TPlayer player)
+        public SkullsPlayerEnvironment(PlayerIndex player)
         {
             Player = player;
         }
 
-        public static  SkullsPlayerEnvironment<TPlayer> Initial(TPlayer player)
+        public static  SkullsPlayerEnvironment Initial(PlayerIndex player)
         {
-            return new SkullsPlayerEnvironment<TPlayer>(player)
+            return new SkullsPlayerEnvironment(player)
             {
                 Stack = new SkullsTokenType[0],
                 Hand = new SkullsTokenType[]
@@ -27,7 +28,7 @@ namespace Faze.Games.Skulls
             };
         }
 
-        public TPlayer Player { get; }
+        public PlayerIndex Player { get; }
         public SkullsTokenType[] Stack { get; private set; }
         public SkullsTokenType[] RevealedStack { get; private set; }
         public SkullsTokenType[] Hand { get; private set; }
@@ -91,9 +92,9 @@ namespace Faze.Games.Skulls
             return Stack.Length > 0;
         }
 
-        internal SkullsPlayerEnvironment<TPlayer> Clone()
+        internal SkullsPlayerEnvironment Clone()
         {
-            return new SkullsPlayerEnvironment<TPlayer>(Player)
+            return new SkullsPlayerEnvironment(Player)
             {
                 Stack = Stack.ToArray(),
                 Hand = Hand.ToArray(),

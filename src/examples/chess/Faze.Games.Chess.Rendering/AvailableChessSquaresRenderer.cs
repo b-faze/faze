@@ -15,7 +15,7 @@ namespace Faze.Games.Chess.Rendering
 {
     public class AvailableChessSquaresRenderer
     {
-        public void Draw(IGameState<ChessMove, ChessResult<int>, int> state, int maxDepth, string filename)
+        public void Draw(IGameState<ChessMove, ChessResult> state, int maxDepth, string filename)
         {
             var options = new SquareTreeRendererOptions(8)
             {
@@ -31,7 +31,7 @@ namespace Faze.Games.Chess.Rendering
             img.Save(filename, ImageFormat.Png);
         }
 
-        private Tree<Color> GetTree(IGameState<ChessMove, ChessResult<int>, int> state, int maxDepth) 
+        private Tree<Color> GetTree(IGameState<ChessMove, ChessResult> state, int maxDepth) 
         {
             var tree = Limit(state.ToPathTree()
                 .Map(path => path.Select(ToGridIndex).ToArray()), maxDepth);

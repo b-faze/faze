@@ -118,7 +118,7 @@ namespace Faze.Rendering.TreeLinq
             }
         }
 
-        public static Tree<IGameState<TMove, TResult, TPlayer>> ToStateTree<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state)
+        public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state)
         {
             var children = state.GetAvailableMoves().Select(move =>
             {
@@ -126,26 +126,26 @@ namespace Faze.Rendering.TreeLinq
                 return ToStateTree(newState);
             });
 
-            return new Tree<IGameState<TMove, TResult, TPlayer>>(state, children);
+            return new Tree<IGameState<TMove, TResult>>(state, children);
         }
 
-        public static Tree<IGameState<TMove, TResult, TPlayer>> ToStateTree<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state, Func<TMove, int> moveIndexer, int totalChildren)
+        public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state, Func<TMove, int> moveIndexer, int totalChildren)
         {
-            var children = new Tree<IGameState<TMove, TResult, TPlayer>>[totalChildren];
+            var children = new Tree<IGameState<TMove, TResult>>[totalChildren];
             foreach (var move in state.GetAvailableMoves()) 
             {
                 children[moveIndexer(move)] = ToStateTree(state.Move(move), moveIndexer, totalChildren);
             }
 
-            return new Tree<IGameState<TMove, TResult, TPlayer>>(state, children);
+            return new Tree<IGameState<TMove, TResult>>(state, children);
         }
 
-        public static Tree<TMove[]> ToPathTree<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state)
+        public static Tree<TMove[]> ToPathTree<TMove, TResult>(this IGameState<TMove, TResult> state)
         {
             return ToPathTreeHelper(state, new TMove[0]);
         }
 
-        private static Tree<TMove[]> ToPathTreeHelper<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state, TMove[] path)
+        private static Tree<TMove[]> ToPathTreeHelper<TMove, TResult>(this IGameState<TMove, TResult> state, TMove[] path)
         {
             var children = state.GetAvailableMoves().Select(move =>
             {

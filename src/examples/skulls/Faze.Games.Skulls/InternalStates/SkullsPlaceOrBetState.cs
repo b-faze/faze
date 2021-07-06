@@ -5,21 +5,21 @@ using System.Linq;
 
 namespace Faze.Games.Skulls
 {
-    internal class SkullsPlaceOrBetState<TPlayer> : SkullsState<TPlayer>
+    internal class SkullsPlaceOrBetState : SkullsState
     {
-        public SkullsPlaceOrBetState(SkullsPlayerEnvironments<TPlayer> playerEnvironments, int currentPlayerIndex)
+        public SkullsPlaceOrBetState(SkullsPlayerEnvironments playerEnvironments, int currentPlayerIndex)
             : base(playerEnvironments, currentPlayerIndex)
         {
         }
 
-        public override IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move)
+        public override IGameState<ISkullsMove, SkullsResult> Move(ISkullsMove move)
         {
             if (move is SkullsPlacementMove placementMove)
             {
                 var newEnvironment = playerEnvironments.Place(currentPlayerIndex, placementMove.Token);
                 var newPlayerIndex = newEnvironment.GetNextPlayerIndex(currentPlayerIndex);
 
-                return new SkullsPlaceOrBetState<TPlayer>(newEnvironment, newPlayerIndex);
+                return new SkullsPlaceOrBetState(newEnvironment, newPlayerIndex);
             }
 
             if (move is SkullsBetMove betMove)
@@ -29,10 +29,10 @@ namespace Faze.Games.Skulls
 
                 if (newEnvironment.GetMaxPossibleBet() == betMove.Bet)
                 {
-                    return new SkullsRevealState<TPlayer>(newEnvironment, currentPlayerIndex, betMove.Bet.Value);
+                    return new SkullsRevealState(newEnvironment, currentPlayerIndex, betMove.Bet.Value);
                 }
 
-                return new SkullsBetState<TPlayer>(newEnvironment, newPlayerIndex);
+                return new SkullsBetState(newEnvironment, newPlayerIndex);
             }
 
             throw new Exception("Invalid move");

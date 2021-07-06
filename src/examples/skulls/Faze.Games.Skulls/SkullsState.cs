@@ -1,33 +1,34 @@
 ﻿using Faze.Abstractions;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Players;
 using Faze.Games.Skulls;
 using System.Collections.Generic;
 
 namespace Faze.Games.Skulls
 {
-    public abstract class SkullsState<TPlayer> : IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer>
+    public abstract class SkullsState : IGameState<ISkullsMove, SkullsResult>
     {
-        protected  readonly SkullsPlayerEnvironments<TPlayer> playerEnvironments;
+        protected  readonly SkullsPlayerEnvironments playerEnvironments;
         protected readonly int currentPlayerIndex;
 
-        protected SkullsState(SkullsPlayerEnvironments<TPlayer> playerEnvironments, int currentPlayerIndex)
+        protected SkullsState(SkullsPlayerEnvironments playerEnvironments, int currentPlayerIndex)
         {
             this.playerEnvironments = playerEnvironments;
             this.currentPlayerIndex = currentPlayerIndex;
         }
 
-        public static SkullsState<TPlayer> Initial(TPlayer[] players)
+        public static SkullsState Initial(PlayerIndex[] players)
         {
-            var playerEnvironments = SkullsPlayerEnvironments<TPlayer>.Initial(players);
-            return new SkullsInitialPlacementState<TPlayer>(playerEnvironments, 0);
+            var playerEnvironments = SkullsPlayerEnvironments.Initial(players);
+            return new SkullsInitialPlacementState(playerEnvironments, 0);
         }
 
-        public TPlayer GetCurrentPlayer() => playerEnvironments.GetForPlayer(currentPlayerIndex).Player;
-        public SkullsResult<TPlayer> Result { get; protected set; }
-        public SkullsResult<TPlayer> GetResult() => Result;
+        public PlayerIndex CurrentPlayerIndex => playerEnvironments.GetForPlayer(currentPlayerIndex).Player;
+        public SkullsResult Result { get; protected set; }
+        public SkullsResult GetResult() => Result;
 
-        public abstract IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move);
+        public abstract IGameState<ISkullsMove, SkullsResult> Move(ISkullsMove move);
 
         public abstract IEnumerable<ISkullsMove> GetAvailableMoves();
     }

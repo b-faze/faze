@@ -1,4 +1,5 @@
 ﻿using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Players;
 using Rudz.Chess;
 using Rudz.Chess.Factories;
 using Rudz.Chess.Fen;
@@ -10,21 +11,16 @@ using System.Linq;
 
 namespace Faze.Games.Chess
 {
-    public class ChessState<TPlayer> : IGameState<ChessMove, ChessResult<TPlayer>, TPlayer>
+    public class ChessState : IGameState<ChessMove, ChessResult>
     {
-        private readonly TPlayer p1;
-        private readonly TPlayer p2;
-
         private readonly IGame game;
 
-        private ChessState(TPlayer p1, TPlayer p2, IGame game) 
+        private ChessState(IGame game) 
         {
-            this.p1 = p1;
-            this.p2 = p2;
             this.game = game;
         }
 
-        public static ChessState<TPlayer> Initial(TPlayer p1, TPlayer p2)
+        public static ChessState Initial()
         {
             var board = new Board();
             var pieceValue = new PieceValue();
@@ -32,12 +28,12 @@ namespace Faze.Games.Chess
             var game = GameFactory.Create(position);
             game.NewGame(Fen.StartPositionFen);
 
-            return new ChessState<TPlayer>(p1, p2, game);
+            return new ChessState(game);
         }
 
-        public TPlayer GetCurrentPlayer() => game.CurrentPlayer().IsWhite ? p1 : p2;
+        public PlayerIndex CurrentPlayerIndex => game.CurrentPlayer().IsWhite ? PlayerIndex.P1 : PlayerIndex.P2;
 
-        public IGameState<ChessMove, ChessResult<TPlayer>, TPlayer> Move(ChessMove move)
+        public IGameState<ChessMove, ChessResult> Move(ChessMove move)
         {
             var board = new Board();
             var pieceValue = new PieceValue();
@@ -47,7 +43,7 @@ namespace Faze.Games.Chess
 
             newGame.Pos.MakeMove(move.move, new State());
 
-            return new ChessState<TPlayer>(p1, p2, newGame);
+            return new ChessState(newGame);
         }
 
         public IEnumerable<ChessMove> GetAvailableMoves()
@@ -55,13 +51,13 @@ namespace Faze.Games.Chess
             return game.Pos.GenerateMoves().Select(move => new ChessMove(move));
         }
 
-        public ChessResult<TPlayer> GetResult()
+        public ChessResult GetResult()
         {
             var pos = game.Pos;
 
             if (pos.IsMate) {
-                var winningPlayer = GetCurrentPlayer().Equals(p1) ? p2 : p1;
-                return ChessResult<TPlayer>.CheckMate(winningPlayer);
+                var winningPlayer = CurrentPlayerIndex.Equals(PlayerIndex.P1) ? PlayerIndex.P2 : PlayerIndex.P1;
+                return ChessResult.CheckMate(winningPlayer);
             }
 
             return null;

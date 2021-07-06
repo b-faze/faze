@@ -1,8 +1,8 @@
 ﻿namespace Faze.Abstractions.GameStates
 {
-    public interface IGridGameState<TMove, out TResult, out TPlayer> : IGameState<TMove, TResult, TPlayer>
+    public interface IGridGameState<TMove, out TResult> : IGameState<TMove, TResult>
     {
         int GridSize { get; }
-        new IGridGameState<TMove, TResult, TPlayer> Move(TMove move);
+        new IGridGameState<TMove, TResult> Move(TMove move);
     }
 }

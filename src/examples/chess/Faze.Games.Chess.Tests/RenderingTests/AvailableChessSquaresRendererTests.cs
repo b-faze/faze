@@ -15,7 +15,7 @@ namespace Faze.Games.Chess.Tests.RenderingTests
         {
             var renderer = new AvailableChessSquaresRenderer();
 
-            IGameState<ChessMove, ChessResult<int>, int> state = ChessState<int>.Initial(1, 2);
+            IGameState<ChessMove, ChessResult> state = ChessState.Initial();
 
             renderer.Draw(state, 1, "../../../something.png");
         }

@@ -1,19 +1,20 @@
-﻿using System;
+﻿using Faze.Abstractions.Players;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Faze.Games.Chess
 {
-    public class ChessResult<TPlayer>
+    public class ChessResult
     {
-        public TPlayer WinningPlayer { get; private set; }
+        public PlayerIndex WinningPlayerIndex { get; private set; }
         public bool IsCheckMate { get; private set; }
 
-        internal static ChessResult<TPlayer> CheckMate(TPlayer otherPlayer)
+        internal static ChessResult CheckMate(PlayerIndex otherPlayer)
         {
-            return new ChessResult<TPlayer>
+            return new ChessResult
             {
-                WinningPlayer = otherPlayer,
+                WinningPlayerIndex = otherPlayer,
                 IsCheckMate = true
             };
         }

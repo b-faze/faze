@@ -10,19 +10,11 @@ namespace Faze.Engine.Players
 {
     public class MonkeyAgent : IPlayer
     {
-        private readonly Random rnd;
-
-        public MonkeyAgent(Random rnd = null)
-        {
-            this.rnd = rnd ?? ThreadSafeRandom.Random();
-        }
-
-        public TMove ChooseMove<TMove, TResult, TPlayer>(IGameState<TMove, TResult, TPlayer> state)
+        public PossibleMoves<TMove> GetMoves<TMove, TResult>(IGameState<TMove, TResult> state)
         {
             var availableMoves = state.GetAvailableMoves().ToArray();
-            var rndMove = rnd.Next(0, availableMoves.Length);
-            var move = availableMoves[rndMove];
-            return move;
+
+            return new PossibleMoves<TMove>(availableMoves.Select(move => (move, 1)));
         }
     }
 }

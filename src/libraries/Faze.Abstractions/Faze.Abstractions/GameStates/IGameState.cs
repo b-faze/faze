@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Faze.Abstractions.Players;
+using System.Collections.Generic;
 
 namespace Faze.Abstractions.GameStates
 {
-    public interface IGameState<TMove, out TResult, out TPlayer>
+    public interface IGameState<TMove, out TResult>
     {
-        TPlayer GetCurrentPlayer();
+        PlayerIndex CurrentPlayerIndex { get; }
 
         IEnumerable<TMove> GetAvailableMoves();
 
         TResult GetResult();
 
-        IGameState<TMove, TResult, TPlayer> Move(TMove move);
+        IGameState<TMove, TResult> Move(TMove move);
     }
 }

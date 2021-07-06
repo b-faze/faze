@@ -4,27 +4,24 @@ using System.Linq;
 using Faze.Abstractions;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Players;
 
 namespace Faze.Examples.OX
 {
-    public struct OXState<IAgent> : IGameState<int, WinLoseDrawResult?, IAgent>
+    public struct OXState : IGameState<int, WinLoseDrawResult?>
     {
         private const int MAX_MOVES = 9;
         private static int[] WinningStates = new[] { 292, 146, 73, 448, 56, 7, 273, 84 };
 
-        private IAgent p1;
-        private IAgent p2;
         private HashSet<int> availableMoves;
         private bool p1Turn;
         private int p1Moves;
         private int p2Moves;
 
-        public static OXState<IAgent> Initial(IAgent p1, IAgent p2) => new OXState<IAgent>(p1, p2, 0, 0, true, new HashSet<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
+        public static OXState Initial => new OXState(0, 0, true, new HashSet<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8 });
 
-        private OXState(IAgent p1, IAgent p2, int p1Moves, int p2Moves, bool p1Turn, HashSet<int> availableMoves)
+        private OXState(int p1Moves, int p2Moves, bool p1Turn, HashSet<int> availableMoves)
         {
-            this.p1 = p1;
-            this.p2 = p2;
             this.p1Turn = p1Turn;
             this.availableMoves = new HashSet<int>();
             this.availableMoves.UnionWith(availableMoves);
@@ -34,13 +31,13 @@ namespace Faze.Examples.OX
 
         public int Dimension => 3;
         public int TotalPlayers => 2;
-        public IAgent GetCurrentPlayer() => p1Turn ? p1 : p2;
+        public PlayerIndex CurrentPlayerIndex => p1Turn ? PlayerIndex.P1 : PlayerIndex.P2;
 
         public IEnumerable<int> GetAvailableMoves() => availableMoves;
 
         public WinLoseDrawResult? Result => GetResult();
 
-        public IGameState<int, WinLoseDrawResult?, IAgent> Move(int move)
+        public IGameState<int, WinLoseDrawResult?> Move(int move)
         {
             var newP1Moves = p1Moves;
             var newP2Moves = p2Moves;
@@ -58,7 +55,7 @@ namespace Faze.Examples.OX
 
             newAvailableMoves.Remove(move);
 
-            return new OXState<IAgent>(p1, p2, newP1Moves, newP2Moves, !p1Turn, newAvailableMoves);
+            return new OXState(newP1Moves, newP2Moves, !p1Turn, newAvailableMoves);
         }
 
         public WinLoseDrawResult? GetResult()

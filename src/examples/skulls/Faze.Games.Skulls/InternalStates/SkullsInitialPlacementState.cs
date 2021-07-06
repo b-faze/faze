@@ -5,14 +5,14 @@ using System.Linq;
 
 namespace Faze.Games.Skulls
 {
-    internal class SkullsInitialPlacementState<TPlayer> : SkullsState<TPlayer>
+    internal class SkullsInitialPlacementState : SkullsState
     {
-        public SkullsInitialPlacementState(SkullsPlayerEnvironments<TPlayer> playerEnvironments, int currentPlayerIndex)
+        public SkullsInitialPlacementState(SkullsPlayerEnvironments playerEnvironments, int currentPlayerIndex)
             : base(playerEnvironments, currentPlayerIndex)
         {
         }
 
-        public override IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move)
+        public override IGameState<ISkullsMove, SkullsResult> Move(ISkullsMove move)
         {
             if (!(move is SkullsPlacementMove placementMove))
                 throw new Exception("The provided SkullMove is not supported");
@@ -23,10 +23,10 @@ namespace Faze.Games.Skulls
             // if we've come back around to the first player then move into the next phase
             if (newPlayerIndex == 0) 
             {
-                return new SkullsPlaceOrBetState<TPlayer>(newPlayerEnvironments, newPlayerIndex);
+                return new SkullsPlaceOrBetState(newPlayerEnvironments, newPlayerIndex);
             }
 
-            return new SkullsInitialPlacementState<TPlayer>(newPlayerEnvironments, newPlayerIndex);
+            return new SkullsInitialPlacementState(newPlayerEnvironments, newPlayerIndex);
         }
 
         public override IEnumerable<ISkullsMove> GetAvailableMoves()

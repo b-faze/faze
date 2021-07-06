@@ -1,22 +1,23 @@
 ﻿using Faze.Abstractions.GameResults;
+using Faze.Abstractions.Players;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Faze.Games.Skulls
 {
-    public class SkullsResult<TPlayer>
+    public class SkullsResult
     {
-        public SkullsResult(TPlayer winningPlayer)
+        public SkullsResult(PlayerIndex winningPlayer)
         {
-            WinningPlayer = winningPlayer;
+            WinningPlayerIndex = winningPlayer;
         }
 
-        public TPlayer WinningPlayer { get; }
+        public PlayerIndex WinningPlayerIndex { get; }
 
-        public bool IsWinningPlayer(TPlayer player)
+        public bool IsWinningPlayer(PlayerIndex player)
         {
-            return WinningPlayer.Equals(player);
+            return WinningPlayerIndex.Equals(player);
         }
     }
 }

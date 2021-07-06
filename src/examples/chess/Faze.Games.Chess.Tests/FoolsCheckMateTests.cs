@@ -1,3 +1,4 @@
+using Faze.Abstractions.Players;
 using Shouldly;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,9 @@ namespace Faze.Games.Chess.Tests
                     ChessMove.Create(ChessSquares.d8, ChessSquares.h4)
             };
 
-            var p1 = 1;
-            var p2 = 2;
-            var state = ChessState<int>.Initial(p1, p2);
+            var p1 = PlayerIndex.P1;
+            var p2 = PlayerIndex.P2;
+            var state = ChessState.Initial();
 
             foreach (var move in moves)
             {
@@ -30,7 +31,7 @@ namespace Faze.Games.Chess.Tests
 
             state.GetResult().ShouldNotBeNull();
             state.GetResult().IsCheckMate.ShouldBeTrue();
-            state.GetResult().WinningPlayer.ShouldBe(p2);
+            state.GetResult().WinningPlayerIndex.ShouldBe(p2);
 
             state.GetAvailableMoves().ShouldBeEmpty();
         }

@@ -8,4 +8,8 @@
     <ProjectReference Include="..\..\..\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PieceBoardStates\" />
+  </ItemGroup>
+
 </Project>

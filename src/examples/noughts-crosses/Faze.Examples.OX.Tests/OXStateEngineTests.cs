@@ -22,10 +22,11 @@ namespace Faze.Examples.OX.Tests
         [Fact]
         public void Game1()
         {
-            var engine = new GameSimulator();
-            var p1 = new MonkeyAgent(rnd);
-            var p2 = new MonkeyAgent(rnd);
-            IGameState<int, WinLoseDrawResult?, IPlayer> state = OXState<IPlayer>.Initial(p1, p2);
+            var engine = new GameSimulator(rnd);
+            var p1 = new MonkeyAgent();
+            var p2 = new MonkeyAgent();
+            var players = new[] { p1, p2 };
+            IGameState<int, WinLoseDrawResult?> state = OXState.Initial;
 
             state = state.Move(0);
             state.GetResult().ShouldBeNull();
@@ -39,7 +40,7 @@ namespace Faze.Examples.OX.Tests
             state = state.Move(8);
             state.GetResult().ShouldBeNull();
 
-            var results = engine.SampleResults(state, 1000).ToArray();
+            var results = engine.SampleResults(state, players, 1000).ToArray();
 
             results.Count(x => x == WinLoseDrawResult.Win).ShouldBe(673);
             results.Count(x => x == WinLoseDrawResult.Lose).ShouldBe(129);

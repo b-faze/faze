@@ -19,7 +19,8 @@ namespace Faze.Examples.OX.Tests
         {
             var p1 = new MonkeyAgent();
             var p2 = new MonkeyAgent();
-            IGameState<int, WinLoseDrawResult?, IPlayer> state = OXState<IPlayer>.Initial(p1, p2);
+            var players = new[] { p1, p2 };
+            IGameState<int, WinLoseDrawResult?> state = OXState.Initial;
 
             var rendererOptions = new SquareTreeRendererOptions(3)
             {
@@ -31,7 +32,7 @@ namespace Faze.Examples.OX.Tests
             var engine = new GameSimulator();
 
             var resultsTree = state.ToStateTree(move => move, 9)
-                            .Map(x => engine.SampleResults(x, 100))
+                            .Map(x => engine.SampleResults(x, players, 100))
                             .Map(xs => (double)xs.Count(x => x == WinLoseDrawResult.Win) / 100);
 
             var renderTree = resultsTree
