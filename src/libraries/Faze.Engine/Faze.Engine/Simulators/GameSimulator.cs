@@ -12,9 +12,9 @@ namespace Faze.Engine.Simulators
         public TResult Simulate<TMove, TResult>(IGameState<TMove, TResult, IPlayer> state)
         {
             TResult result;
-            while ((result = state.Result) == null)
+            while ((result = state.GetResult()) == null)
             {
-                var move = state.CurrentPlayer.ChooseMove(state);
+                var move = state.GetCurrentPlayer().ChooseMove(state);
                 state = state.Move(move);
             }
 
@@ -25,9 +25,9 @@ namespace Faze.Engine.Simulators
         {
             var path = new List<TMove>();
             var depth = 0;
-            while (maxDepth > depth && state.Result == null)
+            while (maxDepth > depth && state.GetResult() == null)
             {
-                var move = state.CurrentPlayer.ChooseMove(state);
+                var move = state.GetCurrentPlayer().ChooseMove(state);
 
                 state = state.Move(move);
                 path.Add(move);

@@ -35,9 +35,7 @@ namespace Faze.Games.Chess
             return new ChessState<TPlayer>(p1, p2, game);
         }
 
-        public TPlayer CurrentPlayer => game.CurrentPlayer().IsWhite ? p1 : p2;
-        public ChessMove[] AvailableMoves => GetAvailableMoves().ToArray();
-        public ChessResult<TPlayer> Result => GetResult();
+        public TPlayer GetCurrentPlayer() => game.CurrentPlayer().IsWhite ? p1 : p2;
 
         public IGameState<ChessMove, ChessResult<TPlayer>, TPlayer> Move(ChessMove move)
         {
@@ -52,17 +50,17 @@ namespace Faze.Games.Chess
             return new ChessState<TPlayer>(p1, p2, newGame);
         }
 
-        private IEnumerable<ChessMove> GetAvailableMoves()
+        public IEnumerable<ChessMove> GetAvailableMoves()
         {
             return game.Pos.GenerateMoves().Select(move => new ChessMove(move));
         }
 
-        private ChessResult<TPlayer> GetResult()
+        public ChessResult<TPlayer> GetResult()
         {
             var pos = game.Pos;
 
             if (pos.IsMate) {
-                var winningPlayer = CurrentPlayer.Equals(p1) ? p2 : p1;
+                var winningPlayer = GetCurrentPlayer().Equals(p1) ? p2 : p1;
                 return ChessResult<TPlayer>.CheckMate(winningPlayer);
             }
 

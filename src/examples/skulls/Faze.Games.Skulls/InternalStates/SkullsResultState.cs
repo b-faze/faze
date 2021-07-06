@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.GameStates;
 using System;
+using System.Collections.Generic;
 
 namespace Faze.Games.Skulls
 {
@@ -17,7 +18,7 @@ namespace Faze.Games.Skulls
             throw new Exception("Invalid move. Game is already over");
         }
 
-        protected override ISkullsMove[] GetAvailableMoves()
+        public override IEnumerable<ISkullsMove> GetAvailableMoves()
         {
             return new ISkullsMove[0];
         }

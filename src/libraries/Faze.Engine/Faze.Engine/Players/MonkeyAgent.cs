@@ -3,6 +3,7 @@ using Faze.Abstractions.Players;
 using Faze.Engine.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Faze.Engine.Players
@@ -18,7 +19,7 @@ namespace Faze.Engine.Players
 
         public TMove ChooseMove<TMove, TResult, TPlayer>(IGameState<TMove, TResult, TPlayer> state)
         {
-            var availableMoves = state.AvailableMoves;
+            var availableMoves = state.GetAvailableMoves().ToArray();
             var rndMove = rnd.Next(0, availableMoves.Length);
             var move = availableMoves[rndMove];
             return move;

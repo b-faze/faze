@@ -18,19 +18,19 @@ namespace Faze.Examples.OX.Tests
             IGameState<int, WinLoseDrawResult?, IPlayer> state = OXState<IPlayer>.Initial(p1, p2);
 
             state = state.Move(0);
-            state.Result.ShouldBeNull();
+            state.GetResult().ShouldBeNull();
 
             state = state.Move(3);
-            state.Result.ShouldBeNull();
+            state.GetResult().ShouldBeNull();
 
             state = state.Move(1);
-            state.Result.ShouldBeNull();
+            state.GetResult().ShouldBeNull();
 
             state = state.Move(4);
-            state.Result.ShouldBeNull();
+            state.GetResult().ShouldBeNull();
 
             state = state.Move(2);
-            state.Result.ShouldBe(WinLoseDrawResult.Win);
+            state.GetResult().ShouldBe(WinLoseDrawResult.Win);
         }
     }
 }

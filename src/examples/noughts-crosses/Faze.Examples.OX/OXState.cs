@@ -34,9 +34,9 @@ namespace Faze.Examples.OX
 
         public int Dimension => 3;
         public int TotalPlayers => 2;
-        public IAgent CurrentPlayer => p1Turn ? p1 : p2;
+        public IAgent GetCurrentPlayer() => p1Turn ? p1 : p2;
 
-        public int[] AvailableMoves => availableMoves.ToArray();
+        public IEnumerable<int> GetAvailableMoves() => availableMoves;
 
         public WinLoseDrawResult? Result => GetResult();
 

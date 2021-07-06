@@ -42,7 +42,7 @@ namespace Faze.Games.Skulls
             return new SkullsBetState<TPlayer>(newPlayerEnvironments, newPlayerIndex);
         }
 
-        protected override ISkullsMove[] GetAvailableMoves()
+        public override IEnumerable<ISkullsMove> GetAvailableMoves()
         {
             var maxBet = playerEnvironments.GetMaxPossibleBet();
             var currentMaxBet = playerEnvironments.GetCurrentMaxBet();

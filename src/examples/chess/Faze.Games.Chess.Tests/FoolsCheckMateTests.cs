@@ -28,11 +28,11 @@ namespace Faze.Games.Chess.Tests
                 state.Move(move);
             }
 
-            state.Result.ShouldNotBeNull();
-            state.Result.IsCheckMate.ShouldBeTrue();
-            state.Result.WinningPlayer.ShouldBe(p2);
+            state.GetResult().ShouldNotBeNull();
+            state.GetResult().IsCheckMate.ShouldBeTrue();
+            state.GetResult().WinningPlayer.ShouldBe(p2);
 
-            state.AvailableMoves.ShouldBeEmpty();
+            state.GetAvailableMoves().ShouldBeEmpty();
         }
     }
 }

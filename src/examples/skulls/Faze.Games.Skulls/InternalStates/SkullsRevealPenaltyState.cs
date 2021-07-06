@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.GameStates;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Faze.Games.Skulls
@@ -23,7 +24,7 @@ namespace Faze.Games.Skulls
 
             if (newEnvironments.OnlyOnePlayerRemaining()) 
             {
-                var result = new SkullsResult<TPlayer>(CurrentPlayer);
+                var result = new SkullsResult<TPlayer>(GetCurrentPlayer());
                 return new SkullsResultState<TPlayer>(newEnvironments, currentPlayerIndex, result);
             }
 
@@ -31,7 +32,7 @@ namespace Faze.Games.Skulls
             return new SkullsInitialPlacementState<TPlayer>(newEnvironments, currentPlayerIndex);
         }
 
-        protected override ISkullsMove[] GetAvailableMoves()
+        public override IEnumerable<ISkullsMove> GetAvailableMoves()
         {
             return playerEnvironments
                 .GetForPlayer(playerIndexWithPenalty)

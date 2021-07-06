@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.GameStates;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Faze.Games.Skulls
@@ -31,7 +32,7 @@ namespace Faze.Games.Skulls
                 // if the player already has a win - they win the game!
                 if (newPlayerEnvironments.GetForPlayer(currentPlayerIndex).HasWin) 
                 {
-                    var result = new SkullsResult<TPlayer>(CurrentPlayer);
+                    var result = new SkullsResult<TPlayer>(GetCurrentPlayer());
                     return new SkullsResultState<TPlayer>(newPlayerEnvironments, currentPlayerIndex, result);
                 }
 
@@ -43,10 +44,10 @@ namespace Faze.Games.Skulls
             return new SkullsRevealState<TPlayer>(newPlayerEnvironments, currentPlayerIndex, targetBet);
         }
 
-        protected override ISkullsMove[] GetAvailableMoves()
+        public override IEnumerable<ISkullsMove> GetAvailableMoves()
         {
             if (playerEnvironments.GetForPlayer(currentPlayerIndex).CanReveal())
-                return new ISkullsMove[] { new SkullsRevealMove<TPlayer>(CurrentPlayer) };
+                return new ISkullsMove[] { new SkullsRevealMove<TPlayer>(GetCurrentPlayer()) };
 
             return playerEnvironments.GetRevealMoves()
                 .ToArray();

@@ -2,6 +2,7 @@
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Games.Skulls;
+using System.Collections.Generic;
 
 namespace Faze.Games.Skulls
 {
@@ -22,12 +23,12 @@ namespace Faze.Games.Skulls
             return new SkullsInitialPlacementState<TPlayer>(playerEnvironments, 0);
         }
 
-        public TPlayer CurrentPlayer => playerEnvironments.GetForPlayer(currentPlayerIndex).Player;
-        public ISkullsMove[] AvailableMoves => GetAvailableMoves();
+        public TPlayer GetCurrentPlayer() => playerEnvironments.GetForPlayer(currentPlayerIndex).Player;
         public SkullsResult<TPlayer> Result { get; protected set; }
+        public SkullsResult<TPlayer> GetResult() => Result;
 
         public abstract IGameState<ISkullsMove, SkullsResult<TPlayer>, TPlayer> Move(ISkullsMove move);
 
-        protected abstract ISkullsMove[] GetAvailableMoves();
+        public abstract IEnumerable<ISkullsMove> GetAvailableMoves();
     }
 }

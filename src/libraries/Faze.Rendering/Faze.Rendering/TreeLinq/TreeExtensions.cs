@@ -120,7 +120,7 @@ namespace Faze.Rendering.TreeLinq
 
         public static Tree<IGameState<TMove, TResult, TPlayer>> ToStateTree<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state)
         {
-            var children = state.AvailableMoves.Select(move =>
+            var children = state.GetAvailableMoves().Select(move =>
             {
                 var newState = state.Move(move);
                 return ToStateTree(newState);
@@ -132,7 +132,7 @@ namespace Faze.Rendering.TreeLinq
         public static Tree<IGameState<TMove, TResult, TPlayer>> ToStateTree<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state, Func<TMove, int> moveIndexer, int totalChildren)
         {
             var children = new Tree<IGameState<TMove, TResult, TPlayer>>[totalChildren];
-            foreach (var move in state.AvailableMoves) 
+            foreach (var move in state.GetAvailableMoves()) 
             {
                 children[moveIndexer(move)] = ToStateTree(state.Move(move), moveIndexer, totalChildren);
             }
@@ -147,7 +147,7 @@ namespace Faze.Rendering.TreeLinq
 
         private static Tree<TMove[]> ToPathTreeHelper<TMove, TResult, TPlayer>(this IGameState<TMove, TResult, TPlayer> state, TMove[] path)
         {
-            var children = state.AvailableMoves.Select(move =>
+            var children = state.GetAvailableMoves().Select(move =>
             {
                 var newState = state.Move(move);
 

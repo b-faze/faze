@@ -1,12 +1,14 @@
-﻿namespace Faze.Abstractions.GameStates
+﻿using System.Collections.Generic;
+
+namespace Faze.Abstractions.GameStates
 {
     public interface IGameState<TMove, out TResult, out TPlayer>
     {
-        TPlayer CurrentPlayer { get; }
+        TPlayer GetCurrentPlayer();
 
-        TMove[] AvailableMoves { get; }
+        IEnumerable<TMove> GetAvailableMoves();
 
-        TResult Result { get; }
+        TResult GetResult();
 
         IGameState<TMove, TResult, TPlayer> Move(TMove move);
     }

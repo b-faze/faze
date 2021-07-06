@@ -38,7 +38,7 @@ namespace Faze.Games.Skulls
             throw new Exception("Invalid move");
         }
 
-        protected override ISkullsMove[] GetAvailableMoves()
+        public override IEnumerable<ISkullsMove> GetAvailableMoves()
         {
             var moves = new List<ISkullsMove>();
 

@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.GameStates;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Faze.Games.Skulls
@@ -28,7 +29,7 @@ namespace Faze.Games.Skulls
             return new SkullsInitialPlacementState<TPlayer>(newPlayerEnvironments, newPlayerIndex);
         }
 
-        protected override ISkullsMove[] GetAvailableMoves()
+        public override IEnumerable<ISkullsMove> GetAvailableMoves()
         {
             return playerEnvironments
                 .GetForPlayer(currentPlayerIndex)
