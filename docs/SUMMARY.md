@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 * [Overview](overview/README.md)
-  * [Game State](overview/game-state.md)
+  * [Game](overview/game-state.md)
   * [Agent](overview/agent.md)
   * [Engine](overview/simulate.md)
   * [Rendering](overview/rendering.md)
