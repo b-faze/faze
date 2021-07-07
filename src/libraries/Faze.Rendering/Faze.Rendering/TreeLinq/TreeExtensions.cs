@@ -50,18 +50,18 @@ namespace Faze.Rendering.TreeLinq
         /// <summary>
         /// Creates a new Tree with values mapped using the provided function
         /// </summary>
-        public static Tree<TOutValue> Map<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn)
+        public static Tree<TOutValue> MapValue<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn)
         {
             if (tree == null)
                 return null;
 
             var newValue = fn(tree.Value);
-            var newChildren = tree.Children?.Select(c => Map(c, fn));
+            var newChildren = tree.Children?.Select(c => MapValue(c, fn));
 
             return new Tree<TOutValue>(newValue, newChildren);
         }
 
-        public static Tree<TOutValue> Map<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn)
+        public static Tree<TOutValue> MapValue<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn)
         {
             if (tree == null)
                 return null;
@@ -90,9 +90,9 @@ namespace Faze.Rendering.TreeLinq
             return new Tree<TOutValue>(newValue, newChildren);
         }
 
-        public static Tree<Color> Map(this Tree<double> tree, IColorInterpolator colorInterpolator)
+        public static Tree<Color> MapValue(this Tree<double> tree, IColorInterpolator colorInterpolator)
         {
-            return tree.Map(colorInterpolator.GetColor);
+            return tree.MapValue(colorInterpolator.GetColor);
         }
 
         public static Tree<TValue> LimitDepth<TValue>(this Tree<TValue> tree, int depth)

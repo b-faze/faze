@@ -17,9 +17,9 @@ namespace Faze.Rendering.Tests.Utilities
         public static Tree<Color> CreateGreyPaintedSquareTree(int size, int maxDepth, int depth = 0)
         {
             var tree = CreateSquareTree(size, maxDepth, depth)
-                .Map((v, info) => info.Depth)
-                .Map(v => (int)(255 * (1 - (double)v / maxDepth)))
-                .Map(v => Color.FromArgb(v, v, v));
+                .MapValue((v, info) => info.Depth)
+                .MapValue(v => (int)(255 * (1 - (double)v / maxDepth)))
+                .MapValue(v => Color.FromArgb(v, v, v));
 
             return new Tree<Color>(tree.Value, tree.Children);
         }
@@ -32,9 +32,9 @@ namespace Faze.Rendering.Tests.Utilities
 
             var i = 0;
             var coloredTree = tree
-                .Map(v => i++)
-                .Map(v => (double)v/nodeCount)
-                .Map(colorInterpolator);
+                .MapValue(v => i++)
+                .MapValue(v => (double)v/nodeCount)
+                .MapValue(colorInterpolator);
 
             return new Tree<Color>(coloredTree.Value, coloredTree.Children);
         }

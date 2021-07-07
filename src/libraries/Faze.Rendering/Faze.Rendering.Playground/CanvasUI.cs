@@ -99,7 +99,7 @@ namespace Faze.Rendering.Playground
         {
             var rnd = new Random();
             var tree = CreateSquareTree(size, depth)
-                .Map((v, info) =>
+                .MapValue((v, info) =>
                 {
                     var maxValue = 255;
                     var relativeChildIndex = (double)info.ChildIndex / (size * size);

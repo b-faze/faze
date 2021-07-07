@@ -46,44 +46,44 @@ namespace Faze.Examples.OX.Tests
 
             var engine = new GameSimulator();
 
-            (int wins, int total) MapTree(Tree<IGameState<GridMove, WinLoseDrawResult?>> node) 
+            WinLoseDrawResultAggregate MapTree(Tree<IGameState<GridMove, WinLoseDrawResult?>> node) 
             {
                 if (node == null)
-                    return (0, 0);
+                    return new WinLoseDrawResultAggregate();
 
                 if (node.Children == null || node.Children.All(x => x == null))
                 {
                     var simulations = 100;
+                    var resultAggregate = new WinLoseDrawResultAggregate();
                     var results = engine
-                        .SampleResults(node.Value, players, simulations).ToArray();
+                        .SampleResults(node.Value, players, simulations)
+                        .Where(x => x != null)
+                        .Select(x => (WinLoseDrawResult)x);
 
-                    var wins = results.Count(x => x == WinLoseDrawResult.Win);
-                    var loses = results.Count(x => x == WinLoseDrawResult.Lose);
+                    resultAggregate.AddRange(results);
 
-                    return (wins, wins + loses);
+                    return resultAggregate;
                 }
                 else
                 {
-                    var wins = 0;
-                    var simulations = 0;
+                    var results = new WinLoseDrawResultAggregate();
 
                     foreach (var child in node.Children)
                     {
-                        var (childWins, childSimulations) = MapTree(child);
-                        wins += childWins;
-                        simulations += childSimulations;
+                        var childResults = MapTree(child);
+                        results.Add(childResults);
                     }
 
-                    return (wins, simulations);
+                    return results;
                 }
             }
 
             var resultsTree = state.ToStateTree(move => move, 9)
                             .LimitDepth(maxDepth)
                             .MapTree(MapTree)
-                            .Map(x => (double)x.wins / x.total);
+                            .MapValue(x => (double)x.Wins / x.Wins + x.Loses);
 
-            var renderTree = resultsTree.Map(new GoldInterpolator());
+            var renderTree = resultsTree.MapValue(new GoldInterpolator());
 
             renderer.Draw(renderTree, Viewport.Default(), maxDepth);
             galleryService.Save(renderer, new GalleryItemMetadata

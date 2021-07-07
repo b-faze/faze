@@ -34,11 +34,11 @@ namespace Faze.Examples.OX.Tests
             var engine = new GameSimulator();
 
             var resultsTree = state.ToStateTree(move => move, 9)
-                            .Map(x => engine.SampleResults(x, players, 100))
-                            .Map(xs => (double)xs.Count(x => x == WinLoseDrawResult.Win) / 100);
+                            .MapValue(x => engine.SampleResults(x, players, 100))
+                            .MapValue(xs => (double)xs.Count(x => x == WinLoseDrawResult.Win) / 100);
 
             var renderTree = resultsTree
-                            .Map(new GoldInterpolator());
+                            .MapValue(new GoldInterpolator());
 
             renderer.Draw(renderTree, Viewport.Default(), 4);
             renderer.Save("result.png");

@@ -34,12 +34,12 @@ namespace Faze.Games.Chess.Rendering
         private Tree<Color> GetTree(IGameState<ChessMove, ChessResult> state, int maxDepth) 
         {
             var tree = Limit(state.ToPathTree()
-                .Map(path => path.Select(ToGridIndex).ToArray()), maxDepth);
+                .MapValue(path => path.Select(ToGridIndex).ToArray()), maxDepth);
 
             var leaves = tree.GetLeaves().Select(x => x.Value).ToArray();
             var countTree = GetTileMoveCounts(leaves);
             var normalisedTree = NormaliseTree(countTree, countTree.Value);
-            var colorTree = normalisedTree.Map(new LinearColorInterpolator(Color.Blue, Color.Red));
+            var colorTree = normalisedTree.MapValue(new LinearColorInterpolator(Color.Blue, Color.Red));
 
             return colorTree;
         }
