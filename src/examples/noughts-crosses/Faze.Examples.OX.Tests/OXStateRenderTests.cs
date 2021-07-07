@@ -26,7 +26,8 @@ namespace Faze.Examples.OX.Tests
 
             var rendererOptions = new SquareTreeRendererOptions(3)
             {
-                BorderProportions = 0.1f
+                BorderProportions = 0.1f,
+                MaxDepth = 4
             };
 
             var renderer = new SquareTreeRenderer(rendererOptions, 500);
@@ -40,7 +41,7 @@ namespace Faze.Examples.OX.Tests
             var renderTree = resultsTree
                             .MapValue(new GoldInterpolator());
 
-            renderer.Draw(renderTree, Viewport.Default(), 4);
+            renderer.Draw(renderTree);
             renderer.Save("result.png");
         }
 

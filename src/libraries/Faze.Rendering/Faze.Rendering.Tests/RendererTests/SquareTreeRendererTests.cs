@@ -36,7 +36,7 @@ namespace Faze.Rendering.Tests.RendererTests
             var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests), 
                 $"Test1_{squareSize}_{depth}_{borderProportion}.png");
             
-            renderer.Draw(tree, Viewport.Default());
+            renderer.Draw(tree);
             renderer.Save(filename);
 
         }        
@@ -69,7 +69,7 @@ namespace Faze.Rendering.Tests.RendererTests
             var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests), 
                 $"{testName}_{squareSize}_{depth}_{borderProportion}.png");
 
-            renderer.Draw(tree, Viewport.Default());
+            renderer.Draw(tree);
             renderer.Save(filename);
 
         }
@@ -94,7 +94,7 @@ namespace Faze.Rendering.Tests.RendererTests
                 var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests),
                     $"{testName}_{squareSize}_{depth}_{i}.png");
 
-                renderer.Draw(tree, Viewport.Default());
+                renderer.Draw(tree);
                 renderer.Save(filename);
             }
 

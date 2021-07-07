@@ -39,7 +39,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
 
             var renderer = new StandardSquareTreeRenderer(options, ImageSize);
 
-            renderer.Draw(tree, Viewport.Default());
+            renderer.Draw(tree);
 
             using (var ms = new MemoryStream())
             {
@@ -59,7 +59,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
 
             var renderer = new SkiaSquareTreeRenderer(options, ImageSize);
 
-            renderer.Draw(tree, Viewport.Default());
+            renderer.Draw(tree);
 
             using (var ms = new MemoryStream())
             {

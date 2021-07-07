@@ -19,14 +19,14 @@ namespace Faze.Rendering.TreeRenderers
             this.bitmap = new Bitmap(imageSize, imageSize);
         }
 
-        public Tree<T> GetVisible<T>(Tree<T> tree, Viewport viewPort)
+        public Tree<T> GetVisible<T>(Tree<T> tree)
         {
             throw new NotImplementedException();
         }
 
-        public void Draw(Tree<Color> tree, Viewport viewPort, int? maxDepth = null)
+        public void Draw(Tree<Color> tree)
         {
-            DrawHelper(bitmap, tree, 0, maxDepth);
+            DrawHelper(bitmap, tree, 0, options.MaxDepth);
         }
 
         private void DrawHelper(Bitmap img, Tree<Color> node, int depth, int? maxDepth = null)

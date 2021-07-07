@@ -3,8 +3,12 @@ using System.Collections.Generic;
 
 namespace Faze.Abstractions.GameResults
 {
-    public struct WinLoseDrawResultAggregate
+    public class WinLoseDrawResultAggregate
     {
+        public WinLoseDrawResultAggregate()
+        {
+        }
+
         public WinLoseDrawResultAggregate(uint wins, uint loses, uint draws)
         {
             Wins = wins;
@@ -12,22 +16,25 @@ namespace Faze.Abstractions.GameResults
             Draws = draws;
         }
 
-        public uint Wins { get; }
-        public uint Loses { get; }
-        public uint Draws { get; }
+        public uint Wins { get; private set; }
+        public uint Loses { get; private set; }
+        public uint Draws { get; private set; }
 
-        public WinLoseDrawResultAggregate Add(WinLoseDrawResult result)
+        public void Add(WinLoseDrawResult result)
         {
             switch (result)
             {
                 case WinLoseDrawResult.Win:
-                    return new WinLoseDrawResultAggregate(Wins + 1, Loses, Draws);
+                    Wins++;
+                    return;
 
                 case WinLoseDrawResult.Lose:
-                    return new WinLoseDrawResultAggregate(Wins, Loses + 1, Draws);
+                    Loses++;
+                    return;
 
                 case WinLoseDrawResult.Draw:
-                    return new WinLoseDrawResultAggregate(Wins, Loses, Draws + 1);
+                    Draws++;
+                    return;
             }
 
             throw new NotSupportedException($"Unknown result type '{result}'");
@@ -41,9 +48,11 @@ namespace Faze.Abstractions.GameResults
             }
         }
 
-        public WinLoseDrawResultAggregate Add(WinLoseDrawResultAggregate result)
+        public void Add(WinLoseDrawResultAggregate result)
         {
-            return new WinLoseDrawResultAggregate(Wins + result.Wins, Loses + result.Loses, Draws + result.Draws);
+            Wins += result.Wins;
+            Loses += result.Loses;
+            Draws += result.Draws;
         }
     }
 }

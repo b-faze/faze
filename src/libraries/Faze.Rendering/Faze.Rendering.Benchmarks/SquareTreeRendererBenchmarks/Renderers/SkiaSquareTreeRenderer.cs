@@ -28,14 +28,14 @@ namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers
 
         public SKSurface Surface => surface;
 
-        public Tree<T> GetVisible<T>(Tree<T> tree, Viewport viewPort)
+        public Tree<T> GetVisible<T>(Tree<T> tree)
         {
             return tree;
         }
 
-        public void Draw(Tree<Color> tree, Viewport viewPort, int? maxDepth = null)
+        public void Draw(Tree<Color> tree)
         {
-            DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, imageSize, imageSize), 0, maxDepth);
+            DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, imageSize, imageSize), 0, options.MaxDepth);
         }
 
         public void Save(Stream stream)

@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Rendering.TreeLinq;
 using SkiaSharp;
 using System;
 using System.Drawing;
@@ -19,11 +20,15 @@ namespace Faze.Rendering.TreeRenderers
 
             Size = size;
             MinChildDrawSize = DefaultMinChildDrawSize;
+            Viewport = Viewport.Default();
         }
 
         public int Size { get; set; }
         public float BorderProportions { get; set; }
         public float MinChildDrawSize { get; set; }
+
+        public Viewport Viewport { get; set; }
+        public int? MaxDepth { get; set; }
     }
 
     public class SquareTreeRenderer : IPaintedTreeRenderer, IDisposable
@@ -42,13 +47,17 @@ namespace Faze.Rendering.TreeRenderers
 
         public SKSurface Surface => surface;
 
-        public Tree<T> GetVisible<T>(Tree<T> tree, Viewport viewPort)
+        public Tree<T> GetVisible<T>(Tree<T> tree)
         {
+            if (options.MaxDepth != null)
+                return tree.LimitDepth(options.MaxDepth.Value);
+
             return tree;
         }
 
-        public void Draw(Tree<Color> tree, Viewport viewport, int? maxDepth = null)
+        public void Draw(Tree<Color> tree)
         {
+            var viewport = options.Viewport;
             var viewportBorderSize = 5;
             var viewportScale = viewport.Scale;
             var viewportSize = viewportScale * imageSize;
@@ -58,7 +67,7 @@ namespace Faze.Rendering.TreeRenderers
             var scaledViewportRect = SKRect.Create(0, 0, viewportSize / viewportScale, viewportSize / viewportScale);
 
             surface.Canvas.Clear();
-            DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, maxDepth);
+            DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, options.MaxDepth);
 
             //surface.Canvas.DrawRect(viewportRect, new SKPaint
             //{

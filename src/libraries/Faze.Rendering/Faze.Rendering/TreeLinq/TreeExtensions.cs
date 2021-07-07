@@ -11,6 +11,11 @@ namespace Faze.Rendering.TreeLinq
 
     public static class TreeExtensions
     {
+        public static bool IsLeaf<TValue>(this Tree<TValue> tree)
+        {
+            return tree.Children == null || !tree.Children.Any() || tree.Children.All(child => child == null);
+        }
+
         public static IEnumerable<TValue> SelectDepthFirst<TValue>(this Tree<TValue> tree)
         {
             yield return tree.Value;
@@ -66,7 +71,7 @@ namespace Faze.Rendering.TreeLinq
             if (tree == null)
                 return null;
 
-            var info = new TreeMapInfo(0, 0);
+            var info = TreeMapInfo.Root();
             return MapHelper(tree, fn, info);
         }
 
@@ -97,11 +102,14 @@ namespace Faze.Rendering.TreeLinq
 
         public static Tree<TValue> LimitDepth<TValue>(this Tree<TValue> tree, int depth)
         {
-            return tree;
+            return LimitDepthHelper(tree, depth, TreeMapInfo.Root());
         }
 
         private static Tree<TValue> LimitDepthHelper<TValue>(this Tree<TValue> tree, int depth, TreeMapInfo info)
         {
+            if (tree == null)
+                return null;
+
             if (info.Depth >= depth)
             {
                 return new Tree<TValue>(tree.Value, new Tree<TValue>[0]);

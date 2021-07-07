@@ -39,19 +39,17 @@ namespace Faze.Examples.OX.Tests
 
             var rendererOptions = new SquareTreeRendererOptions(3)
             {
-                BorderProportions = 0
+                BorderProportions = 0,
+                MaxDepth = maxDepth
             };
 
-            var renderer = new SquareTreeRenderer(rendererOptions, 500);
+            IPaintedTreeRenderer renderer = new SquareTreeRenderer(rendererOptions, 500);
 
             var engine = new GameSimulator();
 
             WinLoseDrawResultAggregate MapTree(Tree<IGameState<GridMove, WinLoseDrawResult?>> node) 
             {
-                if (node == null)
-                    return new WinLoseDrawResultAggregate();
-
-                if (node.Children == null || node.Children.All(x => x == null))
+                if (node.IsLeaf())
                 {
                     var simulations = 100;
                     var resultAggregate = new WinLoseDrawResultAggregate();
@@ -68,9 +66,10 @@ namespace Faze.Examples.OX.Tests
                 {
                     var results = new WinLoseDrawResultAggregate();
 
-                    foreach (var child in node.Children)
+                    foreach (var child in node.Children.Where(x => x != null))
                     {
                         var childResults = MapTree(child);
+
                         results.Add(childResults);
                     }
 
@@ -78,14 +77,14 @@ namespace Faze.Examples.OX.Tests
                 }
             }
 
-            var resultsTree = state.ToStateTree(move => move, 9)
-                            .LimitDepth(maxDepth)
+            var visibleTree = renderer.GetVisible(state.ToStateTree(move => move, 9));
+            var resultsTree = visibleTree
                             .MapTree(MapTree)
-                            .MapValue(x => (double)x.Wins / x.Wins + x.Loses);
+                            .MapValue(x => (double)x.Wins / (x.Wins + x.Loses));
 
             var renderTree = resultsTree.MapValue(new GoldInterpolator());
 
-            renderer.Draw(renderTree, Viewport.Default(), maxDepth);
+            renderer.Draw(renderTree);
             galleryService.Save(renderer, new GalleryItemMetadata
             {
                 Id = "OXGold1",

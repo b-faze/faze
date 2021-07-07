@@ -26,7 +26,7 @@ namespace Faze.Games.Chess.Rendering
             var tree = GetTree(state, maxDepth);
 
 
-            renderer.Draw(tree, new Viewport());
+            renderer.Draw(tree);
 
             renderer.Save(filename);
         }

@@ -11,6 +11,11 @@ namespace Faze.Rendering.TreeLinq
             ChildIndex = childIndex;
         }
 
+        public static TreeMapInfo Root()
+        {
+            return new TreeMapInfo(0, 0);
+        }
+
         public int Depth { get; }
         public int ChildIndex { get; }
     }

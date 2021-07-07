@@ -12,6 +12,8 @@ namespace Faze.Rendering.TreeRenderers
     public class SliceAndDiceTreeRendererOptions
     {
         public double BorderProportion { get; set; }
+        public Viewport Viewport { get; set; }
+        public int? MaxDepth { get; set; }
     }
 
     public class SliceAndDiceTreeRenderer : IPaintedTreeRenderer
@@ -23,12 +25,12 @@ namespace Faze.Rendering.TreeRenderers
             this.options = options;
         }
 
-        public Tree<T> GetVisible<T>(Tree<T> tree, Viewport viewPort)
+        public Tree<T> GetVisible<T>(Tree<T> tree)
         {
             throw new NotImplementedException();
         }
 
-        public void Draw(Tree<Color> tree, Viewport viewPort, int? maxDepth = null)
+        public void Draw(Tree<Color> tree)
         {
             throw new NotImplementedException();
         }

@@ -9,8 +9,8 @@ namespace Faze.Abstractions.Rendering
 {
     public interface IPaintedTreeRenderer
     {
-        Tree<T> GetVisible<T>(Tree<T> tree, Viewport viewPort);
-        void Draw(Tree<Color> tree, Viewport viewPort, int? maxDepth = null);
+        Tree<T> GetVisible<T>(Tree<T> tree);
+        void Draw(Tree<Color> tree);
         void Save(Stream stream);
     }
 }

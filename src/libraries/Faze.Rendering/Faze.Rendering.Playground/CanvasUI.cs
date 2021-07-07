@@ -22,7 +22,7 @@ namespace Faze.Rendering.Playground
         private Tree<Color> tree;
         private SquareTreeRenderer renderer;
         private Options options;
-
+        private SquareTreeRendererOptions rendererConfig;
         private Viewport lastViewport;
         private bool canDraw;
 
@@ -40,11 +40,12 @@ namespace Faze.Rendering.Playground
 
             this.options = options;
             this.renderer?.Dispose();
-            this.renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(options.Size)
+            this.rendererConfig = new SquareTreeRendererOptions(options.Size)
             {
                 BorderProportions = options.Border,
                 MinChildDrawSize = options.MinChildDrawSize,
-            }, Math.Min(pictureBox.Width, pictureBox.Height));
+            };
+            this.renderer = new SquareTreeRenderer(rendererConfig, Math.Min(pictureBox.Width, pictureBox.Height));
 
             this.tree = CreateRandomPaintedSquareTree(options.Size, options.RenderDepth + 1);
 
@@ -64,7 +65,8 @@ namespace Faze.Rendering.Playground
             lastViewport = viewport;
             canDraw = false;
 
-            renderer.Draw(tree, viewport, options.RenderDepth);
+            rendererConfig.Viewport = viewport;
+            renderer.Draw(tree);
 
             pictureBox.Image?.Dispose();
             using (var ms = new MemoryStream())
