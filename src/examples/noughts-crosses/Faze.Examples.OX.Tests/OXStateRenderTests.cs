@@ -5,7 +5,7 @@ using Faze.Abstractions.Rendering;
 using Faze.Engine.Players;
 using Faze.Engine.Simulators;
 using Faze.Rendering.ColorInterpolators;
-using Faze.Rendering.TreeLinq;
+using Faze.Core.TreeLinq;
 using Faze.Rendering.TreeRenderers;
 using System.Linq;
 using Xunit;
@@ -34,8 +34,8 @@ namespace Faze.Examples.OX.Tests
 
             var engine = new GameSimulator();
 
-            var resultsTree = state.ToStateTree(move => move, 9)
-                            .MapValue(x => engine.SampleResults(x, players, 100))
+            var resultsTree = state.ToStateTree(new OXStateTreeAdapter())
+                            .MapValue(x => engine.SampleResults(x, 100))
                             .MapValue(xs => (double)xs.Count(x => x == WinLoseDrawResult.Win) / 100);
 
             var renderTree = resultsTree

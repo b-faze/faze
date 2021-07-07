@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Faze.Rendering.TreeLinq;
+using Faze.Core.TreeLinq;
 using System.Drawing;
 
 namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks

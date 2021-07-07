@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace Faze.Abstractions.Core
 {
@@ -17,5 +19,10 @@ namespace Faze.Abstractions.Core
 
         public TValue Value { get; }
         public IEnumerable<Tree<TValue>> Children { get; }
+
+        public object MapValue(Func<object, object, Color> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

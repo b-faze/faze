@@ -1,6 +1,7 @@
 ﻿using Faze.Abstractions.Engine;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Players;
+using Faze.Engine.Players;
 using Faze.Engine.Utilities;
 using System;
 using System.Collections.Generic;
@@ -17,25 +18,25 @@ namespace Faze.Engine.Simulators
             this.rnd = rnd ?? ThreadSafeRandom.Random();
         }
 
-        public TResult Simulate<TMove, TResult>(IGameState<TMove, TResult> state, IPlayer[] players)
+        public TResult Simulate<TMove, TResult>(IGameState<TMove, TResult> state)
         {
             TResult result;
             while ((result = state.GetResult()) == null)
             {
-                var move = GetMove(state, players);
+                var move = GetMove(state);
                 state = state.Move(move);
             }
 
             return result;
         }
 
-        public TMove[] SimulatePath<TMove, TResult>(IGameState<TMove, TResult> state, IPlayer[] players, int maxDepth)
+        public TMove[] SimulatePath<TMove, TResult>(IGameState<TMove, TResult> state, int maxDepth)
         {
             var path = new List<TMove>();
             var depth = 0;
             while (maxDepth > depth && state.GetResult() == null)
             {
-                var move = GetMove(state, players);
+                var move = GetMove(state);
 
                 state = state.Move(move);
                 path.Add(move);
@@ -45,26 +46,26 @@ namespace Faze.Engine.Simulators
             return path.ToArray();
         }
 
-        public IEnumerable<TResult> SampleResults<TMove, TResult>(IGameState<TMove, TResult> state, IPlayer[] players, int n)
+        public IEnumerable<TResult> SampleResults<TMove, TResult>(IGameState<TMove, TResult> state, int n)
         {
             while (n-- > 0)
             {
-                yield return Simulate(state, players);
+                yield return Simulate(state);
             }
         }
 
-        public IEnumerable<TMove[]> SamplePaths<TMove, TResult>(IGameState<TMove, TResult> state, IPlayer[] players, int n, int maxDepth)
+        public IEnumerable<TMove[]> SamplePaths<TMove, TResult>(IGameState<TMove, TResult> state, int n, int maxDepth)
         {
             while (n-- > 0)
             {
-                yield return SimulatePath(state, players, maxDepth);
+                yield return SimulatePath(state, maxDepth);
             }
         }
 
-        private TMove GetMove<TMove, TResult>(IGameState<TMove, TResult> state, IPlayer[] players)
+        private TMove GetMove<TMove, TResult>(IGameState<TMove, TResult> state)
         {
-            var currentPlayer = players[state.CurrentPlayerIndex];
-            var possibleMoves = currentPlayer.GetMoves(state);
+            //var currentPlayer = players[state.CurrentPlayerIndex];
+            var possibleMoves = new MonkeyAgent().GetMoves(state);
 
             return possibleMoves.GetMove(rnd);
         }

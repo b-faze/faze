@@ -5,7 +5,7 @@ using Faze.Engine.Players;
 using Faze.Engine.Simulators;
 using Faze.Examples.Gallery;
 using Faze.Rendering.ColorInterpolators;
-using Faze.Rendering.TreeLinq;
+using Faze.Core.TreeLinq;
 using Faze.Rendering.TreeRenderers;
 using System.Linq;
 using Xunit;
@@ -54,7 +54,7 @@ namespace Faze.Examples.OX.Tests
                     var simulations = 100;
                     var resultAggregate = new WinLoseDrawResultAggregate();
                     var results = engine
-                        .SampleResults(node.Value, players, simulations)
+                        .SampleResults(node.Value, simulations)
                         .Where(x => x != null)
                         .Select(x => (WinLoseDrawResult)x);
 
@@ -77,7 +77,7 @@ namespace Faze.Examples.OX.Tests
                 }
             }
 
-            var visibleTree = renderer.GetVisible(state.ToStateTree(move => move, 9));
+            var visibleTree = renderer.GetVisible(state.ToStateTree(new OXStateTreeAdapter()));
             var resultsTree = visibleTree
                             .MapTree(MapTree)
                             .MapValue(x => (double)x.Wins / (x.Wins + x.Loses));

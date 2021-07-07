@@ -1,7 +1,7 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
 using Faze.Rendering.ColorInterpolators;
-using Faze.Rendering.TreeLinq;
+using Faze.Core.TreeLinq;
 using Shouldly;
 using System;
 using System.Collections.Generic;

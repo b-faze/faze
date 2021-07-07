@@ -1,7 +1,7 @@
 ﻿using Faze.Abstractions.Core;
 using System.CodeDom.Compiler;
 
-namespace Faze.Rendering.TreeLinq
+namespace Faze.Core.TreeLinq
 {
     public class TreeMapInfo
     {

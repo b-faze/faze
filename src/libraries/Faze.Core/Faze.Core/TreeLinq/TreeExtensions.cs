@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Faze.Abstractions.Core;
+using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 
-namespace Faze.Rendering.TreeLinq
+namespace Faze.Core.TreeLinq
 {
 
     public static class TreeExtensions
@@ -86,6 +87,31 @@ namespace Faze.Rendering.TreeLinq
             return new Tree<TOutValue>(newValue, newChildren);
         }
 
+        public static Tree<TOutValue> MapTreeAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
+            where TOutValue : IResultAggregate<TOutValue>
+        {
+            if (tree == null)
+                return null;
+
+            if (tree.IsLeaf())
+            {
+                return new Tree<TOutValue>(fn(tree));
+            }
+
+            var children = tree.Children
+                    .Select(x => MapTreeAgg(x, fn));
+
+            var value = children
+                .Select(x => x.Value)
+                .Aggregate((a, b) =>
+            {
+                a.Value.Add(b.Value);
+                return a.Value;
+            });
+
+            return new Tree<TOutValue>(value, children);
+        }
+
         private static Tree<TOutValue> MapHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
         {
             var newValue = fn(tree.Value, info);
@@ -148,13 +174,9 @@ namespace Faze.Rendering.TreeLinq
             return new Tree<IGameState<TMove, TResult>>(state, children);
         }
 
-        public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state, Func<TMove, int> moveIndexer, int totalChildren)
+        public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state, IGameStateTreeAdapter<TMove> adapter)
         {
-            var children = new Tree<IGameState<TMove, TResult>>[totalChildren];
-            foreach (var move in state.GetAvailableMoves()) 
-            {
-                children[moveIndexer(move)] = ToStateTree(state.Move(move), moveIndexer, totalChildren);
-            }
+            var children = adapter.GetChildren(state).Select(childState => ToStateTree(childState, adapter));
 
             return new Tree<IGameState<TMove, TResult>>(state, children);
         }

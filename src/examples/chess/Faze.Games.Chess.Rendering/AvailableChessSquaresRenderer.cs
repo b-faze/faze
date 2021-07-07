@@ -2,7 +2,7 @@
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Rendering.ColorInterpolators;
-using Faze.Rendering.TreeLinq;
+using Faze.Core.TreeLinq;
 using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;

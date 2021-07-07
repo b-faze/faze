@@ -8,7 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Faze.Rendering.TreeLinq;
+using Faze.Core.TreeLinq;
 using SkiaSharp.Views.Desktop;
 using System.Linq;
 using System.Drawing.Imaging;

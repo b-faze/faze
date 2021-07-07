@@ -41,7 +41,7 @@ namespace Faze.Examples.OX.Tests
             state = state.Move(8);
             state.GetResult().ShouldBeNull();
 
-            var results = engine.SampleResults(state, players, 1000).ToArray();
+            var results = engine.SampleResults(state, 1000).ToArray();
 
             results.Count(x => x == WinLoseDrawResult.Win).ShouldBe(673);
             results.Count(x => x == WinLoseDrawResult.Lose).ShouldBe(129);

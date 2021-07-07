@@ -1,6 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
-using Faze.Rendering.TreeLinq;
+using Faze.Core.TreeLinq;
 using SkiaSharp;
 using System;
 using System.Drawing;

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Faze.Abstractions.GameResults
 {
-    public class WinLoseDrawResultAggregate
+    public class WinLoseDrawResultAggregate : IResultAggregate<WinLoseDrawResultAggregate>
     {
         public WinLoseDrawResultAggregate()
         {
@@ -19,6 +20,8 @@ namespace Faze.Abstractions.GameResults
         public uint Wins { get; private set; }
         public uint Loses { get; private set; }
         public uint Draws { get; private set; }
+
+        public WinLoseDrawResultAggregate Value => this;
 
         public void Add(WinLoseDrawResult result)
         {
@@ -53,6 +56,19 @@ namespace Faze.Abstractions.GameResults
             Wins += result.Wins;
             Loses += result.Loses;
             Draws += result.Draws;
+        }
+
+        public void AddRange(IEnumerable<WinLoseDrawResultAggregate> results)
+        {
+            foreach (var result in results)
+            {
+                Add(result);
+            }
+        }
+
+        public double GetWinsOverLoses()
+        {
+            return (double)Wins / (Wins + Loses);
         }
     }
 }
