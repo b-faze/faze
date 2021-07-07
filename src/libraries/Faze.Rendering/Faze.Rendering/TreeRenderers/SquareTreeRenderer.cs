@@ -5,7 +5,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Faze.Rendering.TreeRenderers
 {
@@ -69,13 +68,21 @@ namespace Faze.Rendering.TreeRenderers
             //});
         }
 
-        public Bitmap GetBitmap()
+        //public Bitmap GetBitmap()
+        //{
+        //    using SKImage image = surface.Snapshot();
+        //    using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
+        //    using MemoryStream mStream = new MemoryStream(data.ToArray());
+
+        //    return new Bitmap(mStream, false);
+        //}
+
+        public void Save(Stream stream)
         {
             using SKImage image = surface.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
-            using MemoryStream mStream = new MemoryStream(data.ToArray());
 
-            return new Bitmap(mStream, false);
+            data.AsStream().CopyTo(stream);
         }
 
         private void DrawHelper(SKCanvas canvas, Tree<Color> node, SKRect viewportRect, SKRect rect, int depth, int? maxDepth = null)

@@ -38,13 +38,12 @@ namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers
             DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, imageSize, imageSize), 0, maxDepth);
         }
 
-        public Bitmap GetBitmap()
+        public void Save(Stream stream)
         {
             using SKImage image = surface.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
-            using MemoryStream mStream = new MemoryStream(data.ToArray());
 
-            return new Bitmap(mStream, false);
+            data.AsStream().CopyTo(stream);
         }
 
         private void DrawHelper(SKCanvas canvas, Tree<Color> node, SKRect rect, int depth, int? maxDepth = null)

@@ -67,7 +67,12 @@ namespace Faze.Rendering.Playground
             renderer.Draw(tree, viewport, options.RenderDepth);
 
             pictureBox.Image?.Dispose();
-            pictureBox.Image = renderer.GetBitmap();
+            using (var ms = new MemoryStream())
+            {
+                renderer.Save(ms);
+                pictureBox.Image = Image.FromStream(ms);
+            }
+
         }
 
         private bool HasViewportChanged(Viewport viewport)

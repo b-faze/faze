@@ -1,4 +1,5 @@
-﻿using Faze.Abstractions.GameResults;
+﻿using Faze.Abstractions.GameMoves;
+using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Players;
 using Faze.Engine.Players;
@@ -26,7 +27,7 @@ namespace Faze.Examples.OX.Tests
             var p1 = new MonkeyAgent();
             var p2 = new MonkeyAgent();
             var players = new[] { p1, p2 };
-            IGameState<int, WinLoseDrawResult?> state = OXState.Initial;
+            IGameState<GridMove, WinLoseDrawResult?> state = OXState.Initial;
 
             state = state.Move(0);
             state.GetResult().ShouldBeNull();

@@ -1,3 +1,4 @@
+using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Players;
@@ -13,7 +14,7 @@ namespace Faze.Examples.OX.Tests
         [Fact]
         public void Game1()
         {
-            IGameState<int, WinLoseDrawResult?> state = OXState.Initial;
+            IGameState<GridMove, WinLoseDrawResult?> state = OXState.Initial;
 
             state = state.Move(0);
             state.GetResult().ShouldBeNull();
@@ -29,6 +30,7 @@ namespace Faze.Examples.OX.Tests
 
             state = state.Move(2);
             state.GetResult().ShouldBe(WinLoseDrawResult.Win);
+            state.GetAvailableMoves().ShouldBeEmpty();
         }
     }
 }

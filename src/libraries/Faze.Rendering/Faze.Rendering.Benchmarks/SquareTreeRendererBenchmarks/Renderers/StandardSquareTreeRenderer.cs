@@ -2,6 +2,8 @@
 using Faze.Abstractions.Rendering;
 using System;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 
 namespace Faze.Rendering.TreeRenderers
@@ -25,11 +27,6 @@ namespace Faze.Rendering.TreeRenderers
         public void Draw(Tree<Color> tree, Viewport viewPort, int? maxDepth = null)
         {
             DrawHelper(bitmap, tree, 0, maxDepth);
-        }
-
-        public Bitmap GetBitmap()
-        {
-            return bitmap;
         }
 
         private void DrawHelper(Bitmap img, Tree<Color> node, int depth, int? maxDepth = null)
@@ -79,6 +76,11 @@ namespace Faze.Rendering.TreeRenderers
         public void Dispose()
         {
             this.bitmap?.Dispose();
+        }
+
+        public void Save(Stream stream)
+        {
+            bitmap.Save(stream, ImageFormat.Png);
         }
     }
 }

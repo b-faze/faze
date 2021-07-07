@@ -39,11 +39,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "noughts-crosses", "noughts-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.OX", "examples\noughts-crosses\Faze.Examples.OX\Faze.Examples.OX.csproj", "{2E7EB842-5606-4984-A7F8-D4973CFD2D2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Examples.OX.Tests", "examples\noughts-crosses\Faze.Examples.OX.Tests\Faze.Examples.OX.Tests.csproj", "{FD229C8F-7584-4CDF-9E27-607799FF1DDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.OX.Tests", "examples\noughts-crosses\Faze.Examples.OX.Tests\Faze.Examples.OX.Tests.csproj", "{FD229C8F-7584-4CDF-9E27-607799FF1DDC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "generic-grid", "generic-grid", "{FFC64B33-727B-4199-804D-3B41E3206550}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Examples.GridGames", "examples\generic-grid\Faze.Examples.GridGames\Faze.Examples.GridGames.csproj", "{31A99DD4-E745-47FC-8901-CB80AE3560F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.GridGames", "examples\generic-grid\Faze.Examples.GridGames\Faze.Examples.GridGames.csproj", "{31A99DD4-E745-47FC-8901-CB80AE3560F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Examples.Gallery", "examples\Faze.Examples.Gallery\Faze.Examples.Gallery.csproj", "{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +175,14 @@ Global
 		{31A99DD4-E745-47FC-8901-CB80AE3560F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31A99DD4-E745-47FC-8901-CB80AE3560F4}.Release|x64.ActiveCfg = Release|Any CPU
 		{31A99DD4-E745-47FC-8901-CB80AE3560F4}.Release|x64.Build.0 = Release|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Debug|x64.Build.0 = Debug|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Release|x64.ActiveCfg = Release|Any CPU
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +207,7 @@ Global
 		{FD229C8F-7584-4CDF-9E27-607799FF1DDC} = {824A3E6B-0CCF-4E8B-B2E2-9C8EFD05D142}
 		{FFC64B33-727B-4199-804D-3B41E3206550} = {36EBED6A-B078-4EA6-AA7B-95D3659FC8A9}
 		{31A99DD4-E745-47FC-8901-CB80AE3560F4} = {FFC64B33-727B-4199-804D-3B41E3206550}
+		{DD8ED7EB-D1F2-42FC-8456-E00268FB0109} = {36EBED6A-B078-4EA6-AA7B-95D3659FC8A9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF0267C9-5DB8-4A3A-8106-112CA497CA91}

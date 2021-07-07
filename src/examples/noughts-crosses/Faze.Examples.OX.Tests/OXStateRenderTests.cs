@@ -9,6 +9,8 @@ using Faze.Rendering.TreeLinq;
 using Faze.Rendering.TreeRenderers;
 using System.Linq;
 using Xunit;
+using Faze.Rendering.Extensions;
+using Faze.Abstractions.GameMoves;
 
 namespace Faze.Examples.OX.Tests
 {
@@ -20,7 +22,7 @@ namespace Faze.Examples.OX.Tests
             var p1 = new MonkeyAgent();
             var p2 = new MonkeyAgent();
             var players = new[] { p1, p2 };
-            IGameState<int, WinLoseDrawResult?> state = OXState.Initial;
+            IGameState<GridMove, WinLoseDrawResult?> state = OXState.Initial;
 
             var rendererOptions = new SquareTreeRendererOptions(3)
             {
@@ -39,7 +41,7 @@ namespace Faze.Examples.OX.Tests
                             .Map(new GoldInterpolator());
 
             renderer.Draw(renderTree, Viewport.Default(), 4);
-            renderer.GetBitmap().Save("result.png");
+            renderer.Save("result.png");
         }
 
     }

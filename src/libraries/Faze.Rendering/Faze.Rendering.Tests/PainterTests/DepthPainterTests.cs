@@ -5,6 +5,7 @@ using Faze.Rendering.TreeRenderers;
 using Faze.Rendering.Tests.Utilities;
 using System.Drawing.Imaging;
 using Xunit;
+using Faze.Rendering.Extensions;
 
 namespace Faze.Rendering.Tests.PainterTests
 {
@@ -32,8 +33,7 @@ namespace Faze.Rendering.Tests.PainterTests
                 $"{nameof(DrawDefaultDepthPainter)}.png");
 
             renderer.Draw(paintedTree, Viewport.Default());
-            using var img = renderer.GetBitmap();
-            img.Save(filename, ImageFormat.Png);
+            renderer.Save(filename);
 
         }
 
@@ -46,9 +46,7 @@ namespace Faze.Rendering.Tests.PainterTests
                 $"{nameof(DrawReverseDepthPainter)}.png");
 
             renderer.Draw(paintedTree, Viewport.Default());
-            using var img = renderer.GetBitmap();
-            img.Save(filename, ImageFormat.Png);
-
+            renderer.Save(filename);
         }
     }
 }

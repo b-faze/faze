@@ -3,6 +3,7 @@ using Faze.Rendering.TreeRenderers;
 using Faze.Rendering.Tests.Utilities;
 using System.Drawing.Imaging;
 using Xunit;
+using Faze.Rendering.Extensions;
 
 namespace Faze.Rendering.Tests.RendererTests
 {
@@ -36,8 +37,7 @@ namespace Faze.Rendering.Tests.RendererTests
                 $"Test1_{squareSize}_{depth}_{borderProportion}.png");
             
             renderer.Draw(tree, Viewport.Default());
-            using var img = renderer.GetBitmap();
-            img.Save(filename, ImageFormat.Png);
+            renderer.Save(filename);
 
         }        
         
@@ -70,11 +70,8 @@ namespace Faze.Rendering.Tests.RendererTests
                 $"{testName}_{squareSize}_{depth}_{borderProportion}.png");
 
             renderer.Draw(tree, Viewport.Default());
-            using (var img = renderer.GetBitmap())
-            {
-                img.Save(filename, ImageFormat.Png);
-            }
-            
+            renderer.Save(filename);
+
         }
 
         [Theory]
@@ -98,10 +95,7 @@ namespace Faze.Rendering.Tests.RendererTests
                     $"{testName}_{squareSize}_{depth}_{i}.png");
 
                 renderer.Draw(tree, Viewport.Default());
-                using (var img = renderer.GetBitmap())
-                {
-                    img.Save(filename, ImageFormat.Png);
-                }
+                renderer.Save(filename);
             }
 
 

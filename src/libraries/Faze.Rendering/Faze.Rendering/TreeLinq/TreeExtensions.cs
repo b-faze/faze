@@ -70,6 +70,17 @@ namespace Faze.Rendering.TreeLinq
             return MapHelper(tree, fn, info);
         }
 
+        public static Tree<TOutValue> MapTree<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
+        {
+            if (tree == null)
+                return null;
+
+            var newValue = fn(tree);
+            var newChildren = tree.Children?.Select(c => MapTree(c, fn));
+
+            return new Tree<TOutValue>(newValue, newChildren);
+        }
+
         private static Tree<TOutValue> MapHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
         {
             var newValue = fn(tree.Value, info);

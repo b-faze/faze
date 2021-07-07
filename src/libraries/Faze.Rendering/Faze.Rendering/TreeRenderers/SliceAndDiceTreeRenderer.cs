@@ -3,6 +3,7 @@ using Faze.Abstractions.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -32,7 +33,7 @@ namespace Faze.Rendering.TreeRenderers
             throw new NotImplementedException();
         }
 
-        public Bitmap GetBitmap()
+        public void Save(Stream stream)
         {
             throw new NotImplementedException();
         }

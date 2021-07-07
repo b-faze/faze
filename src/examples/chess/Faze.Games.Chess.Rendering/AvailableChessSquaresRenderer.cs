@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using Faze.Rendering.Extensions;
 
 namespace Faze.Games.Chess.Rendering
 {
@@ -27,8 +28,7 @@ namespace Faze.Games.Chess.Rendering
 
             renderer.Draw(tree, new Viewport());
 
-            using var img = renderer.GetBitmap();
-            img.Save(filename, ImageFormat.Png);
+            renderer.Save(filename);
         }
 
         private Tree<Color> GetTree(IGameState<ChessMove, ChessResult> state, int maxDepth) 

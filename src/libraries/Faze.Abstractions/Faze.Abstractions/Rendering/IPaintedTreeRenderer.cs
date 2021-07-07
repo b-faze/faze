@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text;
 
 namespace Faze.Abstractions.Rendering
@@ -10,6 +11,6 @@ namespace Faze.Abstractions.Rendering
     {
         Tree<T> GetVisible<T>(Tree<T> tree, Viewport viewPort);
         void Draw(Tree<Color> tree, Viewport viewPort, int? maxDepth = null);
-        Bitmap GetBitmap();
+        void Save(Stream stream);
     }
 }

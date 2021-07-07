@@ -7,6 +7,7 @@ using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Text;
 
 namespace Faze.Rendering.Benchmarks.RendererBenchmarks
@@ -39,7 +40,13 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
             var renderer = new StandardSquareTreeRenderer(options, ImageSize);
 
             renderer.Draw(tree, Viewport.Default());
-            var img = renderer.GetBitmap();
+
+            using (var ms = new MemoryStream())
+            {
+                renderer.Save(ms);
+                var img = Image.FromStream(ms);
+            }
+
         }
 
         [Benchmark]
@@ -53,7 +60,12 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
             var renderer = new SkiaSquareTreeRenderer(options, ImageSize);
 
             renderer.Draw(tree, Viewport.Default());
-            var img = renderer.GetBitmap();
+
+            using (var ms = new MemoryStream())
+            {
+                renderer.Save(ms);
+                var img = Image.FromStream(ms);
+            }
         }
     }
 }
