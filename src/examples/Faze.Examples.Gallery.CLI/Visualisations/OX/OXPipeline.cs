@@ -4,37 +4,55 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
+using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
+using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 {
-    public class OXPipeline
+    public class OXPipeline : IImageGenerator
     {
         private readonly IGalleryService galleryService;
         private readonly IPaintedTreeRenderer renderer;
         private readonly IColorInterpolator colorInterpolator;
         private readonly ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser;
-        private readonly string filename;
-        private readonly GalleryItemMetadata galleryMetaData;
 
         public OXPipeline(IGalleryService galleryService,
             IPaintedTreeRenderer renderer,
             IColorInterpolator colorInterpolator,
-            ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser,
-            string filename,
-            GalleryItemMetadata galleryMetaData)
+            ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser)
         {
             this.galleryService = galleryService;
             this.renderer = renderer;
             this.colorInterpolator = colorInterpolator;
             this.treeSerialiser = treeSerialiser;
-            this.filename = filename;
-            this.galleryMetaData = galleryMetaData;
         }
 
-        public IPipeline GetPipeline()
+        public Task Generate()
+        {
+            var galleryMetaData = new GalleryItemMetadata
+            {
+                Id = "OXGold1",
+                FileName = "OX Gold 5.png",
+                Albums = new[] { "OX" },
+                Description = "Desc...",
+            };
+
+            ReversePipelineBuilder.Create()
+                .GallerySave(galleryService, galleryMetaData)
+                .Render(renderer)
+                .Paint(colorInterpolator)
+                .MapValue<double, WinLoseDrawResultAggregate>(x => (double)x.Wins / (x.Wins + x.Loses))
+                .LoadTree(OXDataGenerator5.Id, treeSerialiser)
+                .Run();
+
+            return Task.CompletedTask;
+        }
+
+        public IPipeline GetPipeline(IGalleryService galleryService, GalleryItemMetadata metaData)
         {
             var pipeline = ReversePipelineBuilder.Create()
-                .GallerySave(galleryService, galleryMetaData)
+                .GallerySave(galleryService, metaData)
                 .Render(renderer)
                 .Paint(colorInterpolator)
                 .MapValue<double, WinLoseDrawResultAggregate>(x => (double)x.Wins / (x.Wins + x.Loses))

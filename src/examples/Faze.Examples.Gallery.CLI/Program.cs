@@ -1,48 +1,56 @@
-﻿using Faze.Abstractions.Core;
+﻿using CommandLine;
+using Faze.Abstractions.Core;
 using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.IO;
 using Faze.Core.Pipelines;
+using Faze.Core.Serialisers;
 using Faze.Engine.ResultTrees;
 using Faze.Engine.Simulators;
+using Faze.Examples.Gallery.CLI.Commands;
+using Faze.Examples.Gallery.CLI.Extensions;
+using Faze.Examples.Gallery.CLI.Interfaces;
 using Faze.Examples.Gallery.CLI.Visualisations.OX;
 using Faze.Examples.OX;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.CLI
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
-            var galleryService = new GalleryService(new GalleryServiceConfig
-            {
-                BasePath = @"../../gallery"
-            });
-            var treeSerialiser = new JsonTreeSerialiser<WinLoseDrawResultAggregate>(new WinLoseDrawResultAggregateSerialiser());
-            var filename = "tree.json";
+            var serviceProvider = new ServiceCollection()
+                .AddSingleton(new GalleryServiceConfig
+                {
+                    ImageBasePath = @"..\..\..\output\gallery",
+                    DataBasePath = @"..\..\..\output\data"
+                })
+                .AddSingleton<IGalleryService, GalleryService>()
+                .AddSingleton<IValueSerialiser<WinLoseDrawResultAggregate>, WinLoseDrawResultAggregateSerialiser>()
+                .AddSingleton<ITreeSerialiser<WinLoseDrawResultAggregate>, JsonTreeSerialiser<WinLoseDrawResultAggregate>>()
+                .AddSingletons<IDataGenerator>(Assembly.GetAssembly(typeof(Program)))
+                .AddMediatR(Assembly.GetAssembly(typeof(Program)))
+                .BuildServiceProvider();
 
-            //GetWritePipeline(filename, treeSerialiser).Run();
-            GetReadPipeline(galleryService, filename, treeSerialiser).Run();
-        }
+            var x = serviceProvider.GetService<IGalleryService>();
+            var mediator = serviceProvider.GetService<IMediator>();
 
-        static IPipeline GetWritePipeline(string filename, ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser)
-        {
-            ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate> resultsMapper = new WinLoseDrawResultsTreeMapper(new GameSimulator(), 100);
-
-            var pipeline = ReversePipelineBuilder.Create()
-                .SaveTree(filename, treeSerialiser)
-                .Map(resultsMapper)
-                .LimitDepth(2)
-                .GameTree(new OXStateTreeAdapter())
-                .Build(() => OXState.Initial);
-
-            return pipeline;
+            return await Parser.Default.ParseArguments<GenerateDataCommand, GenerateImagesCommand>(args)
+                    .MapResult(
+                        (GenerateDataCommand o) => mediator.Send(o), 
+                        (GenerateImagesCommand o) => mediator.Send(o), 
+                        (CheckImagesCommand o) => mediator.Send(o), 
+                        err => Task.FromResult(1));
         }
 
         static IPipeline GetReadPipeline(GalleryService galleryService, string filename, ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser)
@@ -60,20 +68,6 @@ namespace Faze.Examples.Gallery.CLI
                 MaxDepth = 1
             });
             return new OXPipeline(galleryService, renderer, new GoldInterpolator(), treeSerialiser, filename, galleryMetaData).GetPipeline();
-        }
-    }
-
-    public class WinLoseDrawResultAggregateSerialiser : IValueSerialiser<WinLoseDrawResultAggregate>
-    {
-        public WinLoseDrawResultAggregate Deserialize(string valueString)
-        {
-            var values = valueString.Split(',').Select(uint.Parse).ToArray();
-            return new WinLoseDrawResultAggregate(values[0], values[1], values[2]);
-        }
-
-        public string Serialize(WinLoseDrawResultAggregate value)
-        {
-            return $"{value.Wins},{value.Loses},{value.Draws}";
         }
     }
 }

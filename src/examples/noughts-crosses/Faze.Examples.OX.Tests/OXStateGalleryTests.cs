@@ -26,7 +26,7 @@ namespace Faze.Examples.OX.Tests
         {
             this.galleryService = new GalleryService(new GalleryServiceConfig
             {
-                BasePath = @"../../../gallery"
+                ImageBasePath = @"../../../gallery"
             });
         }
 

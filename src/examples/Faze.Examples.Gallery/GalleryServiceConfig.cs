@@ -2,6 +2,7 @@
 {
     public class GalleryServiceConfig
     {
-        public string BasePath { get; set; }
+        public string ImageBasePath { get; set; }
+        public string DataBasePath { get; set; }
     }
 }

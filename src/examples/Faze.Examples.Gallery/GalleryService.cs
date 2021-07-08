@@ -32,8 +32,24 @@ namespace Faze.Examples.Gallery
         private string GetFilePath(GalleryItemMetadata data)
         {
             var relativePath = Path.Combine(data.Albums);
-            
-            return Path.Combine(config.BasePath, relativePath, data.FileName);
+            var filename = Path.Combine(config.ImageBasePath, relativePath, data.FileName);
+
+            var directory = Path.GetDirectoryName(Path.GetFullPath(filename));
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return filename;
+        }
+
+        public string GetDataFilename(string id)
+        {
+            var filename = Path.Combine(config.DataBasePath, id);
+
+            var directory = Path.GetDirectoryName(Path.GetFullPath(filename));
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            return filename;
         }
     }
 }
