@@ -18,11 +18,11 @@ namespace Faze.Games.Chess.Rendering
     {
         public void Draw(IGameState<ChessMove, ChessResult> state, int maxDepth, string filename)
         {
-            var options = new SquareTreeRendererOptions(8)
+            var options = new SquareTreeRendererOptions(8, 1000)
             {
                 BorderProportions = 0
             };
-            var renderer = new SquareTreeRenderer(options, 1000);
+            var renderer = new SquareTreeRenderer(options);
             var tree = GetTree(state, maxDepth);
 
 

@@ -13,9 +13,10 @@ namespace Faze.Rendering.TreeRenderers
         private readonly SquareTreeRendererOptions options;
         private readonly Bitmap bitmap;
 
-        public StandardSquareTreeRenderer(SquareTreeRendererOptions options, int imageSize) 
+        public StandardSquareTreeRenderer(SquareTreeRendererOptions options) 
         {
             this.options = options;
+            var imageSize = options.ImageSize;
             this.bitmap = new Bitmap(imageSize, imageSize);
         }
 

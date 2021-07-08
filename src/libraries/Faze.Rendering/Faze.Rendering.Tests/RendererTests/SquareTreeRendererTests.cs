@@ -27,11 +27,11 @@ namespace Faze.Rendering.Tests.RendererTests
         [InlineData(3, 4, 0.1)]
         public void Test1(int squareSize, int depth, float borderProportion)
         {
-            var rendererOptions = new SquareTreeRendererOptions(squareSize)
+            var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
             {
                 BorderProportions = borderProportion
             };
-            var renderer = new SquareTreeRenderer(rendererOptions, 600);
+            var renderer = new SquareTreeRenderer(rendererOptions);
             var tree = TreeUtilities.CreateGreyPaintedSquareTree(squareSize, depth);
             var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests), 
                 $"Test1_{squareSize}_{depth}_{borderProportion}.png");
@@ -60,11 +60,11 @@ namespace Faze.Rendering.Tests.RendererTests
         public void RainbowTests(int squareSize, int depth, float borderProportion)
         {
             var testName = nameof(RainbowTests);
-            var rendererOptions = new SquareTreeRendererOptions(squareSize)
+            var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
             {
                 BorderProportions = borderProportion
             };
-            var renderer = new SquareTreeRenderer(rendererOptions, 600);
+            var renderer = new SquareTreeRenderer(rendererOptions);
             var tree = TreeUtilities.CreateRainbowPaintedSquareTree(squareSize, depth);
             var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests), 
                 $"{testName}_{squareSize}_{depth}_{borderProportion}.png");
@@ -85,11 +85,11 @@ namespace Faze.Rendering.Tests.RendererTests
             {
                 float borderProportion = minBorder + (maxBorder - minBorder) * ((float)i / steps);
                 var testName = nameof(RainbowBorderTests);
-                var rendererOptions = new SquareTreeRendererOptions(squareSize)
+                var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
                 {
                     BorderProportions = borderProportion
                 };
-                var renderer = new SquareTreeRenderer(rendererOptions, 600);
+                var renderer = new SquareTreeRenderer(rendererOptions);
                 var tree = TreeUtilities.CreateRainbowPaintedSquareTree(squareSize, depth);
                 var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests),
                     $"{testName}_{squareSize}_{depth}_{i}.png");

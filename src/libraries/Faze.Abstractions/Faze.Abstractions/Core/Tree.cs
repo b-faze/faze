@@ -19,10 +19,5 @@ namespace Faze.Abstractions.Core
 
         public TValue Value { get; }
         public IEnumerable<Tree<TValue>> Children { get; }
-
-        public object MapValue(Func<object, object, Color> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

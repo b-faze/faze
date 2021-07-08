@@ -1,7 +1,9 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Engine;
+using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Rendering;
 using Faze.Core.TreeLinq;
 using System;
 using System.Collections.Generic;
@@ -10,36 +12,36 @@ using System.Text;
 
 namespace Faze.Engine.ResultTrees
 {
-    public class WinLoseResultsTreeMapper : IGameResultTreeMapper<WinLoseDrawResult?, WinLoseDrawResultAggregate>
+    public class WinLoseResultsTreeMapper : ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate>
     {
         private readonly IGameSimulator engine;
+        private readonly int simulations;
 
-        public WinLoseResultsTreeMapper(IGameSimulator engine)
+        public WinLoseResultsTreeMapper(IGameSimulator engine, int simulations)
         {
             this.engine = engine;
+            this.simulations = simulations;
+        }
+
+        public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree)
+        {
+            return tree.MapTreeAgg(GetResults);
         }
 
         private WinLoseDrawResultAggregate GetResults<TMove>(IGameState<TMove, WinLoseDrawResult?> state)
         {
-            var simulations = 100;
             var resultAggregate = new WinLoseDrawResultAggregate();
-            var results = engine
-                .SampleResults(state, simulations)
-                .Where(x => x != null)
-                .Select(x => (WinLoseDrawResult)x);
+            for (var i = 0; i < simulations; i++)
+            {
+                var result = engine.Simulate(state);
+                if (result != null)
+                {
+                    resultAggregate.Add(result.Value);
+                }
+            }
 
-            resultAggregate.AddRange(results);
 
             return resultAggregate;
-        }
-
-        public Tree<WinLoseDrawResultAggregate> GetResultsTree<TMove>(Tree<IGameState<TMove, WinLoseDrawResult?>> stateTree)
-        {
-            var resultsTree = stateTree
-                            .MapTreeAgg(x => GetResults(x.Value));
-            //.MapValue(x => x.Value.GetWinsOverLoses());
-
-            return resultsTree;
         }
     }
 }

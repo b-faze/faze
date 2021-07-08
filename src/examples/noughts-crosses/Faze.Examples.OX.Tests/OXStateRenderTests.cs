@@ -24,13 +24,13 @@ namespace Faze.Examples.OX.Tests
             var players = new[] { p1, p2 };
             IGameState<GridMove, WinLoseDrawResult?> state = OXState.Initial;
 
-            var rendererOptions = new SquareTreeRendererOptions(3)
+            var rendererOptions = new SquareTreeRendererOptions(3, 500)
             {
                 BorderProportions = 0.1f,
                 MaxDepth = 4
             };
 
-            var renderer = new SquareTreeRenderer(rendererOptions, 500);
+            var renderer = new SquareTreeRenderer(rendererOptions);
 
             var engine = new GameSimulator();
 

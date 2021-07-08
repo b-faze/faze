@@ -18,10 +18,10 @@ namespace Faze.Rendering.Tests.PainterTests
         {
             var treeSize = 1;
             this.tree = TreeUtilities.CreateSquareTree(treeSize, 10);
-            this.renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(treeSize)
+            this.renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(treeSize, 600)
             {
                 BorderProportions = 0.1f
-            }, 600);
+            });
         }
 
         [Fact]

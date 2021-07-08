@@ -32,12 +32,12 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
         [Benchmark(Baseline = true)]
         public void Standard()
         {
-            var options = new SquareTreeRendererOptions(TreeSize)
+            var options = new SquareTreeRendererOptions(TreeSize, ImageSize)
             {
                 BorderProportions = 0
             };
 
-            var renderer = new StandardSquareTreeRenderer(options, ImageSize);
+            var renderer = new StandardSquareTreeRenderer(options);
 
             renderer.Draw(tree);
 
@@ -52,12 +52,12 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
         [Benchmark]
         public void Skia()
         {
-            var options = new SquareTreeRendererOptions(TreeSize)
+            var options = new SquareTreeRendererOptions(TreeSize, ImageSize)
             {
                 BorderProportions = 0
             };
 
-            var renderer = new SkiaSquareTreeRenderer(options, ImageSize);
+            var renderer = new SkiaSquareTreeRenderer(options);
 
             renderer.Draw(tree);
 

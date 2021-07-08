@@ -87,7 +87,7 @@ namespace Faze.Core.TreeLinq
             return new Tree<TOutValue>(newValue, newChildren);
         }
 
-        public static Tree<TOutValue> MapTreeAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
+        public static Tree<TOutValue> MapTreeAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn)
             where TOutValue : IResultAggregate<TOutValue>
         {
             if (tree == null)
@@ -95,13 +95,14 @@ namespace Faze.Core.TreeLinq
 
             if (tree.IsLeaf())
             {
-                return new Tree<TOutValue>(fn(tree));
+                return new Tree<TOutValue>(fn(tree.Value));
             }
 
             var children = tree.Children
                     .Select(x => MapTreeAgg(x, fn));
 
             var value = children
+                .Where(x => x != null)
                 .Select(x => x.Value)
                 .Aggregate((a, b) =>
             {
@@ -114,6 +115,9 @@ namespace Faze.Core.TreeLinq
 
         private static Tree<TOutValue> MapHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
         {
+            if (tree == null)
+                return null;
+
             var newValue = fn(tree.Value, info);
             var newChildren = tree.Children
                 ?.Select((c, i) => MapHelper(c, fn, new TreeMapInfo(info.Depth + 1, i)));
@@ -148,16 +152,19 @@ namespace Faze.Core.TreeLinq
 
         public static IEnumerable<Tree<TValue>> GetLeaves<TValue>(this Tree<TValue> tree)
         {
-            var children = tree.Children;
-            if (children == null || !children.Any())
+            if (tree.IsLeaf())
             {
                 yield return tree;
                 yield break;
             }
 
-
+            var children = tree.Children;
+ 
             foreach (var child in children)
             {
+                if (child == null)
+                    continue;
+
                 foreach (var leaf in GetLeaves(child))
                     yield return leaf;
             }
@@ -165,6 +172,9 @@ namespace Faze.Core.TreeLinq
 
         public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state)
         {
+            if (state == null)
+                return null;
+
             var children = state.GetAvailableMoves().Select(move =>
             {
                 var newState = state.Move(move);
@@ -176,6 +186,9 @@ namespace Faze.Core.TreeLinq
 
         public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state, IGameStateTreeAdapter<TMove> adapter)
         {
+            if (state == null)
+                return null;
+
             var children = adapter.GetChildren(state).Select(childState => ToStateTree(childState, adapter));
 
             return new Tree<IGameState<TMove, TResult>>(state, children);

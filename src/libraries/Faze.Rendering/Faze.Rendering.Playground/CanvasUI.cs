@@ -40,12 +40,12 @@ namespace Faze.Rendering.Playground
 
             this.options = options;
             this.renderer?.Dispose();
-            this.rendererConfig = new SquareTreeRendererOptions(options.Size)
+            this.rendererConfig = new SquareTreeRendererOptions(options.Size, Math.Min(pictureBox.Width, pictureBox.Height))
             {
                 BorderProportions = options.Border,
                 MinChildDrawSize = options.MinChildDrawSize,
             };
-            this.renderer = new SquareTreeRenderer(rendererConfig, Math.Min(pictureBox.Width, pictureBox.Height));
+            this.renderer = new SquareTreeRenderer(rendererConfig);
 
             this.tree = CreateRandomPaintedSquareTree(options.Size, options.RenderDepth + 1);
 

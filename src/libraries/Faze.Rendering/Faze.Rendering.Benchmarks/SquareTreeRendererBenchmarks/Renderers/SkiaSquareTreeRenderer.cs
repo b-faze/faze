@@ -18,10 +18,10 @@ namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers
         private readonly int imageSize;
         private readonly SKSurface surface;
 
-        public SkiaSquareTreeRenderer(SquareTreeRendererOptions options, int imageSize)
+        public SkiaSquareTreeRenderer(SquareTreeRendererOptions options)
         {
             this.options = options;
-            this.imageSize = imageSize;
+            this.imageSize = options.ImageSize;
             var imageInfo = new SKImageInfo(imageSize, imageSize);
             this.surface = SKSurface.Create(imageInfo);
         }

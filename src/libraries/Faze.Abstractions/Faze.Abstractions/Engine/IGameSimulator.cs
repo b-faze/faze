@@ -7,6 +7,5 @@ namespace Faze.Abstractions.Engine
     public interface IGameSimulator
     {
         TResult Simulate<TMove, TResult>(IGameState<TMove, TResult> state);
-        IEnumerable<TResult> SampleResults<TMove, TResult>(IGameState<TMove, TResult> state, int n);
     }
 }

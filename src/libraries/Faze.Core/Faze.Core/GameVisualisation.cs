@@ -12,16 +12,16 @@ namespace Faze.Core
     {
         public IGameStateFactory<TMove, TResult> GameFactory { get; }
         public IGameStateTreeAdapter<TMove> StateTreeAdapter { get; }
-        public IGameResultTreeMapper<TResult, TResultAgg> Engine { get; }
+        public ITreeMapper<TResult, TResultAgg> Engine { get; }
         public ITreePainter<TResultAgg> Painter { get; }
         public IPaintedTreeRenderer Renderer { get; }
     }
 
-    public class GameVisualisation<TResult, TResultAgg>
+    public class GameVisualisation<TMove, TResult, TResultAgg>
     {
-        private readonly GameVisualisationSettings<GridMove, TResult, TResultAgg> settings;
+        private readonly GameVisualisationSettings<TMove, TResult, TResultAgg> settings;
 
-        public GameVisualisation(GameVisualisationSettings<GridMove, TResult, TResultAgg> settings) 
+        public GameVisualisation(GameVisualisationSettings<TMove, TResult, TResultAgg> settings) 
         {
             this.settings = settings;
         }
@@ -35,10 +35,10 @@ namespace Faze.Core
             var renderer = settings.Renderer;
 
             var visibleStateTree = renderer.GetVisible(state.ToStateTree(stateTreeAdapter));
-            var resultsTree = engine.GetResultsTree(visibleStateTree);
-            var renderTree = painter.Paint(resultsTree);
+            //var resultsTree = engine.GetResultsTree(visibleStateTree);
+            //var renderTree = painter.Paint(resultsTree);
 
-            renderer.Draw(renderTree);
+            //renderer.Draw(renderTree);
         }
     }
 }

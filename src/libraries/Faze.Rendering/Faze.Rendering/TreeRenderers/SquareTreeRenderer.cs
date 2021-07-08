@@ -13,17 +13,19 @@ namespace Faze.Rendering.TreeRenderers
     {
         private const float DefaultMinChildDrawSize = 1;
 
-        public SquareTreeRendererOptions(int size) 
+        public SquareTreeRendererOptions(int treeSize, int imageSize) 
         {
-            if (size <= 0)
-                throw new Exception("Size must be > 0");
+            if (treeSize <= 0)
+                throw new Exception("Size must be greater than 0");
 
-            Size = size;
+            Size = treeSize;
+            ImageSize = imageSize;
             MinChildDrawSize = DefaultMinChildDrawSize;
             Viewport = Viewport.Default();
         }
 
-        public int Size { get; set; }
+        public int Size { get; }
+        public int ImageSize { get; }
         public float BorderProportions { get; set; }
         public float MinChildDrawSize { get; set; }
 
@@ -34,13 +36,12 @@ namespace Faze.Rendering.TreeRenderers
     public class SquareTreeRenderer : IPaintedTreeRenderer, IDisposable
     {
         private readonly SquareTreeRendererOptions options;
-        private readonly int imageSize;
         private readonly SKSurface surface;
 
-        public SquareTreeRenderer(SquareTreeRendererOptions options, int imageSize) 
+        public SquareTreeRenderer(SquareTreeRendererOptions options) 
         {
             this.options = options;
-            this.imageSize = imageSize;
+            var imageSize = options.ImageSize;
             var imageInfo = new SKImageInfo(imageSize, imageSize);
             this.surface = SKSurface.Create(imageInfo);
         }
@@ -57,6 +58,7 @@ namespace Faze.Rendering.TreeRenderers
 
         public void Draw(Tree<Color> tree)
         {
+            var imageSize = options.ImageSize;
             var viewport = options.Viewport;
             var viewportBorderSize = 5;
             var viewportScale = viewport.Scale;
@@ -68,23 +70,7 @@ namespace Faze.Rendering.TreeRenderers
 
             surface.Canvas.Clear();
             DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, options.MaxDepth);
-
-            //surface.Canvas.DrawRect(viewportRect, new SKPaint
-            //{
-            //    IsStroke = true,
-            //    StrokeWidth = viewportBorderSize,
-            //    Color = new SKColor((uint)Color.Red.ToArgb())
-            //});
         }
-
-        //public Bitmap GetBitmap()
-        //{
-        //    using SKImage image = surface.Snapshot();
-        //    using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
-        //    using MemoryStream mStream = new MemoryStream(data.ToArray());
-
-        //    return new Bitmap(mStream, false);
-        //}
 
         public void Save(Stream stream)
         {

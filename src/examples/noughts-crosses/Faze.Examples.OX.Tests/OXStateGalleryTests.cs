@@ -12,6 +12,9 @@ using Xunit;
 using Faze.Rendering.Extensions;
 using Faze.Abstractions.Core;
 using Faze.Abstractions.GameMoves;
+using Faze.Core.Pipelines;
+using Faze.Rendering.TreePainters;
+using Faze.Engine.ResultTrees;
 
 namespace Faze.Examples.OX.Tests
 {
@@ -37,61 +40,63 @@ namespace Faze.Examples.OX.Tests
 
             var maxDepth = 3;
 
-            var rendererOptions = new SquareTreeRendererOptions(3)
+            var rendererOptions = new SquareTreeRendererOptions(3, 500)
             {
                 BorderProportions = 0,
                 MaxDepth = maxDepth
             };
 
-            IPaintedTreeRenderer renderer = new SquareTreeRenderer(rendererOptions, 500);
-
             var engine = new GameSimulator();
 
-            WinLoseDrawResultAggregate MapTree(Tree<IGameState<GridMove, WinLoseDrawResult?>> node) 
-            {
-                if (node.IsLeaf())
-                {
-                    var simulations = 100;
-                    var resultAggregate = new WinLoseDrawResultAggregate();
-                    var results = engine
-                        .SampleResults(node.Value, simulations)
-                        .Where(x => x != null)
-                        .Select(x => (WinLoseDrawResult)x);
 
-                    resultAggregate.AddRange(results);
-
-                    return resultAggregate;
-                }
-                else
-                {
-                    var results = new WinLoseDrawResultAggregate();
-
-                    foreach (var child in node.Children.Where(x => x != null))
-                    {
-                        var childResults = MapTree(child);
-
-                        results.Add(childResults);
-                    }
-
-                    return results;
-                }
-            }
-
-            var visibleTree = renderer.GetVisible(state.ToStateTree(new OXStateTreeAdapter()));
-            var resultsTree = visibleTree
-                            .MapTree(MapTree)
-                            .MapValue(x => (double)x.Wins / (x.Wins + x.Loses));
-
-            var renderTree = resultsTree.MapValue(new GoldInterpolator());
-
-            renderer.Draw(renderTree);
-            galleryService.Save(renderer, new GalleryItemMetadata
+            var galleryMetaData = new GalleryItemMetadata
             {
                 Id = "OXGold1",
                 FileName = "OX Gold 1.png",
                 Albums = new[] { "OX" },
                 Description = "Desc",
-            });
+            };
+
+            ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate> resultsMapper = new WinLoseResultsTreeMapper(engine, 100);
+            var pipeline = ReversePipelineBuilder.Create()
+                .GallerySave(galleryService, galleryMetaData)
+                .Render(new SquareTreeRenderer(rendererOptions))
+                .Paint(new GoldInterpolator())
+                .MapValue<double, WinLoseDrawResultAggregate>(x => (double)x.Wins / (x.Wins + x.Loses))
+                .Map(resultsMapper)
+                .GameTree(new OXStateTreeAdapter())
+                .Build();
+
+            pipeline.Run(state);
+        }
+
+        [Fact]
+        public void OXDepth1()
+        {
+            IGameState<GridMove, WinLoseDrawResult?> state = OXState.Initial;
+
+            var rendererOptions = new SquareTreeRendererOptions(3, 500)
+            {
+                BorderProportions = 0,
+                MaxDepth = 3
+            };
+
+             var galleryMetaData = new GalleryItemMetadata
+            {
+                Id = "OXDepth1",
+                FileName = "OX Depth 1.png",
+                Albums = new[] { "OX" },
+                Description = "Desc",
+            };
+
+            var pipeline = ReversePipelineBuilder.Create()
+                .GallerySave(galleryService, galleryMetaData)
+                .Render(new SquareTreeRenderer(rendererOptions))
+                .Paint<IGameState<GridMove, WinLoseDrawResult?>>(new DepthPainter())
+                .GameTree(new OXStateTreeAdapter())
+                .Build();
+
+            pipeline.Run(state);
         }
 
     }
