@@ -14,6 +14,11 @@ namespace Faze.Core.Pipelines
             };
         }
 
+        public PipelineStep(Func<TOut> fn)
+        {
+            Fn = obj => fn();
+        }
+
         public PipelineStep(Func<TIn, TOut> fn)
         {
             Fn = fn;

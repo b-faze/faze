@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libraries\Faze.Core.IO\Faze.Core.IO\Faze.Core.IO.csproj" />
+    <ProjectReference Include="..\..\libraries\Faze.Engine\Faze.Engine\Faze.Engine.csproj" />
+    <ProjectReference Include="..\..\libraries\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj" />
+    <ProjectReference Include="..\chess\Faze.Games.Chess\Faze.Games.Chess.csproj" />
+    <ProjectReference Include="..\Faze.Examples.Gallery\Faze.Examples.Gallery.csproj" />
+    <ProjectReference Include="..\generic-grid\Faze.Examples.GridGames\Faze.Examples.GridGames.csproj" />
+    <ProjectReference Include="..\noughts-crosses\Faze.Examples.OX\Faze.Examples.OX.csproj" />
+    <ProjectReference Include="..\skulls\Faze.Games.Skulls\Faze.Games.Skulls.csproj" />
+  </ItemGroup>
+
+</Project>

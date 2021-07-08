@@ -23,4 +23,24 @@ namespace Faze.Abstractions.Core
             }
         }
     }
+
+    public class DefaultPipeline : IPipeline
+    {
+        private IList<IPipelineStep> steps;
+
+        public DefaultPipeline(IEnumerable<IPipelineStep> steps)
+        {
+            this.steps = steps.ToList();
+        }
+
+        public void Run()
+        {
+            object currentInput = null;
+
+            foreach (var step in steps)
+            {
+                currentInput = step.Execute(currentInput);
+            }
+        }
+    }
 }

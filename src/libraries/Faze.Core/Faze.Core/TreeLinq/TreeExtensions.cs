@@ -33,6 +33,36 @@ namespace Faze.Core.TreeLinq
             }
         }
 
+        //public static IEnumerable<(TValue value, TreeMapInfo info)> SelectDepthFirstWithInfo<TValue>(this Tree<TValue> tree)
+        //{
+        //    return SelectDepthFirstWithInfoHelper(tree, TreeMapInfo.Root());
+        //}        
+        
+        //private static IEnumerable<(TValue value, TreeMapInfo info)> SelectDepthFirstWithInfoHelper<TValue>(this Tree<TValue> tree, TreeMapInfo info)
+        //{
+        //    if (tree == null)
+        //    {
+        //        yield return (default(TValue), info);
+        //        yield break;
+        //    }
+
+        //    yield return (tree.Value, info);
+
+        //    if (tree.Children == null)
+        //        yield break;
+
+        //    var childIndex = 0;
+        //    foreach (var child in tree.Children)
+        //    {
+        //        foreach (var valueWithInfo in child.SelectDepthFirstWithInfoHelper(new TreeMapInfo(info.Depth + 1, childIndex)))
+        //        {
+        //            yield return valueWithInfo;
+        //        }
+
+        //        childIndex++;
+        //    }
+        //}
+
         public static IEnumerable<TValue> SelectBreadthFirst<TValue>(this Tree<TValue> tree)
         {
             var queue = new Queue<Tree<TValue>>();

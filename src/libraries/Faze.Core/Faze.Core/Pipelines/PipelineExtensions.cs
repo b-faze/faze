@@ -52,6 +52,13 @@ namespace Faze.Core.Pipelines
                 return mapper.Map(tree);
             });
         }
+        public static IReversePipelineBuilder<Tree<T>> LimitDepth<T>(this IReversePipelineBuilder<Tree<T>> builder, int maxDepth)
+        {
+            return builder.Require<Tree<T>>(tree =>
+            {
+                return tree.LimitDepth(maxDepth);
+            });
+        }
 
         public static IReversePipelineBuilder<Tree<TIn>> MapValue<TOut, TIn>(this IReversePipelineBuilder<Tree<TOut>> builder, Func<TIn, TOut> fn)
         {
@@ -67,6 +74,24 @@ namespace Faze.Core.Pipelines
             {
                 return state.ToStateTree(adapter);
             });
+        }        
+        
+        public static IPipeline LoadTree<T>(this IReversePipelineBuilder<Tree<T>> builder, string filename, ITreeSerialiser<T> treeSerialiser)
+        {
+            return builder.Build(() =>
+            {
+                return TreeFileExtensions.Load(filename, treeSerialiser);
+            });
         }
+
+        public static IReversePipelineBuilder<Tree<T>> SaveTree<T>(this IReversePipelineBuilder builder, string filename, ITreeSerialiser<T> treeSerialiser)
+        {
+            return builder.Require<Tree<T>>(tree =>
+            {
+                TreeFileExtensions.Save(tree, filename, treeSerialiser);
+            });
+        }
+
+
     }
 }

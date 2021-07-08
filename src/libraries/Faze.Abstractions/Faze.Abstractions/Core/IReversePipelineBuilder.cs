@@ -11,5 +11,6 @@ namespace Faze.Abstractions.Core
     {
         IReversePipelineBuilder<TNext> Require<TNext>(Func<TNext, T> fn);
         IPipeline<T> Build();
+        IPipeline Build(Func<T> fn);
     }
 }

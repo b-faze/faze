@@ -4,4 +4,9 @@
     {
         void Run(TInput input);
     }
+
+    public interface IPipeline
+    {
+        void Run();
+    }
 }
