@@ -53,21 +53,21 @@ namespace Faze.Examples.Gallery.CLI
                         err => Task.FromResult(1));
         }
 
-        static IPipeline GetReadPipeline(GalleryService galleryService, string filename, ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser)
-        {
-            var galleryMetaData = new GalleryItemMetadata
-            {
-                Id = "OXGold1",
-                FileName = "OX Gold 1.png",
-                Albums = new[] { "OX" },
-                Description = "Desc",
-            };
+        //static IPipeline GetReadPipeline(GalleryService galleryService, string filename, ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser)
+        //{
+        //    var galleryMetaData = new GalleryItemMetadata
+        //    {
+        //        Id = "OXGold1",
+        //        FileName = "OX Gold 1.png",
+        //        Albums = new[] { "OX" },
+        //        Description = "Desc",
+        //    };
 
-            var renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(3, 500)
-            {
-                MaxDepth = 1
-            });
-            return new OXPipeline(galleryService, renderer, new GoldInterpolator(), treeSerialiser, filename, galleryMetaData).GetPipeline();
-        }
+        //    var renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(3, 500)
+        //    {
+        //        MaxDepth = 1
+        //    });
+        //    return new OXPipeline(galleryService, renderer, new GoldInterpolator(), treeSerialiser, filename, galleryMetaData).GetPipeline();
+        //}
     }
 }

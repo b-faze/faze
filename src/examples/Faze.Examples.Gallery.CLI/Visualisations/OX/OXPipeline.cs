@@ -48,17 +48,5 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 
             return Task.CompletedTask;
         }
-
-        public IPipeline GetPipeline(IGalleryService galleryService, GalleryItemMetadata metaData)
-        {
-            var pipeline = ReversePipelineBuilder.Create()
-                .GallerySave(galleryService, metaData)
-                .Render(renderer)
-                .Paint(colorInterpolator)
-                .MapValue<double, WinLoseDrawResultAggregate>(x => (double)x.Wins / (x.Wins + x.Loses))
-                .LoadTree(filename, treeSerialiser);
-
-            return pipeline;
-        }
     }
 }
