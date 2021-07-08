@@ -11,10 +11,12 @@ namespace Faze.Engine.Simulators
 {
     public class GameSimulator : IGameSimulator
     {
+        private readonly IAgentProvider agentProvider;
         private readonly Random rnd;
 
-        public GameSimulator(Random rnd = null)
+        public GameSimulator(IAgentProvider agentProvider = null, Random rnd = null)
         {
+            this.agentProvider = agentProvider ?? new MonkeyAgentProvider();
             this.rnd = rnd ?? ThreadSafeRandom.Random();
         }
 
@@ -64,8 +66,8 @@ namespace Faze.Engine.Simulators
 
         private TMove GetMove<TMove, TResult>(IGameState<TMove, TResult> state)
         {
-            //var currentPlayer = players[state.CurrentPlayerIndex];
-            var possibleMoves = new MonkeyAgent().GetMoves(state);
+            var currentPlayer = agentProvider.GetPlayer(state.CurrentPlayerIndex);
+            var possibleMoves = currentPlayer.GetMoves(state);
 
             return possibleMoves.GetMove(rnd);
         }

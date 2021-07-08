@@ -33,9 +33,6 @@ namespace Faze.Examples.OX.Tests
         [Fact]
         public void OXGold1()
         {
-            var p1 = new MonkeyAgent();
-            var p2 = new MonkeyAgent();
-            var players = new[] { p1, p2 };
             IGameState<GridMove, WinLoseDrawResult?> state = OXState.Initial;
 
             var maxDepth = 3;
@@ -57,7 +54,8 @@ namespace Faze.Examples.OX.Tests
                 Description = "Desc",
             };
 
-            ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate> resultsMapper = new WinLoseResultsTreeMapper(engine, 100);
+            ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate> resultsMapper = new WinLoseDrawResultsTreeMapper(engine, 100);
+
             var pipeline = ReversePipelineBuilder.Create()
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererOptions))

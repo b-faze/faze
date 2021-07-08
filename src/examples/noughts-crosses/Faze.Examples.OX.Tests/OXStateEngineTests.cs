@@ -23,7 +23,7 @@ namespace Faze.Examples.OX.Tests
         [Fact]
         public void Game1()
         {
-            var engine = new GameSimulator(rnd);
+            var engine = new GameSimulator(rnd: rnd);
             var p1 = new MonkeyAgent();
             var p2 = new MonkeyAgent();
             var players = new[] { p1, p2 };

@@ -12,12 +12,12 @@ using System.Text;
 
 namespace Faze.Engine.ResultTrees
 {
-    public class WinLoseResultsTreeMapper : ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate>
+    public class WinLoseDrawResultsTreeMapper : ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate>
     {
         private readonly IGameSimulator engine;
         private readonly int simulations;
 
-        public WinLoseResultsTreeMapper(IGameSimulator engine, int simulations)
+        public WinLoseDrawResultsTreeMapper(IGameSimulator engine, int simulations)
         {
             this.engine = engine;
             this.simulations = simulations;
@@ -28,7 +28,7 @@ namespace Faze.Engine.ResultTrees
             return tree.MapTreeAgg(GetResults);
         }
 
-        private WinLoseDrawResultAggregate GetResults<TMove>(IGameState<TMove, WinLoseDrawResult?> state)
+        private WinLoseDrawResultAggregate GetResults(IGameState<GridMove, WinLoseDrawResult?> state)
         {
             var resultAggregate = new WinLoseDrawResultAggregate();
             for (var i = 0; i < simulations; i++)
