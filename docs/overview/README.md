@@ -1,8 +1,8 @@
 ---
-description: Documentation - Overview
+description: Faze.Abstractions
 ---
 
-# Overview
+# Abstractions
 
 At its core, Faze can be summarised with the following diagram.
 
