@@ -1,5 +1,9 @@
 # faze
 
+<img align="center" src="docs/banner.png" alt="Banner" />
+
+---
+
 | Package           | NuGet |
 |-------------------|-------|
 | Faze.Abstractions | [![NuGet](https://img.shields.io/nuget/v/Faze.Abstractions.svg)](https://www.nuget.org/packages/Faze.Abstractions/) |
@@ -7,12 +11,6 @@
 | Faze.Core.IO         | [![NuGet](https://img.shields.io/nuget/v/Faze.Core.IO.svg)](https://www.nuget.org/packages/Faze.Core.IO/) |
 | Faze.Engine       | [![NuGet](https://img.shields.io/nuget/v/Faze.Engine.svg)](https://www.nuget.org/packages/Faze.Engine/) |
 | Faze.Rendering    | [![NuGet](https://img.shields.io/nuget/v/Faze.Rendering.svg)](https://www.nuget.org/packages/Faze.Rendering/) |
-
----
-
-<img align="center" src="docs/banner.png" alt="Banner" />
-
----
 
 ## About
 
