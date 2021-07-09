@@ -68,7 +68,7 @@ namespace Faze.Abstractions.GameResults
 
         public double GetWinsOverLoses()
         {
-            return (double)Wins / (Wins + Loses);
+            return (double)Wins / Math.Max(1, Wins + Loses);
         }
     }
 }

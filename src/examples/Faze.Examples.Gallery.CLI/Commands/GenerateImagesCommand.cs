@@ -12,6 +12,8 @@ namespace Faze.Examples.Gallery.CLI.Commands
     [Verb("generate-images", HelpText = "Produces the visualisations from the pre-computed data")]
     public class GenerateImagesCommand : IRequest<int>
     {
+        [Option("album", HelpText = "only generate images from album")]
+        public string Album { get; set; }
     }
 
     public class GenerateImagesCommandHandler : IRequestHandler<GenerateImagesCommand, int>
@@ -27,7 +29,7 @@ namespace Faze.Examples.Gallery.CLI.Commands
 
         public async Task<int> Handle(GenerateImagesCommand request, CancellationToken cancellationToken)
         {
-            var dataGeneratorArr = generators.ToArray();
+            var dataGeneratorArr = GetGenerators(request).ToArray();
             using var outerProgress = progressManager.Start(dataGeneratorArr.Length, "generate-images");
 
             for (var i = 0; i < dataGeneratorArr.Length; i++)
@@ -37,6 +39,14 @@ namespace Faze.Examples.Gallery.CLI.Commands
             }
 
             return 0;
+        }
+
+        private IEnumerable<IImageGenerator> GetGenerators(GenerateImagesCommand request) 
+        {
+            if (string.IsNullOrEmpty(request.Album))
+                return generators;
+
+            return generators.Where(g => g.GetMetaData().Albums?.Contains(request.Album) ?? false);
         }
     }
 }

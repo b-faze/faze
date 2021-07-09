@@ -7,6 +7,7 @@ using Faze.Examples.GridGames.PieceBoardStates;
 using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,18 +16,28 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
 {
     public class PieceBoardVisualisations : IImageGenerator
     {
+        private readonly IGalleryService galleryService;
         private readonly PieceBoardImagePipeline pipelineProvider;
 
-        public PieceBoardVisualisations(PieceBoardImagePipeline pipelineProvider) 
+        public PieceBoardVisualisations(IGalleryService galleryService, PieceBoardImagePipeline pipelineProvider) 
         {
+            this.galleryService = galleryService;
             this.pipelineProvider = pipelineProvider;
+        }
+
+        public ImageGeneratorMetaData GetMetaData()
+        {
+            return new ImageGeneratorMetaData
+            {
+                Albums = new[] { Albums.PieceBoard }
+            };
         }
 
         public Task Generate(IProgressBar progress)
         {
             var maxDepth = 6;
             progress.SetMaxTicks(maxDepth);
-            progress.SetMessage("Piece Board");
+            progress.SetMessage(Albums.PieceBoard);
 
             Run(progress.Spawn(), "Pawn", i => new PawnsBoardState(i));
             progress.Tick();
@@ -67,15 +78,19 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
         private Task Run(IProgressBar progress, IGameState<GridMove, SingleScoreResult?> game, int boardSize)
         {
             var pieceBoardType = game.GetType().Name;
-            var id = $"{pieceBoardType}DepthPainter{boardSize}";
+            var id = $"{pieceBoardType} Depth Painter {boardSize}.png";
+
 
             var metaData = new GalleryItemMetadata
             {
                 Id = id,
-                FileName = $"{pieceBoardType} Depth Painter {boardSize}.png",
-                Albums = new[] { "Piece Board" },
+                FileName = id,
+                Albums = new[] { Albums.PieceBoard },
                 Description = "Desc...",
             };
+
+            if (File.Exists(galleryService.GetImageFilename(metaData)))
+                return Task.CompletedTask;
 
             var rendererConfig = new SquareTreeRendererOptions(boardSize, 500)
             {

@@ -1,31 +1,38 @@
 ﻿using Faze.Abstractions.Core;
-using Faze.Abstractions.GameMoves;
-using Faze.Abstractions.GameResults;
-using Faze.Abstractions.GameStates;
-using Faze.Abstractions.Rendering;
-using Faze.Core.Pipelines;
 using Faze.Examples.Gallery.CLI.Interfaces;
-using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
 using Faze.Rendering.TreeRenderers;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 {
     public class OXGoldVisualisations : IImageGenerator
     {
+        private readonly IGalleryService galleryService;
         private readonly OXGoldImagePipeline pipelineProvider;
 
-        public OXGoldVisualisations(OXGoldImagePipeline pipelineProvider)
+        public OXGoldVisualisations(IGalleryService galleryService, OXGoldImagePipeline pipelineProvider)
         {
+            this.galleryService = galleryService;
             this.pipelineProvider = pipelineProvider;
+        }
+
+        public ImageGeneratorMetaData GetMetaData()
+        {
+            return new ImageGeneratorMetaData
+            {
+                Albums = new[] { Albums.OX }
+            };
         }
 
         public Task Generate(IProgressBar progress)
         {
-            var maxDepth = 6;
-            progress.SetMaxTicks(maxDepth);
+            return Task.CompletedTask;
 
-            for (var i = 1; i < maxDepth; i++)
+            var maxDepth = 5;
+            progress.SetMaxTicks(9);
+
+            for (var i = 1; i <= maxDepth; i++)
             {
                 Run(progress, i);
                 progress.Tick();
@@ -36,16 +43,19 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 
         private Task Run(IProgressBar progress, int depth)
         {
-            var id = $"OXGold{depth}";
+            var id = $"OX Gold {depth} sim.png";
             progress.SetMessage(id);
 
             var metaData = new GalleryItemMetadata
             {
                 Id = id,
-                FileName = $"OX Gold {depth}.png",
-                Albums = new[] { "OX" },
+                FileName = id,
+                Albums = new[] { Albums.OX },
                 Description = "Desc...",
             };
+
+            if (File.Exists(galleryService.GetImageFilename(metaData)))
+                return Task.CompletedTask;
 
             var rendererConfig = new SquareTreeRendererOptions(3, 500)
             {
@@ -58,4 +68,5 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
             return Task.CompletedTask;
         }
     }
+
 }

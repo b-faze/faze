@@ -19,6 +19,8 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators
             this.pipelineProvider = pipelineProvider;
         }
 
+        string IDataGenerator.Id => Id;
+
         public Task Generate(IProgressBar progress)
         {
             progress.SetMessage(Id);

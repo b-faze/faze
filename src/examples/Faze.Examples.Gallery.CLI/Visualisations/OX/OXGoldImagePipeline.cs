@@ -30,5 +30,15 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
                 .MapValue(fn)
                 .LoadTree(OXDataGenerator5.Id, treeDataProvider);
         }
+
+        public IPipeline CreateExhausive(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, Func<WinLoseDrawResultAggregate, double> fn)
+        {
+            return ReversePipelineBuilder.Create()
+                .GallerySave(galleryService, galleryMetaData)
+                .Render(new SquareTreeRenderer(rendererConfig))
+                .Paint(new GoldInterpolator())
+                .MapValue(fn)
+                .LoadTree(OXDataGeneratorExhaustive.Id, treeDataProvider);
+        }
     }
 }

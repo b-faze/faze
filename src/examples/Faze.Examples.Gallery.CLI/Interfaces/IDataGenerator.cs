@@ -9,6 +9,7 @@ namespace Faze.Examples.Gallery.CLI.Interfaces
 {
     public interface IDataGenerator
     {
+        string Id { get; }
         Task Generate(IProgressBar progress);
     }
 }

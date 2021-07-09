@@ -7,5 +7,6 @@ namespace Faze.Examples.Gallery
     {
         void Save(IPaintedTreeRenderer renderer, GalleryItemMetadata data);
         string GetDataFilename(string id);
+        string GetImageFilename(GalleryItemMetadata data);
     }
 }

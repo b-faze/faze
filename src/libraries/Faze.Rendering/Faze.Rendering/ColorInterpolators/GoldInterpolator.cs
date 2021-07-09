@@ -13,6 +13,11 @@ namespace Faze.Rendering.ColorInterpolators
             var g = (int)(drawOffset * 255);
             var b = (int)(255 * (1 - d) - drawOffset * 127);
 
+            if (r < 0)
+            {
+
+            }
+
             return Color.FromArgb(255, r, g, b);
         }
     }

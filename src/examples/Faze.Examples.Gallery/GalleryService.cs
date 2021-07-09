@@ -15,7 +15,7 @@ namespace Faze.Examples.Gallery
 
         public void Save(IPaintedTreeRenderer renderer, GalleryItemMetadata data)
         {
-            var filePath = GetFilePath(data);
+            var filePath = GetImageFilename(data);
 
             var directory = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(directory))
@@ -29,7 +29,7 @@ namespace Faze.Examples.Gallery
             }
         }
 
-        private string GetFilePath(GalleryItemMetadata data)
+        public string GetImageFilename(GalleryItemMetadata data)
         {
             var relativePath = Path.Combine(data.Albums);
             var filename = Path.Combine(config.ImageBasePath, relativePath, data.FileName);
