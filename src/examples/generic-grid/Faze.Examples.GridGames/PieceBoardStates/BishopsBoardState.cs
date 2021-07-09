@@ -13,7 +13,7 @@ namespace Faze.Examples.GridGames.PieceBoardStates
         {
         }
 
-        private BishopsBoardState(int dimension, List<GridMove> pieces, IEnumerable<GridMove> availableMoves) 
+        private BishopsBoardState(int dimension, int pieces, IEnumerable<GridMove> availableMoves) 
             : base(dimension, pieces, availableMoves) 
         { 
         }
@@ -51,7 +51,7 @@ namespace Faze.Examples.GridGames.PieceBoardStates
         }
 
 
-        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, List<GridMove> pieces, IEnumerable<GridMove> availableMoves)
+        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, int pieces, IEnumerable<GridMove> availableMoves)
         {
             return new BishopsBoardState(dimension, pieces, availableMoves);
         }

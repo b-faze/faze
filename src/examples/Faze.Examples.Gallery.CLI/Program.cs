@@ -15,6 +15,7 @@ using Faze.Examples.Gallery.CLI.Interfaces;
 using Faze.Examples.Gallery.CLI.Utilities;
 using Faze.Examples.Gallery.CLI.Visualisations.OX;
 using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
+using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards;
 using Faze.Examples.OX;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
@@ -43,7 +44,8 @@ namespace Faze.Examples.Gallery.CLI
                 .AddSingleton<IValueSerialiser<WinLoseDrawResultAggregate>, WinLoseDrawResultAggregateSerialiser>()
                 .AddSingleton<ITreeSerialiser<WinLoseDrawResultAggregate>, JsonTreeSerialiser<WinLoseDrawResultAggregate>>()
                 .AddSingleton<OXSimulatedDataPipeline>()
-                .AddSingleton<OXGoldPipeline>()
+                .AddSingleton<OXGoldImagePipeline>()
+                .AddSingleton<PieceBoardImagePipeline>()
                 .AddSingletons<IDataGenerator>(Assembly.GetAssembly(typeof(Program)))
                 .AddSingletons<IImageGenerator>(Assembly.GetAssembly(typeof(Program)))
                 .AddMediatR(Assembly.GetAssembly(typeof(Program)))

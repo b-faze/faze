@@ -9,12 +9,12 @@ using System;
 
 namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 {
-    public class OXGoldPipeline
+    public class OXGoldImagePipeline
     {
         private readonly IGalleryService galleryService;
         private readonly ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
 
-        public OXGoldPipeline(IGalleryService galleryService,
+        public OXGoldImagePipeline(IGalleryService galleryService,
             ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
         {
             this.galleryService = galleryService;

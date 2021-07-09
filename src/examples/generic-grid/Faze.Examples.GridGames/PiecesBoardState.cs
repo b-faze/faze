@@ -11,18 +11,18 @@ namespace Faze.Examples.GridGames
 {
     public abstract class PiecesBoardState : IGameState<GridMove, SingleScoreResult?>
     {
-        private List<GridMove> pieces;
+        private int pieces;
         private List<GridMove> availableMoves;
 
         public PiecesBoardState(int dimension)
-            : this(dimension, new List<GridMove>(), Enumerable.Range(0, dimension * dimension).Select(x => (GridMove)x))
+            : this(dimension, 0, Enumerable.Range(0, dimension * dimension).Select(x => (GridMove)x))
         {
         }
 
-        protected PiecesBoardState(int dimension, List<GridMove> pieces, IEnumerable<GridMove> availableMoves)
+        protected PiecesBoardState(int dimension, int pieces, IEnumerable<GridMove> availableMoves)
         {
             this.Dimension = dimension;
-            this.pieces = pieces.ToList();
+            this.pieces = pieces;
             this.availableMoves = availableMoves.ToList();
         }
 
@@ -30,32 +30,28 @@ namespace Faze.Examples.GridGames
         public int TotalPlayers => 1;
         public PlayerIndex CurrentPlayerIndex => 0;
 
-        public IEnumerable<GridMove> GetAvailableMoves()
-        {
-            return availableMoves;
-        }
+        public IEnumerable<GridMove> GetAvailableMoves() => availableMoves;
 
         public IGameState<GridMove, SingleScoreResult?> Move(GridMove move)
         {
             if (!availableMoves.Contains(move))
                 throw new InvalidDataException($"Move {move} has already been made");
 
-            var influence = GetPieceMoves(move, Dimension).ToList();
-            var newAvailableMoves = availableMoves.Except(influence).ToList();
-            var newPieces = pieces.Concat(new[] { move }).ToList();
+            var influence = GetPieceMoves(move, Dimension).Concat(new[] { move });
+            var newAvailableMoves = availableMoves.Except(influence);
 
-            return Create(Dimension, newPieces, newAvailableMoves);
+            return Create(Dimension, pieces + 1, newAvailableMoves);
         }
 
         public SingleScoreResult? GetResult()
         {
             return !availableMoves.Any()
-                ? new SingleScoreResult(pieces.Count)
+                ? new SingleScoreResult(pieces)
                 : (SingleScoreResult?)null;
         }
 
         protected abstract IEnumerable<GridMove> GetPieceMoves(int posIndex, int dimension);
-        protected abstract IGameState<GridMove, SingleScoreResult?> Create(int dimension, List<GridMove> pieces, IEnumerable<GridMove> availableMoves);
+        protected abstract IGameState<GridMove, SingleScoreResult?> Create(int dimension, int pieces, IEnumerable<GridMove> availableMoves);
 
     }
 

@@ -13,9 +13,9 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 {
     public class OXGoldVisualisations : IImageGenerator
     {
-        private readonly OXGoldPipeline pipelineProvider;
+        private readonly OXGoldImagePipeline pipelineProvider;
 
-        public OXGoldVisualisations(OXGoldPipeline pipelineProvider)
+        public OXGoldVisualisations(OXGoldImagePipeline pipelineProvider)
         {
             this.pipelineProvider = pipelineProvider;
         }
