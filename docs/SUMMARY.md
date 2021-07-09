@@ -2,11 +2,11 @@
 
 * [Introduction](README.md)
 * [Abstractions](overview/README.md)
-  * [IColorInterpolator](overview/icolorinterpolator.md)
   * [Game](overview/game-state.md)
   * [Agent](overview/agent.md)
   * [Engine](overview/simulate.md)
-  * [Rendering](overview/rendering.md)
+  * [Rendering](overview/rendering/README.md)
+    * [IColorInterpolator](overview/rendering/icolorinterpolator.md)
 * [Rendering](rendering/README.md)
   * [Color Interpolators](rendering/color-interpolators.md)
 

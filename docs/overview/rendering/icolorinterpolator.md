@@ -13,7 +13,7 @@ Given a number between 0 - 1, colour interpolators will map it to a colour.
 
 ## Examples
 
-For more examples, and the complete list of available colour interpolators, see [Rendering.ColorInterpolators](../rendering/color-interpolators.md)
+For more examples, and the complete list of available colour interpolators, see [Rendering.ColorInterpolators](../../rendering/color-interpolators.md)
 
 ### Greyscale
 
