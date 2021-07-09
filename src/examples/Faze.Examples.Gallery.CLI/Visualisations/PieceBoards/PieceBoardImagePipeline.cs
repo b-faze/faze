@@ -29,7 +29,7 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
             return ReversePipelineBuilder.Create()
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
-                .Paint<IGameState<GridMove, SingleScoreResult?>>(new DepthPainter())
+                .Paint(new BoardPainter())
                 .GameTree(new SquareTreeAdapter(boardSize))
                 .Build();
         }

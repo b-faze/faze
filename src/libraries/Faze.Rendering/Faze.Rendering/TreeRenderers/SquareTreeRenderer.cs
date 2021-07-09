@@ -90,7 +90,7 @@ namespace Faze.Rendering.TreeRenderers
 
             canvas.DrawRect(rect, new SKPaint() { Color = new SKColor((uint)node.Value.ToArgb()) });
 
-            if (node.Children == null || !node.Children.Any())
+            if (node.IsLeaf())
                 return;
 
             var scaledSize = rect.Width;

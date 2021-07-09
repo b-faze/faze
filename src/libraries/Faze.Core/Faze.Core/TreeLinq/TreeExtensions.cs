@@ -73,7 +73,7 @@ namespace Faze.Core.TreeLinq
                 return null;
 
             var info = TreeMapInfo.Root();
-            return MapHelper(tree, fn, info);
+            return MapValueHelper(tree, fn, info);
         }
 
         public static Tree<TOutValue> MapTree<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
@@ -83,6 +83,27 @@ namespace Faze.Core.TreeLinq
 
             var newValue = fn(tree);
             var newChildren = tree.Children?.Select(c => MapTree(c, fn));
+
+            return new Tree<TOutValue>(newValue, newChildren);
+        }
+
+        public static Tree<TOutValue> MapTreeWithNullNodes<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
+        {
+            var newValue = fn(tree);
+            var newChildren = tree?.Children?.Select(c => MapTreeWithNullNodes(c, fn));
+
+            return new Tree<TOutValue>(newValue, newChildren);
+        }
+
+        public static Tree<TOutValue> MapTreeWithNullNodes<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TreeMapInfo, TOutValue> fn)
+        {
+            return MapTreeWithNullNodesHelper(tree, fn, TreeMapInfo.Root());
+        }
+
+        private static Tree<TOutValue> MapTreeWithNullNodesHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
+        {
+            var newValue = fn(tree, info);
+            var newChildren = tree?.Children?.Select((c, i) => MapTreeWithNullNodesHelper(c, fn, info.Child(i)));
 
             return new Tree<TOutValue>(newValue, newChildren);
         }
@@ -113,14 +134,14 @@ namespace Faze.Core.TreeLinq
             return new Tree<TOutValue>(value, children);
         }
 
-        private static Tree<TOutValue> MapHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
+        private static Tree<TOutValue> MapValueHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
         {
             if (tree == null)
                 return null;
 
             var newValue = fn(tree.Value, info);
             var newChildren = tree.Children
-                ?.Select((c, i) => MapHelper(c, fn, new TreeMapInfo(info.Depth + 1, i)));
+                ?.Select((c, i) => MapValueHelper(c, fn, info.Child(i)));
 
             return new Tree<TOutValue>(newValue, newChildren);
         }
@@ -145,7 +166,7 @@ namespace Faze.Core.TreeLinq
                 return new Tree<TValue>(tree.Value, new Tree<TValue>[0]);
             }
 
-            var children = tree.Children?.Select((c, i) => LimitDepthHelper(c, depth, new TreeMapInfo(info.Depth + 1, i)));
+            var children = tree.Children?.Select((c, i) => LimitDepthHelper(c, depth, info.Child(i)));
 
             return new Tree<TValue>(tree.Value, children);
         }
@@ -159,7 +180,7 @@ namespace Faze.Core.TreeLinq
             }
 
             var children = tree.Children;
- 
+
             foreach (var child in children)
             {
                 if (child == null)
@@ -168,51 +189,6 @@ namespace Faze.Core.TreeLinq
                 foreach (var leaf in GetLeaves(child))
                     yield return leaf;
             }
-        }
-
-        public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state)
-        {
-            if (state == null)
-                return null;
-
-            var children = state.GetAvailableMoves().Select(move =>
-            {
-                var newState = state.Move(move);
-                return ToStateTree(newState);
-            });
-
-            return new Tree<IGameState<TMove, TResult>>(state, children);
-        }
-
-        public static Tree<IGameState<TMove, TResult>> ToStateTree<TMove, TResult>(this IGameState<TMove, TResult> state, IGameStateTreeAdapter<TMove> adapter)
-        {
-            if (state == null)
-                return null;
-
-            var children = adapter.GetChildren(state).Select(childState => ToStateTree(childState, adapter));
-
-            return new Tree<IGameState<TMove, TResult>>(state, children);
-        }
-
-        public static Tree<TMove[]> ToPathTree<TMove, TResult>(this IGameState<TMove, TResult> state)
-        {
-            return ToPathTreeHelper(state, new TMove[0]);
-        }
-
-        private static Tree<TMove[]> ToPathTreeHelper<TMove, TResult>(this IGameState<TMove, TResult> state, TMove[] path)
-        {
-            var children = state.GetAvailableMoves().Select(move =>
-            {
-                var newState = state.Move(move);
-
-                var newPath = new TMove[path.Length + 1];
-                path.CopyTo(newPath, 0);
-                newPath[path.Length] = move;
-
-                return ToPathTreeHelper(newState, newPath);
-            });
-
-            return new Tree<TMove[]>(path, children);
         }
     }
 }

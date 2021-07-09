@@ -3,6 +3,7 @@ using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameStates;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Faze.Abstractions.Adapters
@@ -25,7 +26,7 @@ namespace Faze.Abstractions.Adapters
                 result[move] = state.Move(move);
             }
 
-            return result;
+            return result.All(x => x == null) ? null : result;
         }
     }
 }

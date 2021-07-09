@@ -32,6 +32,14 @@ namespace Faze.Core.Pipelines
             });
         }
 
+        public static IReversePipelineBuilder<Tree<T>> Paint<T>(this IReversePipelineBuilder<Tree<Color>> builder, ITreePainter<T> painter)
+        {
+            return builder.Require<Tree<T>>(tree =>
+            {
+                return painter.Paint(tree);
+            });
+        }
+
         public static IReversePipelineBuilder<Tree<double>> Paint(this IReversePipelineBuilder<Tree<Color>> builder, IColorInterpolator colorInterpolator)
         {
             return builder.Require<Tree<double>>(tree =>

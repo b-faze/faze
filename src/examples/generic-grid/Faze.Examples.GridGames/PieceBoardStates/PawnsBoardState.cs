@@ -12,14 +12,14 @@ namespace Faze.Examples.GridGames.PieceBoardStates
         {
         }
 
-        private PawnsBoardState(int dimension, int pieces, IEnumerable<GridMove> availableMoves)
-            : base(dimension, pieces, availableMoves)
+        private PawnsBoardState(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail)
+            : base(dimension, influence, availableMoves, score, fail)
         {
         }
 
-        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, int pieces, IEnumerable<GridMove> availableMoves)
+        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail)
         {
-            return new PawnsBoardState(dimension, pieces, availableMoves);
+            return new PawnsBoardState(dimension, influence, availableMoves, score, fail);
         }
 
         protected override IEnumerable<GridMove> GetPieceMoves(int posIndex, int dimension)

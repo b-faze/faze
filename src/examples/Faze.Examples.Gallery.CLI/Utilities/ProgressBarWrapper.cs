@@ -1,4 +1,6 @@
-﻿using IProgressBar = Faze.Abstractions.Core.IProgressBar;
+﻿using ShellProgressBar;
+using System;
+using IProgressBar = Faze.Abstractions.Core.IProgressBar;
 
 namespace Faze.Examples.Gallery.CLI.Utilities
 {
@@ -28,7 +30,15 @@ namespace Faze.Examples.Gallery.CLI.Utilities
 
         public IProgressBar Spawn()
         {
-            return new ProgressBarWrapper(progressBar.Spawn(100, ""));
+            var childOptions = new ProgressBarOptions
+            {
+                ForegroundColor = ConsoleColor.Green,
+                BackgroundColor = ConsoleColor.DarkGreen,
+                ProgressCharacter = '─',
+                CollapseWhenFinished = true
+            };
+
+            return new ProgressBarWrapper(progressBar.Spawn(100, "", childOptions));
         }
 
         public void Dispose()

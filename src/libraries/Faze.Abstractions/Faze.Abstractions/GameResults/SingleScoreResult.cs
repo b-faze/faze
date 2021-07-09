@@ -12,5 +12,7 @@ namespace Faze.Abstractions.GameResults
         {
             this.score = score;
         }
+
+        public static implicit operator int(SingleScoreResult result) => result.score;
     }
 }

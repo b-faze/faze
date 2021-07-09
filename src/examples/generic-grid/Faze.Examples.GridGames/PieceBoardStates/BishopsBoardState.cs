@@ -13,9 +13,14 @@ namespace Faze.Examples.GridGames.PieceBoardStates
         {
         }
 
-        private BishopsBoardState(int dimension, int pieces, IEnumerable<GridMove> availableMoves) 
-            : base(dimension, pieces, availableMoves) 
+        private BishopsBoardState(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail) 
+            : base(dimension, influence, availableMoves, score, fail) 
         { 
+        }
+
+        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail)
+        {
+            return new BishopsBoardState(dimension, influence, availableMoves, score, fail);
         }
 
         public static IEnumerable<(int x, int y)> GetDiagonals((int x, int y) pos, int dimension)
@@ -48,12 +53,6 @@ namespace Faze.Examples.GridGames.PieceBoardStates
             var y = posIndex / dimension;
 
             return GetDiagonals((x, y), dimension).Select(p => new GridMove(p.x, p.y, dimension));
-        }
-
-
-        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, int pieces, IEnumerable<GridMove> availableMoves)
-        {
-            return new BishopsBoardState(dimension, pieces, availableMoves);
         }
     }
 }

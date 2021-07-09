@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using Faze.Rendering.Extensions;
+using Faze.Core.Extensions;
 
 namespace Faze.Games.Chess.Rendering
 {

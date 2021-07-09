@@ -11,6 +11,7 @@ using System.Linq;
 using Xunit;
 using Faze.Rendering.Extensions;
 using Faze.Abstractions.GameMoves;
+using Faze.Core.Extensions;
 
 namespace Faze.Examples.OX.Tests
 {

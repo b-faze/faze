@@ -28,7 +28,7 @@ namespace Faze.Rendering.TreePainters
         public Tree<Color> Paint<T>(Tree<T> tree)
         {
             var depthTree = tree
-                .MapValue((v, info) => info.Depth);
+                .MapValue((_, info) => info.Depth);
 
             var maxDepth = depthTree
                 .GetLeaves()
@@ -38,7 +38,7 @@ namespace Faze.Rendering.TreePainters
                 .MapValue(x => (double)x / maxDepth)
                 .MapValue(colorInterpolator);
 
-            return new Tree<Color>(colorTree.Value, colorTree.Children);
+            return colorTree;
         }
     }
 }

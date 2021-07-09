@@ -26,32 +26,34 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
         {
             var maxDepth = 6;
             progress.SetMaxTicks(maxDepth);
+            progress.SetMessage("Piece Board");
 
-            Run(progress.Spawn(), i => new PawnsBoardState(i));
+            Run(progress.Spawn(), "Pawn", i => new PawnsBoardState(i));
             progress.Tick();
 
-            Run(progress.Spawn(), i => new KnightsBoardState(i));
+            Run(progress.Spawn(), "Knight", i => new KnightsBoardState(i));
             progress.Tick();
 
-            Run(progress.Spawn(), i => new BishopsBoardState(i));
+            Run(progress.Spawn(), "Bishop", i => new BishopsBoardState(i));
             progress.Tick();
 
-            Run(progress.Spawn(), i => new RooksBoardState(i));
+            Run(progress.Spawn(), "Rook", i => new RooksBoardState(i));
             progress.Tick();
 
-            Run(progress.Spawn(), i => new QueensBoardState(i));
+            Run(progress.Spawn(), "Queen", i => new QueensBoardState(i));
             progress.Tick();
 
-            Run(progress.Spawn(), i => new KingsBoardState(i));
+            Run(progress.Spawn(), "King", i => new KingsBoardState(i));
             progress.Tick();
 
             return Task.CompletedTask;
         }
 
-        public Task Run(IProgressBar progress, Func<int, IGameState<GridMove, SingleScoreResult?>> gameFn)
+        public Task Run(IProgressBar progress, string gameName, Func<int, IGameState<GridMove, SingleScoreResult?>> gameFn)
         {
             var maxBoardSize = 5;
             progress.SetMaxTicks(maxBoardSize);
+            progress.SetMessage(gameName);
 
             for (var i = 3; i < maxBoardSize; i++)
             {
@@ -66,7 +68,6 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
         {
             var pieceBoardType = game.GetType().Name;
             var id = $"{pieceBoardType}DepthPainter{boardSize}";
-            progress.SetMessage(id);
 
             var metaData = new GalleryItemMetadata
             {
@@ -76,7 +77,11 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
                 Description = "Desc...",
             };
 
-            var rendererConfig = new SquareTreeRendererOptions(boardSize, 500);
+            var rendererConfig = new SquareTreeRendererOptions(boardSize, 500)
+            {
+                //MaxDepth = 3,
+                //BorderProportions = 0.1f
+            };
 
             var pipeline = pipelineProvider.Create(metaData, rendererConfig, boardSize);
             pipeline.Run(game, progress);
