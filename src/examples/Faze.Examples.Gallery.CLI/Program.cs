@@ -12,6 +12,7 @@ using Faze.Engine.Simulators;
 using Faze.Examples.Gallery.CLI.Commands;
 using Faze.Examples.Gallery.CLI.Extensions;
 using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.CLI.Utilities;
 using Faze.Examples.Gallery.CLI.Visualisations.OX;
 using Faze.Examples.OX;
 using Faze.Rendering.ColorInterpolators;
@@ -36,9 +37,12 @@ namespace Faze.Examples.Gallery.CLI
                     DataBasePath = @"..\..\..\output\data"
                 })
                 .AddSingleton<IGalleryService, GalleryService>()
+                .AddSingleton<ITreeDataProvider<WinLoseDrawResultAggregate>, GalleryTreeDataProvider<WinLoseDrawResultAggregate>>()
                 .AddSingleton<IValueSerialiser<WinLoseDrawResultAggregate>, WinLoseDrawResultAggregateSerialiser>()
                 .AddSingleton<ITreeSerialiser<WinLoseDrawResultAggregate>, JsonTreeSerialiser<WinLoseDrawResultAggregate>>()
+                .AddSingleton<OXGoldPipeline>()
                 .AddSingletons<IDataGenerator>(Assembly.GetAssembly(typeof(Program)))
+                .AddSingletons<IImageGenerator>(Assembly.GetAssembly(typeof(Program)))
                 .AddMediatR(Assembly.GetAssembly(typeof(Program)))
                 .BuildServiceProvider();
 
@@ -52,22 +56,5 @@ namespace Faze.Examples.Gallery.CLI
                         (CheckImagesCommand o) => mediator.Send(o), 
                         err => Task.FromResult(1));
         }
-
-        //static IPipeline GetReadPipeline(GalleryService galleryService, string filename, ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser)
-        //{
-        //    var galleryMetaData = new GalleryItemMetadata
-        //    {
-        //        Id = "OXGold1",
-        //        FileName = "OX Gold 1.png",
-        //        Albums = new[] { "OX" },
-        //        Description = "Desc",
-        //    };
-
-        //    var renderer = new SquareTreeRenderer(new SquareTreeRendererOptions(3, 500)
-        //    {
-        //        MaxDepth = 1
-        //    });
-        //    return new OXPipeline(galleryService, renderer, new GoldInterpolator(), treeSerialiser, filename, galleryMetaData).GetPipeline();
-        //}
     }
 }

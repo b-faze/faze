@@ -20,18 +20,18 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators
     {
         public const string Id = "OX_depth5_sim100";
         private readonly IGalleryService galleryService;
-        private readonly ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser;
+        private readonly ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
 
-        public OXDataGenerator5(IGalleryService galleryService, ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser)
+        public OXDataGenerator5(IGalleryService galleryService, ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
         {
             this.galleryService = galleryService;
-            this.treeSerialiser = treeSerialiser;
+            this.treeDataProvider = treeDataProvider;
         }
 
         public Task Generate()
         {
             var filename = galleryService.GetDataFilename(Id);
-            OXDataGenerator.GetWritePipeline(filename, treeSerialiser, 100, 5).Run();
+            OXDataGenerator.GetWritePipeline(filename, treeDataProvider, 100, 5).Run();
 
             return Task.CompletedTask;
         }
@@ -41,12 +41,12 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators
 
     public static class OXDataGenerator
     {
-        public static IPipeline GetWritePipeline(string filename, ITreeSerialiser<WinLoseDrawResultAggregate> treeSerialiser, int simulations, int depth)
+        public static IPipeline GetWritePipeline(string filename, ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider, int simulations, int depth)
         {
             ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate> resultsMapper = new WinLoseDrawResultsTreeMapper(new GameSimulator(), simulations);
 
             var pipeline = ReversePipelineBuilder.Create()
-                .SaveTree(filename, treeSerialiser)
+                .SaveTree(filename, treeDataProvider)
                 .Map(resultsMapper)
                 .LimitDepth(depth)
                 .GameTree(new OXStateTreeAdapter())

@@ -6,20 +6,14 @@ namespace Faze.Core.TreeLinq
 {
     public static class TreeFileExtensions
     {
-        public static Tree<T> Load<T>(string filename, ITreeSerialiser<T> serializer)
+        public static Tree<T> Load<T>(string id, ITreeDataProvider<T> treeDataProvider)
         {
-            using (TextReader textReader = new StreamReader(File.OpenRead(filename)))
-            {
-                return serializer.Deserialize(textReader);
-            }
+            return treeDataProvider.Load(id);
         }
 
-        public static void Save<T>(Tree<T> tree, string filename, ITreeSerialiser<T> serializer)
+        public static void Save<T>(Tree<T> tree, string id, ITreeDataProvider<T> treeDataProvider)
         {
-            using (TextWriter textWriter = new StreamWriter(File.OpenWrite(filename)))
-            {
-                serializer.Serialize(textWriter, tree);
-            }
+            treeDataProvider.Save(tree, id);
         }
 
     }
