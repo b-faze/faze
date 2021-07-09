@@ -4,7 +4,7 @@
   <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, user-scalable=no" />
-      <title>Photo Gallery - Home</title>
+      <title>Photo Gallery - OX</title>
       <link rel="stylesheet" href="public/lightgallery/css/lightgallery.css" />
       <link rel="stylesheet" href="public/lightslider/css/lightslider.min.css" />
       <link rel="stylesheet" href="public/videojs/video-js.min.css" />
@@ -29,7 +29,7 @@
         Breadcrumbs of parent albums
       -->
       <nav class="breadcrumbs">
-    <a class="breadcrumb-item" href="index.html">Home</a>
+    <a class="breadcrumb-item" href="index.html">Home</a>&nbsp;/&nbsp;<a class="breadcrumb-item" href="OX.html">OX</a>
       </nav>
     
     
@@ -37,27 +37,58 @@
         Nested albums, if any
       -->
       <div id="albums" class="justified-gallery">
-            <a href="OX.html">
-              <img src="media/small/OX/OX%20Gold%201.png" alt="">
-              <div class="caption" style="display: inline-block">
-                <h3>OX</h3>
-                <div class="summary">5 photos</div>
-              </div>
-            </a>
-            <a href="Piece-Board.html">
-              <img src="media/small/Piece%20Board/BishopsBoardState%20Depth%20Painter%203.png" alt="">
-              <div class="caption" style="display: inline-block">
-                <h3>Piece Board</h3>
-                <div class="summary">12 photos</div>
-              </div>
-            </a>
       </div>
     
       <!--
         All photos and videos
       -->
       <ul id="media" class="clearfix justified-gallery">
-      </ul>
+          
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/OX/OX%20Gold%201.png"data-src="media/large/OX/OX%20Gold%201.png"data-exthumbimage="media/thumbs/OX/OX%20Gold%201.png"data-filename="OX Gold 1.png"><a href="media/large/OX/OX%20Gold%201.png"><img
+                      src="media/small/OX/OX%20Gold%201.png"
+                      width="300"
+                      height="300"alt="OX Gold 1.png"/>
+              </a>
+          
+          </div>      
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/OX/OX%20Gold%202.png"data-src="media/large/OX/OX%20Gold%202.png"data-exthumbimage="media/thumbs/OX/OX%20Gold%202.png"data-filename="OX Gold 2.png"><a href="media/large/OX/OX%20Gold%202.png"><img
+                      src="media/small/OX/OX%20Gold%202.png"
+                      width="300"
+                      height="300"alt="OX Gold 2.png"/>
+              </a>
+          
+          </div>      
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/OX/OX%20Gold%203.png"data-src="media/large/OX/OX%20Gold%203.png"data-exthumbimage="media/thumbs/OX/OX%20Gold%203.png"data-filename="OX Gold 3.png"><a href="media/large/OX/OX%20Gold%203.png"><img
+                      src="media/small/OX/OX%20Gold%203.png"
+                      width="300"
+                      height="300"alt="OX Gold 3.png"/>
+              </a>
+          
+          </div>      
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/OX/OX%20Gold%204.png"data-src="media/large/OX/OX%20Gold%204.png"data-exthumbimage="media/thumbs/OX/OX%20Gold%204.png"data-filename="OX Gold 4.png"><a href="media/large/OX/OX%20Gold%204.png"><img
+                      src="media/small/OX/OX%20Gold%204.png"
+                      width="300"
+                      height="300"alt="OX Gold 4.png"/>
+              </a>
+          
+          </div>      
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/OX/OX%20Gold%205.png"data-src="media/large/OX/OX%20Gold%205.png"data-exthumbimage="media/thumbs/OX/OX%20Gold%205.png"data-filename="OX Gold 5.png"><a href="media/large/OX/OX%20Gold%205.png"><img
+                      src="media/small/OX/OX%20Gold%205.png"
+                      width="300"
+                      height="300"alt="OX Gold 5.png"/>
+              </a>
+          
+          </div>  </ul>
     
       <!--
         Pagination
@@ -123,30 +154,6 @@
       });
     </script>
 
-      <script id="slider-js" data-interval="">
-        $(document).ready(function () {
-          let waitTime = 1000;
-
-          try {
-            waitTime = parseInt($("#slider-js").data("interval"));
-          } catch (e) {
-            console.error("Invalid speed value for slider: " + waitTime + "\n" + e);
-          }
-
-          $("#lightSlider").lightSlider({
-            auto: true,
-            loop: true,
-            item: 1,
-            gallery: true,
-            pause: waitTime,
-            onSliderLoad: (el) => {
-              el.lightGallery({
-                selector: "#lightSlider li"
-              })
-            }
-          });
-        });
-      </script>
 
 
   </body>
