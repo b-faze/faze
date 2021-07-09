@@ -20,10 +20,9 @@ faze is a collection of NuGet packages, providing tools and pipelines for visual
 
 ## Gallery
 
-See a example gallery online at https://b-faze.github.io/faze/
-Everything in the gallery is produced from this repository in Faze.Examples.Gallery.CLI, try it for yourself!
+See an example gallery online at https://b-faze.github.io/faze/
 
-The Gallery CLI splits the visualisation pipelines in half allowing data to be pre-computing (`generate-data`) to help speed up rendering (`generate-images`)
+Everything in the gallery is produced from this repository in Faze.Examples.Gallery.CLI, try it for yourself! The Gallery CLI splits the visualisation pipelines in half allowing data to be pre-computing (`generate-data`) to help speed up rendering (`generate-images`)
 
 ```
  Usages:
