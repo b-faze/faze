@@ -47,9 +47,9 @@ namespace Faze.Core.Pipelines
 
         public static IReversePipelineBuilder<Tree<TIn>> Map<TOut, TIn>(this IReversePipelineBuilder<Tree<TOut>> builder, ITreeMapper<TIn, TOut> mapper)
         {
-            return builder.Require<Tree<TIn>>(tree =>
+            return builder.RequireWithProgress<Tree<TIn>>((tree, progress) =>
             {
-                return mapper.Map(tree);
+                return mapper.Map(tree, progress);
             });
         }
         public static IReversePipelineBuilder<Tree<T>> LimitDepth<T>(this IReversePipelineBuilder<Tree<T>> builder, int maxDepth)

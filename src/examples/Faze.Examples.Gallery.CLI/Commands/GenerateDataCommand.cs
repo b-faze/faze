@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Faze.Abstractions.Core;
 using Faze.Examples.Gallery.CLI.Interfaces;
 using MediatR;
 using System;
@@ -17,20 +18,24 @@ namespace Faze.Examples.Gallery.CLI.Commands
 
     public class GenerateDataCommandHandler : IRequestHandler<GenerateDataCommand, int>
     {
+        private readonly IProgressManager progressManager;
         private readonly IEnumerable<IDataGenerator> dataGenerators;
 
-        public GenerateDataCommandHandler(IEnumerable<IDataGenerator> dataGenerators)
+        public GenerateDataCommandHandler(IProgressManager progressManager, IEnumerable<IDataGenerator> dataGenerators)
         {
+            this.progressManager = progressManager;
             this.dataGenerators = dataGenerators;
         }
 
         public async Task<int> Handle(GenerateDataCommand request, CancellationToken cancellationToken)
         {
             var dataGeneratorArr = dataGenerators.ToArray();
+            using var outerProgress = progressManager.Start(dataGeneratorArr.Length, "generate-data");
 
             for (var i = 0; i < dataGeneratorArr.Length; i++)
             {
-                await dataGeneratorArr[i].Generate();
+                await dataGeneratorArr[i].Generate(outerProgress.Spawn());
+                outerProgress.Tick();
             }
 
             return 0;

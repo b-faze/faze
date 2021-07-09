@@ -25,6 +25,12 @@ namespace Faze.Core.Pipelines
             return new PipelineBuilder<TRequired>(steps.Concat(new[] { newStep }).ToList());
         }
 
+        public IReversePipelineBuilder<TRequired> RequireWithProgress<TRequired>(Func<TRequired, IProgressBar, T> fn)
+        {
+            IPipelineStep newStep = new PipelineStepProgress<TRequired, T>(fn);
+            return new PipelineBuilder<TRequired>(steps.Concat(new[] { newStep }).ToList());
+        }
+
         public IPipeline<T> Build()
         {
             return new DefaultPipeline<T>(steps.Reverse());

@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Faze.Abstractions.Core;
 using Faze.Examples.Gallery.CLI.Interfaces;
 using MediatR;
 using System.Collections.Generic;
@@ -15,20 +16,24 @@ namespace Faze.Examples.Gallery.CLI.Commands
 
     public class GenerateImagesCommandHandler : IRequestHandler<GenerateImagesCommand, int>
     {
+        private readonly IProgressManager progressManager;
         private readonly IEnumerable<IImageGenerator> generators;
 
-        public GenerateImagesCommandHandler(IEnumerable<IImageGenerator> generators)
+        public GenerateImagesCommandHandler(IProgressManager progressManager, IEnumerable<IImageGenerator> generators)
         {
+            this.progressManager = progressManager;
             this.generators = generators;
         }
 
         public async Task<int> Handle(GenerateImagesCommand request, CancellationToken cancellationToken)
         {
             var dataGeneratorArr = generators.ToArray();
+            using var outerProgress = progressManager.Start(dataGeneratorArr.Length, "generate-images");
 
             for (var i = 0; i < dataGeneratorArr.Length; i++)
             {
-                await dataGeneratorArr[i].Generate();
+                await dataGeneratorArr[i].Generate(outerProgress.Spawn());
+                outerProgress.Tick();
             }
 
             return 0;

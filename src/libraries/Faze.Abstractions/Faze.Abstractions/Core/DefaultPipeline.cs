@@ -42,5 +42,31 @@ namespace Faze.Abstractions.Core
                 currentInput = step.Execute(currentInput);
             }
         }
+
+        public void Run(IProgressBar progress)
+        {
+            progress.SetMaxTicks(steps.Count);
+
+            object currentInput = null;
+
+            foreach (var step in steps)
+            {
+                switch (step) 
+                {
+                    case IPipelineStepProgress pipelineStepProgress:
+                        using (var subprogress = progress.Spawn())
+                        {
+                            currentInput = pipelineStepProgress.Execute(currentInput, subprogress);
+                        }
+                        break;
+
+                    default:
+                        currentInput = step.Execute(currentInput);
+                        break;
+                }
+
+                progress.Tick();
+            }
+        }
     }
 }

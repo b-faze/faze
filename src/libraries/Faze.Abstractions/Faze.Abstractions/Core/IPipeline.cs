@@ -8,5 +8,6 @@
     public interface IPipeline
     {
         void Run();
+        void Run(IProgressBar progress);
     }
 }

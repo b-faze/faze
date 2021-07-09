@@ -14,6 +14,7 @@ using Faze.Examples.Gallery.CLI.Extensions;
 using Faze.Examples.Gallery.CLI.Interfaces;
 using Faze.Examples.Gallery.CLI.Utilities;
 using Faze.Examples.Gallery.CLI.Visualisations.OX;
+using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
 using Faze.Examples.OX;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
@@ -36,10 +37,12 @@ namespace Faze.Examples.Gallery.CLI
                     ImageBasePath = @"..\..\..\output\gallery",
                     DataBasePath = @"..\..\..\output\data"
                 })
+                .AddSingleton<IProgressManager, GalleryProgressManager>()
                 .AddSingleton<IGalleryService, GalleryService>()
                 .AddSingleton<ITreeDataProvider<WinLoseDrawResultAggregate>, GalleryTreeDataProvider<WinLoseDrawResultAggregate>>()
                 .AddSingleton<IValueSerialiser<WinLoseDrawResultAggregate>, WinLoseDrawResultAggregateSerialiser>()
                 .AddSingleton<ITreeSerialiser<WinLoseDrawResultAggregate>, JsonTreeSerialiser<WinLoseDrawResultAggregate>>()
+                .AddSingleton<OXSimulatedDataPipeline>()
                 .AddSingleton<OXGoldPipeline>()
                 .AddSingletons<IDataGenerator>(Assembly.GetAssembly(typeof(Program)))
                 .AddSingletons<IImageGenerator>(Assembly.GetAssembly(typeof(Program)))

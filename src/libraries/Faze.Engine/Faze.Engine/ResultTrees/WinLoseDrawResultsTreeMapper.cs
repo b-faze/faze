@@ -17,13 +17,18 @@ namespace Faze.Engine.ResultTrees
         private readonly IGameSimulator engine;
         private readonly int simulations;
 
-        public WinLoseDrawResultsTreeMapper(IGameSimulator engine, int simulations)
+        public WinLoseDrawResultsTreeMapper(IGameSimulator engine, int leafSimulations)
         {
             this.engine = engine;
-            this.simulations = simulations;
+            this.simulations = leafSimulations;
         }
 
         public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree)
+        {
+            return tree.MapTreeAgg(GetResults);
+        }
+
+        public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree, IProgressBar progress)
         {
             return tree.MapTreeAgg(GetResults);
         }
