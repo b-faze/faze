@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.0-pre.15</Version>
+    <Version>1.0.0-pre.16</Version>
     <Authors>b-hub;b-faze</Authors>
     <Company>b-faze</Company>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\LICENSE.txt">
+    <None Include="..\..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>

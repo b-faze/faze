@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageProjectUrl>https://b-hub.gitbook.io/faze/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/b-faze/faze</RepositoryUrl>
+    <Authors>b-faze;b-hub</Authors>
+    <Version>1.0.0-pre.16</Version>
+    <Company>b-faze</Company>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +18,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
