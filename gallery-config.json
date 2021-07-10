@@ -1,5 +1,5 @@
 {
-  "input": "./src/examples/Faze.Examples.Gallery.CLI/output/gallery",
+  "input": "./src/examples/gallery/Faze.Examples.Gallery.CLI/output/gallery",
   "output": "./build_output",
   "title": "Photo Gallery",
   "sort-albums-by": "title",
