@@ -7,6 +7,7 @@ using Faze.Examples.Gallery.CLI.Interfaces;
 using Faze.Examples.Gallery.CLI.Visualisations.OX;
 using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
 using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Reflection;
