@@ -29,6 +29,7 @@ Performs the [Minimax ](https://en.wikipedia.org/wiki/Minimax)algorithm and choo
 
 * Set of available moves
 * Get the next state of the game for a given move
+* Game result comparator
 
 
 

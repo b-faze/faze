@@ -31,6 +31,7 @@
 * [Renderers](research/renderers/README.md)
   * [Square Tree Renderer](research/renderers/square-tree-renderer.md)
   * [Circle Edge Renderer](research/renderers/circle-edge-renderer.md)
+  * [Compressed Square Tree Renderer](research/renderers/compressed-square-tree-renderer.md)
 
 ---
 
