@@ -38,7 +38,7 @@ The game rules are handled by the `PiecesBoardState` type using the following co
 | Property | Value | Description |
 | :--- | :--- | :--- |
 | Dimension | 8 | Size of the board |
-| Piece | QueenPiece |  |
+| Piece | QueenPiece | Defines how the piece moves on the board |
 | OnlySafeMoves | true | Game state will only return moves that do not attack existing queens |
 
 ### Results Tree Mapper
@@ -102,9 +102,9 @@ private Tree<Color> Paint(Tree<EightQueensProblemSolutionAggregate> tree, TreeMa
 }
 ```
 
-The EightQueensProblemPainter normalises the number of wins of a tree node against the maximum value of its siblings. 
+The `EightQueensProblemPainter` normalises the number of wins of a tree node against the maximum value of its siblings. 
 
-E.g. if we have 3 child nodes: \[100, 10, 50\], the normalised result will be \[100/100, 10/100, 50/100\] or \[1, 0.1, 0.5\]
+E.g. if we have 3 child nodes: \[100, 10, 50\], the max sibling value is 100 so the normalised result will be \[100/100, 10/100, 50/100\] or \[1, 0.1, 0.5\]
 
 The [GoldInterpolator](../rendering/color-interpolators.md#gold) then takes this normalised value and converts it to a colour.
 
@@ -119,7 +119,7 @@ All unavailable moves will be coloured black, with the exception of moves that a
     }
 ```
 
-Returning a null node instead which will be ignored by the renderer.  This means the null nodes will be coloured according to the parent's results which acts like a summary at each depth:
+Returning a null node will be ignored by the renderer.  This means the null nodes will be coloured according to the parent's results which acts like a summary at each depth:
 
 ![Summary nodes](../.gitbook/assets/8-queens-problem-solutions-depth-2-circled.png)
 
