@@ -35,41 +35,13 @@ A custom interpolator which emphasises the mid-range, going from Blue -&gt; Yell
 
 ![DrawGold](https://raw.githubusercontent.com/b-faze/Faze.Rendering/master/Documentation/Wiki/Images/DrawGold.png)
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:left">Channel</th>
-      <th style="text-align:left">Formula</th>
-      <th style="text-align:left">Graph</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:left">Red</td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left">
-        <p></p>
-        <p>
-          <img src="../.gitbook/assets/gold_red.png" alt/>
-        </p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Green</td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left">
-        <img src="../.gitbook/assets/gold_green.png" alt/>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:left">Blue</td>
-      <td style="text-align:left"></td>
-      <td style="text-align:left">
-        <img src="../.gitbook/assets/gold_blue.png" alt/>
-      </td>
-    </tr>
-  </tbody>
-</table>
+### Channels
+
+| Channel | Formula | Graph |
+| :--- | :--- | :--- |
+| Red | $$255x + 127(1 - 2|\frac{1}{2} - x|)$$  | ![](../.gitbook/assets/gold_red2.png)  |
+| Green | $$127(1 - 2|\frac{1}{2} - x|)$$  | ![](../.gitbook/assets/gold_blue-2-.png)  |
+| Blue | $$255(1 - x) - 127(1 - 2|\frac{1}{2}-x|)$$  |  ![](../.gitbook/assets/gold_blue-2-.png) |
 
 ### Options
 
