@@ -95,7 +95,7 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
                 //BorderProportions = 0.1f
             };
 
-            var pipeline = pipelineProvider.Create(metaData, rendererConfig, boardSize, new BoardPainter());
+            var pipeline = pipelineProvider.Create(metaData, rendererConfig, boardSize);
             pipeline.Run(game, progress);
 
             return Task.CompletedTask;

@@ -154,12 +154,12 @@ namespace Faze.Rendering.Playground
             borderTrackBar.Value = (int)(options.Border * 100);
         }
 
-        private Viewport GetViewport()
+        private IViewport GetViewport()
         {
             return new Viewport(float.Parse(viewportLeftTxt.Text), float.Parse(viewportTopTxt.Text), float.Parse(viewportScaleTxt.Text));
         }
 
-        private void SetViewport(Viewport viewport)
+        private void SetViewport(IViewport viewport)
         {
             viewportLeftTxt.Text = viewport.Left.ToString();
             viewportTopTxt.Text = viewport.Top.ToString();

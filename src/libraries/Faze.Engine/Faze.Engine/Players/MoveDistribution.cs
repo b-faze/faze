@@ -1,23 +1,25 @@
-﻿using System;
+﻿using Faze.Abstractions.Core;
+using Faze.Abstractions.Players;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Faze.Abstractions.Players
+namespace Faze.Engine.Players
 {
-    public class PossibleMoves<TMove>
+    public class MoveDistribution<TMove> : IMoveDistribution<TMove>
     {
         private (TMove move, int confidence)[] moveConfidence;
         private int totalConfidence;
 
-        public PossibleMoves(IEnumerable<(TMove, int confidence)> moveConfidence)
+        public MoveDistribution(IEnumerable<(TMove, int confidence)> moveConfidence)
         {
             this.moveConfidence = moveConfidence.ToArray();
             this.totalConfidence = this.moveConfidence.Sum(x => x.confidence);
         }
 
-        public TMove GetMove(Random rnd)
+        public TMove GetMove(UnitInterval ui)
         {
-            var targetConfidence = rnd.NextDouble() * totalConfidence;
+            var targetConfidence = ui * totalConfidence;
             var currentConfidence = 0;
             
             foreach (var move in moveConfidence)

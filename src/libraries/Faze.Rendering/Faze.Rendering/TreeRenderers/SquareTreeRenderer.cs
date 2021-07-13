@@ -21,7 +21,7 @@ namespace Faze.Rendering.TreeRenderers
             Size = treeSize;
             ImageSize = imageSize;
             MinChildDrawSize = DefaultMinChildDrawSize;
-            Viewport = Viewport.Default();
+            Viewport = Abstractions.Rendering.Viewport.Default();
         }
 
         public int Size { get; }
@@ -29,7 +29,7 @@ namespace Faze.Rendering.TreeRenderers
         public float BorderProportions { get; set; }
         public float MinChildDrawSize { get; set; }
 
-        public Viewport Viewport { get; set; }
+        public IViewport Viewport { get; set; }
         public int? MaxDepth { get; set; }
     }
 

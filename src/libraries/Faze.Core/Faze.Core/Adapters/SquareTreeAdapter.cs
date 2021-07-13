@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Faze.Abstractions.Adapters
+namespace Faze.Core.Adapters
 {
     public class SquareTreeAdapter : IGameStateTreeAdapter<GridMove>
     {

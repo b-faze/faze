@@ -11,16 +11,16 @@ using System.Linq;
 
 namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {
-    public class BoardPainter : ITreePainter<IGameState<GridMove, SingleScoreResult?>>
+    public class PiecesBoardPainter : ITreePainter<IGameState<GridMove, SingleScoreResult?>>
     {
         private readonly IColorInterpolator colorInterpolator;
 
-        public BoardPainter()
+        public PiecesBoardPainter()
         {
             this.colorInterpolator = new GreyscaleInterpolator();
         }
 
-        public BoardPainter(IColorInterpolator colorInterpolator)
+        public PiecesBoardPainter(IColorInterpolator colorInterpolator)
         {
             if (colorInterpolator == null)
                 throw new NullReferenceException(nameof(colorInterpolator));

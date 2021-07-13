@@ -1,6 +1,6 @@
 ﻿namespace Faze.Abstractions.Rendering
 {
-    public struct Viewport
+    public class Viewport : IViewport
     {
         public Viewport(float left, float top, float scale)
         {
@@ -30,7 +30,7 @@
         /// </summary>
         public float Scale { get; }
 
-        public Viewport Zoom(float x, float y, float newScale)
+        public IViewport Zoom(float x, float y, float newScale)
         {
             var scaleChange = newScale - Scale;
             var dx = -x * scaleChange;
@@ -39,7 +39,7 @@
             return new Viewport(Left + dx, Top + dy, newScale);
         }
 
-        public Viewport Pan(float dx, float dy)
+        public IViewport Pan(float dx, float dy)
         {
             return new Viewport(Left + dx, Top + dy, Scale);
         }

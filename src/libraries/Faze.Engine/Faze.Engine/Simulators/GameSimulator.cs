@@ -69,7 +69,7 @@ namespace Faze.Engine.Simulators
             var currentPlayer = agentProvider.GetPlayer(state.CurrentPlayerIndex);
             var possibleMoves = currentPlayer.GetMoves(state);
 
-            return possibleMoves.GetMove(rnd);
+            return possibleMoves.GetMove(rnd.NextDouble());
         }
     }
 }

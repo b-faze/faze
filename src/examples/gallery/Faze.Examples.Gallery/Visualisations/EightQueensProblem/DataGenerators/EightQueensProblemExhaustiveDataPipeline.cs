@@ -1,4 +1,4 @@
-﻿using Faze.Abstractions.Adapters;
+﻿using Faze.Core.Adapters;
 using Faze.Abstractions.Core;
 using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
