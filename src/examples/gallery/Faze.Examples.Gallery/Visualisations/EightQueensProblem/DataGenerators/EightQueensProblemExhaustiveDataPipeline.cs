@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.Visualisations.PieceBoards.DataGenerators
+namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 {
     public class EightQueensProblemExhaustiveDataPipeline : IDataGenerator
     {

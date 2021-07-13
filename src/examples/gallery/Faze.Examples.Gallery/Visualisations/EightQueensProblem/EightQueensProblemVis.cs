@@ -15,9 +15,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Faze.Examples.Gallery.Services.Aggregates;
-using Faze.Examples.Gallery.Visualisations.PieceBoards.DataGenerators;
+using Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators;
 
-namespace Faze.Examples.Gallery.Visualisations.PieceBoards
+namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
     public class EightQueensProblemVis : IImageGenerator
     {

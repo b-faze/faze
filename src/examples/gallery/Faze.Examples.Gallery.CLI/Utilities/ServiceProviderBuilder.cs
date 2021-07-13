@@ -11,7 +11,6 @@ using Faze.Examples.Gallery.Services.Serialisers;
 using Faze.Examples.Gallery.Visualisations.OX;
 using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Examples.Gallery.Visualisations.PieceBoards;
-using Faze.Examples.Gallery.Visualisations.PieceBoards.DataGenerators;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,6 +22,8 @@ namespace Faze.Examples.Gallery.CLI.Utilities
     {
         public static IServiceProvider Build()
         {
+            var programAssembly = Assembly.GetAssembly(typeof(Program));
+
             var serviceProvider = new ServiceCollection()
                 .AddSingleton(new GalleryServiceConfig
                 {
@@ -43,9 +44,9 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<OXSimulatedDataPipeline>()
                 .AddSingleton<OXGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()
-                .AddSingletons<IDataGenerator>(Assembly.GetAssembly(typeof(Program)))
-                .AddSingletons<IImageGenerator>(Assembly.GetAssembly(typeof(Program)))
-                .AddMediatR(Assembly.GetAssembly(typeof(Program)))
+                .AddSingletons<IDataGenerator>(programAssembly)
+                .AddSingletons<IImageGenerator>(programAssembly)
+                .AddMediatR(programAssembly)
                 .BuildServiceProvider();
 
             return serviceProvider;

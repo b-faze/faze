@@ -1,13 +1,12 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
-using Faze.Examples.Gallery.Visualisations.PieceBoards.DataGenerators;
 using System.Drawing;
 using Faze.Core.TreeLinq;
 using Faze.Rendering.ColorInterpolators;
 using System.Linq;
 using Faze.Examples.Gallery.Services.Aggregates;
 
-namespace Faze.Examples.Gallery.Visualisations.PieceBoards
+namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
     public class EightQueensProblemPainter : ITreePainter<EightQueensProblemSolutionAggregate>
     {
