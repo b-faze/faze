@@ -1,5 +1,5 @@
 ﻿using Faze.Abstractions.Core;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators

@@ -1,5 +1,5 @@
 ﻿using Faze.Abstractions.Core;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using Faze.Rendering.TreeRenderers;
 using System.IO;
 using System.Threading.Tasks;
@@ -19,10 +19,7 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 
         public ImageGeneratorMetaData GetMetaData()
         {
-            return new ImageGeneratorMetaData
-            {
-                Albums = new[] { Albums.OX }
-            };
+            return new ImageGeneratorMetaData(new[] { Albums.OX });
         }
 
         public Task Generate(IProgressBar progress)

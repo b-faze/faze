@@ -1,6 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.GameResults;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

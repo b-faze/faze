@@ -2,7 +2,7 @@
 using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.GridGames;
 using Faze.Examples.GridGames.Pieces;
 using Faze.Rendering.TreeRenderers;
@@ -28,10 +28,7 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
 
         public ImageGeneratorMetaData GetMetaData()
         {
-            return new ImageGeneratorMetaData
-            {
-                Albums = new[] { Albums.PieceBoard }
-            };
+            return new ImageGeneratorMetaData(new[] { Albums.PieceBoard });
         }
 
         public Task Generate(IProgressBar progress)

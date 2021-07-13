@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Interfaces
+namespace Faze.Examples.Gallery.Interfaces
 {
     public interface IDataGenerator
     {

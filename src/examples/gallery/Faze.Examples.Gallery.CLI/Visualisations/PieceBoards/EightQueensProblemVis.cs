@@ -4,7 +4,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators;
 using Faze.Examples.GridGames;
 using Faze.Examples.GridGames.Pieces;
@@ -31,10 +31,7 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
 
         public ImageGeneratorMetaData GetMetaData()
         {
-            return new ImageGeneratorMetaData
-            {
-                Albums = new[] { Albums.EightQueensProblem }
-            };
+            return new ImageGeneratorMetaData(new[] { Albums.EightQueensProblem });
         }
 
         public Task Generate(IProgressBar progress)

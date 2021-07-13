@@ -5,7 +5,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.GridGames;
 using Faze.Examples.GridGames.Pieces;
 using Faze.Examples.OX;

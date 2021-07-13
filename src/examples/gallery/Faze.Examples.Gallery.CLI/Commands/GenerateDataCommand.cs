@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 using Faze.Abstractions.Core;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;

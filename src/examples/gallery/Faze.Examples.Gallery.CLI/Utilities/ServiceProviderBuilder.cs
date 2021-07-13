@@ -3,7 +3,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Core.IO;
 using Faze.Core.Serialisers;
 using Faze.Examples.Gallery.CLI.Extensions;
-using Faze.Examples.Gallery.CLI.Interfaces;
+using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.Gallery.CLI.Visualisations.OX;
 using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
 using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards;
