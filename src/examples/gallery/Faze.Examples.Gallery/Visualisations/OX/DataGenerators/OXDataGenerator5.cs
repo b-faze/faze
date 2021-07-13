@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators
+namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 {
     public class OXDataGenerator5 : IDataGenerator
     {

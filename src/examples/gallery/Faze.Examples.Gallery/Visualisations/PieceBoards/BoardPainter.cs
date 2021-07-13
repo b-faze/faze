@@ -9,7 +9,7 @@ using System.Drawing;
 using Faze.Core.TreeLinq;
 using System.Linq;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
+namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {
     public class BoardPainter : ITreePainter<IGameState<GridMove, SingleScoreResult?>>
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Utilities
+namespace Faze.Examples.Gallery.Services
 {
     public class GalleryTreeDataProvider<T> : FileTreeDataProvider<T>
     {

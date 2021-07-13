@@ -1,8 +1,8 @@
 ﻿using Faze.Abstractions.Core;
-using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators;
+using Faze.Examples.Gallery.Services.Aggregates;
 using System.Linq;
 
-namespace Faze.Examples.Gallery.CLI.Utilities
+namespace Faze.Examples.Gallery.Services.Serialisers
 {
     public class EightQueensProblemSolutionAggregateSerialiser : IValueSerialiser<EightQueensProblemSolutionAggregate>
     {

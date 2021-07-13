@@ -6,6 +6,8 @@ using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
 using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Services.Aggregates;
+using Faze.Examples.Gallery.Services.TreeMappers;
 using Faze.Examples.GridGames;
 using Faze.Examples.GridGames.Pieces;
 using Faze.Examples.OX;
@@ -13,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators
+namespace Faze.Examples.Gallery.Visualisations.PieceBoards.DataGenerators
 {
     public class EightQueensProblemExhaustiveDataPipeline : IDataGenerator
     {

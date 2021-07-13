@@ -4,14 +4,14 @@ using Faze.Rendering.TreeRenderers;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.OX
+namespace Faze.Examples.Gallery.Visualisations.OX
 {
-    public class OXGoldVisualisationsExhaustive : IImageGenerator
+    public class OXGoldVisualisations : IImageGenerator
     {
         private readonly IGalleryService galleryService;
         private readonly OXGoldImagePipeline pipelineProvider;
 
-        public OXGoldVisualisationsExhaustive(IGalleryService galleryService, OXGoldImagePipeline pipelineProvider)
+        public OXGoldVisualisations(IGalleryService galleryService, OXGoldImagePipeline pipelineProvider)
         {
             this.galleryService = galleryService;
             this.pipelineProvider = pipelineProvider;
@@ -24,7 +24,9 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 
         public Task Generate(IProgressBar progress)
         {
-            var maxDepth = 9;
+            return Task.CompletedTask;
+
+            var maxDepth = 5;
             progress.SetMaxTicks(9);
 
             for (var i = 1; i <= maxDepth; i++)
@@ -38,7 +40,7 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
 
         private Task Run(IProgressBar progress, int depth)
         {
-            var id = $"OX Gold {depth}.png";
+            var id = $"OX Gold {depth} sim.png";
             progress.SetMessage(id);
 
             var metaData = new GalleryItemMetadata
@@ -57,7 +59,7 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.OX
                 MaxDepth = depth
             };
 
-            var pipeline = pipelineProvider.CreateExhausive(metaData, rendererConfig, x => x.GetWinsOverLoses());
+            var pipeline = pipelineProvider.Create(metaData, rendererConfig, x => x.GetWinsOverLoses());
             pipeline.Run(progress);
 
             return Task.CompletedTask;

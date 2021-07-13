@@ -5,7 +5,6 @@ using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
 using Faze.Examples.Gallery.Interfaces;
-using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators;
 using Faze.Examples.GridGames;
 using Faze.Examples.GridGames.Pieces;
 using Faze.Rendering.TreeRenderers;
@@ -15,8 +14,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Faze.Examples.Gallery.Services.Aggregates;
+using Faze.Examples.Gallery.Visualisations.PieceBoards.DataGenerators;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
+namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {
     public class EightQueensProblemVis : IImageGenerator
     {

@@ -8,7 +8,7 @@ using Faze.Engine.ResultTrees;
 using Faze.Engine.Simulators;
 using Faze.Examples.OX;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators
+namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 {
     public class OXSimulatedDataPipeline
     {

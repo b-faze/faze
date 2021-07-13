@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace Faze.Examples.Gallery
+namespace Faze.Examples.Gallery.Services
 {
     public class GalleryService : IGalleryService
     {

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
+namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {
     public class PieceBoardImagePipeline
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators
+namespace Faze.Examples.Gallery.Services.Aggregates
 {
     public class EightQueensProblemSolutionAggregate : IResultAggregate<EightQueensProblemSolutionAggregate>
     {

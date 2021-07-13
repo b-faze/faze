@@ -2,7 +2,9 @@
 using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards;
 using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Visualisations.PieceBoards;
 using Faze.Examples.GridGames;
 using Faze.Examples.GridGames.Pieces;
 using Faze.Rendering.TreeRenderers;
@@ -13,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
+namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {
     public class PieceBoardVis : IImageGenerator
     {

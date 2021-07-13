@@ -4,10 +4,11 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.TreeLinq;
+using Faze.Examples.Gallery.Services.Aggregates;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators
+namespace Faze.Examples.Gallery.Services.TreeMappers
 {
     public class EightQueensProblemSolutionTreeMapper : ITreeMapper<IGameState<GridMove, SingleScoreResult?>, EightQueensProblemSolutionAggregate>
     {

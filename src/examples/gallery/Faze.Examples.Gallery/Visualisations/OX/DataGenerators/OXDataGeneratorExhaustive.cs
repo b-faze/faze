@@ -2,7 +2,7 @@
 using Faze.Examples.Gallery.Interfaces;
 using System.Threading.Tasks;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators
+namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 {
     public class OXDataGeneratorExhaustive : IDataGenerator
     {

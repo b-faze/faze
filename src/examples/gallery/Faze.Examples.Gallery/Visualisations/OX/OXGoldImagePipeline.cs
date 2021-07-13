@@ -2,12 +2,12 @@
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
-using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
+using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
 using System;
 
-namespace Faze.Examples.Gallery.CLI.Visualisations.OX
+namespace Faze.Examples.Gallery.Visualisations.OX
 {
     public class OXGoldImagePipeline
     {

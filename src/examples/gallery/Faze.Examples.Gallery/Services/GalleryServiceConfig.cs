@@ -1,4 +1,4 @@
-﻿namespace Faze.Examples.Gallery
+﻿namespace Faze.Examples.Gallery.Services
 {
     public class GalleryServiceConfig
     {
