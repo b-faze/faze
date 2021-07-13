@@ -2,7 +2,7 @@
   "profiles": {
     "Faze.Examples.Gallery.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "generate-images"
+      "commandLineArgs": "generate-data --id EightQueensProblemSolutions_exhaustive"
     }
   }
 }

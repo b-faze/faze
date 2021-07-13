@@ -7,6 +7,7 @@ using Faze.Examples.Gallery.CLI.Interfaces;
 using Faze.Examples.Gallery.CLI.Visualisations.OX;
 using Faze.Examples.Gallery.CLI.Visualisations.OX.DataGenerators;
 using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards;
+using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -26,9 +27,15 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 })
                 .AddSingleton<IProgressManager, GalleryProgressManager>()
                 .AddSingleton<IGalleryService, GalleryService>()
+
                 .AddSingleton<ITreeDataProvider<WinLoseDrawResultAggregate>, GalleryTreeDataProvider<WinLoseDrawResultAggregate>>()
                 .AddSingleton<IValueSerialiser<WinLoseDrawResultAggregate>, WinLoseDrawResultAggregateSerialiser>()
                 .AddSingleton<ITreeSerialiser<WinLoseDrawResultAggregate>, JsonTreeSerialiser<WinLoseDrawResultAggregate>>()
+
+                .AddSingleton<ITreeDataProvider<EightQueensProblemSolutionAggregate>, GalleryTreeDataProvider<EightQueensProblemSolutionAggregate>>()
+                .AddSingleton<IValueSerialiser<EightQueensProblemSolutionAggregate>, EightQueensProblemSolutionAggregateSerialiser>()
+                .AddSingleton<ITreeSerialiser<EightQueensProblemSolutionAggregate>, JsonTreeSerialiser<EightQueensProblemSolutionAggregate>>()
+
                 .AddSingleton<OXSimulatedDataPipeline>()
                 .AddSingleton<OXGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()

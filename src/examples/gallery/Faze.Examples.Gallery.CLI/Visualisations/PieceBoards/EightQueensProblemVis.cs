@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
 {
-    public class PieceBoardVisualisations : IImageGenerator
+    public class EightQueensProblemVis : IImageGenerator
     {
         private readonly IGalleryService galleryService;
         private readonly PieceBoardImagePipeline pipelineProvider;
 
-        public PieceBoardVisualisations(IGalleryService galleryService, PieceBoardImagePipeline pipelineProvider) 
+        public EightQueensProblemVis(IGalleryService galleryService, PieceBoardImagePipeline pipelineProvider) 
         {
             this.galleryService = galleryService;
             this.pipelineProvider = pipelineProvider;
@@ -35,50 +35,22 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
 
         public Task Generate(IProgressBar progress)
         {
-            var maxDepth = 6;
+            var maxDepth = 3;
             progress.SetMaxTicks(maxDepth);
             progress.SetMessage(Albums.PieceBoard);
 
-            Run(progress.Spawn(), "Pawn", i => new PawnsBoardState(i));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Knight", i => new KnightsBoardState(i));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Bishop", i => new BishopsBoardState(i));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Rook", i => new RooksBoardState(i));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Queen", i => new QueensBoardState(i));
-            progress.Tick();
-
-            Run(progress.Spawn(), "King", i => new KingsBoardState(i));
-            progress.Tick();
-
-            return Task.CompletedTask;
-        }
-
-        public Task Run(IProgressBar progress, string gameName, Func<int, IGameState<GridMove, SingleScoreResult?>> gameFn)
-        {
-            var maxBoardSize = 5;
-            progress.SetMaxTicks(maxBoardSize);
-            progress.SetMessage(gameName);
-
-            for (var i = 3; i < maxBoardSize; i++)
+            for (var i = 1; i < maxDepth; i++)
             {
-                Run(progress, gameFn(i), i);
+                Run(progress, new QueensBoardState(8), i);
                 progress.Tick();
             }
 
             return Task.CompletedTask;
         }
 
-        private Task Run(IProgressBar progress, IGameState<GridMove, SingleScoreResult?> game, int boardSize)
+        private Task Run(IProgressBar progress, IGameState<GridMove, SingleScoreResult?> game, int maxDepth)
         {
-            var pieceBoardType = game.GetType().Name;
-            var id = $"{pieceBoardType} Depth Painter {boardSize}.png";
+            var id = $"8 Queens Problem Solutions depth {maxDepth}.png";
 
 
             var metaData = new GalleryItemMetadata
@@ -92,13 +64,13 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
             if (File.Exists(galleryService.GetImageFilename(metaData)))
                 return Task.CompletedTask;
 
-            var rendererConfig = new SquareTreeRendererOptions(boardSize, 500)
+            var rendererConfig = new SquareTreeRendererOptions(8, 500)
             {
-                //MaxDepth = 3,
+                MaxDepth = maxDepth,
                 //BorderProportions = 0.1f
             };
 
-            var pipeline = pipelineProvider.Create(metaData, rendererConfig, boardSize);
+            var pipeline = pipelineProvider.Create(metaData, rendererConfig, maxDepth, new BoardPainter());
             pipeline.Run(game, progress);
 
             return Task.CompletedTask;

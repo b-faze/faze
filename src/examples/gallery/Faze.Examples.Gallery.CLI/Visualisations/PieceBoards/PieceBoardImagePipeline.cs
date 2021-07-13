@@ -3,6 +3,7 @@ using Faze.Abstractions.Core;
 using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
 using Faze.Examples.GridGames;
 using Faze.Rendering.TreePainters;
@@ -24,12 +25,12 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
             this.galleryService = galleryService;
         }
 
-        public IPipeline<IGameState<GridMove, SingleScoreResult?>> Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, int boardSize)
+        public IPipeline<IGameState<GridMove, SingleScoreResult?>> Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, int boardSize, ITreePainter<IGameState<GridMove, SingleScoreResult?>> painter)
         {
             return ReversePipelineBuilder.Create()
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
-                .Paint(new BoardPainter())
+                .Paint(painter)
                 .GameTree(new SquareTreeAdapter(boardSize))
                 .Build();
         }
