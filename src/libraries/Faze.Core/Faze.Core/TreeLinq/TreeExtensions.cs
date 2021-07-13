@@ -108,7 +108,7 @@ namespace Faze.Core.TreeLinq
             return new Tree<TOutValue>(newValue, newChildren);
         }
 
-        public static Tree<TOutValue> MapTreeAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn)
+        public static Tree<TOutValue> MapTreeAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn, Func<TOutValue> aggFactory)
             where TOutValue : IResultAggregate<TOutValue>
         {
             if (tree == null)
@@ -120,18 +120,15 @@ namespace Faze.Core.TreeLinq
             }
 
             var children = tree.Children
-                    .Select(x => MapTreeAgg(x, fn));
+                    .Select(x => MapTreeAgg(x, fn, aggFactory));
 
-            var value = children
-                .Where(x => x != null)
-                .Select(x => x.Value)
-                .Aggregate((a, b) =>
+            var agg = aggFactory();
+            foreach (var childValue in children.Where(x => x != null).Select(x => x.Value))
             {
-                a.Value.Add(b.Value);
-                return a.Value;
-            });
+                agg.Add(childValue);
+            }
 
-            return new Tree<TOutValue>(value, children);
+            return new Tree<TOutValue>(agg, children);
         }
 
         private static Tree<TOutValue> MapValueHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)

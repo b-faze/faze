@@ -25,12 +25,12 @@ namespace Faze.Engine.ResultTrees
 
         public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree)
         {
-            return tree.MapTreeAgg(GetResults);
+            return tree.MapTreeAgg(GetResults, () => new WinLoseDrawResultAggregate());
         }
 
         public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree, IProgressBar progress)
         {
-            return tree.MapTreeAgg(GetResults);
+            return tree.MapTreeAgg(GetResults, () => new WinLoseDrawResultAggregate());
         }
 
         private WinLoseDrawResultAggregate GetResults(IGameState<GridMove, WinLoseDrawResult?> state)
