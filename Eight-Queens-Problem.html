@@ -4,7 +4,7 @@
   <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, user-scalable=no" />
-      <title>Photo Gallery - Home</title>
+      <title>Photo Gallery - Eight Queens Problem</title>
       <link rel="stylesheet" href="public/lightgallery/css/lightgallery.css" />
       <link rel="stylesheet" href="public/lightslider/css/lightslider.min.css" />
       <link rel="stylesheet" href="public/videojs/video-js.min.css" />
@@ -29,7 +29,7 @@
         Breadcrumbs of parent albums
       -->
       <nav class="breadcrumbs">
-    <a class="breadcrumb-item" href="index.html">Home</a>
+    <a class="breadcrumb-item" href="index.html">Home</a>&nbsp;/&nbsp;<a class="breadcrumb-item" href="Eight-Queens-Problem.html">Eight Queens Problem</a>
       </nav>
     
     
@@ -37,34 +37,40 @@
         Nested albums, if any
       -->
       <div id="albums" class="justified-gallery">
-            <a href="Eight-Queens-Problem.html">
-              <img src="media/small/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%201.png" alt="">
-              <div class="caption" style="display: inline-block">
-                <h3>Eight Queens Problem</h3>
-                <div class="summary">3 photos</div>
-              </div>
-            </a>
-            <a href="OX.html">
-              <img src="media/small/OX/OX%20Gold%201.png" alt="">
-              <div class="caption" style="display: inline-block">
-                <h3>OX</h3>
-                <div class="summary">9 photos</div>
-              </div>
-            </a>
-            <a href="Piece-Board.html">
-              <img src="media/small/Piece%20Board/Bishop%20Depth%20Painter%203.png" alt="">
-              <div class="caption" style="display: inline-block">
-                <h3>Piece Board</h3>
-                <div class="summary">12 photos</div>
-              </div>
-            </a>
       </div>
     
       <!--
         All photos and videos
       -->
       <ul id="media" class="clearfix justified-gallery">
-      </ul>
+          
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%201.png"data-src="media/large/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%201.png"data-exthumbimage="media/thumbs/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%201.png"data-filename="8 Queens Problem Solutions depth 1.png"><a href="media/large/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%201.png"><img
+                      src="media/small/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%201.png"
+                      width="300"
+                      height="300"alt="8 Queens Problem Solutions depth 1.png"/>
+              </a>
+          
+          </div>      
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%202.png"data-src="media/large/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%202.png"data-exthumbimage="media/thumbs/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%202.png"data-filename="8 Queens Problem Solutions depth 2.png"><a href="media/large/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%202.png"><img
+                      src="media/small/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%202.png"
+                      width="300"
+                      height="300"alt="8 Queens Problem Solutions depth 2.png"/>
+              </a>
+          
+          </div>      
+          <div class="albumList"
+              data-sub-html=""
+              data-download-url="media/original/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%203.png"data-src="media/large/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%203.png"data-exthumbimage="media/thumbs/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%203.png"data-filename="8 Queens Problem Solutions depth 3.png"><a href="media/large/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%203.png"><img
+                      src="media/small/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%203.png"
+                      width="300"
+                      height="300"alt="8 Queens Problem Solutions depth 3.png"/>
+              </a>
+          
+          </div>  </ul>
     
       <!--
         Pagination
@@ -130,30 +136,6 @@
       });
     </script>
 
-      <script id="slider-js" data-interval="">
-        $(document).ready(function () {
-          let waitTime = 1000;
-
-          try {
-            waitTime = parseInt($("#slider-js").data("interval"));
-          } catch (e) {
-            console.error("Invalid speed value for slider: " + waitTime + "\n" + e);
-          }
-
-          $("#lightSlider").lightSlider({
-            auto: true,
-            loop: true,
-            item: 1,
-            gallery: true,
-            pause: waitTime,
-            onSliderLoad: (el) => {
-              el.lightGallery({
-                selector: "#lightSlider li"
-              })
-            }
-          });
-        });
-      </script>
 
 
   </body>
