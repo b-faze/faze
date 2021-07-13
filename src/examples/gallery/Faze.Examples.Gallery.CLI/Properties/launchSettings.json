@@ -3,6 +3,14 @@
     "Faze.Examples.Gallery.CLI": {
       "commandName": "Project",
       "commandLineArgs": "generate-data --id EightQueensProblemSolutions_exhaustive"
+    },
+    "generate-data": {
+      "commandName": "Project",
+      "commandLineArgs": "generate-data"
+    },
+    "generate-images": {
+      "commandName": "Project",
+      "commandLineArgs": "generate-images"
     }
   }
 }

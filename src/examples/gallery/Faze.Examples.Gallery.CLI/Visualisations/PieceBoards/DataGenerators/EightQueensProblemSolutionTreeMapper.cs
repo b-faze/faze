@@ -13,19 +13,19 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators
     {
         public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree)
         {
-            return MapTreeAgg(tree, 0, null);
+            return MapTreeAgg(tree, new int[0], 0, null);
         }
 
         public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree, IProgressBar progress)
         {
-            return MapTreeAgg(tree, 0, progress);
+            progress.SetMaxTicks(64);
+            return MapTreeAgg(tree, new int[0], 0, progress);
         }
 
-        private static Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, int depth, IProgressBar progress)
+        private static Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, int[] path, int depth, IProgressBar progress)
         {
             if (tree == null)
             {
-                progress.Tick();
                 return null;
             }
 
@@ -34,25 +34,27 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators
             {
                 var resultAgg = AggregateResults(tree.Value);
 
-                progress.Tick();
                 return new Tree<EightQueensProblemSolutionAggregate>(resultAgg);
             }
 
-            using var progressChild = progress.Spawn();
+            var children = tree.Children.Select((x, i) => MapTreeAgg(x, path.Concat(new[] { i }).ToArray(), depth + 1, progress)).ToList();
 
-            progressChild.SetMessage((depth + 1).ToString());
-            progressChild.SetMaxTicks(64);
 
-            var children = tree.Children.Select(x => MapTreeAgg(x, depth + 1, progressChild));
+            var value = new EightQueensProblemSolutionAggregate();
+            
+            foreach (var childValue in children.Where(x => x != null).Select(x => x.Value))
+            {
+                value.Add(childValue);
+            }
 
-            var value = children
-                .Where(x => x != null)
-                .Select(x => x.Value)
-                .Aggregate((a, b) =>
-                {
-                    a.Value.Add(b.Value);
-                    return a.Value;
-                });
+            if (depth == 1)
+            {
+                progress.Tick();
+            } 
+            else if (depth == 2)
+            {
+                progress.SetMessage(string.Join(",", path));
+            }
 
             return new Tree<EightQueensProblemSolutionAggregate>(value, children);
 

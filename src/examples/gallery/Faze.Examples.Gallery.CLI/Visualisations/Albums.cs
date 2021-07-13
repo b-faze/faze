@@ -10,5 +10,6 @@ namespace Faze.Examples.Gallery.CLI.Visualisations
     {
         public const string OX = "OX";
         public const string PieceBoard = "Piece Board";
+        public const string EightQueensProblem = "Eight Queens Problem";
     }
 }

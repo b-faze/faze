@@ -4,6 +4,7 @@ using Faze.Examples.Gallery.CLI.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,10 +23,12 @@ namespace Faze.Examples.Gallery.CLI.Commands
     {
         private readonly IProgressManager progressManager;
         private readonly IEnumerable<IDataGenerator> generators;
+        private readonly IGalleryService galleryService;
 
-        public GenerateDataCommandHandler(IProgressManager progressManager, IEnumerable<IDataGenerator> dataGenerators)
+        public GenerateDataCommandHandler(IProgressManager progressManager, IGalleryService galleryService, IEnumerable<IDataGenerator> dataGenerators)
         {
             this.progressManager = progressManager;
+            this.galleryService = galleryService;
             this.generators = dataGenerators;
         }
 
@@ -45,10 +48,15 @@ namespace Faze.Examples.Gallery.CLI.Commands
 
         private IEnumerable<IDataGenerator> GetGenerators(GenerateDataCommand request)
         {
-            if (string.IsNullOrEmpty(request.Id))
-                return generators;
+            var newGenerators = generators.Where(g =>
+            {
+                return !File.Exists(galleryService.GetDataFilename(g.Id));
+            });
 
-            return generators.Where(x => x.Id == request.Id);
+            if (string.IsNullOrEmpty(request.Id))
+                return newGenerators;
+
+            return newGenerators.Where(x => x.Id == request.Id);
         }
     }
 }

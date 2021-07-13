@@ -6,7 +6,8 @@ using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Pipelines;
 using Faze.Examples.Gallery.CLI.Interfaces;
-using Faze.Examples.GridGames.PieceBoardStates;
+using Faze.Examples.GridGames;
+using Faze.Examples.GridGames.Pieces;
 using Faze.Examples.OX;
 using System.Linq;
 using System.Text;
@@ -45,7 +46,7 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators
                 .Map(resultsMapper)
                 .LimitDepth(3)
                 .GameTree(new SquareTreeAdapter(BoardSize))
-                .Build(() => new QueensBoardState(BoardSize));
+                .Build(() => new PiecesBoardState(new PiecesBoardStateConfig(BoardSize, new QueenPiece(), onlySafeMoves: true)));
 
             return pipeline;
         }

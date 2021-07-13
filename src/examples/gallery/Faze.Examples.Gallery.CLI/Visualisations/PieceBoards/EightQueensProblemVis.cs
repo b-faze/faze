@@ -2,8 +2,12 @@
 using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Rendering;
+using Faze.Core.Pipelines;
 using Faze.Examples.Gallery.CLI.Interfaces;
-using Faze.Examples.GridGames.PieceBoardStates;
+using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards.DataGenerators;
+using Faze.Examples.GridGames;
+using Faze.Examples.GridGames.Pieces;
 using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;
@@ -17,19 +21,19 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
     public class EightQueensProblemVis : IImageGenerator
     {
         private readonly IGalleryService galleryService;
-        private readonly PieceBoardImagePipeline pipelineProvider;
+        private readonly ITreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
 
-        public EightQueensProblemVis(IGalleryService galleryService, PieceBoardImagePipeline pipelineProvider) 
+        public EightQueensProblemVis(IGalleryService galleryService, ITreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider) 
         {
             this.galleryService = galleryService;
-            this.pipelineProvider = pipelineProvider;
+            this.treeDataProvider = treeDataProvider;
         }
 
         public ImageGeneratorMetaData GetMetaData()
         {
             return new ImageGeneratorMetaData
             {
-                Albums = new[] { Albums.PieceBoard }
+                Albums = new[] { Albums.EightQueensProblem }
             };
         }
 
@@ -37,18 +41,18 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
         {
             var maxDepth = 3;
             progress.SetMaxTicks(maxDepth);
-            progress.SetMessage(Albums.PieceBoard);
+            progress.SetMessage(Albums.EightQueensProblem);
 
-            for (var i = 1; i < maxDepth; i++)
+            for (var i = 1; i <= maxDepth; i++)
             {
-                Run(progress, new QueensBoardState(8), i);
+                Run(progress, i);
                 progress.Tick();
             }
 
             return Task.CompletedTask;
         }
 
-        private Task Run(IProgressBar progress, IGameState<GridMove, SingleScoreResult?> game, int maxDepth)
+        private Task Run(IProgressBar progress, int maxDepth)
         {
             var id = $"8 Queens Problem Solutions depth {maxDepth}.png";
 
@@ -57,23 +61,32 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
             {
                 Id = id,
                 FileName = id,
-                Albums = new[] { Albums.PieceBoard },
+                Albums = new[] { Albums.EightQueensProblem },
                 Description = "Desc...",
             };
 
             if (File.Exists(galleryService.GetImageFilename(metaData)))
                 return Task.CompletedTask;
 
-            var rendererConfig = new SquareTreeRendererOptions(8, 500)
+            var rendererConfig = new SquareTreeRendererOptions(8, 600)
             {
                 MaxDepth = maxDepth,
                 //BorderProportions = 0.1f
             };
 
-            var pipeline = pipelineProvider.Create(metaData, rendererConfig, maxDepth, new BoardPainter());
-            pipeline.Run(game, progress);
+            var pipeline = Create(metaData, rendererConfig, new EightQueensProblemPainter());
+            pipeline.Run();
 
             return Task.CompletedTask;
+        }
+
+        public IPipeline Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, ITreePainter<EightQueensProblemSolutionAggregate> painter)
+        {
+            return ReversePipelineBuilder.Create()
+                .GallerySave(galleryService, galleryMetaData)
+                .Render(new SquareTreeRenderer(rendererConfig))
+                .Paint(painter)
+                .LoadTree(EightQueensProblemExhaustiveDataPipeline.Id, treeDataProvider);
         }
     }
 }

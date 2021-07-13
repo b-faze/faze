@@ -9,28 +9,28 @@ using System.Linq;
 
 namespace Faze.Examples.GridGames
 {
-    public abstract class PiecesBoardState : IGameState<GridMove, SingleScoreResult?>
+    public class PiecesBoardState : IGameState<GridMove, SingleScoreResult?>
     {
+        private PiecesBoardStateConfig config;
         private List<GridMove> currentInfluence;
         private List<GridMove> availableMoves;
         private int currentScore;
         private bool fail;
 
-        public PiecesBoardState(int dimension)
-            : this(dimension, new GridMove[0], Enumerable.Range(0, dimension * dimension).Select(x => (GridMove)x), 0, false)
+        public PiecesBoardState(PiecesBoardStateConfig config)
+            : this(config, new GridMove[0], Enumerable.Range(0, config.Dimension * config.Dimension).Select(x => (GridMove)x), 0, false)
         {
         }
 
-        protected PiecesBoardState(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int currentScore, bool fail)
+        protected PiecesBoardState(PiecesBoardStateConfig config, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int currentScore, bool fail)
         {
-            this.Dimension = dimension;
+            this.config = config;
             this.currentInfluence = influence.ToList();
             this.availableMoves = availableMoves.ToList();
             this.currentScore = currentScore;
             this.fail = fail;
         }
 
-        public int Dimension { get; }
         public int TotalPlayers => 1;
         public PlayerIndex CurrentPlayerIndex => 0;
 
@@ -42,17 +42,17 @@ namespace Faze.Examples.GridGames
                 throw new InvalidDataException($"Move {move} has already been made");
 
             if (currentInfluence.Contains(move))
-                return Create(Dimension, currentInfluence, availableMoves, currentScore, fail: true);
+                return new PiecesBoardState(config, currentInfluence, availableMoves, currentScore, fail: true);
 
-            var moveInfluence = GetPieceMoves(move, Dimension);
+            var moveInfluence = config.Piece.GetPieceMoves(move, config.Dimension);
             var newAvailableMoves = availableMoves.Except(new[] { move });
-
             var newInfluence = currentInfluence.Union(moveInfluence);
+
             var availableGoodMoves = newAvailableMoves.Except(newInfluence);
-            if (!availableGoodMoves.Any())
+            if (config.OnlySafeMoves || !availableGoodMoves.Any())
                 newAvailableMoves = availableGoodMoves;
 
-            return Create(Dimension, newInfluence, newAvailableMoves, currentScore + 1, fail: false);
+            return new PiecesBoardState(config, newInfluence, newAvailableMoves, currentScore + 1, fail: false);
         }
 
         public SingleScoreResult? GetResult()
@@ -64,10 +64,6 @@ namespace Faze.Examples.GridGames
                 ? new SingleScoreResult(currentScore)
                 : (SingleScoreResult?)null;
         }
-
-        protected abstract IEnumerable<GridMove> GetPieceMoves(int posIndex, int dimension);
-        protected abstract IGameState<GridMove, SingleScoreResult?> Create(int dimension, IEnumerable<GridMove> pieces, IEnumerable<GridMove> availableMoves, int score, bool fail);
-
     }
 
 }

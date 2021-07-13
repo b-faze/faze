@@ -1,29 +1,16 @@
 ﻿using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Abstractions.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Faze.Examples.GridGames.PieceBoardStates
+namespace Faze.Examples.GridGames.Pieces
 {
-    public class QueensBoardState : PiecesBoardState
+    public class QueenPiece : IPiece
     {
-        public QueensBoardState(int dimension) : base(dimension)
-        {
-        }
-
-        private QueensBoardState(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail)
-            : base(dimension, influence, availableMoves, score, fail)
-        {
-        }
-
-        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail)
-        {
-            return new QueensBoardState(dimension, influence, availableMoves, score, fail);
-        }
-
-        protected override IEnumerable<GridMove> GetPieceMoves(int posIndex, int dimension)
+        public IEnumerable<GridMove> GetPieceMoves(int posIndex, int dimension)
         {
             var x = posIndex % dimension;
             var y = posIndex / dimension;

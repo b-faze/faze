@@ -3,30 +3,16 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using System.Collections.Generic;
 
-namespace Faze.Examples.GridGames.PieceBoardStates
+namespace Faze.Examples.GridGames.Pieces
 {
-    public class KnightsBoardState : PiecesBoardState
+    public class KnightPiece : IPiece
     {
         private static readonly List<(int x, int y)> KnightsOffsets = new List<(int x, int y)>
         {
             (1, -2), (2, -1), (2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2)
         };
 
-        public KnightsBoardState(int dimension) : base(dimension)
-        {
-        }
-
-        private KnightsBoardState(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail)
-            : base(dimension, influence, availableMoves, score, fail)
-        {
-        }
-
-        protected override IGameState<GridMove, SingleScoreResult?> Create(int dimension, IEnumerable<GridMove> influence, IEnumerable<GridMove> availableMoves, int score, bool fail)
-        {
-            return new KnightsBoardState(dimension, influence, availableMoves, score, fail);
-        }
-
-        protected override IEnumerable<GridMove> GetPieceMoves(int knightPosIndex, int dimension)
+        public IEnumerable<GridMove> GetPieceMoves(int knightPosIndex, int dimension)
         {
             var x = knightPosIndex % dimension;
             var y = knightPosIndex / dimension;

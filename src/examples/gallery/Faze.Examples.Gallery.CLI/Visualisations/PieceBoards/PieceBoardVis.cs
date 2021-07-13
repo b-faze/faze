@@ -3,7 +3,8 @@ using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Examples.Gallery.CLI.Interfaces;
-using Faze.Examples.GridGames.PieceBoardStates;
+using Faze.Examples.GridGames;
+using Faze.Examples.GridGames.Pieces;
 using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;
@@ -39,28 +40,28 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
             progress.SetMaxTicks(maxDepth);
             progress.SetMessage(Albums.PieceBoard);
 
-            Run(progress.Spawn(), "Pawn", i => new PawnsBoardState(i));
+            Run(progress.Spawn(), "Pawn", i => new PiecesBoardStateConfig(i, new PawnPiece()));
             progress.Tick();
 
-            Run(progress.Spawn(), "Knight", i => new KnightsBoardState(i));
+            Run(progress.Spawn(), "Knight", i => new PiecesBoardStateConfig(i, new KnightPiece()));
             progress.Tick();
 
-            Run(progress.Spawn(), "Bishop", i => new BishopsBoardState(i));
+            Run(progress.Spawn(), "Bishop", i => new PiecesBoardStateConfig(i, new BishopPiece()));
             progress.Tick();
 
-            Run(progress.Spawn(), "Rook", i => new RooksBoardState(i));
+            Run(progress.Spawn(), "Rook", i => new PiecesBoardStateConfig(i, new RookPiece()));
             progress.Tick();
 
-            Run(progress.Spawn(), "Queen", i => new QueensBoardState(i));
+            Run(progress.Spawn(), "Queen", i => new PiecesBoardStateConfig(i, new QueenPiece()));
             progress.Tick();
 
-            Run(progress.Spawn(), "King", i => new KingsBoardState(i));
+            Run(progress.Spawn(), "King", i => new PiecesBoardStateConfig(i, new KingPiece()));
             progress.Tick();
 
             return Task.CompletedTask;
         }
 
-        public Task Run(IProgressBar progress, string gameName, Func<int, IGameState<GridMove, SingleScoreResult?>> gameFn)
+        public Task Run(IProgressBar progress, string gameName, Func<int, PiecesBoardStateConfig> gameFn)
         {
             var maxBoardSize = 5;
             progress.SetMaxTicks(maxBoardSize);
@@ -68,17 +69,16 @@ namespace Faze.Examples.Gallery.CLI.Visualisations.PieceBoards
 
             for (var i = 3; i < maxBoardSize; i++)
             {
-                Run(progress, gameFn(i), i);
+                Run(progress, gameName, new PiecesBoardState(gameFn(i)), i);
                 progress.Tick();
             }
 
             return Task.CompletedTask;
         }
 
-        private Task Run(IProgressBar progress, IGameState<GridMove, SingleScoreResult?> game, int boardSize)
+        private Task Run(IProgressBar progress, string gameName, IGameState<GridMove, SingleScoreResult?> game, int boardSize)
         {
-            var pieceBoardType = game.GetType().Name;
-            var id = $"{pieceBoardType} Depth Painter {boardSize}.png";
+            var id = $"{gameName} Depth Painter {boardSize}.png";
 
 
             var metaData = new GalleryItemMetadata

@@ -1,7 +1,7 @@
 using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
-using Faze.Examples.GridGames.PieceBoardStates;
+using Faze.Examples.GridGames.Pieces;
 using Shouldly;
 using System;
 using System.Linq;
@@ -23,7 +23,7 @@ namespace Faze.Examples.GridGames.Tests
         public void CorrectInitialMoveCount(int dimension)
         {
             var expectedInitialMoves = Enumerable.Range(0, dimension * dimension).Select(x => new GridMove(x));
-            var state = new QueensBoardState(dimension);
+            var state = new PiecesBoardState(new PiecesBoardStateConfig(dimension, new QueenPiece()));
 
             state.GetAvailableMoves().ShouldBe(expectedInitialMoves);
         }
@@ -32,7 +32,7 @@ namespace Faze.Examples.GridGames.Tests
         public void CanFindSolutionToEightQueensProblem()
         {
             var moveSequence = new GridMove[] { 5, 11, 22, 24, 39, 41, 52, 58 };
-            IGameState<GridMove, SingleScoreResult?> state = new QueensBoardState(8);
+            IGameState<GridMove, SingleScoreResult?> state = new PiecesBoardState(new PiecesBoardStateConfig(8, new QueenPiece()));
 
             foreach (var move in moveSequence)
             {
@@ -51,7 +51,7 @@ namespace Faze.Examples.GridGames.Tests
         public void CanFindIncorrectSolutionToEightQueensProblem()
         {
             var moveSequence = new GridMove[] { 5, 11, 22, 24, 39, 41, 52, 57 };
-            IGameState<GridMove, SingleScoreResult?> state = new QueensBoardState(8);
+            IGameState<GridMove, SingleScoreResult?> state = new PiecesBoardState(new PiecesBoardStateConfig(8, new QueenPiece()));
 
             foreach (var move in moveSequence)
             {
