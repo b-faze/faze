@@ -41,7 +41,7 @@ The game rules are handled by the `PiecesBoardState` type using the following co
 | Piece | QueenPiece |  |
 | OnlySafeMoves | true | Game state will only return moves that do not attack existing queens |
 
-### ResultsMapper
+### Results Tree Mapper
 
 Next the results mapper \(`EightQueensProblemSolutionTreeMapper`\) will take the game tree and transform it into a tree containing the results we can use generate the visualisation. In this case we are given a game tree 3 moves deep and then collect our results using the `EightQueensProblemSolutionAggregate` type.
 
