@@ -38,29 +38,36 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         public Task Generate(IProgressBar progress)
         {
             var maxDepth = 3;
-            progress.SetMaxTicks(maxDepth);
+            progress.SetMaxTicks(maxDepth * 4);
             progress.SetMessage(Albums.EightQueensProblem);
 
             for (var i = 1; i <= maxDepth; i++)
             {
-                Run(progress, i);
+                RunVariation1(progress, i);
+                progress.Tick();
+
+                RunVariation2(progress, i);
+                progress.Tick();
+
+                RunVariation3(progress, i);
+                progress.Tick();
+
+                RunVariation4(progress, i);
                 progress.Tick();
             }
 
             return Task.CompletedTask;
         }
 
-        private Task Run(IProgressBar progress, int maxDepth)
+        private Task RunVariation1(IProgressBar progress, int maxDepth)
         {
             var id = $"8 Queens Problem Solutions depth {maxDepth}.png";
 
 
             var metaData = new GalleryItemMetadata
             {
-                Id = id,
                 FileName = id,
-                Albums = new[] { Albums.EightQueensProblem },
-                Description = "Desc...",
+                Album = Albums.EightQueensProblem,
             };
 
             if (File.Exists(galleryService.GetImageFilename(metaData)))
@@ -72,18 +79,120 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 //BorderProportions = 0.1f
             };
 
-            var pipeline = Create(metaData, rendererConfig, new EightQueensProblemPainter());
+            var painterConfig = new EightQueensProblemPainterConfig
+            {
+                BlackParentMoves = false,
+                BlackUnavailableMoves = true
+            };
+
+            var pipeline = Create(metaData, rendererConfig, painterConfig);
             pipeline.Run();
 
             return Task.CompletedTask;
         }
 
-        public IPipeline Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, ITreePainter<EightQueensProblemSolutionAggregate> painter)
+        private Task RunVariation2(IProgressBar progress, int maxDepth)
+        {
+            var id = $"Var 2 8QP Solutions depth {maxDepth}.png";
+
+
+            var metaData = new GalleryItemMetadata
+            {
+                FileName = id,
+                Album = Albums.EightQueensProblem,
+            };
+
+            if (File.Exists(galleryService.GetImageFilename(metaData)))
+                return Task.CompletedTask;
+
+            var rendererConfig = new SquareTreeRendererOptions(8, 600)
+            {
+                MaxDepth = maxDepth,
+                //BorderProportions = 0.1f
+            };
+
+            var painterConfig = new EightQueensProblemPainterConfig
+            {
+                BlackParentMoves = true,
+                BlackUnavailableMoves = true
+            };
+
+            var pipeline = Create(metaData, rendererConfig, painterConfig);
+            pipeline.Run();
+
+            return Task.CompletedTask;
+        }
+
+        private Task RunVariation3(IProgressBar progress, int maxDepth)
+        {
+            var id = $"Var 3 8QP Solutions depth {maxDepth}.png";
+
+
+            var metaData = new GalleryItemMetadata
+            {
+                FileName = id,
+                Album = Albums.EightQueensProblem,
+            };
+
+            if (File.Exists(galleryService.GetImageFilename(metaData)))
+                return Task.CompletedTask;
+
+            var rendererConfig = new SquareTreeRendererOptions(8, 600)
+            {
+                MaxDepth = maxDepth,
+                //BorderProportions = 0.1f
+            };
+
+            var painterConfig = new EightQueensProblemPainterConfig
+            {
+                BlackParentMoves = false,
+                BlackUnavailableMoves = false
+            };
+
+            var pipeline = Create(metaData, rendererConfig, painterConfig);
+            pipeline.Run();
+
+            return Task.CompletedTask;
+        }
+
+        private Task RunVariation4(IProgressBar progress, int maxDepth)
+        {
+            var id = $"Var 4 8QP Solutions depth {maxDepth}.png";
+
+
+            var metaData = new GalleryItemMetadata
+            {
+                FileName = id,
+                Album = Albums.EightQueensProblem,
+            };
+
+            if (File.Exists(galleryService.GetImageFilename(metaData)))
+                return Task.CompletedTask;
+
+            var rendererConfig = new SquareTreeRendererOptions(8, 600)
+            {
+                MaxDepth = maxDepth,
+                BorderProportions = 0.1f
+            };
+
+            var painterConfig = new EightQueensProblemPainterConfig
+            {
+                BlackParentMoves = false,
+                BlackUnavailableMoves = false
+            };
+
+            var pipeline = Create(metaData, rendererConfig, painterConfig);
+            pipeline.Run();
+
+            return Task.CompletedTask;
+        }
+
+        public IPipeline Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, EightQueensProblemPainterConfig painterConfig)
         {
             return ReversePipelineBuilder.Create()
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
-                .Paint(painter)
+                .Paint(new EightQueensProblemPainter(painterConfig))
                 .LoadTree(EightQueensProblemExhaustiveDataPipeline.Id, treeDataProvider);
         }
     }

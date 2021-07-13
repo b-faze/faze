@@ -45,10 +45,8 @@ namespace Faze.Examples.Gallery.Visualisations.OX
 
             var metaData = new GalleryItemMetadata
             {
-                Id = id,
                 FileName = id,
-                Albums = new[] { Albums.OX },
-                Description = "Desc...",
+                Album = Albums.OX,
             };
 
             if (File.Exists(galleryService.GetImageFilename(metaData)))

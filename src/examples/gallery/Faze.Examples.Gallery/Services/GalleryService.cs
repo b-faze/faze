@@ -31,8 +31,7 @@ namespace Faze.Examples.Gallery.Services
 
         public string GetImageFilename(GalleryItemMetadata data)
         {
-            var relativePath = Path.Combine(data.Albums);
-            var filename = Path.Combine(config.ImageBasePath, relativePath, data.FileName);
+            var filename = Path.Combine(config.ImageBasePath, data.Album, data.FileName);
 
             var directory = Path.GetDirectoryName(Path.GetFullPath(filename));
             if (!Directory.Exists(directory))

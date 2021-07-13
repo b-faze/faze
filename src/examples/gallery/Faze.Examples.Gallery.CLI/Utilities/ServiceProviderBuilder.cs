@@ -23,6 +23,7 @@ namespace Faze.Examples.Gallery.CLI.Utilities
         public static IServiceProvider Build()
         {
             var programAssembly = Assembly.GetAssembly(typeof(Program));
+            var galleryAssembly = Assembly.GetAssembly(typeof(IDataGenerator));
 
             var serviceProvider = new ServiceCollection()
                 .AddSingleton(new GalleryServiceConfig
@@ -44,8 +45,10 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<OXSimulatedDataPipeline>()
                 .AddSingleton<OXGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()
-                .AddSingletons<IDataGenerator>(programAssembly)
-                .AddSingletons<IImageGenerator>(programAssembly)
+
+                .AddSingletons<IDataGenerator>(galleryAssembly)
+                .AddSingletons<IImageGenerator>(galleryAssembly)
+
                 .AddMediatR(programAssembly)
                 .BuildServiceProvider();
 

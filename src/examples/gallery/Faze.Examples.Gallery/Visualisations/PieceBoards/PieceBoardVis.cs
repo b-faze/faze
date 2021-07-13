@@ -82,10 +82,8 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 
             var metaData = new GalleryItemMetadata
             {
-                Id = id,
                 FileName = id,
-                Albums = new[] { Albums.PieceBoard },
-                Description = "Desc...",
+                Album = Albums.PieceBoard,
             };
 
             if (File.Exists(galleryService.GetImageFilename(metaData)))
