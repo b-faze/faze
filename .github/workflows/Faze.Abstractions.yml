@@ -40,7 +40,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         # Path to lcov file
-        path-to-lcov: coverage/coverage.info
+        path-to-lcov: '${{ env.SOLUTION_PATH }}/Faze.Abstractions.Tests/TestResults/coverage.info'
         # Job flag name, e.g. "Unit", "Functional", or "Integration". Will be shown in the Coveralls UI.
         # The root folder of the project that originally ran the tests
   
