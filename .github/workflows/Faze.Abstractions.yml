@@ -10,14 +10,14 @@ on:
     branches: [ master ]
     paths: [ 'src/libraries/Faze.Abstractions/Faze.Abstractions/Faze.Abstractions.csproj' ]
 
+env:
+  SOLUTION_PATH: 'src/libraries/Faze.Abstractions'
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
     runs-on: ubuntu-latest
-    
-    env:
-      SOLUTION_PATH: "src/libraries/Faze.Abstractions"
       
     steps:
     - uses: actions/checkout@v2
@@ -26,11 +26,11 @@ jobs:
       with:
         dotnet-version: '5.0.x'
     - name: Install dependencies
-      run: dotnet restore ${{ env.SOLUTION_PATH }}
+      run: dotnet restore "${{ env.SOLUTION_PATH }}"
     - name: Build
-      run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
+      run: dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore
     - name: Test
-      run: dotnet test ${{ env.SOLUTION_PATH }} --no-restore --verbosity normal
+      run: dotnet test "${{ env.SOLUTION_PATH }}" --no-restore --verbosity normal
   
  
   publish-nuget:
@@ -50,7 +50,7 @@ jobs:
         uses: brandedoutcast/publish-nuget@v2.5.5
         with:
           # Filepath of the project to be packaged, relative to root of repository
-          PROJECT_FILE_PATH: ./src/libraries/Faze.Abstractions/Faze.Abstractions/Faze.Abstractions.csproj
+          PROJECT_FILE_PATH: '${{ env.SOLUTION_PATH }}/Faze.Abstractions/Faze.Abstractions.csproj'
           # NuGet package id, used for version detection & defaults to project name
           #PACKAGE_NAME: # optional
           # Filepath with version info, relative to root of repository & defaults to PROJECT_FILE_PATH
@@ -87,9 +87,7 @@ jobs:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
     - name: Build solution and generate NuGet package
-      run: |  
-        cd src/libraries/Faze.Abstractions/Faze.Abstractions
-        dotnet build -c Release
+      run: dotnet build "${{ env.SOLUTION_PATH }}/Faze.Abstractions" -c Release
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push src/libraries/Faze.Abstractions/Faze.Abstractions/bin/Release/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push "${{ env.SOLUTION_PATH }}/Faze.Abstractions/bin/Release/*.nupkg" --skip-duplicate --no-symbols true
