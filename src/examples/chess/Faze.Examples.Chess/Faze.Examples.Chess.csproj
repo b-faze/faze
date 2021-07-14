@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
-    <ProjectReference Include="..\External\ChessLib\Chess\Chess.csproj" />
   </ItemGroup>
 
 </Project>

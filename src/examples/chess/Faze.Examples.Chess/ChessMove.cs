@@ -1,5 +1,4 @@
-﻿using Rudz.Chess.Enums;
-using Rudz.Chess.Types;
+﻿using Faze.Examples.Chess;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +7,9 @@ namespace Faze.Games.Chess
 {
     public struct ChessMove
     {
-        internal readonly Move move;
+        internal readonly IGameMove move;
 
-        internal ChessMove(Move move)
+        internal ChessMove(IGameMove move)
         {
             this.move = move;
         }
