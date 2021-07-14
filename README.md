@@ -4,9 +4,9 @@
 
 ---
 
-| Package           | NuGet |
-|-------------------|-------|
-| Faze.Abstractions | [![NuGet](https://img.shields.io/nuget/v/Faze.Abstractions.svg)](https://www.nuget.org/packages/Faze.Abstractions/) |
+| Package           | NuGet | Build
+|-------------------|-------|-------|
+| Faze.Abstractions | [![NuGet](https://img.shields.io/nuget/v/Faze.Abstractions.svg)](https://www.nuget.org/packages/Faze.Abstractions/) | [![Build Status](https://img.shields.io/github/workflow/status/b-faze/faze/Faze.Abstractions)](https://github.com/b-faze/faze/actions/workflows/Faze.Abstractions.yml) |
 | Faze.Core         | [![NuGet](https://img.shields.io/nuget/v/Faze.Core.svg)](https://www.nuget.org/packages/Faze.Core/) |
 | Faze.Core.IO         | [![NuGet](https://img.shields.io/nuget/v/Faze.Core.IO.svg)](https://www.nuget.org/packages/Faze.Core.IO/) |
 | Faze.Engine       | [![NuGet](https://img.shields.io/nuget/v/Faze.Engine.svg)](https://www.nuget.org/packages/Faze.Engine/) |

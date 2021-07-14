@@ -3,9 +3,11 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
+    paths:
+      - 'gallery-config.json'
+      - 'src/gallery/**'
+      - 'src/examples/gallery/Faze.Examples.Gallery.CLI/output/gallery/**'
+
 jobs:
   test:
     name: Publish Gallery to Github Pages
