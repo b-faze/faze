@@ -57,7 +57,7 @@ jobs:
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             # Path to lcov file
-            path-to-lcov: '${{ env.SOLUTION_PATH }}/${{ matrix.node }}/TestResults/coverage.info'
+            path-to-lcov: '${{ env.SOLUTION_PATH }}/${{ matrix.test }}/TestResults/coverage.info'
             flag-name: run-${{ matrix.test }}
             parallel: true
             
