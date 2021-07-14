@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj" />
-    <ProjectReference Include="..\Faze.Games.Chess\Faze.Games.Chess.csproj" />
+    <ProjectReference Include="..\Faze.Examples.Chess\Faze.Examples.Chess.csproj" />
   </ItemGroup>
 
 </Project>

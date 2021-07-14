@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Faze.Games.Chess.Rendering\Faze.Games.Chess.Rendering.csproj" />
-    <ProjectReference Include="..\Faze.Games.Chess\Faze.Games.Chess.csproj" />
+    <ProjectReference Include="..\Faze.Examples.Chess.Rendering\Faze.Examples.Chess.Rendering.csproj" />
+    <ProjectReference Include="..\Faze.Examples.Chess\Faze.Examples.Chess.csproj" />
   </ItemGroup>
 
 </Project>
