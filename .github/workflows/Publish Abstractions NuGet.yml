@@ -7,8 +7,7 @@ name: Publish Faze.Abstractions NuGet
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    paths: [ '.github/workflows/Publish Abstractions NuGet.yml' ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -26,14 +25,12 @@ jobs:
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: ${{ matrix.dotnet-version }}
-    - name: Go to Faze.Abstractions
-      run: cd src/libraries/Faze.Abstractions
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore "src/libraries/Faze.Abstractions"
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build "src/libraries/Faze.Abstractions" --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test "src/libraries/Faze.Abstractions" --no-restore --verbosity normal
   
   publish:
     # The type of runner that the job will run on
