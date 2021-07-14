@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Engine", "Faze.Engine\Faze.Engine.csproj", "{33BB38CE-1351-495A-868E-F1440D808F95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Engine", "Faze.Engine\Faze.Engine.csproj", "{33BB38CE-1351-495A-868E-F1440D808F95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Engine.Benchmarks", "Faze.Engine.Benchmarks\Faze.Engine.Benchmarks.csproj", "{8D6D74CF-6E61-4615-A1F0-C3E48308A7A5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Engine.Tests", "Faze.Engine.Tests\Faze.Engine.Tests.csproj", "{B330C6A8-1D9F-40CE-A49B-CBEDE5553B8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{33BB38CE-1351-495A-868E-F1440D808F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33BB38CE-1351-495A-868E-F1440D808F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33BB38CE-1351-495A-868E-F1440D808F95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D6D74CF-6E61-4615-A1F0-C3E48308A7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D6D74CF-6E61-4615-A1F0-C3E48308A7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D6D74CF-6E61-4615-A1F0-C3E48308A7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D6D74CF-6E61-4615-A1F0-C3E48308A7A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B330C6A8-1D9F-40CE-A49B-CBEDE5553B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B330C6A8-1D9F-40CE-A49B-CBEDE5553B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B330C6A8-1D9F-40CE-A49B-CBEDE5553B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B330C6A8-1D9F-40CE-A49B-CBEDE5553B8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
