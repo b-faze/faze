@@ -26,17 +26,23 @@ jobs:
       run: dotnet restore "src/libraries/Faze.Abstractions"
     - name: Build
       run: dotnet build "src/libraries/Faze.Abstractions" --configuration Release --no-restore
-    - name: Test
-      run: dotnet test "src/libraries/Faze.Abstractions" --no-restore --verbosity normal
+    - name: Upload math result for job 1
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-output
+        path: 'src/libraries/Faze.Abstractions'
   
   test:
     needs: build
     
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Download build result
+      uses: actions/download-artifact@v2
+      with:
+        name: build-output
     - name: Test
-      run: dotnet test "src/libraries/Faze.Abstractions" --verbosity normal
+      run: dotnet test "src/libraries/Faze.Abstractions" --no-restore --verbosity normal
     
   
   publish:
