@@ -32,7 +32,7 @@ jobs:
     - name: Test
       run: dotnet test "${{ env.SOLUTION_PATH }}" --no-restore --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=lcov
     - name: move-coverage
-      run: find "${{ env.SOLUTION_PATH }}/Faze.Abstractions.Tests/TestResults/" -type f -print0 | xargs -0 mv -t coverage
+      run: find "${{ env.SOLUTION_PATH }}/Faze.Abstractions.Tests/TestResults/" -type f -print0 | xargs -0 mv -t Faze.Abstractions.Tests/TestResults
     # You may pin to the exact commit or the version.
     # uses: coverallsapp/github-action@9ba913c152ae4be1327bfb9085dc806cedb44057
     - name: Coveralls GitHub Action
