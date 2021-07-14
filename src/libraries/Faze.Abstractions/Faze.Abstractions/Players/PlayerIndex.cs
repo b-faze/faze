@@ -21,5 +21,20 @@
         {
             return new PlayerIndex(index);
         }
+
+        public override bool Equals(object obj)
+        {
+            return index.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return index.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return index.ToString();
+        }
     }
 }
