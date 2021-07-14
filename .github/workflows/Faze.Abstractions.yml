@@ -26,29 +26,12 @@ jobs:
       run: dotnet restore "src/libraries/Faze.Abstractions"
     - name: Build
       run: dotnet build "src/libraries/Faze.Abstractions" --configuration Release --no-restore
-    - name: Upload math result for job 1
-      uses: actions/upload-artifact@v2
-      with:
-        name: build-output
-        path: 'src/libraries/Faze.Abstractions'
-  
-  test:
-    needs: build
-    
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download build result
-      uses: actions/download-artifact@v2
-      with:
-        name: build-output
-    - name: testdir
-      run: ls
     - name: Test
       run: dotnet test "src/libraries/Faze.Abstractions" --no-restore --verbosity normal
-    
   
-  publish:
-    needs: test
+ 
+  publish-nuget:
+    needs: build
   
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -83,18 +66,26 @@ jobs:
           #NUGET_SOURCE: # optional, default is https://api.nuget.org
           # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
           #INCLUDE_SYMBOLS: # optional
+  
+  publish-github:
+    needs: build
+  
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
-      - name: Setup .NET Core @ Latest
-        uses: actions/setup-dotnet@v1
-        with:
-          source-url: https://nuget.pkg.github.com/b-faze/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Setup .NET Core @ Latest
+      uses: actions/setup-dotnet@v1
+      with:
+        source-url: https://nuget.pkg.github.com/b-faze/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: Build solution and generate NuGet package
-        run: |  
-          cd src/libraries/Faze.Abstractions/Faze.Abstractions
-          dotnet build -c Release
-          
-      - name: Push generated package to GitHub registry
-        run: dotnet nuget push src/libraries/Faze.Abstractions/Faze.Abstractions/bin/Release/*.nupkg --skip-duplicate --no-symbols true
+    - name: Build solution and generate NuGet package
+      run: |  
+        cd src/libraries/Faze.Abstractions/Faze.Abstractions
+        dotnet build -c Release
+
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push src/libraries/Faze.Abstractions/Faze.Abstractions/bin/Release/*.nupkg --skip-duplicate --no-symbols true
