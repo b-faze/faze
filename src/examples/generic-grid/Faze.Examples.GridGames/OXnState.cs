@@ -82,43 +82,58 @@ namespace Faze.Examples.GridGames
             return availableMoves.Count == 0 ? WinLoseDrawResult.Draw : (WinLoseDrawResult?)null;
         }
 
-        public static IEnumerable<ulong> CalcWinningStates(int dimention)
+        public static IEnumerable<ulong> CalcWinningStates(int dimension)
         {
-            // horizontal
-            ulong mask = (ulong)Math.Pow(2, dimention) - 1;
-            for (var j = 0; j < dimention; j++)
-            {
-                yield return mask << j * dimention;
-            }
+            return CalcHorizontalStates(dimension)
+                .Concat(CalcVerticalStates(dimension))
+                .Concat(CalcPositiveDiagonalStates(dimension))
+                .Concat(CalcNegativeDiagonalStates(dimension));
+        }
 
-            //vertical
-            mask = 0;
-            for (var i = 0; i < dimention; i++)
+        private static IEnumerable<ulong> CalcHorizontalStates(int dimension)
+        {
+            ulong mask = (ulong)Math.Pow(2, dimension) - 1;
+            for (var j = 0; j < dimension; j++)
             {
-                mask = mask << dimention;
+                yield return mask << j * dimension;
+            }
+        }
+
+        private static IEnumerable<ulong> CalcVerticalStates(int dimension)
+        {
+            ulong mask = 0;
+            for (var i = 0; i < dimension; i++)
+            {
+                mask = mask << dimension;
                 mask += 1;
             }
 
-            for (var i = 0; i < dimention; i++)
+            for (var i = 0; i < dimension; i++)
             {
                 yield return mask << i;
             }
+        }
 
-            mask = 0;
-            for (var i = 0; i < dimention; i++)
+        private static IEnumerable<ulong> CalcPositiveDiagonalStates(int dimension)
+        {
+            ulong mask = 0;
+            for (var i = 0; i < dimension; i++)
             {
-                mask |= 1uL << i * (dimention + 1);
+                mask |= 1uL << i * (dimension + 1);
             }
 
             yield return mask;
+        }
 
-            mask = 0;
-            for (var i = 0; i < dimention; i++)
+        private static IEnumerable<ulong> CalcNegativeDiagonalStates(int dimension)
+        {
+            ulong mask = 0;
+            for (var i = 0; i < dimension; i++)
             {
-                mask |= 1uL << i * (dimention - 1);
+                mask |= 1uL << i * (dimension - 1);
             }
 
-            mask = mask << dimention - 1;
+            mask = mask << dimension - 1;
 
             yield return mask;
         }
