@@ -1,5 +1,9 @@
 # faze
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/084d5181c85199fae763/maintainability)](https://codeclimate.com/github/b-faze/faze/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/b-faze/faze/badge.svg)](https://coveralls.io/github/b-faze/faze)
+
+
 <img align="center" src="docs/banner.png" alt="Banner" />
 
 ---
