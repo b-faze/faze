@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\Faze.Engine\Faze.Engine\Faze.Engine.csproj" />
     <ProjectReference Include="..\..\..\libraries\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj" />
+    <ProjectReference Include="..\..\testing\Faze.Examples.Testing\Faze.Examples.Testing.csproj" />
     <ProjectReference Include="..\Faze.Examples.OX\Faze.Examples.OX.csproj" />
   </ItemGroup>
 

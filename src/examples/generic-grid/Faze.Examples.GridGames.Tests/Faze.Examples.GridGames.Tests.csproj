@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
+    <ProjectReference Include="..\..\testing\Faze.Examples.Testing\Faze.Examples.Testing.csproj" />
     <ProjectReference Include="..\Faze.Examples.GridGames\Faze.Examples.GridGames.csproj" />
   </ItemGroup>
 

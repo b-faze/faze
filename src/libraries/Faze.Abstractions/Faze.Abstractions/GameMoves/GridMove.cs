@@ -27,5 +27,10 @@ namespace Faze.Abstractions.GameMoves
         {
             return new GridMove(index);
         }
+
+        public override string ToString()
+        {
+            return index.ToString();
+        }
     }
 }

@@ -14,5 +14,10 @@ namespace Faze.Abstractions.GameResults
         }
 
         public static implicit operator int(SingleScoreResult result) => result.score;
+
+        public override string ToString()
+        {
+            return score.ToString();
+        }
     }
 }
