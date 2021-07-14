@@ -15,7 +15,10 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     runs-on: ubuntu-latest
-        
+    
+    env:
+      SOLUTION_PATH: "src/libraries/Faze.Abstractions"
+      
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
@@ -23,11 +26,11 @@ jobs:
       with:
         dotnet-version: '5.0.x'
     - name: Install dependencies
-      run: dotnet restore "src/libraries/Faze.Abstractions"
+      run: dotnet restore ${{ env.SOLUTION_PATH }}
     - name: Build
-      run: dotnet build "src/libraries/Faze.Abstractions" --configuration Release --no-restore
+      run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
     - name: Test
-      run: dotnet test "src/libraries/Faze.Abstractions" --no-restore --verbosity normal
+      run: dotnet test ${{ env.SOLUTION_PATH }} --no-restore --verbosity normal
   
  
   publish-nuget:
