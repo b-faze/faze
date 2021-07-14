@@ -7,9 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering", "Faze.Rend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering.Tests", "Faze.Rendering.Tests\Faze.Rendering.Tests.csproj", "{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering.Playground", "Faze.Rendering.Playground\Faze.Rendering.Playground.csproj", "{58D9DD01-B133-4737-8132-F89BC05B338D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Rendering.Benchmarks", "Faze.Rendering.Benchmarks\Faze.Rendering.Benchmarks.csproj", "{4634D218-3EEC-4B47-AB13-28AA8284F32B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering.Benchmarks", "Faze.Rendering.Benchmarks\Faze.Rendering.Benchmarks.csproj", "{4634D218-3EEC-4B47-AB13-28AA8284F32B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6CF294C-3CE8-411F-A956-2A9ECF2A7E5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58D9DD01-B133-4737-8132-F89BC05B338D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58D9DD01-B133-4737-8132-F89BC05B338D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58D9DD01-B133-4737-8132-F89BC05B338D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58D9DD01-B133-4737-8132-F89BC05B338D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4634D218-3EEC-4B47-AB13-28AA8284F32B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4634D218-3EEC-4B47-AB13-28AA8284F32B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4634D218-3EEC-4B47-AB13-28AA8284F32B}.Release|Any CPU.ActiveCfg = Release|Any CPU
