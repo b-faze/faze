@@ -21,10 +21,10 @@ jobs:
       
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+    - name: Setup .NET Core SDK 3.1.x
       uses: actions/setup-dotnet@v1.7.2
       with:
-        dotnet-version: '5.0.x'
+        dotnet-version: '3.1.x'
     - name: Install dependencies
       run: dotnet restore "${{ env.SOLUTION_PATH }}"
     - name: Build
