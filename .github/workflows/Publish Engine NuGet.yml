@@ -7,8 +7,7 @@ name: Publish Faze.Engine NuGet
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    paths: [ 'src/libraries/Faze.Engine/Faze.Engine/Faze.Engine.csproj' ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
