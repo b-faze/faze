@@ -8,29 +8,50 @@ namespace Faze.Engine.Players
 {
     public class MoveDistribution<TMove> : IMoveDistribution<TMove>
     {
-        private (TMove move, int confidence)[] moveConfidence;
-        private int totalConfidence;
+        private readonly (TMove move, uint confidence)[] moveConfidence;
+        private readonly uint totalConfidence;
 
-        public MoveDistribution(IEnumerable<(TMove, int confidence)> moveConfidence)
+        public MoveDistribution(IEnumerable<(TMove, uint confidence)> moveConfidence)
         {
-            this.moveConfidence = moveConfidence.ToArray();
-            this.totalConfidence = this.moveConfidence.Sum(x => x.confidence);
+            var sanitisedMoveConfidence = new List<(TMove move, uint confidence)>();
+            var skippedItems = false;
+
+            foreach (var item in moveConfidence)
+            {
+                if (item.confidence == 0)
+                {
+                    skippedItems = true;
+                    continue;
+                }
+
+                sanitisedMoveConfidence.Add(item);
+                totalConfidence += item.confidence;
+            }
+
+            if (sanitisedMoveConfidence.Count == 0 && skippedItems)
+            {
+                throw new Exception("Every move confidence cannot be zero");
+            }
+            
+            this.moveConfidence = sanitisedMoveConfidence.ToArray();
         }
 
         public TMove GetMove(UnitInterval ui)
         {
-            var targetConfidence = ui * totalConfidence;
-            var currentConfidence = 0;
+            double targetConfidence = ui * totalConfidence;
+            uint currentConfidence = 0;
             
             foreach (var move in moveConfidence)
             {
                 currentConfidence += move.confidence;
 
-                if (currentConfidence > targetConfidence)
+                if (currentConfidence >= targetConfidence)
                     return move.move;
             }
 
-            throw new NotSupportedException($"Unable to find a move within targetConfidence '{targetConfidence}'");
+            throw new Exception($"Unable to find a move within targetConfidence '{targetConfidence}'");
         }
+
+        public bool IsEmpty() => totalConfidence == 0;
     }
 }

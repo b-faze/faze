@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Shouldly" Version="4.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Faze.Core.IO\Faze.Core.IO\Faze.Core.IO.csproj" />
+    <ProjectReference Include="..\..\Faze.Core\Faze.Core\Faze.Core.csproj" />
+  </ItemGroup>
+
+</Project>

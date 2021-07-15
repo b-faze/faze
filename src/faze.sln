@@ -51,13 +51,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.GridGames.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.Testing", "examples\testing\Faze.Examples.Testing\Faze.Examples.Testing.csproj", "{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Abstractions.Tests", "libraries\Faze.Abstractions\Faze.Abstractions.Tests\Faze.Abstractions.Tests.csproj", "{8C681CE5-F63C-43E3-BB65-D590859755BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Abstractions.Tests", "libraries\Faze.Abstractions\Faze.Abstractions.Tests\Faze.Abstractions.Tests.csproj", "{8C681CE5-F63C-43E3-BB65-D590859755BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Core.Tests", "libraries\Faze.Core\Faze.Core.Tests\Faze.Core.Tests.csproj", "{41257E80-3C22-472E-BAAD-7CF4E15D3304}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Core.Tests", "libraries\Faze.Core\Faze.Core.Tests\Faze.Core.Tests.csproj", "{41257E80-3C22-472E-BAAD-7CF4E15D3304}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Core.IO.Tests", "libraries\Faze.Core.IO\Faze.Core.IO.Tests\Faze.Core.IO.Tests.csproj", "{250174B9-3284-4DDC-BC3D-72F5B4C6DEF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Core.IO.Tests", "libraries\Faze.Core.IO\Faze.Core.IO.Tests\Faze.Core.IO.Tests.csproj", "{250174B9-3284-4DDC-BC3D-72F5B4C6DEF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Engine.Tests", "libraries\Faze.Engine\Faze.Engine.Tests\Faze.Engine.Tests.csproj", "{043B5CA4-5F64-4CDB-9E52-A5976D4D2CB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Engine.Tests", "libraries\Faze.Engine\Faze.Engine.Tests\Faze.Engine.Tests.csproj", "{043B5CA4-5F64-4CDB-9E52-A5976D4D2CB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Utilities.Testing", "libraries\Faze.Utilities\Faze.Utilities.Testing\Faze.Utilities.Testing.csproj", "{FC37E54F-F289-41F3-A465-C3CBB5C666D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -243,6 +245,14 @@ Global
 		{043B5CA4-5F64-4CDB-9E52-A5976D4D2CB9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{043B5CA4-5F64-4CDB-9E52-A5976D4D2CB9}.Release|x64.ActiveCfg = Release|Any CPU
 		{043B5CA4-5F64-4CDB-9E52-A5976D4D2CB9}.Release|x64.Build.0 = Release|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Debug|x64.Build.0 = Debug|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -274,6 +284,7 @@ Global
 		{41257E80-3C22-472E-BAAD-7CF4E15D3304} = {A4DB498A-8C65-4EDA-9CCB-F09E9E4CCED7}
 		{250174B9-3284-4DDC-BC3D-72F5B4C6DEF2} = {A4DB498A-8C65-4EDA-9CCB-F09E9E4CCED7}
 		{043B5CA4-5F64-4CDB-9E52-A5976D4D2CB9} = {A4DB498A-8C65-4EDA-9CCB-F09E9E4CCED7}
+		{FC37E54F-F289-41F3-A465-C3CBB5C666D9} = {A4DB498A-8C65-4EDA-9CCB-F09E9E4CCED7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CF0267C9-5DB8-4A3A-8106-112CA497CA91}
