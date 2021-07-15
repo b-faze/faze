@@ -10,30 +10,48 @@ using Faze.Core.TreeLinq;
 namespace Faze.Engine.Benchmarks.TreeLinqBenchmarks
 {
     [MemoryDiagnoser]
+    [RPlotExporter]
     public class LinqMapValueBenchmarks
     {
         private Tree<int> tree;
 
-        [Params(1, 5, 10)]
-        public int Itterations;
+        [Params(1, 2, 3)]
+        public int Depth;
 
         [GlobalSetup]
         public void Setup()
         {
-            tree = TreeUtilities.CreateTree<int>(3, 5);
+            tree = TreeUtilities.CreateTree<int>(3, Depth);
         }
 
         [Benchmark(Baseline = true)]
         public void Standard()
         {
-            for (var i = 0; i < Itterations; i++)
-            {
-                tree = tree.MapValue(MapFunction);
-            }
+            var mappedTree = tree
+                .MapValue(x => Map(Map(Map(x))));
 
-            tree.GetLeaves().ToList();
+            EnumerateTree(mappedTree);
         }
 
-        private int MapFunction(int x) => x++;
+        [Benchmark]
+        public void Multiple()
+        {
+            var mappedTree = tree
+                .MapValue(Map)
+                .MapValue(Map)
+                .MapValue(Map);
+
+            EnumerateTree(mappedTree);
+        }
+
+        private static int Map(int x) => x + 1;
+
+        private static void EnumerateTree<T>(Tree<T> tree)
+        {
+            foreach (var leaf in tree.GetLeaves())
+            {
+                // do nothing
+            }
+        }
     }
 }

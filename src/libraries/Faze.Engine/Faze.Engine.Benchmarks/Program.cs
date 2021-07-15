@@ -8,6 +8,7 @@ namespace Faze.Engine.Benchmarks
     {
         static void Main(string[] args)
         {
+            Environment.SetEnvironmentVariable("R_HOME", @"G:\Program Files (x86)\R-4.1.0");
             BenchmarkRunner.Run<LinqMapValueBenchmarks>();
         }
     }
