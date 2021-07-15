@@ -2,7 +2,7 @@
 
 namespace Faze.Core.Serialisers
 {
-    public class IntSerialiser : IValueSerialiser<int?>
+    public class NullableIntSerialiser : IValueSerialiser<int?>
     {
         public int? Deserialize(string valueString)
         {

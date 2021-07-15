@@ -14,7 +14,7 @@ namespace Faze.Utilities.Testing
 
         public TestFileTreeDataProvider(string basePath)
         {
-            this.treeDataProvider = new FileTreeDataProvider<int?>(new JsonTreeSerialiser<int?>(new IntSerialiser()));
+            this.treeDataProvider = new FileTreeDataProvider<int?>(new JsonTreeSerialiser<int?>(new NullableIntSerialiser()));
             this.basePath = basePath;
         }
 
