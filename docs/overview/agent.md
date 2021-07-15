@@ -1,52 +1,36 @@
-# Agent
+---
+description: Game agent
+---
 
-An agent is responsible for choosing between available moves.
+# IPlayer
+
+An agent is responsible for evaluating and assigning a confidence against all available moves. This is achieved by returning an IMoveDistribution object.
 
 ```csharp
 public interface IPlayer
 {
-    TMove ChooseMove<TMove, TResult, TPlayer>(IGameState<TMove, TResult, TPlayer> state);
+    IMoveDistribution<TMove> GetMoves<TMove, TResult>(IGameState<TMove, TResult> state);
 }
 ```
 
-## Predefined Agents
+See [Agents ](../engine/agents.md)for documentation on the predefined implementations of IPlayer.
 
 
 
-### Monkey
+## IMoveDistribution
 
-The simplest kind of agent, it will pick a random move from all available.
+An IMoveDistribution abstracts choosing a random move from a distribution, where the chance of picking a move is weighted by the agent's assigned confidence.
 
-#### Requires
+```csharp
+public interface IMoveDistribution<TMove>
+{
+    TMove GetMove(UnitInterval ui);
+    
+    bool IsEmpty();
+}
+```
 
-* Set of available moves
-
-### Minimax
-
-Performs the [Minimax ](https://en.wikipedia.org/wiki/Minimax)algorithm and chooses the best move. Takes an argument 'foresight', which defines the max number of moves ahead the agent will look.
-
-#### Requires
-
-* Set of available moves
-* Get the next state of the game for a given move
-* Game result comparator
-
-
-
-## Considerations
-
-{% hint style="warning" %}
-What should an agent do?
-
-* Return its chosen move
-* Return a probability/confidence against all available moves
-{% endhint %}
-
-{% hint style="warning" %}
-How to handle exponentially large available move sets?
-
-It may not be feasible to list all the available moves. This could still be visualised if there was some mapping from a move to the image.
-
-* An agent would have to know information specific to the game itself and produce a move or set of moves according to some heuristic
+{% hint style="info" %}
+The `UnitInterval`type represents a number between 0 and 1 inclusive.
 {% endhint %}
 
