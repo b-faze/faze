@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 * [Abstractions](overview/README.md)
-  * [Game](overview/game-state.md)
+  * [IGameState](overview/game-state.md)
   * [Agent](overview/agent.md)
   * [Engine](overview/simulate.md)
   * [Rendering](overview/rendering/README.md)
