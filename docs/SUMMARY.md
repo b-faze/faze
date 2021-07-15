@@ -4,7 +4,6 @@
 * [Abstractions](overview/README.md)
   * [IGameState](overview/game-state.md)
   * [IPlayer](overview/agent.md)
-  * [Engine](overview/simulate.md)
   * [Rendering](overview/rendering/README.md)
     * [ITreePainter](overview/rendering/itreepainter.md)
     * [IPaintedTreeRenderer](overview/rendering/ipaintedtreerenderer.md)
