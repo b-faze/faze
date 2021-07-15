@@ -20,10 +20,20 @@ namespace Faze.Abstractions.Tests
         [InlineData(0)]
         [InlineData(0.5)]
         [InlineData(1)]
-        public void CanImplicitCastForDouble(double originalInput)
+        public void CanImplicitCastTDouble(double originalInput)
         {
             double ui = new UnitInterval(originalInput);
             ui.ShouldBe(originalInput);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(0.5)]
+        [InlineData(1)]
+        public void CanImplicitCastFromDouble(double originalInput)
+        {
+            UnitInterval ui = originalInput;
+            ui.ShouldBe(new UnitInterval(originalInput));
         }
 
         [Theory]

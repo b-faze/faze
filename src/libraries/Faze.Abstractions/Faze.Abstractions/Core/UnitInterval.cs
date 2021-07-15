@@ -26,5 +26,20 @@ namespace Faze.Abstractions.Core
         {
             return new UnitInterval(value);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is UnitInterval ui)
+            {
+                return value.Equals(ui.value);
+            }
+
+            return value.Equals(obj);
+        }
+
+        public override string ToString()
+        {
+            return value.ToString();
+        }
     }
 }

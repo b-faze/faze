@@ -24,6 +24,9 @@
 
         public override bool Equals(object obj)
         {
+            if (obj is PlayerIndex playerIndex)
+                return index.Equals(playerIndex.index);
+
             return index.Equals(obj);
         }
 

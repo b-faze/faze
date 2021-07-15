@@ -7,9 +7,10 @@ namespace Faze.Abstractions.Tests
     public class GridMoveTests
     {
         [Fact]
-        public void CanCreateEmpty()
+        public void CanCreateDefault()
         {
             var move = new GridMove();
+            move.ToString().ShouldBe("0");
         }
 
         [Theory]
@@ -43,6 +44,18 @@ namespace Faze.Abstractions.Tests
             GridMove move = new GridMove(index);
 
             move.ToString().ShouldBe(expectedString);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(5)]
+        [InlineData(100)]
+        public void CanImplicitCastFromIndexInt(int index)
+        {
+            GridMove move = index;
+
+            move.ToString().ShouldBe(index.ToString());
         }
     }
 

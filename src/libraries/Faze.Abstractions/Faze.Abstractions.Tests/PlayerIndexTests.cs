@@ -44,6 +44,16 @@ namespace Faze.Abstractions.Tests
 
             move.ToString().ShouldBe(expectedString);
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(5)]
+        [InlineData(100)]
+        public void UsesSameHashcodeAsIndex(int index)
+        {
+            new PlayerIndex(index).GetHashCode().ShouldBe(index.GetHashCode());
+        }
     }
 
 }

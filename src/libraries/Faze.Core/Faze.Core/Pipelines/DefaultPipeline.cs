@@ -1,23 +1,52 @@
 ﻿using Faze.Abstractions.Core;
-using System;
-using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Faze.Core.Pipelines
 {
-    /// <summary>
-    /// Allows for building up a pipeline in reverse order. 
-    /// Starting with defining what you need
-    /// </summary>
-    public class ReversePipelineBuilder : IReversePipelineBuilder
+    public class DefaultPipeline : IPipeline
     {
-        public static IReversePipelineBuilder Create()
+        private IList<IPipelineStep> steps;
+
+        public DefaultPipeline(IEnumerable<IPipelineStep> steps)
         {
-            return new ReversePipelineBuilder();
+            this.steps = steps.ToList();
         }
 
-        public IReversePipelineBuilder<TRequired> Require<TRequired>(Action<TRequired> fn)
+        public void Run()
         {
-            return new PipelineBuilder<TRequired>(fn);
+            object currentInput = null;
+
+            foreach (var step in steps)
+            {
+                currentInput = step.Execute(currentInput);
+            }
+        }
+
+        public void Run(IProgressBar progress)
+        {
+            progress.SetMaxTicks(steps.Count);
+
+            object currentInput = null;
+
+            foreach (var step in steps)
+            {
+                switch (step)
+                {
+                    case IPipelineStepProgress pipelineStepProgress:
+                        using (var subprogress = progress.Spawn())
+                        {
+                            currentInput = pipelineStepProgress.Execute(currentInput, subprogress);
+                        }
+                        break;
+
+                    default:
+                        currentInput = step.Execute(currentInput);
+                        break;
+                }
+
+                progress.Tick();
+            }
         }
     }
 }
