@@ -1,5 +1,6 @@
 using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Rendering.Tests.Utilities;
 using Faze.Rendering.TreeRenderers;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Faze.Rendering.Tests.RendererTests
 {
     public class SliceAndDiceTreeRendererTests
     {
-        [Fact]
+        [DebugOnlyFact]
         public void Test1()
         {
             var rendererOptions = new SliceAndDiceTreeRendererOptions

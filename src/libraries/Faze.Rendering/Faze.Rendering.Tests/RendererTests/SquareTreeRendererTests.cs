@@ -9,7 +9,7 @@ namespace Faze.Rendering.Tests.RendererTests
 {
     public class SquareTreeRendererTests
     {
-        [Theory]
+        [DebugOnlyTheory]
         [InlineData(1, 1, 0.1)]
         [InlineData(1, 2, 0.1)]
         [InlineData(1, 3, 0.1)]
@@ -38,7 +38,7 @@ namespace Faze.Rendering.Tests.RendererTests
 
         }        
         
-        [Theory]
+        [DebugOnlyTheory]
         [InlineData(1, 0, 0.1)]
         [InlineData(1, 1, 0.1)]
         [InlineData(1, 2, 0.1)]
@@ -71,7 +71,7 @@ namespace Faze.Rendering.Tests.RendererTests
 
         }
 
-        [Theory]
+        [DebugOnlyTheory]
         [InlineData(2, 3)]
         public void RainbowBorderTests(int squareSize, int depth)
         {

@@ -21,7 +21,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             this.renderer = new ColorScaleRenderer();
         }
 
-        [Fact]
+        [DebugOnlyFact]
         public void DrawGreyscale()
         {
             var colorInterpolator = new GreyscaleInterpolator();
@@ -34,7 +34,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             }
         }
 
-        [Fact]
+        [DebugOnlyFact]
         public void DrawReverseGreyscale()
         {
             var colorInterpolator = new GreyscaleInterpolator(reverse: true);
@@ -47,7 +47,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             }
         }
 
-        [Fact]
+        [DebugOnlyFact]
         public void DrawLinearBlueRed()
         {
             var colorInterpolator = new LinearColorInterpolator(Color.Blue, Color.Red);
@@ -60,7 +60,7 @@ namespace Faze.Rendering.Tests.ColorInterpolatorTests
             }
         }
 
-        [Fact]
+        [DebugOnlyFact]
         public void DrawGold()
         {
             var colorInterpolator = new GoldInterpolator();

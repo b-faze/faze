@@ -24,7 +24,7 @@ namespace Faze.Rendering.Tests.PainterTests
             });
         }
 
-        [Fact]
+        [DebugOnlyFact]
         public void DrawDefaultDepthPainter()
         {
             var depthPainter = new DepthPainter();
@@ -37,7 +37,7 @@ namespace Faze.Rendering.Tests.PainterTests
 
         }
 
-        [Fact]
+        [DebugOnlyFact]
         public void DrawReverseDepthPainter()
         {
             var depthPainter = new DepthPainter();
