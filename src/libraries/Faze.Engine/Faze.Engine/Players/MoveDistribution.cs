@@ -11,6 +11,11 @@ namespace Faze.Engine.Players
         private readonly (TMove move, uint confidence)[] moveConfidence;
         private readonly uint totalConfidence;
 
+        public MoveDistribution() : this(new TMove[0]) { }
+        public MoveDistribution(TMove move) : this(new[] { move }) { }
+
+        public MoveDistribution(IEnumerable<TMove> moves) : this(moves.Select(move => (move, (uint)1))) { }
+
         public MoveDistribution(IEnumerable<(TMove, uint confidence)> moveConfidence)
         {
             var sanitisedMoveConfidence = new List<(TMove move, uint confidence)>();

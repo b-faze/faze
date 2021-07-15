@@ -12,6 +12,7 @@
     <ProjectReference Include="..\..\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
     <ProjectReference Include="..\..\Faze.Core.IO\Faze.Core.IO\Faze.Core.IO.csproj" />
     <ProjectReference Include="..\..\Faze.Core\Faze.Core\Faze.Core.csproj" />
+    <ProjectReference Include="..\..\Faze.Engine\Faze.Engine\Faze.Engine.csproj" />
   </ItemGroup>
 
 </Project>

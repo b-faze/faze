@@ -12,9 +12,8 @@ namespace Faze.Engine.Players
         public IMoveDistribution<TMove> GetMoves<TMove, TResult>(IGameState<TMove, TResult> state)
         {
             var availableMoves = state.GetAvailableMoves().ToArray();
-            const uint confidence = 1;
 
-            return new MoveDistribution<TMove>(availableMoves.Select(move => (move, confidence)));
+            return new MoveDistribution<TMove>(availableMoves);
         }
     }
 }

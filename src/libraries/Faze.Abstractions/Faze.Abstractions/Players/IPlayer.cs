@@ -6,4 +6,9 @@ namespace Faze.Abstractions.Players
     {
         IMoveDistribution<TMove> GetMoves<TMove, TResult>(IGameState<TMove, TResult> state);
     }
+
+    public interface IPlayer<TResult>
+    {
+        IMoveDistribution<TMove> GetMoves<TMove>(IGameState<TMove, TResult> state);
+    }
 }

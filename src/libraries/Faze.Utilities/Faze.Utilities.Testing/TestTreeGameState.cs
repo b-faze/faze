@@ -1,6 +1,7 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Players;
+using Faze.Core.TreeLinq;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,13 @@ namespace Faze.Utilities.Testing
 
         public PlayerIndex CurrentPlayerIndex { get; set; }
 
-        public IEnumerable<int> GetAvailableMoves() => Enumerable.Range(0, gameTree.Children.Count());
+        public IEnumerable<int> GetAvailableMoves() 
+        {
+            if (gameTree.IsLeaf())
+                return new int[0];
+
+            return Enumerable.Range(0, gameTree.Children.Count());
+        }
 
         public TResult GetResult() => gameTree.Value;
 
