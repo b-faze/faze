@@ -30,7 +30,7 @@ jobs:
     - name: Build
       run: dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore
     - name: Test
-      run: dotnet test "${{ env.SOLUTION_PATH }}" --no-restore --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=lcov
+      run: dotnet test "${{ env.SOLUTION_PATH }}" --no-restore --verbosity normal
   
  
   publish-nuget:
