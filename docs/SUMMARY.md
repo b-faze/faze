@@ -12,6 +12,8 @@
 * [Engine](engine/README.md)
   * [Agents](engine/agents.md)
 * [Rendering](rendering/README.md)
+  * [Tree Renderers](rendering/tree-renderers/README.md)
+    * [SquareTreeRenderer](rendering/tree-renderers/squaretreerenderer.md)
   * [Color Interpolators](rendering/color-interpolators.md)
 
 ## Concept
