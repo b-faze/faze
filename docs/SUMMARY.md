@@ -2,6 +2,7 @@
 
 * [Introduction](README.md)
 * [Abstractions](overview/README.md)
+  * [IPipeline](overview/ipipeline.md)
   * [IGameState](overview/game-state.md)
   * [IPlayer](overview/agent.md)
   * [Rendering](overview/rendering/README.md)
