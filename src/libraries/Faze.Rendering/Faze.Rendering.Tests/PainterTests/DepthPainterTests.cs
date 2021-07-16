@@ -27,7 +27,7 @@ namespace Faze.Rendering.Tests.PainterTests
         [DebugOnlyFact]
         public void DrawDefaultDepthPainter()
         {
-            var depthPainter = new DepthPainter();
+            var depthPainter = new DepthTreePainter();
             var paintedTree = depthPainter.Paint(tree);
             var filename = FileUtilities.GetTestOutputPath(nameof(DepthPainterTests),
                 $"{nameof(DrawDefaultDepthPainter)}.png");
@@ -40,7 +40,7 @@ namespace Faze.Rendering.Tests.PainterTests
         [DebugOnlyFact]
         public void DrawReverseDepthPainter()
         {
-            var depthPainter = new DepthPainter();
+            var depthPainter = new DepthTreePainter();
             var paintedTree = depthPainter.Paint(tree);
             var filename = FileUtilities.GetTestOutputPath(nameof(DepthPainterTests),
                 $"{nameof(DrawReverseDepthPainter)}.png");

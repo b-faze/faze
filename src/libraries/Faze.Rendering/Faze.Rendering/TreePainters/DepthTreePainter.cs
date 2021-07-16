@@ -8,16 +8,16 @@ using System.Linq;
 
 namespace Faze.Rendering.TreePainters
 {
-    public class DepthPainter : ITreePainter
+    public class DepthTreePainter : ITreePainter
     {
         private readonly IColorInterpolator colorInterpolator;
 
-        public DepthPainter() 
+        public DepthTreePainter() 
         {
             this.colorInterpolator = new GreyscaleInterpolator();
         }
 
-        public DepthPainter(IColorInterpolator colorInterpolator)
+        public DepthTreePainter(IColorInterpolator colorInterpolator)
         {
             if (colorInterpolator == null)
                 throw new NullReferenceException(nameof(colorInterpolator));

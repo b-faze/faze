@@ -13,7 +13,7 @@ namespace Faze.Engine.Tests.Players
 {
     public class MinimaxAgentTests
     {
-        private readonly ITreeDataProvider<int?> treeDataProvider;
+        private readonly IFileTreeDataProvider<int?> treeDataProvider;
         private readonly TestGameStateService testGameStateService;
 
         public MinimaxAgentTests()

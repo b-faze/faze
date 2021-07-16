@@ -23,9 +23,9 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
     public class EightQueensProblemVis : IImageGenerator
     {
         private readonly IGalleryService galleryService;
-        private readonly ITreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
+        private readonly IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
 
-        public EightQueensProblemVis(IGalleryService galleryService, ITreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider) 
+        public EightQueensProblemVis(IGalleryService galleryService, IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider) 
         {
             this.galleryService = galleryService;
             this.treeDataProvider = treeDataProvider;

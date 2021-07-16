@@ -5,12 +5,12 @@ using Xunit;
 
 namespace Faze.Abstractions.Tests
 {
-    public class UnitIntervalTests
+    public class ProperFractionTests
     {
         [Theory]
         [InlineData(0)]
         [InlineData(0.5)]
-        [InlineData(1)]
+        [InlineData(0.99)]
         public void AcceptsValidInput(double validInput)
         {
             var ui = new ProperFraction(validInput);
@@ -19,7 +19,7 @@ namespace Faze.Abstractions.Tests
         [Theory]
         [InlineData(0)]
         [InlineData(0.5)]
-        [InlineData(1)]
+        [InlineData(0.99)]
         public void CanImplicitCastTDouble(double originalInput)
         {
             double ui = new ProperFraction(originalInput);
@@ -29,7 +29,7 @@ namespace Faze.Abstractions.Tests
         [Theory]
         [InlineData(0)]
         [InlineData(0.5)]
-        [InlineData(1)]
+        [InlineData(0.99)]
         public void CanImplicitCastFromDouble(double originalInput)
         {
             ProperFraction ui = originalInput;
@@ -38,6 +38,7 @@ namespace Faze.Abstractions.Tests
 
         [Theory]
         [InlineData(-1)]
+        [InlineData(1)]
         [InlineData(-0.1)]
         [InlineData(1.1)]
         [InlineData(-200)]

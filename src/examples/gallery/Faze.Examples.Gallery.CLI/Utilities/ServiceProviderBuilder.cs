@@ -34,11 +34,11 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<IProgressManager, GalleryProgressManager>()
                 .AddSingleton<IGalleryService, GalleryService>()
 
-                .AddSingleton<ITreeDataProvider<WinLoseDrawResultAggregate>, GalleryTreeDataProvider<WinLoseDrawResultAggregate>>()
+                .AddSingleton<IFileTreeDataProvider<WinLoseDrawResultAggregate>, GalleryTreeDataProvider<WinLoseDrawResultAggregate>>()
                 .AddSingleton<IValueSerialiser<WinLoseDrawResultAggregate>, WinLoseDrawResultAggregateSerialiser>()
                 .AddSingleton<ITreeSerialiser<WinLoseDrawResultAggregate>, JsonTreeSerialiser<WinLoseDrawResultAggregate>>()
 
-                .AddSingleton<ITreeDataProvider<EightQueensProblemSolutionAggregate>, GalleryTreeDataProvider<EightQueensProblemSolutionAggregate>>()
+                .AddSingleton<IFileTreeDataProvider<EightQueensProblemSolutionAggregate>, GalleryTreeDataProvider<EightQueensProblemSolutionAggregate>>()
                 .AddSingleton<IValueSerialiser<EightQueensProblemSolutionAggregate>, EightQueensProblemSolutionAggregateSerialiser>()
                 .AddSingleton<ITreeSerialiser<EightQueensProblemSolutionAggregate>, JsonTreeSerialiser<EightQueensProblemSolutionAggregate>>()
 

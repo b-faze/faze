@@ -84,19 +84,19 @@ namespace Faze.Core.Extensions
             });
         }        
         
-        public static IPipeline LoadTree<T>(this IReversePipelineBuilder<Tree<T>> builder, string filename, ITreeDataProvider<T> treeDataProvider)
+        public static IPipeline LoadTree<TId, T>(this IReversePipelineBuilder<Tree<T>> builder, TId id, ITreeDataProvider<TId, T> treeDataProvider)
         {
             return builder.Build(() =>
             {
-                return TreeFileExtensions.Load(filename, treeDataProvider);
+                return TreeFileExtensions.Load(id, treeDataProvider);
             });
         }
 
-        public static IReversePipelineBuilder<Tree<T>> SaveTree<T>(this IReversePipelineBuilder builder, string filename, ITreeDataProvider<T> treeDataProvider)
+        public static IReversePipelineBuilder<Tree<T>> SaveTree<TId, T>(this IReversePipelineBuilder builder, TId id, ITreeDataStore<TId,T> treeDataStore)
         {
             return builder.Require<Tree<T>>(tree =>
             {
-                TreeFileExtensions.Save(tree, filename, treeDataProvider);
+                TreeFileExtensions.Save(tree, id, treeDataStore);
             });
         }
 

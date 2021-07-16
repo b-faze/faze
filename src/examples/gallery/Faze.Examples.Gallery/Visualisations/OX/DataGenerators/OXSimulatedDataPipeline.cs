@@ -13,9 +13,9 @@ namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 {
     public class OXSimulatedDataPipeline
     {
-        private readonly ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
+        private readonly IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
 
-        public OXSimulatedDataPipeline(ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
+        public OXSimulatedDataPipeline(IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
         {
             this.treeDataProvider = treeDataProvider;
         }

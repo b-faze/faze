@@ -22,10 +22,10 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
     {
         private const int BoardSize = 8;
         public const string Id = "EightQueensProblemSolutions_exhaustive";
-        private readonly ITreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
+        private readonly IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
         private readonly ITreeMapper<IGameState<GridMove, SingleScoreResult?>, EightQueensProblemSolutionAggregate> resultsMapper;
 
-        public EightQueensProblemExhaustiveDataPipeline(ITreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider)
+        public EightQueensProblemExhaustiveDataPipeline(IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider)
         {
             this.treeDataProvider = treeDataProvider;
             this.resultsMapper = new EightQueensProblemSolutionTreeMapper();

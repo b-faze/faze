@@ -3,7 +3,7 @@ using Faze.Abstractions.Core;
 
 namespace Faze.Core.TreeLinq
 {
-    public class FileTreeDataProvider<T> : ITreeDataProvider<T>
+    public class FileTreeDataProvider<T> : IFileTreeDataProvider<T>
     {
         private readonly ITreeSerialiser<T> treeSerialiser;
 

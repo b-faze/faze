@@ -7,9 +7,9 @@ using System.IO;
 
 namespace Faze.Utilities.Testing
 {
-    public class TestFileTreeDataProvider : ITreeDataProvider<int?>
+    public class TestFileTreeDataProvider : IFileTreeDataProvider<int?>
     {
-        private readonly ITreeDataProvider<int?> treeDataProvider;
+        private readonly FileTreeDataProvider<int?> treeDataProvider;
         private readonly string basePath;
 
         public TestFileTreeDataProvider(string basePath)

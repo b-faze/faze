@@ -13,10 +13,10 @@ namespace Faze.Examples.Gallery.Visualisations.OX
     public class OXGoldImagePipeline
     {
         private readonly IGalleryService galleryService;
-        private readonly ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
+        private readonly IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
 
         public OXGoldImagePipeline(IGalleryService galleryService,
-            ITreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
+            IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
         {
             this.galleryService = galleryService;
             this.treeDataProvider = treeDataProvider;

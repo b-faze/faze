@@ -6,14 +6,14 @@ namespace Faze.Core.TreeLinq
 {
     public static class TreeFileExtensions
     {
-        public static Tree<T> Load<T>(string id, ITreeDataProvider<T> treeDataProvider)
+        public static Tree<T> Load<TId, T>(TId id, ITreeDataProvider<TId, T> treeDataProvider)
         {
             return treeDataProvider.Load(id);
         }
 
-        public static void Save<T>(Tree<T> tree, string id, ITreeDataProvider<T> treeDataProvider)
+        public static void Save<TId, T>(Tree<T> tree, TId id, ITreeDataStore<TId, T> treeDataStore)
         {
-            treeDataProvider.Save(tree, id);
+            treeDataStore.Save(tree, id);
         }
 
     }

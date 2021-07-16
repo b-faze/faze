@@ -1,8 +1,7 @@
 ﻿namespace Faze.Abstractions.Core
 {
-    public interface ITreeDataProvider<T>
+    public interface ITreeDataProvider<TId, TTreeValue>
     {
-        Tree<T> Load(string id);
-        void Save(Tree<T> tree, string id);
+        Tree<TTreeValue> Load(TId id);
     }
 }
