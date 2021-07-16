@@ -43,3 +43,39 @@ Everything in the gallery is produced from this repository in Faze.Examples.Gall
  check-images options:
    
 ```
+
+## Quick Start
+
+Create a new .NET Core 3.1 (or any platform supporting .NET Standard 2.0) console application and install the Faze.Rendering NuGet package.
+
+```
+nuget install Faze.Rendering
+```
+
+Change your Main method to the following:
+
+```
+ static void Main(string[] args)
+ {
+     var size = 3;
+     var maxDepth = 4;
+
+     var rendererOptions = new SquareTreeRendererOptions(size, 500)
+     {
+         BorderProportion = 0.1f
+     };
+
+     IPipeline pipeline = ReversePipelineBuilder.Create()
+         .File("my_first_visualisation.png")
+         .Render(new SquareTreeRenderer(rendererOptions))
+         .Paint<object>(new CheckeredTreePainter())
+         .LoadTree(new DynamicSquareTreeOptions<object>(size, maxDepth, info => null), new DynamicTreeDataProvider<object>());
+
+     pipeline.Run();
+ }
+```
+Run your console application and see your first visualisation! Have a look in your bin folder for 'my_first_visualisation.png', otherwise give it a custom filepath e.g. @"C:\path\of\your\choice\my_first_visualisation.png".
+
+<img align="center" src="docs/my_first_visualisation.png" alt="my_first_visualisation" />
+
+For creating your own trees and visualisations see [gitbooks documentation](https://b-hub.gitbook.io/faze/) or clone this repository and see the gallery examples.
