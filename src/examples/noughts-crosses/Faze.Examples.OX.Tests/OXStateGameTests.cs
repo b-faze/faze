@@ -3,7 +3,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Players;
 using Faze.Engine.Players;
-using Faze.Examples.Testing;
+using Faze.Utilities.Testing;
 using Shouldly;
 using System;
 using Xunit;

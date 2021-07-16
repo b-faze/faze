@@ -49,8 +49,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.Gallery.CLI",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.GridGames.Tests", "examples\generic-grid\Faze.Examples.GridGames.Tests\Faze.Examples.GridGames.Tests.csproj", "{35192F52-759F-40DD-BD33-F732E209BB7D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.Testing", "examples\testing\Faze.Examples.Testing\Faze.Examples.Testing.csproj", "{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Abstractions.Tests", "libraries\Faze.Abstractions\Faze.Abstractions.Tests\Faze.Abstractions.Tests.csproj", "{8C681CE5-F63C-43E3-BB65-D590859755BC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Core.Tests", "libraries\Faze.Core\Faze.Core.Tests\Faze.Core.Tests.csproj", "{41257E80-3C22-472E-BAAD-7CF4E15D3304}"
@@ -59,7 +57,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Core.IO.Tests", "libra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Engine.Tests", "libraries\Faze.Engine\Faze.Engine.Tests\Faze.Engine.Tests.csproj", "{043B5CA4-5F64-4CDB-9E52-A5976D4D2CB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faze.Utilities.Testing", "libraries\Faze.Utilities\Faze.Utilities.Testing\Faze.Utilities.Testing.csproj", "{FC37E54F-F289-41F3-A465-C3CBB5C666D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Utilities.Testing", "libraries\Faze.Utilities\Faze.Utilities.Testing\Faze.Utilities.Testing.csproj", "{FC37E54F-F289-41F3-A465-C3CBB5C666D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -205,14 +203,6 @@ Global
 		{35192F52-759F-40DD-BD33-F732E209BB7D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35192F52-759F-40DD-BD33-F732E209BB7D}.Release|x64.ActiveCfg = Release|Any CPU
 		{35192F52-759F-40DD-BD33-F732E209BB7D}.Release|x64.Build.0 = Release|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Debug|x64.Build.0 = Debug|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Release|x64.ActiveCfg = Release|Any CPU
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B}.Release|x64.Build.0 = Release|Any CPU
 		{8C681CE5-F63C-43E3-BB65-D590859755BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C681CE5-F63C-43E3-BB65-D590859755BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C681CE5-F63C-43E3-BB65-D590859755BC}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -279,7 +269,6 @@ Global
 		{5FA39038-976A-4C0E-A8FC-28CC535C9F01} = {7A9B326B-CA30-498E-B94D-0874B1B7DC57}
 		{B3DE0261-3056-4956-9B36-D3B48ED2215B} = {7A9B326B-CA30-498E-B94D-0874B1B7DC57}
 		{35192F52-759F-40DD-BD33-F732E209BB7D} = {FFC64B33-727B-4199-804D-3B41E3206550}
-		{41353F0D-28E5-47D8-AE7F-C6E15F8A371B} = {36EBED6A-B078-4EA6-AA7B-95D3659FC8A9}
 		{8C681CE5-F63C-43E3-BB65-D590859755BC} = {A4DB498A-8C65-4EDA-9CCB-F09E9E4CCED7}
 		{41257E80-3C22-472E-BAAD-7CF4E15D3304} = {A4DB498A-8C65-4EDA-9CCB-F09E9E4CCED7}
 		{250174B9-3284-4DDC-BC3D-72F5B4C6DEF2} = {A4DB498A-8C65-4EDA-9CCB-F09E9E4CCED7}

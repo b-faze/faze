@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Faze.Examples.Testing
+namespace Faze.Utilities.Testing
 {
     public class GameStateTestingService<TMove, TResult>
     {

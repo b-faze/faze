@@ -1,7 +1,7 @@
 ﻿using Faze.Abstractions.GameStates;
 using System;
 
-namespace Faze.Examples.Testing
+namespace Faze.Utilities.Testing
 {
     public class GameStateTestingServiceConfig<TMove, TResult>
     {

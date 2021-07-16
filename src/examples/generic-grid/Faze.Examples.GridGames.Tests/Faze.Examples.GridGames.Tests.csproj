@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
-    <ProjectReference Include="..\..\testing\Faze.Examples.Testing\Faze.Examples.Testing.csproj" />
+    <ProjectReference Include="..\..\..\libraries\Faze.Utilities\Faze.Utilities.Testing\Faze.Utilities.Testing.csproj" />
     <ProjectReference Include="..\Faze.Examples.GridGames\Faze.Examples.GridGames.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Examples.GridGames.Pieces;
-using Faze.Examples.Testing;
+using Faze.Utilities.Testing;
 using System;
 using System.Linq;
 using Xunit;
