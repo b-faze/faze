@@ -13,7 +13,7 @@ namespace Faze.Abstractions.Tests
         [InlineData(1)]
         public void AcceptsValidInput(double validInput)
         {
-            var ui = new UnitInterval(validInput);
+            var ui = new ProperFraction(validInput);
         }
 
         [Theory]
@@ -22,7 +22,7 @@ namespace Faze.Abstractions.Tests
         [InlineData(1)]
         public void CanImplicitCastTDouble(double originalInput)
         {
-            double ui = new UnitInterval(originalInput);
+            double ui = new ProperFraction(originalInput);
             ui.ShouldBe(originalInput);
         }
 
@@ -32,8 +32,8 @@ namespace Faze.Abstractions.Tests
         [InlineData(1)]
         public void CanImplicitCastFromDouble(double originalInput)
         {
-            UnitInterval ui = originalInput;
-            ui.ShouldBe(new UnitInterval(originalInput));
+            ProperFraction ui = originalInput;
+            ui.ShouldBe(new ProperFraction(originalInput));
         }
 
         [Theory]
@@ -44,7 +44,7 @@ namespace Faze.Abstractions.Tests
         [InlineData(200)]
         public void CanRejectInvalidInputs(double invalidInput)
         {
-            Should.Throw<ArgumentOutOfRangeException>(() => new UnitInterval(invalidInput));
+            Should.Throw<ArgumentOutOfRangeException>(() => new ProperFraction(invalidInput));
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Faze.Engine.Tests.Players
 
             var moves = agent.GetMoves(state);
             moves.GetMove(0).ShouldBe(1);
-            moves.GetMove(1).ShouldBe(1);
+            moves.GetMove(0.99).ShouldBe(1);
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace Faze.Engine.Tests.Players
 
             var moves = agent.GetMoves(state);
             moves.GetMove(0).ShouldBe(0);
-            moves.GetMove(1).ShouldBe(0);
+            moves.GetMove(0.99).ShouldBe(0);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace Faze.Engine.Tests.Players
 
             var moves = agent.GetMoves(state);
             moves.GetMove(0).ShouldBe(0);
-            moves.GetMove(1).ShouldBe(1);
+            moves.GetMove(0.99).ShouldBe(1);
         }
 
         private IPlayer<int?> GetAgent(int foresight)

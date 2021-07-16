@@ -12,7 +12,7 @@ namespace Faze.Abstractions.Players
         /// </summary>
         /// <param name="ui"></param>
         /// <returns></returns>
-        TMove GetMove(UnitInterval ui);
+        TMove GetMove(ProperFraction ui);
 
         /// <summary>
         /// True if there are no moves to choose from

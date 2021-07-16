@@ -33,11 +33,13 @@ namespace Faze.Engine.Tests.Players
             var moves = new MoveDistribution<int>(new (int, uint)[] { (0, confidence), (1, confidence), (2, confidence), (3, confidence) });
 
             moves.GetMove(0).ShouldBe(0);
-            moves.GetMove(0.25).ShouldBe(0);
+            moves.GetMove(0.24).ShouldBe(0);
+            moves.GetMove(0.25).ShouldBe(1);
             moves.GetMove(0.26).ShouldBe(1);
-            moves.GetMove(0.5).ShouldBe(1);
-            moves.GetMove(0.75).ShouldBe(2);
-            moves.GetMove(1).ShouldBe(3);
+            moves.GetMove(0.5).ShouldBe(2);
+            moves.GetMove(0.74).ShouldBe(2);
+            moves.GetMove(0.75).ShouldBe(3);
+            moves.GetMove(0.99).ShouldBe(3);
         }
 
         [Fact]
@@ -47,11 +49,12 @@ namespace Faze.Engine.Tests.Players
             var moves = new MoveDistribution<int>(new (int, uint)[] { (0, 0), (1, confidence), (2, confidence), (3, 0) });
 
             moves.GetMove(0).ShouldBe(1);
+            moves.GetMove(0.24).ShouldBe(1);
             moves.GetMove(0.25).ShouldBe(1);
             moves.GetMove(0.26).ShouldBe(1);
-            moves.GetMove(0.5).ShouldBe(1);
+            moves.GetMove(0.5).ShouldBe(2);
             moves.GetMove(0.75).ShouldBe(2);
-            moves.GetMove(1).ShouldBe(2);
+            moves.GetMove(0.99).ShouldBe(2);
         }
     }
 }

@@ -41,16 +41,16 @@ namespace Faze.Engine.Players
             this.moveConfidence = sanitisedMoveConfidence.ToArray();
         }
 
-        public TMove GetMove(UnitInterval ui)
+        public TMove GetMove(ProperFraction ui)
         {
             double targetConfidence = ui * totalConfidence;
-            uint currentConfidence = 0;
+            double currentConfidence = 0;
             
             foreach (var move in moveConfidence)
             {
                 currentConfidence += move.confidence;
 
-                if (currentConfidence >= targetConfidence)
+                if (targetConfidence < currentConfidence)
                     return move.move;
             }
 
