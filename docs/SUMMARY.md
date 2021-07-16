@@ -2,11 +2,14 @@
 
 * [Introduction](README.md)
 * [Abstractions](overview/README.md)
-  * [Game](overview/game-state.md)
-  * [Agent](overview/agent.md)
-  * [Engine](overview/simulate.md)
+  * [IGameState](overview/game-state.md)
+  * [IPlayer](overview/agent.md)
   * [Rendering](overview/rendering/README.md)
+    * [ITreePainter](overview/rendering/itreepainter.md)
+    * [IPaintedTreeRenderer](overview/rendering/ipaintedtreerenderer.md)
     * [IColorInterpolator](overview/rendering/icolorinterpolator.md)
+* [Engine](engine/README.md)
+  * [Agents](engine/agents.md)
 * [Rendering](rendering/README.md)
   * [Color Interpolators](rendering/color-interpolators.md)
 
