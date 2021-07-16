@@ -14,6 +14,7 @@
 * [Rendering](rendering/README.md)
   * [Tree Renderers](rendering/tree-renderers/README.md)
     * [SquareTreeRenderer](rendering/tree-renderers/squaretreerenderer.md)
+    * [SliceAndDiceTreeRenderer](rendering/tree-renderers/sliceanddicetreerenderer.md)
   * [Color Interpolators](rendering/color-interpolators.md)
 
 ## Concept
