@@ -101,7 +101,9 @@ public class LeftOrRightHand : IGameState<bool, bool?>
 
     public PlayerIndex CurrentPlayerIndex => PlayerIndex.P1;
 
-    public IEnumerable<bool> GetAvailableMoves() => new[] { true, false };
+    public IEnumerable<bool> GetAvailableMoves() => result != null 
+        ? new[] { true, false }
+        : new bool[0];
 
     public bool? GetResult() => result;
 
