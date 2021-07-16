@@ -26,7 +26,7 @@ namespace Faze.Rendering.Tests.RendererTests
         {
             var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
             {
-                BorderProportions = borderProportion
+                BorderProportion = borderProportion
             };
             var renderer = new SquareTreeRenderer(rendererOptions);
             var tree = TreeUtilities.CreateGreyPaintedSquareTree(squareSize, depth);
@@ -59,7 +59,7 @@ namespace Faze.Rendering.Tests.RendererTests
             var testName = nameof(RainbowTests);
             var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
             {
-                BorderProportions = borderProportion
+                BorderProportion = borderProportion
             };
             var renderer = new SquareTreeRenderer(rendererOptions);
             var tree = TreeUtilities.CreateRainbowPaintedSquareTree(squareSize, depth);
@@ -84,7 +84,7 @@ namespace Faze.Rendering.Tests.RendererTests
                 var testName = nameof(RainbowBorderTests);
                 var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
                 {
-                    BorderProportions = borderProportion
+                    BorderProportion = borderProportion
                 };
                 var renderer = new SquareTreeRenderer(rendererOptions);
                 var tree = TreeUtilities.CreateRainbowPaintedSquareTree(squareSize, depth);

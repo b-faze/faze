@@ -11,8 +11,8 @@ namespace Faze.Rendering.TreeRenderers
 {
     public class SliceAndDiceTreeRendererOptions
     {
-        public double BorderProportion { get; set; }
-        public Viewport Viewport { get; set; }
+        public float BorderProportion { get; set; }
+        public IViewport Viewport { get; set; }
         public int? MaxDepth { get; set; }
     }
 

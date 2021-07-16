@@ -59,7 +59,7 @@ namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers
             if (node.Children == null)
                 return;
 
-            var borderOffset = options.BorderProportions;
+            var borderOffset = options.BorderProportion;
             var borderSize = rect.Width * borderOffset;
             if (borderSize < 1) borderSize = 0; // Don't render a border that is sub-pixel size
             var innerRectSize = rect.Width - 2 * borderSize;

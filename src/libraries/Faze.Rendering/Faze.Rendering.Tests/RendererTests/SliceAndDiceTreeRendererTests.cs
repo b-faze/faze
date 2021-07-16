@@ -21,7 +21,7 @@ namespace Faze.Rendering.Tests.RendererTests
         {
             var rendererOptions = new SliceAndDiceTreeRendererOptions
             {
-                BorderProportion = 0.1
+                BorderProportion = 0.1f
             };
             var renderer = new SliceAndDiceTreeRenderer(rendererOptions);
             var tree = CreateTestTree();

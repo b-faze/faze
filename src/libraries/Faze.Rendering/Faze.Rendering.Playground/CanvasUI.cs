@@ -42,7 +42,7 @@ namespace Faze.Rendering.Playground
             this.renderer?.Dispose();
             this.rendererConfig = new SquareTreeRendererOptions(options.Size, Math.Min(pictureBox.Width, pictureBox.Height))
             {
-                BorderProportions = options.Border,
+                BorderProportion = options.Border,
                 MinChildDrawSize = options.MinChildDrawSize,
             };
             this.renderer = new SquareTreeRenderer(rendererConfig);

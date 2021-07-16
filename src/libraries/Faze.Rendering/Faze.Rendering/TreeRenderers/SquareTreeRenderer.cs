@@ -26,7 +26,7 @@ namespace Faze.Rendering.TreeRenderers
 
         public int Size { get; }
         public int ImageSize { get; }
-        public float BorderProportions { get; set; }
+        public float BorderProportion { get; set; }
         public float MinChildDrawSize { get; set; }
 
         public IViewport Viewport { get; set; }
@@ -94,7 +94,7 @@ namespace Faze.Rendering.TreeRenderers
                 return;
 
             var scaledSize = rect.Width;
-            var borderOffset = options.BorderProportions;
+            var borderOffset = options.BorderProportion;
             var borderSize = scaledSize * borderOffset;
             //if (borderSize < 1) borderSize = 0; // Don't render a border that is sub-pixel size
             var innerRectSize = scaledSize - 2 * borderSize;

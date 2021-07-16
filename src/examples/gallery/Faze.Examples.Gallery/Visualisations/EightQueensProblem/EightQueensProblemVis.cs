@@ -173,7 +173,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             var rendererConfig = new SquareTreeRendererOptions(8, 600)
             {
                 MaxDepth = maxDepth,
-                BorderProportions = 0.1f
+                BorderProportion = 0.1f
             };
 
             var painterConfig = new EightQueensProblemPainterConfig
