@@ -1,10 +1,10 @@
 ﻿using ShellProgressBar;
 using System;
-using IProgressBar = Faze.Abstractions.Core.IProgressBar;
+using IProgressTracker = Faze.Abstractions.Core.IProgressTracker;
 
 namespace Faze.Examples.Gallery.CLI.Utilities
 {
-    public class ProgressBarWrapper : IProgressBar
+    public class ProgressBarWrapper : IProgressTracker
     {
         private readonly ShellProgressBar.IProgressBar progressBar;
 
@@ -28,7 +28,7 @@ namespace Faze.Examples.Gallery.CLI.Utilities
             progressBar.Tick();
         }
 
-        public IProgressBar Spawn()
+        public IProgressTracker Spawn()
         {
             var childOptions = new ProgressBarOptions
             {

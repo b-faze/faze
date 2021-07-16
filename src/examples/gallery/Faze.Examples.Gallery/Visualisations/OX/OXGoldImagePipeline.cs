@@ -1,6 +1,7 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.Rendering;
+using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
 using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Rendering.ColorInterpolators;

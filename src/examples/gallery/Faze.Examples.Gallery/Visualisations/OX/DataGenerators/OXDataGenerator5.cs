@@ -21,7 +21,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 
         string IDataGenerator.Id => Id;
 
-        public Task Generate(IProgressBar progress)
+        public Task Generate(IProgressTracker progress)
         {
             progress.SetMessage(Id);
             pipelineProvider.Create(Id, 100, 5).Run(progress);

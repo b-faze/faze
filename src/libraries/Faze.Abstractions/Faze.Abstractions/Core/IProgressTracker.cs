@@ -2,11 +2,12 @@
 
 namespace Faze.Abstractions.Core
 {
-    public interface IProgressBar : IDisposable
+    public interface IProgressTracker : IDisposable
     {
         void SetMaxTicks(int ticks);
-        void Tick();
-        IProgressBar Spawn();
         void SetMessage(string message);
+
+        void Tick();
+        IProgressTracker Spawn();
     }
 }

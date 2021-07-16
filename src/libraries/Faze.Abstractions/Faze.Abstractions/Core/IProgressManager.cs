@@ -2,6 +2,6 @@
 {
     public interface IProgressManager
     {
-        IProgressBar Start(int totalTicks, string message);
+        IProgressTracker Start(int totalTicks, string message);
     }
 }

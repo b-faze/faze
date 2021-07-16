@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Faze.Examples.Gallery.Services.Aggregates;
 using Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators;
+using Faze.Core.Extensions;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
@@ -35,7 +36,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             return new ImageGeneratorMetaData(new[] { Albums.EightQueensProblem });
         }
 
-        public Task Generate(IProgressBar progress)
+        public Task Generate(IProgressTracker progress)
         {
             var maxDepth = 3;
             progress.SetMaxTicks(maxDepth * 4);
@@ -59,7 +60,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             return Task.CompletedTask;
         }
 
-        private Task RunVariation1(IProgressBar progress, int maxDepth)
+        private Task RunVariation1(IProgressTracker progress, int maxDepth)
         {
             var id = $"8 Queens Problem Solutions depth {maxDepth}.png";
 
@@ -91,7 +92,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             return Task.CompletedTask;
         }
 
-        private Task RunVariation2(IProgressBar progress, int maxDepth)
+        private Task RunVariation2(IProgressTracker progress, int maxDepth)
         {
             var id = $"Var 2 8QP Solutions depth {maxDepth}.png";
 
@@ -123,7 +124,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             return Task.CompletedTask;
         }
 
-        private Task RunVariation3(IProgressBar progress, int maxDepth)
+        private Task RunVariation3(IProgressTracker progress, int maxDepth)
         {
             var id = $"Var 3 8QP Solutions depth {maxDepth}.png";
 
@@ -155,7 +156,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             return Task.CompletedTask;
         }
 
-        private Task RunVariation4(IProgressBar progress, int maxDepth)
+        private Task RunVariation4(IProgressTracker progress, int maxDepth)
         {
             var id = $"Var 4 8QP Solutions depth {maxDepth}.png";
 

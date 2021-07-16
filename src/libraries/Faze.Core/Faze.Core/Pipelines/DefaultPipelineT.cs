@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Faze.Core.Pipelines
 {
@@ -14,18 +16,10 @@ namespace Faze.Core.Pipelines
             this.steps = steps.ToList();
         }
 
-        public void Run(T input)
+        public void Run(T input, IProgressTracker progress)
         {
-            object currentInput = input;
+            progress = progress ?? NullProgressTracker.Instance;
 
-            foreach (var step in steps)
-            {
-                currentInput = step.Execute(currentInput);
-            }
-        }
-
-        public void Run(T input, IProgressBar progress)
-        {
             progress.SetMaxTicks(steps.Count);
 
             object currentInput = input;

@@ -13,18 +13,10 @@ namespace Faze.Core.Pipelines
             this.steps = steps.ToList();
         }
 
-        public void Run()
+        public void Run(IProgressTracker progress)
         {
-            object currentInput = null;
+            progress = progress ?? NullProgressTracker.Instance;
 
-            foreach (var step in steps)
-            {
-                currentInput = step.Execute(currentInput);
-            }
-        }
-
-        public void Run(IProgressBar progress)
-        {
             progress.SetMaxTicks(steps.Count);
 
             object currentInput = null;

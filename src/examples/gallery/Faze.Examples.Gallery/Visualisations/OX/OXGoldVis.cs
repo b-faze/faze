@@ -22,12 +22,10 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             return new ImageGeneratorMetaData(new[] { Albums.OX });
         }
 
-        public Task Generate(IProgressBar progress)
+        public Task Generate(IProgressTracker progress)
         {
-            return Task.CompletedTask;
-
             var maxDepth = 5;
-            progress.SetMaxTicks(9);
+            progress.SetMaxTicks(maxDepth);
 
             for (var i = 1; i <= maxDepth; i++)
             {
@@ -38,7 +36,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             return Task.CompletedTask;
         }
 
-        private Task Run(IProgressBar progress, int depth)
+        private Task Run(IProgressTracker progress, int depth)
         {
             var id = $"OX Gold {depth} sim.png";
             progress.SetMessage(id);

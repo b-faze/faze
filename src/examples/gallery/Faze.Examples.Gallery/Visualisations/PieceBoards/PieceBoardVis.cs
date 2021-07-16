@@ -33,7 +33,7 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
             return new ImageGeneratorMetaData(new[] { Albums.PieceBoard });
         }
 
-        public Task Generate(IProgressBar progress)
+        public Task Generate(IProgressTracker progress)
         {
             var maxDepth = 6;
             progress.SetMaxTicks(maxDepth);
@@ -60,7 +60,7 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
             return Task.CompletedTask;
         }
 
-        public Task Run(IProgressBar progress, string gameName, Func<int, PiecesBoardStateConfig> gameFn)
+        public Task Run(IProgressTracker progress, string gameName, Func<int, PiecesBoardStateConfig> gameFn)
         {
             var maxBoardSize = 5;
             progress.SetMaxTicks(maxBoardSize);
@@ -75,7 +75,7 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
             return Task.CompletedTask;
         }
 
-        private Task Run(IProgressBar progress, string gameName, IGameState<GridMove, SingleScoreResult?> game, int boardSize)
+        private Task Run(IProgressTracker progress, string gameName, IGameState<GridMove, SingleScoreResult?> game, int boardSize)
         {
             var id = $"{gameName} Depth Painter {boardSize}.png";
 

@@ -14,6 +14,7 @@ using Faze.Examples.OX;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Faze.Core.Extensions;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 {
@@ -32,7 +33,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 
         string IDataGenerator.Id => Id;
 
-        public Task Generate(IProgressBar progress)
+        public Task Generate(IProgressTracker progress)
         {
             progress.SetMessage(Id);
 

@@ -5,7 +5,7 @@ namespace Faze.Examples.Gallery.Interfaces
 {
     public interface IImageGenerator
     {
-        Task Generate(IProgressBar progress);
+        Task Generate(IProgressTracker progress);
         ImageGeneratorMetaData GetMetaData();
     }
 }

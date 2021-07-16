@@ -5,7 +5,7 @@ namespace Faze.Core.Pipelines
 {
     public class PipelineStepProgress<TIn, TOut> : IPipelineStepProgress
     {
-        public PipelineStepProgress(Action<TIn, IProgressBar> fn)
+        public PipelineStepProgress(Action<TIn, IProgressTracker> fn)
         {
             Fn = (obj, progress) =>
             {
@@ -14,18 +14,18 @@ namespace Faze.Core.Pipelines
             };
         }
 
-        public PipelineStepProgress(Func<IProgressBar, TOut> fn)
+        public PipelineStepProgress(Func<IProgressTracker, TOut> fn)
         {
             Fn = (_, progress) => fn(progress);
         }
 
-        public PipelineStepProgress(Func<TIn, IProgressBar, TOut> fn)
+        public PipelineStepProgress(Func<TIn, IProgressTracker, TOut> fn)
         {
             Fn = fn;
         }
 
-        public Func<TIn, IProgressBar, TOut> Fn { get; }
-        public object Execute(object input, IProgressBar progress)
+        public Func<TIn, IProgressTracker, TOut> Fn { get; }
+        public object Execute(object input, IProgressTracker progress)
         {
             return Fn((TIn)input, progress);
         }

@@ -10,6 +10,6 @@ namespace Faze.Examples.Gallery.Interfaces
     public interface IDataGenerator
     {
         string Id { get; }
-        Task Generate(IProgressBar progress);
+        Task Generate(IProgressTracker progress);
     }
 }

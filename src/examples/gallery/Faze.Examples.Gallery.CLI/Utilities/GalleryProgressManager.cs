@@ -2,13 +2,13 @@
 using ShellProgressBar;
 using System;
 using System.Threading.Tasks;
-using IProgressBar = Faze.Abstractions.Core.IProgressBar;
+using IProgressTracker = Faze.Abstractions.Core.IProgressTracker;
 
 namespace Faze.Examples.Gallery.CLI.Utilities
 {
     public class GalleryProgressManager : IProgressManager
     {
-        public IProgressBar Start(int totalTicks, string message)
+        public IProgressTracker Start(int totalTicks, string message)
         {
             var options = new ProgressBarOptions
             {

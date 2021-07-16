@@ -3,7 +3,7 @@ using Faze.Abstractions.Rendering;
 
 namespace Faze.Examples.Gallery
 {
-    public static class PipelineExtensions
+    public static class ReversePipelineExtensions
     {
         public static IReversePipelineBuilder<IPaintedTreeRenderer> GallerySave(this IReversePipelineBuilder builder, IGalleryService galleryService, GalleryItemMetadata data)
         {

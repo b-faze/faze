@@ -17,13 +17,13 @@ namespace Faze.Examples.Gallery.Services.TreeMappers
             return MapTreeAgg(tree, new int[0], 0, null);
         }
 
-        public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree, IProgressBar progress)
+        public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree, IProgressTracker progress)
         {
             progress.SetMaxTicks(64);
             return MapTreeAgg(tree, new int[0], 0, progress);
         }
 
-        private static Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, int[] path, int depth, IProgressBar progress)
+        private static Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, int[] path, int depth, IProgressTracker progress)
         {
             if (tree == null)
             {

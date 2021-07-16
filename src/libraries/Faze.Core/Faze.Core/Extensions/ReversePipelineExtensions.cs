@@ -6,9 +6,9 @@ using Faze.Core.TreeLinq;
 using System;
 using System.Drawing;
 
-namespace Faze.Core.Pipelines
+namespace Faze.Core.Extensions
 {
-    public static class PipelineExtensions
+    public static class ReversePipelineExtensions
     {
         public static IReversePipelineBuilder<IPaintedTreeRenderer> File(this IReversePipelineBuilder builder, string filename) 
         {
@@ -55,7 +55,7 @@ namespace Faze.Core.Pipelines
 
         public static IReversePipelineBuilder<Tree<TIn>> Map<TOut, TIn>(this IReversePipelineBuilder<Tree<TOut>> builder, ITreeMapper<TIn, TOut> mapper)
         {
-            return builder.RequireWithProgress<Tree<TIn>>((tree, progress) =>
+            return builder.Require<Tree<TIn>>((tree, progress) =>
             {
                 return mapper.Map(tree, progress);
             });

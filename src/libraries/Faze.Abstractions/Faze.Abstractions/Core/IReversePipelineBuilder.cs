@@ -10,7 +10,7 @@ namespace Faze.Abstractions.Core
     public interface IReversePipelineBuilder<T>
     {
         IReversePipelineBuilder<TNext> Require<TNext>(Func<TNext, T> fn);
-        IReversePipelineBuilder<TNext> RequireWithProgress<TNext>(Func<TNext, IProgressBar, T> fn);
+        IReversePipelineBuilder<TNext> Require<TNext>(Func<TNext, IProgressTracker, T> fn);
         IPipeline<T> Build();
         IPipeline Build(Func<T> fn);
     }
