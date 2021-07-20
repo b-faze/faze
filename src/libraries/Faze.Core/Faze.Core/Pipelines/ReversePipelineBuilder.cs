@@ -18,5 +18,10 @@ namespace Faze.Core.Pipelines
         {
             return new PipelineBuilder<TRequired>(fn);
         }
+
+        public IReversePipelineBuilder<TRequired> Require<TRequired>(Action<TRequired, IProgressTracker> fn)
+        {
+            return new PipelineBuilder<TRequired>(fn);
+        }
     }
 }
