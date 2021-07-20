@@ -5,6 +5,7 @@ namespace Faze.Abstractions.Core
     public interface IReversePipelineBuilder
     {
         IReversePipelineBuilder<TNext> Require<TNext>(Action<TNext> fn);
+        IReversePipelineBuilder<TNext> Require<TNext>(Action<TNext, IProgressTracker> fn);
     }
 
     public interface IReversePipelineBuilder<T>

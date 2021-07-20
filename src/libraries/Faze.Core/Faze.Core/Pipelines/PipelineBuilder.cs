@@ -14,6 +14,11 @@ namespace Faze.Core.Pipelines
             this.steps = new[] { new PipelineStep<T, object>(fn) };
         }
 
+        public PipelineBuilder(Action<T, IProgressTracker> fn)
+        {
+            this.steps = new[] { new PipelineStepProgress<T, object>(fn) };
+        }
+
         private PipelineBuilder(IEnumerable<IPipelineStep> steps)
         {
             this.steps = steps.ToList();

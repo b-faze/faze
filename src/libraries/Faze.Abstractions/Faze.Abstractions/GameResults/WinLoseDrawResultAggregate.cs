@@ -70,5 +70,22 @@ namespace Faze.Abstractions.GameResults
         {
             return (double)Wins / Math.Max(1, Wins + Loses);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is WinLoseDrawResultAggregate agg)
+            {
+                return agg.Wins == Wins
+                    && agg.Loses == Loses
+                    && agg.Draws == Draws;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return (Wins + Loses + Draws).GetHashCode();
+        }
     }
 }
