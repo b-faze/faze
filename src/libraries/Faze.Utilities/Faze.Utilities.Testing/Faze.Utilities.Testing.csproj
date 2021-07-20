@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ImageDiff-NetStandard" Version="1.1.0" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
   </ItemGroup>
 

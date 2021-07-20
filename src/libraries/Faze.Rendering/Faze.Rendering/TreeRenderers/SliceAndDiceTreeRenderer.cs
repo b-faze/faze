@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +12,13 @@ namespace Faze.Rendering.TreeRenderers
 {
     public class SliceAndDiceTreeRendererOptions
     {
+        public SliceAndDiceTreeRendererOptions(int imageSize)
+        {
+            ImageSize = imageSize;
+        }
+
+        public int ImageSize { get; }
+
         public float BorderProportion { get; set; }
         public IViewport Viewport { get; set; }
         public int? MaxDepth { get; set; }
@@ -19,35 +27,37 @@ namespace Faze.Rendering.TreeRenderers
     public class SliceAndDiceTreeRenderer : IPaintedTreeRenderer
     {
         private readonly SliceAndDiceTreeRendererOptions options;
+        private readonly SKSurface surface;
 
         public SliceAndDiceTreeRenderer(SliceAndDiceTreeRendererOptions options)
         {
             this.options = options;
+            var imageSize = options.ImageSize;
+            var imageInfo = new SKImageInfo(imageSize, imageSize);
+            this.surface = SKSurface.Create(imageInfo);
         }
 
         public Tree<T> GetVisible<T>(Tree<T> tree)
         {
-            throw new NotImplementedException();
+            return tree;
         }
 
         public void Draw(Tree<Color> tree)
         {
-            throw new NotImplementedException();
+            surface.Canvas.Clear();
+
+            DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, options.ImageSize, options.ImageSize), 0, options.MaxDepth);
         }
 
         public void Save(Stream stream)
         {
-            throw new NotImplementedException();
+            using SKImage image = surface.Snapshot();
+            using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
+
+            data.AsStream().CopyTo(stream);
         }
 
-        public Bitmap Draw(Tree<Color> tree, int size, int? maxDepth = null)
-        {
-            var img = new Bitmap(size, size);
-            Draw(img, tree, 0, maxDepth);
-            return img;
-        }
-
-        public void Draw(Bitmap img, Tree<Color> node, int depth, int? maxDepth = null)
+        private void DrawHelper(SKCanvas canvas, Tree<Color> node, SKRect rect, int depth, int? maxDepth = null)
         {
             if (node == null)
                 return;
@@ -58,10 +68,7 @@ namespace Faze.Rendering.TreeRenderers
             var color = node.Value;
             if (!color.IsEmpty)
             {
-                foreach (var (pX, pY) in Utilities.GetPixels(0, 0, img.Width, img.Height))
-                {
-                    img.SetPixel(pX, pY, color);
-                }
+                canvas.DrawRect(rect, new SKPaint() { Color = new SKColor((uint)node.Value.ToArgb()) });
             }
 
             var children = node.Children?.ToArray();
@@ -69,26 +76,22 @@ namespace Faze.Rendering.TreeRenderers
                 return;
 
             var childrenCount = children.Length;
+            var borderW = rect.Width * options.BorderProportion;
+            var borderH = rect.Height * options.BorderProportion;
+            var innerRect = SKRect.Create(rect.Left + borderW, rect.Top + borderH, rect.Width - borderW * 2, rect.Height - borderH * 2);
+
             for (var childIndex = 0; childIndex < childrenCount; childIndex++)
             {
                 var child = children[childIndex];
-                var borderW = (int)(img.Width * options.BorderProportion);
-                var borderH = (int)(img.Height * options.BorderProportion);
 
-                var (cx, cy, cw, ch) = GetChildRegion(childIndex, childrenCount, img.Width - borderW, img.Height - borderH);
+                var (cx, cy, cw, ch) = GetChildRegion(childIndex, childrenCount, innerRect.Width, innerRect.Height);
+                var childRect = SKRect.Create(innerRect.Left + cx, innerRect.Top + cy, cw, ch);
 
-                using (var childImg = new Bitmap(cw, ch))
-                {
-                    Draw(childImg, child, depth + 1, maxDepth);
-                    foreach (var (pX, pY) in Utilities.GetPixels(childImg))
-                    {
-                        img.SetPixel(cx + borderW / 2 + pX, cy + borderH / 2 + pY, childImg.GetPixel(pX, pY));
-                    }
-                }
+                DrawHelper(canvas, child, childRect, depth + 1, maxDepth);
             }
         }
 
-        private (int x, int y, int w, int h) GetChildRegion(int childIndex, int n, int w, int h)
+        private (float x, float y, float w, float h) GetChildRegion(int childIndex, int n, float w, float h)
         {
             var (f1, f2) = GetFactorPairs(n)
                 .OrderBy(pair => GetAspectRatio(pair.a, pair.b))

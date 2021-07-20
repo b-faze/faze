@@ -1,7 +1,11 @@
 using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Core;
+using Faze.Core.Serialisers;
 using Faze.Rendering.Tests.Utilities;
+using Faze.Rendering.TreePainters;
 using Faze.Rendering.TreeRenderers;
+using Faze.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,75 +15,120 @@ using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using Xunit;
+using Faze.Utilities.Testing.Extensions;
+using Faze.Core.Extensions;
 
 namespace Faze.Rendering.Tests.RendererTests
 {
     public class SliceAndDiceTreeRendererTests
     {
-        [DebugOnlyFact]
-        public void Test1()
+        private readonly TestImageRegressionService testImageRegressionService;
+        private readonly TestFileTreeDataProvider<Color> testFileTreeDataProvider;
+        public SliceAndDiceTreeRendererTests()
         {
-            var rendererOptions = new SliceAndDiceTreeRendererOptions
+            var resourcePath = @"../../../Resources/SliceAndDiceTreeRenderer";
+            var config = new TestImageRegressionServiceConfig
             {
-                BorderProportion = 0.1f
+                ExpectedImageDirectory = resourcePath
             };
+            this.testImageRegressionService = new TestImageRegressionService(config);
+            this.testFileTreeDataProvider = new TestFileTreeDataProvider<Color>(resourcePath, new ColorSerialiser());
+        }
+
+        [Theory]
+        [InlineData(500, 1, 0, "static1_500_1_0")]
+        [InlineData(500, 2, 0, "static2_500_2_0")]
+        public void CompareStaticTestCases(int imgSize, int depth, float borderProportion, string id)
+        {
+            var rendererOptions = new SliceAndDiceTreeRendererOptions(imgSize)
+            {
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
+
             var renderer = new SliceAndDiceTreeRenderer(rendererOptions);
-            var tree = CreateTestTree();
-            var filename = GetTestOutputPath($"Test1.png");
 
-            using (var img = renderer.Draw(tree, 600))
-            {
-                img.Save(filename, ImageFormat.Png);
-            }
-            
+            testImageRegressionService.TestImageDiffPipeline($"{id}.png", $"{id}.diff.png")
+                .Render(renderer)
+                .LoadTree($"{id}.json", testFileTreeDataProvider)
+                .Run();
         }
 
-        private string GetTestOutputPath(string filename)
+        [Theory]
+        [InlineData(500, 1, 0, "static1_500_1_0", Skip = "manual only")]
+        [InlineData(500, 2, 0, "static2_500_2_0", Skip = "manual only")]
+        public void GenerateStaticTestCases(int imgSize, int depth, float borderProportion, string id)
         {
-            var directory = $"../../../TestOutputs/{nameof(SliceAndDiceTreeRendererTests)}";
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
+            var rendererOptions = new SliceAndDiceTreeRendererOptions(imgSize)
+            {
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
 
-            return Path.Combine(directory, filename);
+            var renderer = new SliceAndDiceTreeRenderer(rendererOptions);
+
+            testImageRegressionService.GenerateTestCasePipeline($"{id}.png")
+                .Render(renderer)
+                .LoadTree($"{id}.json", testFileTreeDataProvider)
+                .Run();
         }
 
-        // needs more work
-        private Tree<Color> CreateIrregularTree(int size, Queue<int> sizeQueue, int maxDepth, int depth = 0) 
+        [Theory]
+        [InlineData(1, 500, 1, 0, "dynamic_square_1_500_1_0")]
+        [InlineData(2, 500, 1, 0, "dynamic_square_2_500_1_0")]
+        [InlineData(2, 500, 2, 0, "dynamic_square_2_500_2_0")]
+        [InlineData(2, 500, 3, 0, "dynamic_square_2_500_3_0")]
+        [InlineData(2, 500, 3, 0.1, "dynamic_square_2_500_3_0.1")]
+        [InlineData(3, 500, 1, 0, "dynamic_square_3_500_1_0")]
+        [InlineData(3, 500, 2, 0, "dynamic_square_3_500_2_0")]
+        [InlineData(3, 500, 3, 0, "dynamic_square_3_500_3_0")]
+        [InlineData(3, 500, 3, 0.1, "dynamic_square_3_500_3_0.1")]
+        public void CompareDynamicTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
         {
-            if (depth == maxDepth)
-                return new Tree<Color>(Color.Black);
-
-            var children = new List<Tree<Color>>();
-            var sizes = new List<int>();
-            for (var i = 0; i < size; i++)
+            var rendererOptions = new SliceAndDiceTreeRendererOptions(imgSize)
             {
-                if (sizeQueue.TryDequeue(out var childSize))
-                    sizes.Add(childSize);
-                else
-                    sizes.Add(0);
-            }
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
 
-            foreach (var childSize in sizes)
-            {
-                children.Add(CreateIrregularTree(childSize, sizeQueue, maxDepth, depth + 1));
-            }
+            var renderer = new SliceAndDiceTreeRenderer(rendererOptions);
+            var dynamicDataProvider = new DynamicTreeDataProvider<object>();
+            var dynamicDataOptions = new DynamicSquareTreeOptions<object>(squareSize, depth, info => null);
 
-            var grey = (int)(255 * (1 - (double)depth / maxDepth));
-            return new Tree<Color>(Color.FromArgb(grey, grey, grey), children);
+            testImageRegressionService.TestImageDiffPipeline($"{id}.png", $"{id}.diff.png")
+                .Render(renderer)
+                .Paint<object>(new CheckeredTreePainter())
+                .LoadTree(dynamicDataOptions, dynamicDataProvider)
+                .Run();
         }
 
-        private Tree<Color> CreateTestTree()
+        [Theory]
+        [InlineData(1, 500, 1, 0, "dynamic_square_1_500_1_0", Skip = "manual only")]
+        [InlineData(2, 500, 1, 0, "dynamic_square_2_500_1_0", Skip = "manual only")]
+        [InlineData(2, 500, 2, 0, "dynamic_square_2_500_2_0", Skip = "manual only")]
+        [InlineData(2, 500, 3, 0, "dynamic_square_2_500_3_0", Skip = "manual only")]
+        [InlineData(2, 500, 3, 0.1, "dynamic_square_2_500_3_0.1", Skip = "manual only")]
+        [InlineData(3, 500, 1, 0, "dynamic_square_3_500_1_0", Skip = "manual only")]
+        [InlineData(3, 500, 2, 0, "dynamic_square_3_500_2_0", Skip = "manual only")]
+        [InlineData(3, 500, 3, 0, "dynamic_square_3_500_3_0", Skip = "manual only")]
+        [InlineData(3, 500, 3, 0.1, "dynamic_square_3_500_3_0.1", Skip = "manual only")]
+        public void GenerateDynamicTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
         {
-            var c1 = new Tree<Color>(Color.Red);
-            var c2 = new Tree<Color>(Color.Blue);
-            var c3 = new Tree<Color>(Color.Green);
-            var c4 = new Tree<Color>(Color.Cyan);
-            var c5 = new Tree<Color>(Color.Chocolate);
+            var rendererOptions = new SliceAndDiceTreeRendererOptions(imgSize)
+            {
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
 
-            var c6 = new Tree<Color>(Color.DarkViolet, new []{ c1, c2, c4 });
-            var c7 = new Tree<Color>(Color.Firebrick, new[] { c5 });
+            var renderer = new SliceAndDiceTreeRenderer(rendererOptions);
+            var dynamicDataProvider = new DynamicTreeDataProvider<object>();
+            var dynamicDataOptions = new DynamicSquareTreeOptions<object>(squareSize, depth, info => null);
 
-            return new Tree<Color>(Color.Black, new[] { c6, c7 });
+            testImageRegressionService.GenerateTestCasePipeline($"{id}.png")
+                .Render(renderer)
+                .Paint<object>(new CheckeredTreePainter())
+                .LoadTree(dynamicDataOptions, dynamicDataProvider)
+                .Run();
         }
     }
 }

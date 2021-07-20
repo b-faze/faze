@@ -19,7 +19,7 @@ namespace Faze.Engine.Tests.Players
         public MinimaxAgentTests()
         {
             this.testGameStateService = new TestGameStateService();
-            this.treeDataProvider = new TestFileTreeDataProvider(@"../../../Resources");
+            this.treeDataProvider = new TestFileTreeDataProvider<int?>(@"../../../Resources", new NullableIntSerialiser());
         }
 
         [Fact]
