@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Faze.Utilities\Faze.Utilities.Testing\Faze.Utilities.Testing.csproj" />
     <ProjectReference Include="..\Faze.Core\Faze.Core.csproj" />
   </ItemGroup>
 
