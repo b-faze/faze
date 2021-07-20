@@ -4,98 +4,124 @@ using Faze.Rendering.Tests.Utilities;
 using System.Drawing.Imaging;
 using Xunit;
 using Faze.Rendering.Extensions;
+using Faze.Core.Pipelines;
+using Faze.Utilities.Testing;
+using Faze.Utilities.Testing.Extensions;
+using Faze.Core.Extensions;
+using System.Drawing;
+using Faze.Core.Serialisers;
+using Faze.Rendering.TreePainters;
+using Faze.Core;
 
 namespace Faze.Rendering.Tests.RendererTests
 {
     public class SquareTreeRendererTests
     {
-        [DebugOnlyTheory]
-        [InlineData(1, 1, 0.1)]
-        [InlineData(1, 2, 0.1)]
-        [InlineData(1, 3, 0.1)]
-        [InlineData(1, 4, 0.1)]
-        [InlineData(2, 1, 0.1)]
-        [InlineData(2, 2, 0.1)]
-        [InlineData(2, 3, 0.1)]
-        [InlineData(2, 4, 0.1)]
-        [InlineData(3, 1, 0.1)]
-        [InlineData(3, 2, 0.1)]
-        [InlineData(3, 3, 0.1)]
-        [InlineData(3, 4, 0.1)]
-        public void Test1(int squareSize, int depth, float borderProportion)
+        private readonly TestImageRegressionService testImageRegressionService;
+        private readonly TestFileTreeDataProvider<Color> testFileTreeDataProvider;
+        public SquareTreeRendererTests()
         {
-            var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
+            var resourcePath = @"../../../Resources/SquareTreeRenderer";
+            var config = new TestImageRegressionServiceConfig
             {
-                BorderProportion = borderProportion
+                ExpectedImageDirectory = resourcePath
             };
-            var renderer = new SquareTreeRenderer(rendererOptions);
-            var tree = TreeUtilities.CreateGreyPaintedSquareTree(squareSize, depth);
-            var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests), 
-                $"Test1_{squareSize}_{depth}_{borderProportion}.png");
-            
-            renderer.Draw(tree);
-            renderer.Save(filename);
-
-        }        
-        
-        [DebugOnlyTheory]
-        [InlineData(1, 0, 0.1)]
-        [InlineData(1, 1, 0.1)]
-        [InlineData(1, 2, 0.1)]
-        [InlineData(1, 3, 0.1)]
-        [InlineData(1, 4, 0.1)]
-        [InlineData(2, 0, 0.1)]
-        [InlineData(2, 1, 0.1)]
-        [InlineData(2, 2, 0.1)]
-        [InlineData(2, 3, 0.1)]
-        [InlineData(2, 4, 0.1)]
-        [InlineData(3, 0, 0.1)]
-        [InlineData(3, 1, 0.1)]
-        [InlineData(3, 2, 0.1)]
-        [InlineData(3, 3, 0.1)]
-        [InlineData(3, 4, 0.1)]
-        public void RainbowTests(int squareSize, int depth, float borderProportion)
-        {
-            var testName = nameof(RainbowTests);
-            var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
-            {
-                BorderProportion = borderProportion
-            };
-            var renderer = new SquareTreeRenderer(rendererOptions);
-            var tree = TreeUtilities.CreateRainbowPaintedSquareTree(squareSize, depth);
-            var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests), 
-                $"{testName}_{squareSize}_{depth}_{borderProportion}.png");
-
-            renderer.Draw(tree);
-            renderer.Save(filename);
-
+            this.testImageRegressionService = new TestImageRegressionService(config);
+            this.testFileTreeDataProvider = new TestFileTreeDataProvider<Color>(resourcePath, new ColorSerialiser());
         }
 
-        [DebugOnlyTheory]
-        [InlineData(2, 3)]
-        public void RainbowBorderTests(int squareSize, int depth)
+        [Theory]
+        [InlineData(3, 500, 1, 0, "static_3_500_1_0")]
+        public void CompareStaticTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
         {
-            float minBorder = 0;
-            float maxBorder = 0.2f;
-            var steps = 10;
-            for (var i = 0; i < steps; i++)
+            var rendererOptions = new SquareTreeRendererOptions(squareSize, imgSize)
             {
-                float borderProportion = minBorder + (maxBorder - minBorder) * ((float)i / steps);
-                var testName = nameof(RainbowBorderTests);
-                var rendererOptions = new SquareTreeRendererOptions(squareSize, 600)
-                {
-                    BorderProportion = borderProportion
-                };
-                var renderer = new SquareTreeRenderer(rendererOptions);
-                var tree = TreeUtilities.CreateRainbowPaintedSquareTree(squareSize, depth);
-                var filename = FileUtilities.GetTestOutputPath(nameof(SquareTreeRendererTests),
-                    $"{testName}_{squareSize}_{depth}_{i}.png");
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
 
-                renderer.Draw(tree);
-                renderer.Save(filename);
-            }
+            var renderer = new SquareTreeRenderer(rendererOptions);
 
+            testImageRegressionService.TestImageDiffPipeline($"{id}.png", $"{id}.diff.png")
+                .Render(renderer)
+                .LoadTree($"{id}.json", testFileTreeDataProvider)
+                .Run();
+        }
 
+        [Theory]
+        [InlineData(3, 500, 1, 0, "static_3_500_1_0", Skip = "manual only")]
+        public void GenerateStaticTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
+        {
+            var rendererOptions = new SquareTreeRendererOptions(squareSize, imgSize)
+            {
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
+
+            var renderer = new SquareTreeRenderer(rendererOptions);
+
+            testImageRegressionService.GenerateTestCasePipeline($"{id}.png")
+                .Render(renderer)
+                .LoadTree($"{id}.json", testFileTreeDataProvider)
+                .Run();
+        }
+
+        [Theory]
+        [InlineData(1, 500, 1, 0, "dynamic_1_500_1_0")]
+        [InlineData(2, 500, 1, 0, "dynamic_2_500_1_0")]
+        [InlineData(2, 500, 2, 0, "dynamic_2_500_2_0")]
+        [InlineData(2, 500, 3, 0, "dynamic_2_500_3_0")]
+        [InlineData(2, 500, 3, 0.1, "dynamic_2_500_3_0.1")]
+        [InlineData(3, 500, 1, 0, "dynamic_3_500_1_0")]
+        [InlineData(3, 500, 2, 0, "dynamic_3_500_2_0")]
+        [InlineData(3, 500, 3, 0, "dynamic_3_500_3_0")]
+        [InlineData(3, 500, 3, 0.1, "dynamic_3_500_3_0.1")]
+        public void CompareDynamicTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
+        {
+            var rendererOptions = new SquareTreeRendererOptions(squareSize, imgSize)
+            {
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
+
+            var renderer = new SquareTreeRenderer(rendererOptions);
+            var dynamicDataProvider = new DynamicTreeDataProvider<object>();
+            var dynamicDataOptions = new DynamicSquareTreeOptions<object>(squareSize, depth, info => null);
+
+            testImageRegressionService.TestImageDiffPipeline($"{id}.png", $"{id}.diff.png")
+                .Render(renderer)
+                .Paint<object>(new CheckeredTreePainter())
+                .LoadTree(dynamicDataOptions, dynamicDataProvider)
+                .Run();
+        }
+
+        [Theory]
+        [InlineData(1, 500, 1, 0, "dynamic_1_500_1_0", Skip = "manual only")]
+        [InlineData(2, 500, 1, 0, "dynamic_2_500_1_0", Skip = "manual only")]
+        [InlineData(2, 500, 2, 0, "dynamic_2_500_2_0", Skip = "manual only")]
+        [InlineData(2, 500, 3, 0, "dynamic_2_500_3_0", Skip = "manual only")]
+        [InlineData(2, 500, 3, 0.1, "dynamic_2_500_3_0.1", Skip = "manual only")]
+        [InlineData(3, 500, 1, 0, "dynamic_3_500_1_0", Skip = "manual only")]
+        [InlineData(3, 500, 2, 0, "dynamic_3_500_2_0", Skip = "manual only")]
+        [InlineData(3, 500, 3, 0, "dynamic_3_500_3_0", Skip = "manual only")]
+        [InlineData(3, 500, 3, 0.1, "dynamic_3_500_3_0.1", Skip = "manual only")]
+        public void GenerateDynamicTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
+        {
+            var rendererOptions = new SquareTreeRendererOptions(squareSize, imgSize)
+            {
+                BorderProportion = borderProportion,
+                MaxDepth = depth
+            };
+
+            var renderer = new SquareTreeRenderer(rendererOptions);
+            var dynamicDataProvider = new DynamicTreeDataProvider<object>();
+            var dynamicDataOptions = new DynamicSquareTreeOptions<object>(squareSize, depth, info => null);
+
+            testImageRegressionService.GenerateTestCasePipeline($"{id}.png")
+                .Render(renderer)
+                .Paint<object>(new CheckeredTreePainter())
+                .LoadTree(dynamicDataOptions, dynamicDataProvider)
+                .Run();
         }
     }
 }

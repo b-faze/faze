@@ -7,24 +7,24 @@ using System.IO;
 
 namespace Faze.Utilities.Testing
 {
-    public class TestFileTreeDataProvider : IFileTreeDataProvider<int?>
+    public class TestFileTreeDataProvider<T> : IFileTreeDataProvider<T>
     {
-        private readonly FileTreeDataProvider<int?> treeDataProvider;
+        private readonly FileTreeDataProvider<T> treeDataProvider;
         private readonly string basePath;
 
-        public TestFileTreeDataProvider(string basePath)
+        public TestFileTreeDataProvider(string basePath, IValueSerialiser<T> valueSerialiser)
         {
-            this.treeDataProvider = new FileTreeDataProvider<int?>(new JsonTreeSerialiser<int?>(new NullableIntSerialiser()));
+            this.treeDataProvider = new FileTreeDataProvider<T>(new JsonTreeSerialiser<T>(valueSerialiser));
             this.basePath = basePath;
         }
 
-        public Tree<int?> Load(string id)
+        public Tree<T> Load(string id)
         {
             var filename = Path.Combine(basePath, id);
             return treeDataProvider.Load(filename);
         }
 
-        public void Save(Tree<int?> tree, string id)
+        public void Save(Tree<T> tree, string id)
         {
             var filename = Path.Combine(basePath, id);
             treeDataProvider.Save(tree, filename);
