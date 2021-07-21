@@ -8,7 +8,7 @@ using Shouldly;
 using System;
 using Xunit;
 
-namespace Faze.Examples.OX.Tests
+namespace Faze.Examples.Games.OX.Tests
 {
     public class OXStateGameTests
     {

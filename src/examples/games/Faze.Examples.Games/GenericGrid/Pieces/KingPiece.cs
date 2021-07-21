@@ -3,7 +3,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using System.Collections.Generic;
 
-namespace Faze.Examples.GridGames.Pieces
+namespace Faze.Examples.Games.GridGames.Pieces
 {
     public class KingPiece : IPiece
     {

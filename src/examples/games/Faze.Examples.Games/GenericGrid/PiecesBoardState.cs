@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Faze.Examples.GridGames
+namespace Faze.Examples.Games.GridGames
 {
     public class PiecesBoardState : IGameState<GridMove, SingleScoreResult?>
     {

@@ -12,8 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Faze.Core.Extensions;
-using Faze.Examples.GridGames;
-using Faze.Examples.GridGames.Pieces;
+using Faze.Examples.Games.GridGames;
+using Faze.Examples.Games.GridGames.Pieces;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 {

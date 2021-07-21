@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Faze.Examples.GridGames
+namespace Faze.Examples.Games.GridGames
 {
     public struct OXnState : IGameState<GridMove, WinLoseDrawResult?>
     {

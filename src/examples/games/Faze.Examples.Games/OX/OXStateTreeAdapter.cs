@@ -3,7 +3,7 @@ using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameStates;
 using System.Collections.Generic;
 
-namespace Faze.Examples.OX
+namespace Faze.Examples.Games.OX
 {
     public class OXStateTreeAdapter : IGameStateTreeAdapter<GridMove>
     {

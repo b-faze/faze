@@ -7,7 +7,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Players;
 
-namespace Faze.Examples.OX
+namespace Faze.Examples.Games.OX
 {
     public struct OXState : IGameState<GridMove, WinLoseDrawResult?>
     {

@@ -1,4 +1,4 @@
-﻿namespace Faze.Examples.GridGames
+﻿namespace Faze.Examples.Games.GridGames
 {
     public class PiecesBoardStateConfig
     {

@@ -1,13 +1,13 @@
 ﻿using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
-using Faze.Examples.GridGames.Pieces;
+using Faze.Examples.Games.GridGames.Pieces;
 using Faze.Utilities.Testing;
 using System;
 using System.Linq;
 using Xunit;
 
-namespace Faze.Examples.GridGames.Tests
+namespace Faze.Examples.Games.GridGames.Tests
 {
     public class QueensBoard3Tests
     {

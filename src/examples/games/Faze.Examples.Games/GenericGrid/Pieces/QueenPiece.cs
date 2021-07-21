@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Faze.Examples.GridGames.Pieces
+namespace Faze.Examples.Games.GridGames.Pieces
 {
     public class QueenPiece : IPiece
     {
