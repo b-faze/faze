@@ -18,8 +18,6 @@
     <ProjectReference Include="..\..\..\libraries\Faze.Core\Faze.Core\Faze.Core.csproj" />
     <ProjectReference Include="..\..\..\libraries\Faze.Engine\Faze.Engine\Faze.Engine.csproj" />
     <ProjectReference Include="..\..\..\libraries\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj" />
-    <ProjectReference Include="..\..\generic-grid\Faze.Examples.GridGames\Faze.Examples.GridGames.csproj" />
-    <ProjectReference Include="..\..\noughts-crosses\Faze.Examples.OX\Faze.Examples.OX.csproj" />
     <ProjectReference Include="..\..\skulls\Faze.Games.Skulls\Faze.Games.Skulls.csproj" />
     <ProjectReference Include="..\Faze.Examples.Gallery\Faze.Examples.Gallery.csproj" />
   </ItemGroup>

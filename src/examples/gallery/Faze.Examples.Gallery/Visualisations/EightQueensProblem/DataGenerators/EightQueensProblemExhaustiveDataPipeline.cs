@@ -8,13 +8,12 @@ using Faze.Core.Pipelines;
 using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.Gallery.Services.Aggregates;
 using Faze.Examples.Gallery.Services.TreeMappers;
-using Faze.Examples.GridGames;
-using Faze.Examples.GridGames.Pieces;
-using Faze.Examples.OX;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Faze.Core.Extensions;
+using Faze.Examples.GridGames;
+using Faze.Examples.GridGames.Pieces;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 {
