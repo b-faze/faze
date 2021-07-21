@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="GenericGrid\" />
+    <Folder Include="OX\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

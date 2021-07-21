@@ -7,7 +7,7 @@ using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
 using Faze.Engine.ResultTrees;
 using Faze.Engine.Simulators;
-using Faze.Examples.OX;
+using Faze.Examples.Games.OX;
 
 namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 {
