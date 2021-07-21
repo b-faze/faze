@@ -1,6 +1,7 @@
 # Table of contents
 
 * [Introduction](README.md)
+* [Getting Started](getting-started.md)
 * [Abstractions](overview/README.md)
   * [IPipeline](overview/ipipeline.md)
   * [IGameState](overview/game-state.md)
