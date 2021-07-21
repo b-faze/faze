@@ -14,7 +14,9 @@ Much like how the famous [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbr
 
 ### Who is it for?
 
-Faze is mostly for [me](https://github.com/b-hub). I wanted a way to visualise how complex and massive games can be from very simple rules. You often hear how games like chess have more ways to play than there are atoms in the universe, but that's quite a hard thing to grasp. By visualising games as fractals I could create an image and go - "you know all those possible ways to play chess? Well it's in that image... somewhere. Faze is a tool for helping explore the complexity of games. If you like fractals, games, AIs and visualising data then Faze is also for **you**.
+Faze is mostly for [me](https://github.com/b-hub). I wanted a way to visualise how complex and massive games can be from very simple rules. You often hear how games like chess have more ways to play than there are atoms in the universe, but that's quite a hard thing to grasp. By visualising games as fractals I could create an image and go - "you know all those possible ways to play chess? Well it's in that image... somewhere. 
+
+Faze is a tool for helping explore the complexity of games. If you like fractals, games, AIs and visualising data then Faze is also for **you**.
 
 ### How does it work?
 
