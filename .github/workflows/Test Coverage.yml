@@ -9,17 +9,16 @@ on:
     branches: [ master ]
     paths:
     - 'src/libraries/**/*'
+    - 'src/examples/games/**/*'
   pull_request:
     branches: [ master ]
     paths:
     - 'src/libraries/**/*'
+    - 'src/examples/games/**/*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
-env:
-  SOLUTION_PATH: 'src/libraries'
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -30,7 +29,7 @@ jobs:
     strategy:
       matrix:
         test:
-        - 'Faze.Rendering/Faze.Rendering.Tests'
+        - 'src/libraries/Faze.Rendering/Faze.Rendering.Tests'
 
     steps:
         - uses: actions/checkout@v2
@@ -39,14 +38,14 @@ jobs:
           with:
             dotnet-version: '3.1.x'
         - name: Install dependencies
-          run: dotnet restore "${{ env.SOLUTION_PATH }}/${{ matrix.test }}"
+          run: dotnet restore "${{ matrix.test }}"
         - name: Build
-          run: dotnet build "${{ env.SOLUTION_PATH }}/${{ matrix.test }}" --configuration Release --no-restore
+          run: dotnet build "${{ matrix.test }}" --configuration Release --no-restore
         - name: Test
-          run: dotnet test "${{ env.SOLUTION_PATH }}/${{ matrix.test }}" --no-restore --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=lcov
+          run: dotnet test "${{ matrix.test }}" --no-restore --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=lcov
           continue-on-error: true
         - name: move-coverage
-          run: find "${{ env.SOLUTION_PATH }}/${{ matrix.test }}/TestResults/" -type f -print0 | xargs -0 mv -t "${{ env.SOLUTION_PATH }}/${{ matrix.test }}/TestResults"
+          run: find "${{ matrix.test }}/TestResults/" -type f -print0 | xargs -0 mv -t "${{ matrix.test }}/TestResults"
         # You may pin to the exact commit or the version.
         # uses: coverallsapp/github-action@9ba913c152ae4be1327bfb9085dc806cedb44057
         - name: Coveralls GitHub Action
@@ -54,7 +53,7 @@ jobs:
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             # Path to lcov file
-            path-to-lcov: '${{ env.SOLUTION_PATH }}/${{ matrix.test }}/TestResults/coverage.info'
+            path-to-lcov: '${{ matrix.test }}/TestResults/coverage.info'
             flag-name: run-${{ matrix.test }}
             parallel: true
 
@@ -65,10 +64,11 @@ jobs:
     strategy:
       matrix:
         test:
-        - 'Faze.Abstractions/Faze.Abstractions.Tests'
-        - 'Faze.Core/Faze.Core.Tests'
-        - 'Faze.Core.IO/Faze.Core.IO.Tests'
-        - 'Faze.Engine/Faze.Engine.Tests'
+        - 'src/libraries/Faze.Abstractions/Faze.Abstractions.Tests'
+        - 'src/libraries/Faze.Core/Faze.Core.Tests'
+        - 'src/libraries/Faze.Core.IO/Faze.Core.IO.Tests'
+        - 'src/libraries/Faze.Engine/Faze.Engine.Tests'
+        - 'src/examples/games/Faze.Examples.Games.Tests'
 
     steps:
         - uses: actions/checkout@v2
@@ -77,14 +77,14 @@ jobs:
           with:
             dotnet-version: '5.0.x'
         - name: Install dependencies
-          run: dotnet restore "${{ env.SOLUTION_PATH }}/${{ matrix.test }}"
+          run: dotnet restore "${{ matrix.test }}"
         - name: Build
-          run: dotnet build "${{ env.SOLUTION_PATH }}/${{ matrix.test }}" --configuration Release --no-restore
+          run: dotnet build "${{ matrix.test }}" --configuration Release --no-restore
         - name: Test
-          run: dotnet test "${{ env.SOLUTION_PATH }}/${{ matrix.test }}" --no-restore --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=lcov
+          run: dotnet test "${{ matrix.test }}" --no-restore --verbosity normal --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=lcov
           continue-on-error: true
         - name: move-coverage
-          run: find "${{ env.SOLUTION_PATH }}/${{ matrix.test }}/TestResults/" -type f -print0 | xargs -0 mv -t "${{ env.SOLUTION_PATH }}/${{ matrix.test }}/TestResults"
+          run: find "${{ matrix.test }}/TestResults/" -type f -print0 | xargs -0 mv -t "${{ matrix.test }}/TestResults"
         # You may pin to the exact commit or the version.
         # uses: coverallsapp/github-action@9ba913c152ae4be1327bfb9085dc806cedb44057
         - name: Coveralls GitHub Action
@@ -92,7 +92,7 @@ jobs:
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             # Path to lcov file
-            path-to-lcov: '${{ env.SOLUTION_PATH }}/${{ matrix.test }}/TestResults/coverage.info'
+            path-to-lcov: '${{ matrix.test }}/TestResults/coverage.info'
             flag-name: run-${{ matrix.test }}
             parallel: true
             
