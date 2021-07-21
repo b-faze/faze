@@ -10,6 +10,11 @@ namespace Faze.Abstractions.GameResults
         {
         }
 
+        public WinLoseDrawResultAggregate(WinLoseDrawResult result)
+        {
+            Add(result);
+        }
+
         public WinLoseDrawResultAggregate(uint wins, uint loses, uint draws)
         {
             Wins = wins;

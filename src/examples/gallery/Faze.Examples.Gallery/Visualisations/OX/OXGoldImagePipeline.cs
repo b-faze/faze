@@ -7,6 +7,7 @@ using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
 using System;
+using Faze.Core.TreeLinq;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
@@ -28,7 +29,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
                 .Paint(new GoldInterpolator())
-                .MapValue(fn)
+                .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(fn))
                 .LoadTree(OXDataGenerator5.Id, treeDataProvider);
         }
 
@@ -38,7 +39,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
                 .Paint(new GoldInterpolator())
-                .MapValue(fn)
+                .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(fn))
                 .LoadTree(OXDataGeneratorExhaustive.Id, treeDataProvider);
         }
     }
