@@ -11,7 +11,7 @@ namespace Faze.Core.Serialisers
 
         public string Serialize(int? value)
         {
-            return value?.ToString() ?? "null";
+            return value?.ToString();
         }
     }
 }

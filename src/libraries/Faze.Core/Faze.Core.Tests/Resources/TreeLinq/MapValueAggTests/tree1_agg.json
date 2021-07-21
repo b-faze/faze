@@ -1,0 +1,32 @@
+{
+  "Value": "23,0,0",
+  "Children": [
+    {
+      "Value": "1,0,0"
+    },
+    {
+      "Value": "9,0,0",
+      "Children": [
+        {
+          "Value": "9,0,0",
+          "Children": [
+            {
+              "Value": "4,0,0"
+            },
+            {
+              "Value": "5,0,0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Value": "6,0,0",
+      "Children": [ null, null, null ]
+    },
+    {
+      "Value": "7,0,0",
+      "Children": []
+    }
+  ]
+}

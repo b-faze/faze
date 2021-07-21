@@ -29,7 +29,7 @@ namespace Faze.Abstractions.Core
                     return false;
 
                 var childCount = Children?.Count();
-                if (Children?.Count() != tree.Children?.Count())
+                if ((Children?.Where(x => x != null).Count() ?? 0) != (tree.Children?.Where(x => x != null).Count() ?? 0))
                     return false;
 
                 if (childCount == null)
@@ -39,7 +39,13 @@ namespace Faze.Abstractions.Core
                 {
                     var child = Children.ElementAt(i);
                     var otherChild = tree.Children.ElementAt(i);
-                    if (!child.Equals(otherChild))
+                    if (child == null && otherChild == null)
+                        continue;
+
+                    if (child == null && otherChild != null)
+                        return false;
+
+                    if (child != null && !child.Equals(otherChild))
                         return false;
                 }
 

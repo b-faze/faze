@@ -9,13 +9,66 @@ using Faze.Abstractions.Rendering;
 
 namespace Faze.Core.TreeLinq
 {
-
     public static class TreeExtensions
     {
+        #region IsLeaf
+
         public static bool IsLeaf<TValue>(this Tree<TValue> tree)
         {
             return tree.Children == null || !tree.Children.Any() || tree.Children.All(child => child == null);
         }
+
+        #endregion IsLeaf
+
+        #region GetLeaves
+
+        public static IEnumerable<Tree<TValue>> GetLeaves<TValue>(this Tree<TValue> tree)
+        {
+            if (tree.IsLeaf())
+            {
+                yield return tree;
+                yield break;
+            }
+
+            var children = tree.Children;
+
+            foreach (var child in children)
+            {
+                if (child == null)
+                    continue;
+
+                foreach (var leaf in GetLeaves(child))
+                    yield return leaf;
+            }
+        }
+
+        #endregion GetLeaves
+
+        #region LimitDepth
+
+        public static Tree<TValue> LimitDepth<TValue>(this Tree<TValue> tree, int depth)
+        {
+            return LimitDepthHelper(tree, depth, TreeMapInfo.Root());
+        }
+
+        private static Tree<TValue> LimitDepthHelper<TValue>(this Tree<TValue> tree, int depth, TreeMapInfo info)
+        {
+            if (tree == null)
+                return null;
+
+            if (info.Depth >= depth)
+            {
+                return new Tree<TValue>(tree.Value, new Tree<TValue>[0]);
+            }
+
+            var children = tree.Children?.Select((c, i) => LimitDepthHelper(c, depth, info.Child(i)));
+
+            return new Tree<TValue>(tree.Value, children);
+        }
+
+        #endregion LimitDepth
+
+        #region SelectDepthFirst
 
         public static IEnumerable<TValue> SelectDepthFirst<TValue>(this Tree<TValue> tree)
         {
@@ -33,6 +86,9 @@ namespace Faze.Core.TreeLinq
             }
         }
 
+        #endregion SelectDepthFirst
+
+        #region SelectBreadthFirst
         public static IEnumerable<TValue> SelectBreadthFirst<TValue>(this Tree<TValue> tree)
         {
             var queue = new Queue<Tree<TValue>>();
@@ -52,6 +108,10 @@ namespace Faze.Core.TreeLinq
                 }
             }
         }
+
+        #endregion SelectBreadthFirst
+
+        #region MapValue
 
         /// <summary>
         /// Creates a new Tree with values mapped using the provided function
@@ -76,62 +136,12 @@ namespace Faze.Core.TreeLinq
             return MapValueHelper(tree, fn, info);
         }
 
-        public static Tree<TOutValue> MapTree<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
+        public static Tree<Color> MapValue(this Tree<double> tree, IColorInterpolator colorInterpolator)
         {
-            if (tree == null)
-                return null;
-
-            var newValue = fn(tree);
-            var newChildren = tree.Children?.Select(c => MapTree(c, fn));
-
-            return new Tree<TOutValue>(newValue, newChildren);
+            return tree.MapValue(colorInterpolator.GetColor);
         }
 
-        public static Tree<TOutValue> MapTreeWithNullNodes<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
-        {
-            var newValue = fn(tree);
-            var newChildren = tree?.Children?.Select(c => MapTreeWithNullNodes(c, fn));
-
-            return new Tree<TOutValue>(newValue, newChildren);
-        }
-
-        public static Tree<TOutValue> MapTreeWithNullNodes<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TreeMapInfo, TOutValue> fn)
-        {
-            return MapTreeWithNullNodesHelper(tree, fn, TreeMapInfo.Root());
-        }
-
-        private static Tree<TOutValue> MapTreeWithNullNodesHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
-        {
-            var newValue = fn(tree, info);
-            var newChildren = tree?.Children?.Select((c, i) => MapTreeWithNullNodesHelper(c, fn, info.Child(i)));
-
-            return new Tree<TOutValue>(newValue, newChildren);
-        }
-
-        public static Tree<TOutValue> MapTreeAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn, Func<TOutValue> aggFactory)
-            where TOutValue : IResultAggregate<TOutValue>
-        {
-            if (tree == null)
-                return null;
-
-            if (tree.IsLeaf())
-            {
-                return new Tree<TOutValue>(fn(tree.Value));
-            }
-
-            var children = tree.Children
-                    .Select(x => MapTreeAgg(x, fn, aggFactory));
-
-            var agg = aggFactory();
-            foreach (var childValue in children.Where(x => x != null).Select(x => x.Value))
-            {
-                agg.Add(childValue);
-            }
-
-            return new Tree<TOutValue>(agg, children);
-        }
-
-        private static Tree<TOutValue> MapValueHelper<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
+        private static Tree<TOutValue> MapValueHelper<TInValue, TOutValue>(Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
         {
             if (tree == null)
                 return null;
@@ -143,49 +153,73 @@ namespace Faze.Core.TreeLinq
             return new Tree<TOutValue>(newValue, newChildren);
         }
 
-        public static Tree<Color> MapValue(this Tree<double> tree, IColorInterpolator colorInterpolator)
-        {
-            return tree.MapValue(colorInterpolator.GetColor);
-        }
+        #endregion MapValue
 
-        public static Tree<TValue> LimitDepth<TValue>(this Tree<TValue> tree, int depth)
-        {
-            return LimitDepthHelper(tree, depth, TreeMapInfo.Root());
-        }
+        #region MapValueAgg
 
-        private static Tree<TValue> LimitDepthHelper<TValue>(this Tree<TValue> tree, int depth, TreeMapInfo info)
+        /// <summary>
+        /// Applies a function to the leaves of a tree and propagates the results up to the root
+        /// </summary>
+        /// <typeparam name="TInValue"></typeparam>
+        /// <typeparam name="TOutValue"></typeparam>
+        /// <param name="tree"></param>
+        /// <param name="fn"></param>
+        /// <param name="aggFactory"></param>
+        /// <returns></returns>
+        public static Tree<TOutValue> MapValueAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn, Func<TOutValue> aggFactory)
+            where TOutValue : IResultAggregate<TOutValue>
         {
             if (tree == null)
                 return null;
 
-            if (info.Depth >= depth)
-            {
-                return new Tree<TValue>(tree.Value, new Tree<TValue>[0]);
-            }
-
-            var children = tree.Children?.Select((c, i) => LimitDepthHelper(c, depth, info.Child(i)));
-
-            return new Tree<TValue>(tree.Value, children);
-        }
-
-        public static IEnumerable<Tree<TValue>> GetLeaves<TValue>(this Tree<TValue> tree)
-        {
             if (tree.IsLeaf())
             {
-                yield return tree;
-                yield break;
+                return new Tree<TOutValue>(fn(tree.Value));
             }
 
-            var children = tree.Children;
+            var children = tree.Children
+                    .Select(x => MapValueAgg(x, fn, aggFactory));
 
-            foreach (var child in children)
+            var agg = aggFactory();
+            foreach (var childValue in children.Where(x => x != null).Select(x => x.Value))
             {
-                if (child == null)
-                    continue;
-
-                foreach (var leaf in GetLeaves(child))
-                    yield return leaf;
+                agg.Add(childValue);
             }
+
+            return new Tree<TOutValue>(agg, children);
         }
+
+        #endregion MapValueAgg
+
+        #region MapTree
+
+        public static Tree<TOutValue> MapTree<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
+        {
+            if (tree == null)
+                return null;
+
+            var newValue = fn(tree);
+            var newChildren = tree.Children?.Select(c => MapTree(c, fn));
+
+            return new Tree<TOutValue>(newValue, newChildren);
+        }
+
+        public static Tree<TOutValue> MapTree<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TreeMapInfo, TOutValue> fn)
+        {
+            return MapTreeHelper(tree, fn, TreeMapInfo.Root());
+        }
+
+        private static Tree<TOutValue> MapTreeHelper<TInValue, TOutValue>(Tree<TInValue> tree, Func<Tree<TInValue>, TreeMapInfo, TOutValue> fn, TreeMapInfo info)
+        {
+            if (tree == null)
+                return null;
+
+            var newValue = fn(tree, info);
+            var newChildren = tree.Children?.Select((c, i) => MapTreeHelper(c, fn, info.Child(i)));
+
+            return new Tree<TOutValue>(newValue, newChildren);
+        }
+
+        #endregion MapTree
     }
 }

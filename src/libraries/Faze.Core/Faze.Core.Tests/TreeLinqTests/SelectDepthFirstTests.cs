@@ -1,5 +1,7 @@
 ﻿using Faze.Abstractions.Core;
+using Faze.Core.Serialisers;
 using Faze.Core.TreeLinq;
+using Faze.Utilities.Testing;
 using Shouldly;
 using System;
 using System.Collections.Generic;
@@ -7,10 +9,28 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace Faze.Rendering.Tests.TreeLinqTests
+namespace Faze.Core.Tests.TreeLinqTests
 {
     public class SelectDepthFirstTests
     {
+        private const string Tree1Id = "tree1.json";
+        private readonly IFileTreeDataProvider<int?> treeDataProvider;
+
+        public SelectDepthFirstTests()
+        {
+            var basePath = @"../../../Resources/TreeLinq/SelectDepthFirstTests";
+            this.treeDataProvider = new TestFileTreeDataProvider<int?>(basePath, new NullableIntSerialiser());
+        }
+
+        [Fact]
+        public void CorrectOrderForTree1()
+        {
+            var expectedValues = new int?[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var tree = treeDataProvider.Load(Tree1Id);
+
+            tree.SelectDepthFirst().ShouldBe(expectedValues);
+        }
+
         [Fact]
         public void SingleTreeNodeReturnsSingleItem()
         {
