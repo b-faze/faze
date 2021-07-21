@@ -23,11 +23,6 @@ namespace Faze.Engine.ResultTrees
             this.simulations = leafSimulations;
         }
 
-        public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree)
-        {
-            return tree.MapValueAgg(GetResults, () => new WinLoseDrawResultAggregate());
-        }
-
         public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree, IProgressTracker progress)
         {
             return tree.MapValueAgg(GetResults, () => new WinLoseDrawResultAggregate());

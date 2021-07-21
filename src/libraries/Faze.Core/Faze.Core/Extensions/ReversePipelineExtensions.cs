@@ -48,7 +48,7 @@ namespace Faze.Core.Extensions
             });
         }
 
-        public static IReversePipelineBuilder<Tree<TIn>> MapTree<TOut, TIn>(this IReversePipelineBuilder<Tree<TOut>> builder, Func<Tree<TIn>, Tree<TOut>> fn)
+        public static IReversePipelineBuilder<Tree<TIn>> Map<TOut, TIn>(this IReversePipelineBuilder<Tree<TOut>> builder, Func<Tree<TIn>, Tree<TOut>> fn)
         {
             return builder.Require(fn);
         }
@@ -60,6 +60,7 @@ namespace Faze.Core.Extensions
                 return mapper.Map(tree, progress);
             });
         }
+
         public static IReversePipelineBuilder<Tree<T>> LimitDepth<T>(this IReversePipelineBuilder<Tree<T>> builder, int maxDepth)
         {
             return builder.Require<Tree<T>>(tree =>
@@ -68,19 +69,13 @@ namespace Faze.Core.Extensions
             });
         }
 
-        public static IReversePipelineBuilder<Tree<TIn>> MapValue<TOut, TIn>(this IReversePipelineBuilder<Tree<TOut>> builder, Func<TIn, TOut> fn)
-        {
-            return builder.Require<Tree<TIn>>(tree =>
-            {
-                return tree.MapValue(fn);
-            });
-        }
-
-        public static IReversePipelineBuilder<IGameState<TMove, TResult>> GameTree<TMove, TResult>(this IReversePipelineBuilder<Tree<IGameState<TMove, TResult>>> builder, IGameStateTreeAdapter<TMove> adapter)
+        public static IReversePipelineBuilder<IGameState<TMove, TResult>> GameTree<TMove, TResult>(this IReversePipelineBuilder<Tree<IGameState<TMove, TResult>>> builder, IGameStateTreeAdapter<TMove> adapter = null)
         {
             return builder.Require<IGameState<TMove, TResult>>(state =>
             {
-                return state.ToStateTree(adapter);
+                return adapter != null 
+                    ? state.ToStateTree(adapter)
+                    : state.ToStateTree();
             });
         }        
         

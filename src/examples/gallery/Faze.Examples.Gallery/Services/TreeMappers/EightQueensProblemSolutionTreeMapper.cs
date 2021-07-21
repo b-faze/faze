@@ -12,11 +12,6 @@ namespace Faze.Examples.Gallery.Services.TreeMappers
 {
     public class EightQueensProblemSolutionTreeMapper : ITreeMapper<IGameState<GridMove, SingleScoreResult?>, EightQueensProblemSolutionAggregate>
     {
-        public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree)
-        {
-            return MapTreeAgg(tree, new int[0], 0, null);
-        }
-
         public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree, IProgressTracker progress)
         {
             progress.SetMaxTicks(64);

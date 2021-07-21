@@ -2,6 +2,9 @@
 using Faze.Core;
 using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
+using Faze.Examples.QuickStartConsole.V1;
+using Faze.Examples.QuickStartConsole.V2;
+using Faze.Examples.QuickStartConsole.V3;
 using Faze.Rendering.TreePainters;
 using Faze.Rendering.TreeRenderers;
 using System;
@@ -12,21 +15,9 @@ namespace Faze.Examples.QuickStartConsole
     {
         static void Main(string[] args)
         {
-            var size = 3;
-            var maxDepth = 4;
-
-            var rendererOptions = new SquareTreeRendererOptions(size, 500)
-            {
-                BorderProportion = 0.1f
-            };
-
-            IPipeline pipeline = ReversePipelineBuilder.Create()
-                .File("my_first_visualisation.png")
-                .Render(new SquareTreeRenderer(rendererOptions))
-                .Paint<object>(new CheckeredTreePainter())
-                .LoadTree(new DynamicSquareTreeOptions<object>(size, maxDepth, info => null), new DynamicTreeDataProvider<object>());
-
-            pipeline.Run();
+            //ProgramV1.Run(args);
+            //ProgramV2.Run(args);
+            //ProgramV3.Run(args);
         }
     }
 }
