@@ -87,5 +87,10 @@ namespace Faze.Abstractions.GameResults
         {
             return (Wins + Loses + Draws).GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"{Wins},{Loses},{Draws}";
+        }
     }
 }

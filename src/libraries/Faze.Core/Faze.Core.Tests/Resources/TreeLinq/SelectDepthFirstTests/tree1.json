@@ -1,0 +1,38 @@
+{
+  "Value": "0",
+  "Children": [
+    {
+      "Value": "1"
+    },
+    {
+      "Value": "2",
+      "Children": [
+        {
+          "Value": "3",
+          "Children": [
+            {
+              "Value": "4"
+            },
+            {
+              "Value": "5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Value": "6"
+    },
+    {
+      "Value": "7",
+      "Children": [
+        {
+          "Value": "8"
+        },
+        {
+          "Value": "9"
+        }
+      ]
+    }
+  ]
+}

@@ -1,13 +1,33 @@
 ﻿using Faze.Abstractions.Core;
+using Faze.Core.Serialisers;
 using Faze.Core.TreeLinq;
+using Faze.Utilities.Testing;
 using Shouldly;
 using System.Linq;
 using Xunit;
 
-namespace Faze.Rendering.Tests.TreeLinqTests
+namespace Faze.Core.Tests.TreeLinqTests
 {
     public class SelectBreadthFirstTests
     {
+        private const string Tree1Id = "tree1.json";
+        private readonly IFileTreeDataProvider<int?> treeDataProvider;
+
+        public SelectBreadthFirstTests()
+        {
+            var basePath = @"../../../Resources/TreeLinq/SelectBreadthFirstTests";
+            this.treeDataProvider = new TestFileTreeDataProvider<int?>(basePath, new NullableIntSerialiser());
+        }
+
+        [Fact]
+        public void CorrectOrderForTree1()
+        {
+            var expectedValues = new int?[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            var tree = treeDataProvider.Load(Tree1Id);
+
+            tree.SelectBreadthFirst().ShouldBe(expectedValues);
+        }
+
         [Fact]
         public void SingleTreeNodeReturnsSingleItem()
         {
