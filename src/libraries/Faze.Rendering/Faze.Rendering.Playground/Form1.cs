@@ -36,7 +36,7 @@ namespace Faze.Rendering.Playground
             sizeTrackBarChanged(null, null);
             maxDepthTrackBarChanged(null, null);
             minDrawSizeChanged(null, null);
-            SetViewport(Viewport.Default());
+            //SetViewport(Viewport.Default());
 
             this.settings = JsonConvert.DeserializeObject<FormSettings>(File.ReadAllText(SettingsJsonPath));
             presetDdl.DataSource = settings.Presets;
@@ -156,7 +156,8 @@ namespace Faze.Rendering.Playground
 
         private IViewport GetViewport()
         {
-            return new Viewport(float.Parse(viewportLeftTxt.Text), float.Parse(viewportTopTxt.Text), float.Parse(viewportScaleTxt.Text));
+            throw new NotImplementedException();
+            //return new Viewport(float.Parse(viewportLeftTxt.Text), float.Parse(viewportTopTxt.Text), float.Parse(viewportScaleTxt.Text));
         }
 
         private void SetViewport(IViewport viewport)

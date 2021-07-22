@@ -27,7 +27,7 @@ namespace Faze.Engine.Tests.Players
         {
             var foresight = 1;
             var agent = GetAgent(foresight);
-            var gameTree = TreeFileExtensions.Load("MinimaxAgentTests/tree1_depth1.json", treeDataProvider);
+            var gameTree = treeDataProvider.Load("MinimaxAgentTests/tree1_depth1.json");
             var state = testGameStateService.CreateState(gameTree);
 
             var moves = agent.GetMoves(state);
@@ -40,7 +40,7 @@ namespace Faze.Engine.Tests.Players
         {
             var foresight = 3;
             var agent = GetAgent(foresight);
-            var gameTree = TreeFileExtensions.Load("MinimaxAgentTests/tree2_depth2.json", treeDataProvider);
+            var gameTree = treeDataProvider.Load("MinimaxAgentTests/tree2_depth2.json");
             var state = testGameStateService.CreateState(gameTree);
 
             var moves = agent.GetMoves(state);
@@ -53,7 +53,7 @@ namespace Faze.Engine.Tests.Players
         {
             var foresight = 2;
             var agent = GetAgent(foresight);
-            var gameTree = TreeFileExtensions.Load("MinimaxAgentTests/tree2_depth2.json", treeDataProvider);
+            var gameTree = treeDataProvider.Load("MinimaxAgentTests/tree2_depth2.json");
             var state = testGameStateService.CreateState(gameTree);
 
             var moves = agent.GetMoves(state);

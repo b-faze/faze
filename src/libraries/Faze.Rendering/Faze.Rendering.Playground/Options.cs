@@ -1,4 +1,5 @@
 ﻿using Faze.Abstractions.Rendering;
+using System;
 
 namespace Faze.Rendering.Playground
 {
@@ -9,8 +10,18 @@ namespace Faze.Rendering.Playground
         public float Border { get; set; }
         public float MinChildDrawSize { get; set; }
         public ViewportJson ViewportJson { get; set; }
-        public Viewport DefaultViewport => ViewportJson != null
-            ? new Viewport(ViewportJson.Left, ViewportJson.Top, ViewportJson.Scale)
-            : Viewport.Default();
+
+        public IViewport DefaultViewport 
+        { 
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+        //public IViewport DefaultViewport => ViewportJson != null
+        //    ? new Viewport(ViewportJson.Left, ViewportJson.Top, ViewportJson.Scale)
+        //    : Viewport.Default();
     }
 }

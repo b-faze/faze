@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Faze.Core.Pipelines
 {
-    public class DefaultPipeline<T> : IPipeline<T>
+    internal class DefaultPipeline<T> : IPipeline<T>
     {
         private IList<IPipelineStep> steps;
 
-        public DefaultPipeline(IEnumerable<IPipelineStep> steps)
+        internal DefaultPipeline(IEnumerable<IPipelineStep> steps)
         {
             this.steps = steps.ToList();
         }

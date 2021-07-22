@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace Faze.Abstractions.GameResults
 {
+    /// <summary>
+    /// Aggregates results of type WinLoseDrawResult
+    /// </summary>
     public class WinLoseDrawResultAggregate : IResultAggregate<WinLoseDrawResultAggregate>
     {
         public WinLoseDrawResultAggregate()

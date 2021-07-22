@@ -3,7 +3,7 @@ using Faze.Engine.Players;
 
 namespace Faze.Engine.Simulators
 {
-    public class MonkeyAgentProvider : IAgentProvider
+    public class MonkeyAgentManager : IAgentManager
     {
         public IPlayer GetPlayer(PlayerIndex playerIndex)
         {

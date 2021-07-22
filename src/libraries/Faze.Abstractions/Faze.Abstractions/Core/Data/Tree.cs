@@ -5,6 +5,10 @@ using System.Linq;
 
 namespace Faze.Abstractions.Core
 {
+    /// <summary>
+    /// Represents a tree data structure which holds a value of type <typeparamref name="TValue"/> at each node
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
     public class Tree<TValue>
     {
         public Tree(TValue value)
@@ -53,6 +57,11 @@ namespace Faze.Abstractions.Core
             }
 
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }

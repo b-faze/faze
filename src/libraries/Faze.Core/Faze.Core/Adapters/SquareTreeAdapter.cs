@@ -8,6 +8,10 @@ using System.Text;
 
 namespace Faze.Core.Adapters
 {
+    /// <summary>
+    /// Maintains a constant square tree structure,
+    /// where the number of children is always size^2
+    /// </summary>
     public class SquareTreeAdapter : IGameStateTreeAdapter<GridMove>
     {
         private readonly int size;

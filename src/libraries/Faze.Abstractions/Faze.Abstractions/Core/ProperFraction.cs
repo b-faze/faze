@@ -12,14 +12,14 @@ namespace Faze.Abstractions.Core
         public ProperFraction(double value)
         {
             if (value < 0 || value >= 1)
-                throw new ArgumentOutOfRangeException(nameof(value), $"A UnitInterval must have a value greater or equal to 0 and less than 1");
+                throw new ArgumentOutOfRangeException(nameof(value), $"A {nameof(ProperFraction)} must have a value greater or equal to 0 and less than 1");
 
             this.value = value;
         }
 
-        public static implicit operator double(ProperFraction unitInterval)
+        public static implicit operator double(ProperFraction properFraction)
         {
-            return unitInterval.value;
+            return properFraction.value;
         }
 
         public static implicit operator ProperFraction(double value)

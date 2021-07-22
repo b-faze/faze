@@ -11,12 +11,12 @@ namespace Faze.Engine.Simulators
 {
     public class GameSimulator : IGameSimulator
     {
-        private readonly IAgentProvider agentProvider;
+        private readonly IAgentManager agentProvider;
         private readonly Random rnd;
 
-        public GameSimulator(IAgentProvider agentProvider = null, Random rnd = null)
+        public GameSimulator(IAgentManager agentProvider = null, Random rnd = null)
         {
-            this.agentProvider = agentProvider ?? new MonkeyAgentProvider();
+            this.agentProvider = agentProvider ?? new MonkeyAgentManager();
             this.rnd = rnd ?? ThreadSafeRandom.Random();
         }
 

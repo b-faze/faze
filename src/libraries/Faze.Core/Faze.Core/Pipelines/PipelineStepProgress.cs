@@ -3,7 +3,7 @@ using System;
 
 namespace Faze.Core.Pipelines
 {
-    public class PipelineStepProgress<TIn, TOut> : IPipelineStepProgress
+    internal class PipelineStepProgress<TIn, TOut> : IPipelineStepProgress
     {
         public PipelineStepProgress(Action<TIn, IProgressTracker> fn)
         {

@@ -3,7 +3,7 @@ using Faze.Core.TreeLinq;
 using System;
 using System.Linq;
 
-namespace Faze.Core
+namespace Faze.Core.Data
 {
     public class DynamicSquareTreeOptions<T>
     {

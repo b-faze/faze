@@ -1,5 +1,8 @@
 ﻿namespace Faze.Abstractions.Core
 {
+    /// <summary>
+    /// Implementation of an IProgressTracker which does nothing
+    /// </summary>
     public class NullProgressTracker : IProgressTracker
     {
         private NullProgressTracker() { }

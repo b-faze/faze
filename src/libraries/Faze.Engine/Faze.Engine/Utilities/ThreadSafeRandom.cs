@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Faze.Engine.Utilities
 {
-    public static class ThreadSafeRandom
+    internal static class ThreadSafeRandom
     {
         private static RNGCryptoServiceProvider _global = new RNGCryptoServiceProvider();
 

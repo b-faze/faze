@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Core;
+using Faze.Core.Data;
 using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
 using Faze.Rendering.TreePainters;

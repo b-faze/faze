@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Faze.Core.Pipelines
 {
-    public class PipelineBuilder<T> : IReversePipelineBuilder<T>
+    internal class PipelineBuilder<T> : IReversePipelineBuilder<T>
     {
         private readonly IList<IPipelineStep> steps;
 

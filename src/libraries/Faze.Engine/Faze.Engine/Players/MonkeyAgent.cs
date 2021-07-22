@@ -7,6 +7,9 @@ using System.Text;
 
 namespace Faze.Engine.Players
 {
+    /// <summary>
+    /// Simplest agent. Has no preference for the available moves
+    /// </summary>
     public class MonkeyAgent : IPlayer
     {
         public IMoveDistribution<TMove> GetMoves<TMove, TResult>(IGameState<TMove, TResult> state)

@@ -1,5 +1,11 @@
-﻿namespace Faze.Abstractions.Rendering
+﻿using System;
+
+namespace Faze.Abstractions.Rendering
 {
+    /// <summary>
+    /// Used to keep track of the visible window.
+    /// To be used by the renderer
+    /// </summary>
     public interface IViewport
     {        
         /// <summary>

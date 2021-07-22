@@ -3,7 +3,7 @@ using System;
 
 namespace Faze.Core.Pipelines
 {
-    public class PipelineStep<TIn, TOut> : IPipelineStep
+    internal class PipelineStep<TIn, TOut> : IPipelineStep
     {
         public PipelineStep(Action<TIn> fn)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Faze.Abstractions.Players
 {
-    public interface IAgentProvider
+    public interface IAgentManager
     {
         /// <summary>
         /// Keeps track and spawns new players as required

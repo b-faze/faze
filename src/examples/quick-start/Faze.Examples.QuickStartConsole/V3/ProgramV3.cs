@@ -23,7 +23,7 @@ namespace Faze.Examples.QuickStartConsole.V3
             var rendererOptions = new SquareTreeRendererOptions(size, 500)
             {
                 BorderProportion = 0.1f,
-                MaxDepth = 4
+                MaxDepth = maxDepth
             };
 
             IPipeline pipeline = ReversePipelineBuilder.Create()

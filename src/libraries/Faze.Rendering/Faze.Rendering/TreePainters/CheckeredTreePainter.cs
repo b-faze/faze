@@ -6,6 +6,9 @@ using System.Drawing;
 
 namespace Faze.Rendering.TreePainters
 {
+    /// <summary>
+    /// Paints even indexed nodes as black and odd white
+    /// </summary>
     public class CheckeredTreePainter : ITreePainter
     {
         public Tree<Color> Paint<T>(Tree<T> tree)

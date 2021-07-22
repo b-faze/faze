@@ -3,7 +3,6 @@ using Faze.Rendering.TreeRenderers;
 using Faze.Rendering.Tests.Utilities;
 using System.Drawing.Imaging;
 using Xunit;
-using Faze.Rendering.Extensions;
 using Faze.Core.Pipelines;
 using Faze.Utilities.Testing;
 using Faze.Utilities.Testing.Extensions;
@@ -12,6 +11,7 @@ using System.Drawing;
 using Faze.Core.Serialisers;
 using Faze.Rendering.TreePainters;
 using Faze.Core;
+using Faze.Core.Data;
 
 namespace Faze.Rendering.Tests.RendererTests
 {

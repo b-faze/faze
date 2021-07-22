@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace Faze.Core.Pipelines
 {
-    public class DefaultPipeline : IPipeline
+    internal class DefaultPipeline : IPipeline
     {
         private IList<IPipelineStep> steps;
 
-        public DefaultPipeline(IEnumerable<IPipelineStep> steps)
+        internal DefaultPipeline(IEnumerable<IPipelineStep> steps)
         {
             this.steps = steps.ToList();
         }
