@@ -13,16 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Resources\SquareTreeRenderer\dynamic_1_500_1_0.png" />
-    <None Remove="Resources\SquareTreeRenderer\static_3_500_1_0.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\SquareTreeRenderer\dynamic_1_500_1_0.png" />
-    <EmbeddedResource Include="Resources\SquareTreeRenderer\static_3_500_1_0.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="Shouldly" Version="4.0.3" />
     <PackageReference Include="xunit" Version="2.4.0" />

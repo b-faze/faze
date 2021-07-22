@@ -9,7 +9,6 @@ namespace Faze.Utilities.Testing
 {
     public class TestImageRegressionServiceConfig
     {
-        public bool IsEmbededResource { get; set; }
         public string ExpectedImageDirectory { get; set; }
         public string ImageDiffDirectory { get; set; }
     }
@@ -77,14 +76,6 @@ namespace Faze.Utilities.Testing
                 renderer.Save(fs);
             }
         }
-
-        //private Bitmap GetExpectedImage(string id)
-        //{
-        //    if (config.IsEmbededResource)
-        //    {
-
-        //    }
-        //}
 
         private string GetExpectedImageFilename(string id)
         {
