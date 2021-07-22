@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Faze.Core.TreeLinq
 {
+    /// <summary>
+    /// Represents additional information for a tree node
+    /// </summary>
     public class TreeMapInfo
     {
         private TreeMapInfo(TreeMapInfo parent, int depth, int childIndex) 

@@ -12,6 +12,7 @@ using System.Drawing;
 using Faze.Core.Serialisers;
 using Faze.Rendering.TreePainters;
 using Faze.Core;
+using Faze.Core.Data;
 
 namespace Faze.Rendering.Tests.RendererTests
 {

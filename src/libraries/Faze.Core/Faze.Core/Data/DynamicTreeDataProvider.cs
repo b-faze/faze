@@ -1,6 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 
-namespace Faze.Core
+namespace Faze.Core.Data
 {
     public class DynamicTreeDataProvider<T> : ITreeDataReader<DynamicSquareTreeOptions<T>, T>
     {

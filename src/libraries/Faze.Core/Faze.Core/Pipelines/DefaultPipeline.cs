@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Faze.Core.Pipelines
 {
-    public class DefaultPipeline : IPipeline
+    internal class DefaultPipeline : IPipeline
     {
         private IList<IPipelineStep> steps;
 

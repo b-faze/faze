@@ -17,6 +17,7 @@ using System.Net.NetworkInformation;
 using Xunit;
 using Faze.Utilities.Testing.Extensions;
 using Faze.Core.Extensions;
+using Faze.Core.Data;
 
 namespace Faze.Rendering.Tests.RendererTests
 {

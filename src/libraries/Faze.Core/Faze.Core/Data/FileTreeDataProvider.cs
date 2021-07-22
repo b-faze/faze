@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Faze.Abstractions.Core;
 
-namespace Faze.Core.TreeLinq
+namespace Faze.Core.Data
 {
     public class FileTreeDataProvider<T> : IFileTreeDataProvider<T>
     {

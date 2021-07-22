@@ -83,7 +83,7 @@ namespace Faze.Core.Extensions
         {
             return builder.Build(() =>
             {
-                return TreeFileExtensions.Load(id, treeDataProvider);
+                return treeDataProvider.Load(id);
             });
         }
 
@@ -91,7 +91,7 @@ namespace Faze.Core.Extensions
         {
             return builder.Require<Tree<T>>(tree =>
             {
-                TreeFileExtensions.Save(tree, id, treeDataStore);
+                treeDataStore.Save(tree, id);
             });
         }
 
