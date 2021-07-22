@@ -5,6 +5,10 @@ using System.Linq;
 
 namespace Faze.Engine.Players
 {
+    /// <summary>
+    /// Uses the Minimax algorithm to evaluate the game state
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
     public class MinimaxAgent<TResult> : IPlayer<TResult>
     {
         private readonly int foresight;
