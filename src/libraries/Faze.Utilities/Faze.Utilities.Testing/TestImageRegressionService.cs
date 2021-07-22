@@ -1,6 +1,7 @@
 ﻿using Faze.Abstractions.Rendering;
 using ImageDiff;
 using Shouldly;
+using System;
 using System.Drawing;
 using System.IO;
 
@@ -8,6 +9,7 @@ namespace Faze.Utilities.Testing
 {
     public class TestImageRegressionServiceConfig
     {
+        public bool IsEmbededResource { get; set; }
         public string ExpectedImageDirectory { get; set; }
         public string ImageDiffDirectory { get; set; }
     }
@@ -32,6 +34,11 @@ namespace Faze.Utilities.Testing
         {
             var comparer = new BitmapComparer();
             var expectedImageFilename = GetExpectedImageFilename(expectedImageId);
+
+            if (!File.Exists(expectedImageFilename))
+            {
+                throw new Exception($"no expected image exists at '{expectedImageFilename}'");
+            }
 
             using (var expectedBitmap = new Bitmap(expectedImageFilename))
             using (var memoryStream = new MemoryStream())
@@ -70,6 +77,14 @@ namespace Faze.Utilities.Testing
                 renderer.Save(fs);
             }
         }
+
+        //private Bitmap GetExpectedImage(string id)
+        //{
+        //    if (config.IsEmbededResource)
+        //    {
+
+        //    }
+        //}
 
         private string GetExpectedImageFilename(string id)
         {

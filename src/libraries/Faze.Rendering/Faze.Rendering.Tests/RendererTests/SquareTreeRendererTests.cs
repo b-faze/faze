@@ -12,6 +12,7 @@ using Faze.Core.Serialisers;
 using Faze.Rendering.TreePainters;
 using Faze.Core;
 using Faze.Core.Data;
+using System.Reflection;
 
 namespace Faze.Rendering.Tests.RendererTests
 {
@@ -19,15 +20,18 @@ namespace Faze.Rendering.Tests.RendererTests
     {
         private readonly TestImageRegressionService testImageRegressionService;
         private readonly TestFileTreeDataProvider<Color> testFileTreeDataProvider;
+        private readonly TestEmbededResourceTreeDataReader<Color> testEmbededResourceTreeDataReader;
         public SquareTreeRendererTests()
         {
             var resourcePath = @"../../../Resources/SquareTreeRenderer";
+            var resourceNamespace = "Faze.Rendering.Tests.Resources.SquareTreeRenderer";
             var config = new TestImageRegressionServiceConfig
             {
                 ExpectedImageDirectory = resourcePath
             };
             this.testImageRegressionService = new TestImageRegressionService(config);
             this.testFileTreeDataProvider = new TestFileTreeDataProvider<Color>(resourcePath, new ColorSerialiser());
+            this.testEmbededResourceTreeDataReader = new TestEmbededResourceTreeDataReader<Color>(Assembly.GetExecutingAssembly(), resourceNamespace, new ColorSerialiser());
         }
 
         [Theory]
@@ -44,7 +48,7 @@ namespace Faze.Rendering.Tests.RendererTests
 
             testImageRegressionService.TestImageDiffPipeline($"{id}.png", $"{id}.diff.png")
                 .Render(renderer)
-                .LoadTree($"{id}.json", testFileTreeDataProvider)
+                .LoadTree($"{id}.json", testEmbededResourceTreeDataReader)
                 .Run();
         }
 
