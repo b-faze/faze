@@ -79,7 +79,7 @@ namespace Faze.Core.Extensions
             });
         }        
         
-        public static IPipeline LoadTree<TId, T>(this IReversePipelineBuilder<Tree<T>> builder, TId id, ITreeDataProvider<TId, T> treeDataProvider)
+        public static IPipeline LoadTree<TId, T>(this IReversePipelineBuilder<Tree<T>> builder, TId id, ITreeDataReader<TId, T> treeDataProvider)
         {
             return builder.Build(() =>
             {
@@ -87,7 +87,7 @@ namespace Faze.Core.Extensions
             });
         }
 
-        public static IReversePipelineBuilder<Tree<T>> SaveTree<TId, T>(this IReversePipelineBuilder builder, TId id, ITreeDataStore<TId,T> treeDataStore)
+        public static IReversePipelineBuilder<Tree<T>> SaveTree<TId, T>(this IReversePipelineBuilder builder, TId id, ITreeDataWriter<TId,T> treeDataStore)
         {
             return builder.Require<Tree<T>>(tree =>
             {

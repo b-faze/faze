@@ -1,5 +1,8 @@
 ﻿namespace Faze.Abstractions.Players
 {
+    /// <summary>
+    /// Uniquely identifies a player
+    /// </summary>
     public struct PlayerIndex
     {
         public static readonly PlayerIndex P1 = 0;

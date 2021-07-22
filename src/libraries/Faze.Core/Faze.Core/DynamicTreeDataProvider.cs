@@ -2,7 +2,7 @@
 
 namespace Faze.Core
 {
-    public class DynamicTreeDataProvider<T> : ITreeDataProvider<DynamicSquareTreeOptions<T>, T>
+    public class DynamicTreeDataProvider<T> : ITreeDataReader<DynamicSquareTreeOptions<T>, T>
     {
         public Tree<T> Load(DynamicSquareTreeOptions<T> options)
         {

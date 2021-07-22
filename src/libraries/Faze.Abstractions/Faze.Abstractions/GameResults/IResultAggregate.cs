@@ -2,12 +2,13 @@
 
 namespace Faze.Abstractions.GameResults
 {
+    /// <summary>
+    /// Represents a type which can aggregate results of type <typeparamref name="TAggregate"/>
+    /// </summary>
+    /// <typeparam name="TAggregate"></typeparam>
     public interface IResultAggregate<TAggregate>
     {
         TAggregate Value { get; }
-
-        //void Add(TBase result);
-        //void AddRange(IEnumerable<TBase> results);
 
         void Add(TAggregate result);
     }

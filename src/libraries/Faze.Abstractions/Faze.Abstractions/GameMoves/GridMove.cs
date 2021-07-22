@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Faze.Abstractions.GameMoves
 {
+    /// <summary>
+    /// Represents a move associated with a tile on a 2D grid. 
+    /// </summary>
     public struct GridMove
     {
         private int index;

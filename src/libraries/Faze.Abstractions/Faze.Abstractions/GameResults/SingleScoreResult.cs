@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Faze.Abstractions.GameResults
 {
+    /// <summary>
+    /// Represents a point score for a game result
+    /// </summary>
     public struct SingleScoreResult
     {
         private int score;

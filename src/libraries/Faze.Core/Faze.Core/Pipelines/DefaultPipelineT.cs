@@ -11,7 +11,7 @@ namespace Faze.Core.Pipelines
     {
         private IList<IPipelineStep> steps;
 
-        public DefaultPipeline(IEnumerable<IPipelineStep> steps)
+        internal DefaultPipeline(IEnumerable<IPipelineStep> steps)
         {
             this.steps = steps.ToList();
         }
