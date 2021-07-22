@@ -5,6 +5,7 @@ using Xunit;
 using Faze.Core.TreeLinq;
 using Shouldly;
 using Faze.Abstractions.GameResults;
+using System.Linq;
 
 namespace Faze.Core.Tests.TreeLinqTests
 {
@@ -33,8 +34,27 @@ namespace Faze.Core.Tests.TreeLinqTests
             mappedTree.Equals(expectedTree).ShouldBeTrue();
         }
 
+        [Fact]
+        public void OnlyEnumerateTreeOnce()
+        {
+            int actualCount = 0;
+            var tree = treeDataProvider.Load(Tree1Id);
+            var expectedTree = outputTreeDataProvider.Load(Tree1AggId);
+
+            var expectedCount = tree.GetLeaves().Count();
+            var mappedTree = tree.MapValueAgg(x => MapValueWithCount(x, ref actualCount), () => new WinLoseDrawResultAggregate());
+
+            actualCount.ShouldBe(expectedCount);
+        }
+
         private WinLoseDrawResultAggregate MapValue(int? value)
         {
+            return new WinLoseDrawResultAggregate((uint)(value ?? 0), 0, 0);
+        }
+
+        private WinLoseDrawResultAggregate MapValueWithCount(int? value, ref int count)
+        {
+            count++;
             return new WinLoseDrawResultAggregate((uint)(value ?? 0), 0, 0);
         }
     }

@@ -42,7 +42,7 @@ namespace Faze.Core.IO
                 return null;
 
             var value = valueSerialiser.Serialize(tree.Value);
-            var children = tree.Children?.Select(child => ToDto(child)).ToArray();
+            var children = tree.Children?.Select(child => ToDto(child));
 
             return new TreeDto
             {

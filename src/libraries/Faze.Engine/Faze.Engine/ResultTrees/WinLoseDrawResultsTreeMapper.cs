@@ -25,11 +25,16 @@ namespace Faze.Engine.ResultTrees
 
         public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, WinLoseDrawResult?>> tree, IProgressTracker progress)
         {
-            return tree.MapValueAgg(GetResults, () => new WinLoseDrawResultAggregate());
+            var leafCount = tree.GetLeaves().Count();
+            progress.SetMaxTicks(leafCount);
+
+            return tree.MapValueAgg((state, info) => GetResults(state, info, progress), () => new WinLoseDrawResultAggregate());
         }
 
-        private WinLoseDrawResultAggregate GetResults(IGameState<GridMove, WinLoseDrawResult?> state)
+        private WinLoseDrawResultAggregate GetResults(IGameState<GridMove, WinLoseDrawResult?> state, TreeMapInfo info, IProgressTracker progress)
         {
+            progress.SetMessage(string.Join(",", info.GetPath()));
+
             var resultAggregate = new WinLoseDrawResultAggregate();
             for (var i = 0; i < simulations; i++)
             {
@@ -40,7 +45,7 @@ namespace Faze.Engine.ResultTrees
                 }
             }
 
-
+            progress.Tick();
             return resultAggregate;
         }
     }

@@ -3,7 +3,6 @@ using Faze.Core.Data;
 using Faze.Core.IO;
 using Faze.Core.Serialisers;
 using Faze.Core.TreeLinq;
-using System;
 using System.IO;
 
 namespace Faze.Utilities.Testing

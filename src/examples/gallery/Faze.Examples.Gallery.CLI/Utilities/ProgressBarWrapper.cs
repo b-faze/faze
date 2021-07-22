@@ -6,10 +6,12 @@ namespace Faze.Examples.Gallery.CLI.Utilities
 {
     public class ProgressBarWrapper : IProgressTracker
     {
+        private readonly DateTime startTime;
         private readonly ShellProgressBar.IProgressBar progressBar;
 
         public ProgressBarWrapper(ShellProgressBar.IProgressBar progressBar)
         {
+            this.startTime = DateTime.Now;
             this.progressBar = progressBar;
         }
 
@@ -26,6 +28,10 @@ namespace Faze.Examples.Gallery.CLI.Utilities
         public void Tick()
         {
             progressBar.Tick();
+            if (progressBar is ProgressBarBase b) {
+                var estimatedSeconds = (DateTime.Now - startTime).TotalSeconds / b.Percentage * 100;
+                b.EstimatedDuration = TimeSpan.FromSeconds(estimatedSeconds);
+            }
         }
 
         public IProgressTracker Spawn()
@@ -35,7 +41,8 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 ForegroundColor = ConsoleColor.Green,
                 BackgroundColor = ConsoleColor.DarkGreen,
                 ProgressCharacter = '─',
-                CollapseWhenFinished = true
+                CollapseWhenFinished = true,
+                ShowEstimatedDuration = true
             };
 
             return new ProgressBarWrapper(progressBar.Spawn(100, "", childOptions));

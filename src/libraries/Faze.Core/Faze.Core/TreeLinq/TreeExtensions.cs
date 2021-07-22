@@ -118,13 +118,7 @@ namespace Faze.Core.TreeLinq
         /// </summary>
         public static Tree<TOutValue> MapValue<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn)
         {
-            if (tree == null)
-                return null;
-
-            var newValue = fn(tree.Value);
-            var newChildren = tree.Children?.Select(c => MapValue(c, fn));
-
-            return new Tree<TOutValue>(newValue, newChildren);
+            return MapValue(tree, (value, info) => fn(value));
         }
 
         public static Tree<TOutValue> MapValue<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn)
@@ -169,16 +163,29 @@ namespace Faze.Core.TreeLinq
         public static Tree<TOutValue> MapValueAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TOutValue> fn, Func<TOutValue> aggFactory)
             where TOutValue : IResultAggregate<TOutValue>
         {
+            return MapValueAgg(tree, (value, info) => fn(value), aggFactory);
+        }
+
+        public static Tree<TOutValue> MapValueAgg<TInValue, TOutValue>(this Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, Func<TOutValue> aggFactory)
+            where TOutValue : IResultAggregate<TOutValue>
+        {
+            return MapValueAggHelper(tree, fn, aggFactory, TreeMapInfo.Root());
+        }
+
+        private static Tree<TOutValue> MapValueAggHelper<TInValue, TOutValue>(Tree<TInValue> tree, Func<TInValue, TreeMapInfo, TOutValue> fn, Func<TOutValue> aggFactory, TreeMapInfo info)
+            where TOutValue : IResultAggregate<TOutValue>
+        {
             if (tree == null)
                 return null;
 
             if (tree.IsLeaf())
             {
-                return new Tree<TOutValue>(fn(tree.Value));
+                return new Tree<TOutValue>(fn(tree.Value, info));
             }
 
             var children = tree.Children
-                    .Select(x => MapValueAgg(x, fn, aggFactory));
+                    .Select((child, i) => MapValueAggHelper(child, fn, aggFactory, info.Child(i)))
+                    .ToList();
 
             var agg = aggFactory();
             foreach (var childValue in children.Where(x => x != null).Select(x => x.Value))
@@ -195,13 +202,7 @@ namespace Faze.Core.TreeLinq
 
         public static Tree<TOutValue> MapTree<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TOutValue> fn)
         {
-            if (tree == null)
-                return null;
-
-            var newValue = fn(tree);
-            var newChildren = tree.Children?.Select(c => MapTree(c, fn));
-
-            return new Tree<TOutValue>(newValue, newChildren);
+            return MapTree(tree, (value, info) => fn(value));
         }
 
         public static Tree<TOutValue> MapTree<TInValue, TOutValue>(this Tree<TInValue> tree, Func<Tree<TInValue>, TreeMapInfo, TOutValue> fn)
