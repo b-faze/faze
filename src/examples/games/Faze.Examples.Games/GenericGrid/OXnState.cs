@@ -44,6 +44,9 @@ namespace Faze.Examples.Games.GridGames
 
         public IEnumerable<GridMove> GetAvailableMoves()
         {
+            if (GetResult() != null)
+                return new GridMove[0];
+
             return availableMoves;
         }
 

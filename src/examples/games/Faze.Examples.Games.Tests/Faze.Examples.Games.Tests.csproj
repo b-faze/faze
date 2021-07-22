@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="PieceBoardTests\" />
-    <Folder Include="OXTests\" />
   </ItemGroup>
 
   <ItemGroup>

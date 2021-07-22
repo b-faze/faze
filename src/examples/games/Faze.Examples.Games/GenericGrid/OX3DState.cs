@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Faze.Examples.Games.GridGames
 {
-    public class OX3D : IGameState<GridMove, WinLoseDrawResult?>
+    public class OX3DState : IGameState<GridMove, WinLoseDrawResult?>
     {
         public int Dimention => 3;
         public int TotalPlayers => 2;
@@ -20,14 +20,14 @@ namespace Faze.Examples.Games.GridGames
         private bool?[,,] pMoves;
         private List<GridMove> availableMoves;
 
-        public OX3D()
+        public OX3DState()
         {
             pMoves = new bool?[Dimention, Dimention, Dimention];
             availableMoves = Enumerable.Range(0, 9).SelectMany(x => Enumerable.Repeat(x, Dimention)).Select(x => new GridMove(x)).ToList();
             winningStates = GetWinningStates(Dimention).ToList();
         }
 
-        private OX3D(bool?[,,] pMoves, List<GridMove> availableMoves, bool p1Turn, List<List<int[]>> winningStates)
+        private OX3DState(bool?[,,] pMoves, List<GridMove> availableMoves, bool p1Turn, List<List<int[]>> winningStates)
         {
             this.pMoves = (bool?[,,])pMoves.Clone();
             this.p1Turn = p1Turn;
@@ -37,6 +37,9 @@ namespace Faze.Examples.Games.GridGames
 
         public IEnumerable<GridMove> GetAvailableMoves()
         {
+            if (GetResult() != null)
+                return new GridMove[0];
+
             return availableMoves.Distinct().ToList();
         }
 
@@ -48,15 +51,13 @@ namespace Faze.Examples.Games.GridGames
             while (pMoves[moveX, moveY, i].HasValue)
                 i++;
 
-            var newPMoves = new bool?[Dimention,Dimention,Dimention];
+            var newPMoves = CloneBoard(pMoves, Dimention);
             var newAvailableMoves = availableMoves.ToList();
-
-            pMoves.CopyTo(newPMoves, 0);
 
             newPMoves[moveX, moveY, i] = p1Turn;
             newAvailableMoves.Remove(move);
 
-            return new OX3D(newPMoves, newAvailableMoves, !p1Turn, winningStates);
+            return new OX3DState(newPMoves, newAvailableMoves, !p1Turn, winningStates);
         }
 
         public WinLoseDrawResult? GetResult()
@@ -154,6 +155,23 @@ namespace Faze.Examples.Games.GridGames
 
             var r = GetDirectionsHelper(dimention - 1);
             return Enumerable.Range(-1, 3).SelectMany(x => r.Select(r2 => r2.Concat(new[] { x }).ToArray()));
+        }
+
+        private static bool?[,,] CloneBoard(bool?[,,] arr, int dimension)
+        {
+            var newArr = new bool?[dimension, dimension, dimension];
+            for (var i = 0; i < dimension; i++)
+            {
+                for (var j = 0; j < dimension; j++)
+                {
+                    for (var k = 0; k < dimension; k++)
+                    {
+                        newArr[i, j, k] = arr[i, j, k];
+                    }
+                }
+            }
+
+            return newArr;
         }
     }
 

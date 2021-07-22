@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="GenericGrid\" />
     <Folder Include="OX\" />
   </ItemGroup>
 
