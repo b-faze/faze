@@ -14,7 +14,7 @@ namespace Faze.Examples.Gallery.CLI.Utilities
             {
                 ForegroundColor = ConsoleColor.Yellow,
                 BackgroundColor = ConsoleColor.DarkYellow,
-                ProgressCharacter = '─',
+                ProgressCharacter = '─'
             };
 
             return new ProgressBarWrapper(new ProgressBar(totalTicks, message, options));

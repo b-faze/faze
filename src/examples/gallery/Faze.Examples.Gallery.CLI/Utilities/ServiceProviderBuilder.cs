@@ -10,6 +10,8 @@ using Faze.Examples.Gallery.Services.Aggregates;
 using Faze.Examples.Gallery.Services.Serialisers;
 using Faze.Examples.Gallery.Visualisations.OX;
 using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
+using Faze.Examples.Gallery.Visualisations.OX3D;
+using Faze.Examples.Gallery.Visualisations.OX3D.DataGenerators;
 using Faze.Examples.Gallery.Visualisations.PieceBoards;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +45,9 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<ITreeSerialiser<EightQueensProblemSolutionAggregate>, JsonTreeSerialiser<EightQueensProblemSolutionAggregate>>()
 
                 .AddSingleton<OXSimulatedDataPipeline>()
+                .AddSingleton<OX3DSimulatedDataPipeline>()
                 .AddSingleton<OXGoldImagePipeline>()
+                .AddSingleton<OX3DGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()
 
                 .AddSingletons<IDataGenerator>(galleryAssembly)

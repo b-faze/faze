@@ -29,7 +29,7 @@ namespace Faze.Core.TreeLinq
         public IEnumerable<int> GetPath()
         {
             if (Parent == null)
-                return new[] { ChildIndex };
+                return new int[0];
 
             return Parent.GetPath().Concat(new[] { ChildIndex });
         }

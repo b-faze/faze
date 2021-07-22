@@ -9,6 +9,7 @@ using Faze.Engine.ResultTrees;
 using Faze.Engine.Simulators;
 using Faze.Examples.Games.OX;
 using Faze.Core.TreeLinq;
+using Faze.Core.Adapters;
 
 namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 {
@@ -28,7 +29,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
             var pipeline = ReversePipelineBuilder.Create()
                 .SaveTree(dataId, treeDataProvider)
                 .Map(resultsMapper)
-                .GameTree(new OXStateTreeAdapter())
+                .GameTree(new SquareTreeAdapter(3))
                 .Build(() => OXState.Initial);
 
             return pipeline;
