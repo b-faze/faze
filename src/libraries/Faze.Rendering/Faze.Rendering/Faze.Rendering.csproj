@@ -31,4 +31,8 @@
     <ProjectReference Include="..\..\Faze.Core\Faze.Core\Faze.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

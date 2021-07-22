@@ -8,6 +8,10 @@ using System.Linq;
 
 namespace Faze.Rendering.TreePainters
 {
+    /// <summary>
+    /// Paints each node in the tree according it its depth.
+    /// The depth is normalised, so a max depth will have a value of 1 when it is passed to the color interpolator
+    /// </summary>
     public class DepthTreePainter : ITreePainter
     {
         private readonly IColorInterpolator colorInterpolator;

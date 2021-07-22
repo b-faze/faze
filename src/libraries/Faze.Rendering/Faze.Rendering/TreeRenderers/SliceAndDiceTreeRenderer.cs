@@ -18,9 +18,7 @@ namespace Faze.Rendering.TreeRenderers
         }
 
         public int ImageSize { get; }
-
         public float BorderProportion { get; set; }
-        public IViewport Viewport { get; set; }
         public int? MaxDepth { get; set; }
     }
 
