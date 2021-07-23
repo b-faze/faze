@@ -8,7 +8,7 @@ The above images represent the distribution of solutions for the eight queens pu
 
 ## Pipeline Summary
 
-### Data Pipeline
+#### Data Pipeline
 
 ```csharp
 ReversePipelineBuilder.Create()
@@ -19,7 +19,7 @@ ReversePipelineBuilder.Create()
     .Build(() => new PiecesBoardState(new PiecesBoardStateConfig(BoardSize, new QueenPiece(), onlySafeMoves: true)));
 ```
 
-### Render Pipeline
+#### Render Pipeline
 
 ```csharp
 ReversePipelineBuilder.Create()
