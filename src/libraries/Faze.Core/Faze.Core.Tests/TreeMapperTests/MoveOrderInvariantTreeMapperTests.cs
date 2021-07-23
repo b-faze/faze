@@ -59,12 +59,14 @@ namespace Faze.Core.Tests.TreeMapperTests
 
             var runMapper1 = new TestRunCountTreeMapper();
             var tree1 = runMapper1.Map(treeDataProvider.Load(treeId), progress);
-            var leaves1 = tree1.GetLeaves().Count();
+            var nodes1 = tree1.SelectDepthFirst().Count();
+
+            runMapper1.RunCount.ShouldBe(1);
 
             var runMapper2 = new TestRunCountTreeMapper();
             var tree2 = runMapper2.Map(treeDataProvider.Load(treeId), progress);
             var mappedTree2 = treeMapper.Map(tree2, progress);
-            var leaves2 = mappedTree2.GetLeaves().Count();
+            var nodes2 = mappedTree2.SelectDepthFirst().Count();
 
             runMapper2.NodeRunCount.ShouldBe(uniquePathCount);
         }

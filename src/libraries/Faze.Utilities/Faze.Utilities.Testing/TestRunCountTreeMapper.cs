@@ -9,7 +9,7 @@ namespace Faze.Utilities.Testing
     {
         public int NodeRunCount { get; private set; }
         public int TotalNodes { get; private set; }
-        public int RunCount => NodeRunCount / TotalNodes;
+        public decimal RunCount => (decimal)NodeRunCount / TotalNodes;
 
         public Tree<T> Map<T>(Tree<T> tree, IProgressTracker progress)
         {

@@ -74,11 +74,14 @@ namespace Faze.Core.TreeLinq
         {
             yield return tree.Value;
 
-            if (tree.IsLeaf())
+            if (tree.Children == null)
                 yield break;
 
             foreach (var child in tree.Children)
             {
+                if (child == null)
+                    continue;
+
                 foreach (var value in child.SelectDepthFirst())
                 {
                     yield return value;
