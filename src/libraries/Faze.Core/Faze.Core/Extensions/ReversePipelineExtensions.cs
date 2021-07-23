@@ -61,6 +61,14 @@ namespace Faze.Core.Extensions
             });
         }
 
+        public static IReversePipelineBuilder<Tree<T>> Map<T>(this IReversePipelineBuilder<Tree<T>> builder, ITreeStructureMapper mapper)
+        {
+            return builder.Require<Tree<T>>((tree, progress) =>
+            {
+                return mapper.Map(tree, progress);
+            });
+        }
+
         public static IReversePipelineBuilder<Tree<T>> LimitDepth<T>(this IReversePipelineBuilder<Tree<T>> builder, int maxDepth)
         {
             return builder.Require<Tree<T>>(tree =>

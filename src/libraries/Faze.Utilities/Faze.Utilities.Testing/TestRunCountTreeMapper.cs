@@ -5,20 +5,20 @@ using System.Linq;
 
 namespace Faze.Utilities.Testing
 {
-    public class TestRunCountTreeMapper : ITreeMapper<object, object>
+    public class TestRunCountTreeMapper : ITreeStructureMapper
     {
         public int NodeRunCount { get; private set; }
         public int TotalNodes { get; private set; }
         public int RunCount => NodeRunCount / TotalNodes;
 
-        public Tree<object> Map(Tree<object> tree, IProgressTracker progress)
+        public Tree<T> Map<T>(Tree<T> tree, IProgressTracker progress)
         {
             TotalNodes = tree.SelectDepthFirst().Count();
 
             return tree.MapValue(Map);
         }
 
-        private object Map(object obj)
+        private T Map<T>(T obj)
         {
             NodeRunCount++;
 

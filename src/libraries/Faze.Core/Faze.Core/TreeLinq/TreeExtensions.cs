@@ -74,7 +74,7 @@ namespace Faze.Core.TreeLinq
         {
             yield return tree.Value;
 
-            if (tree.Children == null)
+            if (tree.IsLeaf())
                 yield break;
 
             foreach (var child in tree.Children)
@@ -253,5 +253,10 @@ namespace Faze.Core.TreeLinq
 
 
         #endregion Normalise
+
+        public static Tree<T> Evaluate<T>(this Tree<T> tree)
+        {
+            return new Tree<T>(tree.Value, tree.Children?.ToList());
+        }
     }
 }
