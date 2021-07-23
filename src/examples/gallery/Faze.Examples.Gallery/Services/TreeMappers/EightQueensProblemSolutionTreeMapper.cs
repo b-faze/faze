@@ -4,6 +4,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.TreeLinq;
+using Faze.Core.TreeMappers;
 using Faze.Examples.Gallery.Services.Aggregates;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +16,19 @@ namespace Faze.Examples.Gallery.Services.TreeMappers
         public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree, IProgressTracker progress)
         {
             progress.SetMaxTicks(64);
-            return MapTreeAgg(tree, new int[0], 0, progress);
+
+            //var invariantMapper = new MoveOrderInvariantTreeMapper();
+            //tree = invariantMapper.Map(tree, progress);
+
+            return MapTreeAgg(tree, TreeMapInfo.Root(), progress);
         }
 
-        private static Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, int[] path, int depth, IProgressTracker progress)
+        private static Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, TreeMapInfo info, IProgressTracker progress)
         {
             if (tree == null)
             {
                 return null;
             }
-
 
             if (tree.IsLeaf())
             {
@@ -33,7 +37,7 @@ namespace Faze.Examples.Gallery.Services.TreeMappers
                 return new Tree<EightQueensProblemSolutionAggregate>(resultAgg);
             }
 
-            var children = tree.Children.Select((x, i) => MapTreeAgg(x, path.Concat(new[] { i }).ToArray(), depth + 1, progress)).ToList();
+            var children = tree.Children.Select((x, i) => MapTreeAgg(x, info.Child(i), progress)).ToList();
 
 
             var value = new EightQueensProblemSolutionAggregate();
@@ -43,13 +47,13 @@ namespace Faze.Examples.Gallery.Services.TreeMappers
                 value.Add(childValue);
             }
 
-            if (depth == 1)
+            if (info.Depth == 1)
             {
                 progress.Tick();
             } 
-            else if (depth == 2)
+            else if (info.Depth == 2)
             {
-                progress.SetMessage(string.Join(",", path));
+                progress.SetMessage(string.Join(",", info.GetPath()));
             }
 
             return new Tree<EightQueensProblemSolutionAggregate>(value, children);

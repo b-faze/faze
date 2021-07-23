@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Faze.Core.Extensions;
 using Faze.Examples.Games.GridGames;
 using Faze.Examples.Games.GridGames.Pieces;
+using Faze.Core.TreeMappers;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 {
