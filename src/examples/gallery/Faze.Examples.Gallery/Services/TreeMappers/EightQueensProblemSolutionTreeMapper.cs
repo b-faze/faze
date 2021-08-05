@@ -3,6 +3,8 @@ using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
+using Faze.Core.Adapters;
+using Faze.Core.Extensions;
 using Faze.Core.TreeLinq;
 using Faze.Core.TreeMappers;
 using Faze.Examples.Gallery.Services.Aggregates;
@@ -13,79 +15,56 @@ namespace Faze.Examples.Gallery.Services.TreeMappers
 {
     public class EightQueensProblemSolutionTreeMapper : ITreeMapper<IGameState<GridMove, SingleScoreResult?>, EightQueensProblemSolutionAggregate>
     {
+        private readonly int evaluationDepth;
+
+        public EightQueensProblemSolutionTreeMapper(int evaluationDepth)
+        {
+            this.evaluationDepth = evaluationDepth;
+        }
+
         public Tree<EightQueensProblemSolutionAggregate> Map(Tree<IGameState<GridMove, SingleScoreResult?>> tree, IProgressTracker progress)
         {
-            progress.SetMaxTicks(64);
-
-            //var invariantMapper = new MoveOrderInvariantTreeMapper();
-            //tree = invariantMapper.Map(tree, progress);
-
             return MapTreeAgg(tree, TreeMapInfo.Root(), progress);
         }
 
-        private static Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, TreeMapInfo info, IProgressTracker progress)
+        private Tree<EightQueensProblemSolutionAggregate> MapTreeAgg(Tree<IGameState<GridMove, SingleScoreResult?>> tree, TreeMapInfo info, IProgressTracker progress)
         {
+            if (info.Depth <= 3)
+                progress.SetMessage(string.Join(",", info.GetPath()));
+
             if (tree == null)
             {
                 return null;
             }
 
-            if (tree.IsLeaf())
+            if (tree.IsLeaf() || info.Depth == evaluationDepth)
             {
-                var resultAgg = AggregateResults(tree.Value);
+                var resultAgg = AggregateResults(tree);
 
                 return new Tree<EightQueensProblemSolutionAggregate>(resultAgg);
             }
 
-            var children = tree.Children.Select((x, i) => MapTreeAgg(x, info.Child(i), progress)).ToList();
-
-
             var value = new EightQueensProblemSolutionAggregate();
-            
-            foreach (var childValue in children.Where(x => x != null).Select(x => x.Value))
-            {
-                value.Add(childValue);
-            }
-
-            if (info.Depth == 1)
-            {
-                progress.Tick();
-            } 
-            else if (info.Depth == 2)
-            {
-                progress.SetMessage(string.Join(",", info.GetPath()));
-            }
+            var children = tree.Children.Select((x, i) => MapTreeAgg(x, info.Child(i), progress)).ToList();
 
             return new Tree<EightQueensProblemSolutionAggregate>(value, children);
 
         }
 
-        private static EightQueensProblemSolutionAggregate AggregateResults(IGameState<GridMove, SingleScoreResult?> state)
+        private static EightQueensProblemSolutionAggregate AggregateResults(Tree<IGameState<GridMove, SingleScoreResult?>> stateTree)
         {
-            var resultAgg = new EightQueensProblemSolutionAggregate();
-            foreach (var result in CollectResults(state))
+            var gameResults = stateTree
+                .GetLeaves()
+                .Select(x => x.Value.GetResult())
+                .Where(x => x != null);
+
+            var aggResult = new EightQueensProblemSolutionAggregate();
+            foreach (var result in gameResults)
             {
-                resultAgg.Add(result);
+                aggResult.Add(result.Value);
             }
 
-            return resultAgg;
-        }
-
-        private static IEnumerable<SingleScoreResult> CollectResults(IGameState<GridMove, SingleScoreResult?> state) 
-        {
-            var result = state.GetResult();
-            if (result != null) 
-            {
-                yield return result.Value;
-            }
-
-            foreach (var move in state.GetAvailableMoves())
-            {
-                foreach (var childResult in CollectResults(state.Move(move)))
-                {
-                    yield return childResult;
-                }
-            }
+            return aggResult;
         }
     }
 }

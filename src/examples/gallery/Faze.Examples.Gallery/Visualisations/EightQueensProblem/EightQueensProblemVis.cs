@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Faze.Examples.Gallery.Services.Aggregates;
 using Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators;
 using Faze.Core.Extensions;
+using Faze.Core.TreeMappers;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
@@ -194,6 +195,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
                 .Paint(new EightQueensProblemPainter(painterConfig))
+                .Map(new MoveOrderInvariantTreeMapper())
                 .LoadTree(EightQueensProblemExhaustiveDataPipeline.Id, treeDataProvider);
         }
     }

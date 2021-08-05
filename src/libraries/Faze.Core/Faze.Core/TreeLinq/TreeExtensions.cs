@@ -259,7 +259,27 @@ namespace Faze.Core.TreeLinq
 
         public static Tree<T> Evaluate<T>(this Tree<T> tree)
         {
-            return new Tree<T>(tree.Value, tree.Children?.ToList());
+            if (tree?.Children == null)
+                return tree;
+
+            return new Tree<T>(tree.Value, tree.Children.Select(c => Evaluate(c)).ToList());
+        }
+
+        public static Tree<T> Evaluate<T>(this Tree<T> tree, int maxDepth)
+        {
+            return EvaluateHelper(tree, TreeMapInfo.Root(), maxDepth);
+        }
+
+        public static Tree<T> EvaluateHelper<T>(this Tree<T> tree, TreeMapInfo info, int maxDepth)
+        {
+            if (info.Depth > maxDepth)
+                return tree;
+
+            if (tree?.Children == null)
+                return tree;
+
+            var children = tree.Children.Select((c, i) => EvaluateHelper(c, info.Child(i), maxDepth)).ToList();
+            return new Tree<T>(tree.Value, children);
         }
     }
 }

@@ -23,22 +23,6 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             return result;
         }
 
-        private Tree<Color> ColorUnavailableMove(TreeMapInfo info)
-        {
-            var isParentMove = info.ChildIndex == info.Parent.ChildIndex;
-            if (isParentMove && config.BlackParentMoves)
-            {
-                return new Tree<Color>(Color.Black);
-            }
-            
-            if (config.BlackUnavailableMoves)
-            {
-                return new Tree<Color>(Color.Black);
-            }
-
-            return null;
-        }
-
         private Tree<Color> Paint(Tree<EightQueensProblemSolutionAggregate> tree, TreeMapInfo info, uint maxSiblingWins)
         {
             if (tree == null)
@@ -56,6 +40,22 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             var children = tree.Children.Select((c, i) => Paint(c, info.Child(i), maxChildrenWins));
 
             return new Tree<Color>(color, children);
+        }
+
+        private Tree<Color> ColorUnavailableMove(TreeMapInfo info)
+        {
+            var isParentMove = info.ChildIndex == info.Parent.ChildIndex;
+            if (isParentMove && config.BlackParentMoves)
+            {
+                return new Tree<Color>(Color.Black);
+            }
+
+            if (config.BlackUnavailableMoves)
+            {
+                return new Tree<Color>(Color.Black);
+            }
+
+            return null;
         }
     }
 }
