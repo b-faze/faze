@@ -18,6 +18,9 @@ using Faze.Examples.Gallery.Services.Aggregates;
 using Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators;
 using Faze.Core.Extensions;
 using Faze.Core.TreeMappers;
+using Faze.Core.IO;
+using Faze.Examples.Gallery.Services;
+using Faze.Examples.Gallery.Services.Serialisers;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
@@ -30,6 +33,18 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         {
             this.galleryService = galleryService;
             this.treeDataProvider = treeDataProvider;
+            //var treeSerialiser = new LeafTreeSerialiser<EightQueensProblemSolutionAggregate>(new EightQueensProblemSolutionAggregateSerialiser(), new LeafTreeSerialiserConfig<EightQueensProblemSolutionAggregate>
+            //{
+            //    AddTree = new AddTree<EightQueensProblemSolutionAggregate>((existing, value) =>
+            //    {
+            //        if (existing == null)
+            //            existing = new EightQueensProblemSolutionAggregate();
+
+            //        existing.Add(value);
+            //        return existing;
+            //    }, addWhileTraversing: true)
+            //});
+            //this.treeDataProvider = new GalleryTreeDataProvider<EightQueensProblemSolutionAggregate>(galleryService, treeSerialiser);
         }
 
         public ImageGeneratorMetaData GetMetaData()

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
@@ -22,8 +21,8 @@ namespace Faze.Abstractions.Core
             Children = children;
         }
 
-        public TValue Value { get; }
-        public IEnumerable<Tree<TValue>> Children { get; }
+        public TValue Value { get; protected set; }
+        public virtual IEnumerable<Tree<TValue>> Children { get; }
 
         public override bool Equals(object obj)
         {

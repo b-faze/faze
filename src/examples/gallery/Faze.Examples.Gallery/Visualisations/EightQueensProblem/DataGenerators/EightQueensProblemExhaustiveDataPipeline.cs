@@ -16,6 +16,10 @@ using Faze.Examples.Games.GridGames;
 using Faze.Examples.Games.GridGames.Pieces;
 using Faze.Core.TreeMappers;
 using Faze.Core.TreeLinq;
+using Faze.Core.Data;
+using Faze.Core.IO;
+using Faze.Examples.Gallery.Services.Serialisers;
+using Faze.Examples.Gallery.Services;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 {
@@ -25,9 +29,11 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
         public const string Id = "EightQueensProblemSolutions_exhaustive";
         private readonly IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
 
-        public EightQueensProblemExhaustiveDataPipeline(IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider)
+        public EightQueensProblemExhaustiveDataPipeline(IGalleryService galleryService, IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider)
         {
             this.treeDataProvider = treeDataProvider;
+            //var treeSerialiser = new LeafTreeSerialiser<EightQueensProblemSolutionAggregate>(new EightQueensProblemSolutionAggregateSerialiser());
+            //this.treeDataProvider = new GalleryTreeDataProvider<EightQueensProblemSolutionAggregate>(galleryService, treeSerialiser);
         }
 
         string IDataGenerator.Id => Id;
@@ -48,7 +54,8 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
                 //.Map(resultsMapper)
                 //.LimitDepth(3)
                 //.Evaluate(3)
-                .Map(new AggregateTreeMapper<EightQueensProblemSolutionAggregate>(3))
+                //.Map(new AggregateTreeMapper<EightQueensProblemSolutionAggregate>())
+                //.Evaluate()
                 //.Map<EightQueensProblemSolutionAggregate, IGameState<GridMove, SingleScoreResult?>>(t =>
                 //{
                 //    return t.MapValue(v =>
@@ -82,8 +89,19 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 
                 //    return new Tree<EightQueensProblemSolutionAggregate>(aggResult);
                 //})
-                .Map(new EightQueensProblemSolutionTreeMapper(1))
-                .Map(new MoveOrderInvariantTreeMapper2())
+                .Map(new EightQueensProblemSolutionTreeMapper(3))
+                //.Map<EightQueensProblemSolutionAggregate, IGameState<GridMove, SingleScoreResult?>>(t =>
+                //{
+                //    return t.MapValue(v =>
+                //    {
+                //        var result = v.GetResult();
+                //        if (result.HasValue)
+                //            return new EightQueensProblemSolutionAggregate(result.Value);
+
+                //        return new EightQueensProblemSolutionAggregate();
+                //    });
+                //})
+                //.Map(new MoveOrderInvariantTreeMapper2())
                 .GameTree(new SquareTreeAdapter(BoardSize))
                 .Build(() => new PiecesBoardState(new PiecesBoardStateConfig(BoardSize, new QueenPiece(), onlySafeMoves: true)));
 

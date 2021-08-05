@@ -67,13 +67,13 @@ namespace Faze.Core.Extensions
             {
                 return mapper.Map(tree, progress);
             });
-        }
+        }           
 
-        public static IReversePipelineBuilder<Tree<T>> Evaluate<T>(this IReversePipelineBuilder<Tree<T>> builder, int maxDepth)
+        public static IReversePipelineBuilder<Tree<T>> Evaluate<T>(this IReversePipelineBuilder<Tree<T>> builder)
         {
             return builder.Require<Tree<T>>(tree =>
             {
-                return tree.Evaluate(maxDepth);
+                return tree.Evaluate();
             });
         }
 
@@ -105,9 +105,9 @@ namespace Faze.Core.Extensions
 
         public static IReversePipelineBuilder<Tree<T>> SaveTree<TId, T>(this IReversePipelineBuilder builder, TId id, ITreeDataWriter<TId,T> treeDataStore)
         {
-            return builder.Require<Tree<T>>(tree =>
+            return builder.Require<Tree<T>>((tree, progress) =>
             {
-                treeDataStore.Save(tree, id);
+                treeDataStore.Save(tree, id, progress);
             });
         }
 

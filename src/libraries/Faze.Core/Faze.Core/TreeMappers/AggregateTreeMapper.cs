@@ -9,11 +9,8 @@ namespace Faze.Core.TreeMappers
 {
     public class AggregateTreeMapper<T> : ITreeMapper<T, T> where T : IResultAggregate<T>
     {
-        private readonly int depth;
-
-        public AggregateTreeMapper(int depth)
+        public AggregateTreeMapper()
         {
-            this.depth = depth;
         }
 
         public Tree<T> Map(Tree<T> tree, IProgressTracker progress)

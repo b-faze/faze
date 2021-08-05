@@ -24,10 +24,10 @@ namespace Faze.Utilities.Testing
             return treeDataProvider.Load(filename);
         }
 
-        public void Save(Tree<T> tree, string id)
+        public void Save(Tree<T> tree, string id, IProgressTracker progress)
         {
             var filename = Path.Combine(basePath, id);
-            treeDataProvider.Save(tree, filename);
+            treeDataProvider.Save(tree, filename, progress);
         }
     }
 }

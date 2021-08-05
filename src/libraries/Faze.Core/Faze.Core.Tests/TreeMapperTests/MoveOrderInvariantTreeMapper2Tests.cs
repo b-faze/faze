@@ -40,7 +40,7 @@ namespace Faze.Core.Tests.TreeMapperTests
         }
 
         [Theory]
-        [InlineData(2, 3, 10)]
+        [InlineData(2, 3)]
         public void CanReverse(int branchingFactor, int depth)
         {
             var mapper1 = new MoveOrderInvariantTreeMapper();

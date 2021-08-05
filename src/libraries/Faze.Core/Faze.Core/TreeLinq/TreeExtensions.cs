@@ -114,6 +114,62 @@ namespace Faze.Core.TreeLinq
 
         #endregion SelectBreadthFirst
 
+        #region SelectPath
+
+        public static IEnumerable<TValue> SelectPath<TValue>(this Tree<TValue> tree, IEnumerable<int> path)
+        {
+            if (tree == null)
+                yield break;
+
+            // yield root
+            yield return tree.Value;
+
+            foreach (var index in path)
+            {
+                tree = tree.Children?.ElementAtOrDefault(index);
+                if (tree == null)
+                    yield break;
+
+                yield return tree.Value;
+            }
+        }
+
+        #endregion SelectPath
+
+        #region Find
+
+        public static Tree<TValue> Find<TValue>(this Tree<TValue> tree, IEnumerable<int> path)
+        {
+            foreach (var index in path)
+            {
+                tree = tree.Children.ElementAt(index);
+            }
+
+            return tree;
+        }
+
+        public static bool TryFind<TValue>(this Tree<TValue> tree, IEnumerable<int> path, out Tree<TValue> foundTree)
+        {
+            foreach (var index in path)
+            {
+                tree = tree?.Children.ElementAtOrDefault(index);
+            }
+
+            foundTree = tree;
+
+            return tree != null;
+        }
+
+        #endregion Find
+
+        #region WithInfo 
+        public static Tree<(TValue value, TreeMapInfo info)> WithInfo<TValue>(this Tree<TValue> tree)
+        {
+            return MapValue(tree, (value, info) => (value, info));
+        }
+
+        #endregion WithInfo
+
         #region MapValue
 
         /// <summary>

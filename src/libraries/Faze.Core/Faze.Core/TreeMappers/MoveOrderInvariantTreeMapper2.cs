@@ -10,11 +10,14 @@ namespace Faze.Core.TreeMappers
     {
         public Tree<T> Map<T>(Tree<T> tree, IProgressTracker progress)
         {
-            return PathOrderInveriantHelper(tree, TreeMapInfo.Root(), new HashSet<string>());
+            return PathOrderInveriantHelper(tree, TreeMapInfo.Root(), new HashSet<string>(), progress);
         }
 
-        public static Tree<T> PathOrderInveriantHelper<T>(Tree<T> tree, TreeMapInfo info, HashSet<string> visitedPaths)
+        public static Tree<T> PathOrderInveriantHelper<T>(Tree<T> tree, TreeMapInfo info, HashSet<string> visitedPaths, IProgressTracker progress)
         {
+            if (info.Depth <= 3)
+                progress.SetMessage(string.Join(",", info.GetPath()));
+
             if (tree == null)
                 return null;
 
@@ -35,7 +38,7 @@ namespace Faze.Core.TreeMappers
                 visitedPaths.Add(pathHash);
             }
 
-            var children = tree.Children?.Select((child, i) => PathOrderInveriantHelper(child, info.Child(i), visitedPaths));
+            var children = tree.Children?.Select((child, i) => PathOrderInveriantHelper(child, info.Child(i), visitedPaths, progress));
             var newTree = new Tree<T>(tree.Value, children);
 
             return newTree;
