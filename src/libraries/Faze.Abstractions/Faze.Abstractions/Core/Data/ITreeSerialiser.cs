@@ -8,7 +8,7 @@ namespace Faze.Abstractions.Core
     /// <typeparam name="T"></typeparam>
     public interface ITreeSerialiser<T>
     {
-        void Serialize(TextWriter textWriter, Tree<T> tree);
+        void Serialize(TextWriter textWriter, Tree<T> tree, IProgressTracker progress = null);
         Tree<T> Deserialize(TextReader textReader);
     }
 }

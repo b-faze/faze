@@ -13,7 +13,10 @@ namespace Faze.Examples.Gallery.Services
     {
         private readonly IGalleryService galleryService;
 
-        public GalleryTreeDataProvider(IGalleryService galleryService, ITreeSerialiser<T> treeSerialiser) : base(treeSerialiser)
+        public GalleryTreeDataProvider(IGalleryService galleryService, ITreeSerialiser<T> treeSerialiser) : base(treeSerialiser, new FileTreeDataProviderConfig
+        {
+            UseCompression = false
+        })
         {
             this.galleryService = galleryService;
         }
@@ -23,9 +26,9 @@ namespace Faze.Examples.Gallery.Services
             return base.Load(galleryService.GetDataFilename(id));
         }
 
-        public override void Save(Tree<T> tree, string id)
+        public override void Save(Tree<T> tree, string id, IProgressTracker progress)
         {
-            base.Save(tree, galleryService.GetDataFilename(id));
+            base.Save(tree, galleryService.GetDataFilename(id), progress);
         }
     }
 }

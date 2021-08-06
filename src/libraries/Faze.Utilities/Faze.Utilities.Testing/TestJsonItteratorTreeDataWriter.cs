@@ -13,7 +13,7 @@ namespace Faze.Utilities.Testing
             this.treeSerialiser = new JsonTreeSerialiser<object>(new TestNullObjectSerialiser());
         }
 
-        public void Save(Tree<object> tree, string id)
+        public void Save(Tree<object> tree, string id, IProgressTracker progress = null)
         {
             using (Stream ms = new MemoryStream())
             using (TextWriter textWriter = new StreamWriter(ms))

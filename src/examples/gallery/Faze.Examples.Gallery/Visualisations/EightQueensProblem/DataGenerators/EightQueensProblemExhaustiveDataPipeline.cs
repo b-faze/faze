@@ -14,20 +14,25 @@ using System.Threading.Tasks;
 using Faze.Core.Extensions;
 using Faze.Examples.Games.GridGames;
 using Faze.Examples.Games.GridGames.Pieces;
+using Faze.Core.TreeMappers;
+using Faze.Core.TreeLinq;
+using Faze.Core.Data;
+using Faze.Core.IO;
+using Faze.Examples.Gallery.Services.Serialisers;
+using Faze.Examples.Gallery.Services;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
 {
     public class EightQueensProblemExhaustiveDataPipeline : IDataGenerator
     {
         private const int BoardSize = 8;
+        private const int MaxEvaluationDepth = 3;
         public const string Id = "EightQueensProblemSolutions_exhaustive";
         private readonly IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
-        private readonly ITreeMapper<IGameState<GridMove, SingleScoreResult?>, EightQueensProblemSolutionAggregate> resultsMapper;
 
         public EightQueensProblemExhaustiveDataPipeline(IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider)
         {
             this.treeDataProvider = treeDataProvider;
-            this.resultsMapper = new EightQueensProblemSolutionTreeMapper();
         }
 
         string IDataGenerator.Id => Id;
@@ -45,8 +50,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
         {
             var pipeline = ReversePipelineBuilder.Create()
                 .SaveTree(dataId, treeDataProvider)
-                .Map(resultsMapper)
-                .LimitDepth(3)
+                .Map(new EightQueensProblemSolutionTreeMapper(MaxEvaluationDepth))
                 .GameTree(new SquareTreeAdapter(BoardSize))
                 .Build(() => new PiecesBoardState(new PiecesBoardStateConfig(BoardSize, new QueenPiece(), onlySafeMoves: true)));
 

@@ -7,6 +7,6 @@
     /// <typeparam name="TTreeValue"></typeparam>
     public interface ITreeDataWriter<TId, TTreeValue>
     {
-        void Save(Tree<TTreeValue> tree, TId id);
+        void Save(Tree<TTreeValue> tree, TId id, IProgressTracker progress = null);
     }
 }

@@ -79,6 +79,9 @@ namespace Faze.Core.TreeLinq
 
             foreach (var child in tree.Children)
             {
+                if (child == null)
+                    continue;
+
                 foreach (var value in child.SelectDepthFirst())
                 {
                     yield return value;
@@ -110,6 +113,62 @@ namespace Faze.Core.TreeLinq
         }
 
         #endregion SelectBreadthFirst
+
+        #region SelectPath
+
+        public static IEnumerable<TValue> SelectPath<TValue>(this Tree<TValue> tree, IEnumerable<int> path)
+        {
+            if (tree == null)
+                yield break;
+
+            // yield root
+            yield return tree.Value;
+
+            foreach (var index in path)
+            {
+                tree = tree.Children?.ElementAtOrDefault(index);
+                if (tree == null)
+                    yield break;
+
+                yield return tree.Value;
+            }
+        }
+
+        #endregion SelectPath
+
+        #region Find
+
+        public static Tree<TValue> Find<TValue>(this Tree<TValue> tree, IEnumerable<int> path)
+        {
+            foreach (var index in path)
+            {
+                tree = tree.Children.ElementAt(index);
+            }
+
+            return tree;
+        }
+
+        public static bool TryFind<TValue>(this Tree<TValue> tree, IEnumerable<int> path, out Tree<TValue> foundTree)
+        {
+            foreach (var index in path)
+            {
+                tree = tree?.Children.ElementAtOrDefault(index);
+            }
+
+            foundTree = tree;
+
+            return tree != null;
+        }
+
+        #endregion Find
+
+        #region WithInfo 
+        public static Tree<(TValue value, TreeMapInfo info)> WithInfo<TValue>(this Tree<TValue> tree)
+        {
+            return MapValue(tree, (value, info) => (value, info));
+        }
+
+        #endregion WithInfo
 
         #region MapValue
 
@@ -253,5 +312,30 @@ namespace Faze.Core.TreeLinq
 
 
         #endregion Normalise
+
+        public static Tree<T> Evaluate<T>(this Tree<T> tree)
+        {
+            if (tree?.Children == null)
+                return tree;
+
+            return new Tree<T>(tree.Value, tree.Children.Select(c => Evaluate(c)).ToList());
+        }
+
+        public static Tree<T> Evaluate<T>(this Tree<T> tree, int maxDepth)
+        {
+            return EvaluateHelper(tree, TreeMapInfo.Root(), maxDepth);
+        }
+
+        public static Tree<T> EvaluateHelper<T>(this Tree<T> tree, TreeMapInfo info, int maxDepth)
+        {
+            if (info.Depth > maxDepth)
+                return tree;
+
+            if (tree?.Children == null)
+                return tree;
+
+            var children = tree.Children.Select((c, i) => EvaluateHelper(c, info.Child(i), maxDepth)).ToList();
+            return new Tree<T>(tree.Value, children);
+        }
     }
 }

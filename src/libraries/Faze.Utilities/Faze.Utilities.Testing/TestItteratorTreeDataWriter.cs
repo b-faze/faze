@@ -6,7 +6,7 @@ namespace Faze.Utilities.Testing
 {
     public class TestItteratorTreeDataWriter : ITreeDataWriter<string, object>
     {
-        public void Save(Tree<object> tree, string id)
+        public void Save(Tree<object> tree, string id, IProgressTracker progress = null)
         {
             var nodes = tree.SelectDepthFirst();
 

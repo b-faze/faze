@@ -27,7 +27,7 @@ namespace Faze.Core.IO
             return ToTree(treeDto);
         }
 
-        public void Serialize(TextWriter textWriter, Tree<T> tree)
+        public void Serialize(TextWriter textWriter, Tree<T> tree, IProgressTracker progress)
         {
             var serializer = new JsonSerializer();
             using (var writer = new JsonTextWriter(textWriter))
