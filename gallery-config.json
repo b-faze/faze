@@ -7,6 +7,7 @@
   "download-photos": "copy",
   "cleanup": true,
   "theme-path": "./src/pages/theme",
+  "theme-settings": "./src/pages/theme/settings.json",
   "footer": "b-faze 2021",
   "usage-stats": false
 }
