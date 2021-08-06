@@ -33,18 +33,6 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         {
             this.galleryService = galleryService;
             this.treeDataProvider = treeDataProvider;
-            //var treeSerialiser = new LeafTreeSerialiser<EightQueensProblemSolutionAggregate>(new EightQueensProblemSolutionAggregateSerialiser(), new LeafTreeSerialiserConfig<EightQueensProblemSolutionAggregate>
-            //{
-            //    AddTree = new AddTree<EightQueensProblemSolutionAggregate>((existing, value) =>
-            //    {
-            //        if (existing == null)
-            //            existing = new EightQueensProblemSolutionAggregate();
-
-            //        existing.Add(value);
-            //        return existing;
-            //    }, addWhileTraversing: true)
-            //});
-            //this.treeDataProvider = new GalleryTreeDataProvider<EightQueensProblemSolutionAggregate>(galleryService, treeSerialiser);
         }
 
         public ImageGeneratorMetaData GetMetaData()
@@ -210,7 +198,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 .GallerySave(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
                 .Paint(new EightQueensProblemPainter(painterConfig))
-                .Map(new MoveOrderInvariantTreeMapper())
+                .Map(new CommutativePathTreeMerger())
                 .LoadTree(EightQueensProblemExhaustiveDataPipeline.Id, treeDataProvider);
         }
     }

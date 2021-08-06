@@ -7,6 +7,6 @@ namespace Faze.Abstractions.Rendering
 {
     public interface ITreeStructureMapper
     {
-        Tree<T> Map<T>(Tree<T> tree, IProgressTracker progress);
+        Tree<T> Map<T>(Tree<T> tree, IProgressTracker progress = null);
     }
 }

@@ -13,7 +13,7 @@ using Shouldly;
 
 namespace Faze.Core.Tests.TreeMapperTests
 {
-    public class MoveOrderInvariantTreeMapperTests
+    public class CommutativePathTreeMergerTests
     {
         private const string Tree1Id = "tree1.json";
         private const string Tree1ExpectedId = "tree1_expected.json";
@@ -24,13 +24,13 @@ namespace Faze.Core.Tests.TreeMapperTests
         private const string Tree4Id = "tree4.json";
 
         private readonly IFileTreeDataProvider<int?> treeDataProvider;
-        private readonly MoveOrderInvariantTreeMapper treeMapper;
+        private readonly CommutativePathTreeMerger treeMapper;
 
-        public MoveOrderInvariantTreeMapperTests()
+        public CommutativePathTreeMergerTests()
         {
-            var basePath = @"../../../Resources/TreeMapper/MoveOrderInvariantTreeMapperTests";
+            var basePath = @"../../../Resources/TreeMapper/CommutativePathTreeMergerTests";
             this.treeDataProvider = new TestFileTreeDataProvider<int?>(basePath, new NullableIntSerialiser());
-            this.treeMapper = new MoveOrderInvariantTreeMapper();
+            this.treeMapper = new CommutativePathTreeMerger();
         }
 
         [Theory]

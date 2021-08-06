@@ -26,14 +26,13 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
     public class EightQueensProblemExhaustiveDataPipeline : IDataGenerator
     {
         private const int BoardSize = 8;
+        private const int MaxEvaluationDepth = 3;
         public const string Id = "EightQueensProblemSolutions_exhaustive";
         private readonly IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
 
-        public EightQueensProblemExhaustiveDataPipeline(IGalleryService galleryService, IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider)
+        public EightQueensProblemExhaustiveDataPipeline(IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider)
         {
             this.treeDataProvider = treeDataProvider;
-            //var treeSerialiser = new LeafTreeSerialiser<EightQueensProblemSolutionAggregate>(new EightQueensProblemSolutionAggregateSerialiser());
-            //this.treeDataProvider = new GalleryTreeDataProvider<EightQueensProblemSolutionAggregate>(galleryService, treeSerialiser);
         }
 
         string IDataGenerator.Id => Id;
@@ -51,57 +50,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
         {
             var pipeline = ReversePipelineBuilder.Create()
                 .SaveTree(dataId, treeDataProvider)
-                //.Map(resultsMapper)
-                //.LimitDepth(3)
-                //.Evaluate(3)
-                //.Map(new AggregateTreeMapper<EightQueensProblemSolutionAggregate>())
-                //.Evaluate()
-                //.Map<EightQueensProblemSolutionAggregate, IGameState<GridMove, SingleScoreResult?>>(t =>
-                //{
-                //    return t.MapValue(v =>
-                //    {
-                //        var result = v.GetResult();
-                //        if (result.HasValue)
-                //            return new EightQueensProblemSolutionAggregate(result.Value);
-
-                //        return new EightQueensProblemSolutionAggregate();
-                //    });
-                //})
-                //.Map<EightQueensProblemSolutionAggregate, IGameState<GridMove, SingleScoreResult?>>(t =>
-                //{
-                //    if (!t.IsLeaf())
-                //    {
-                //        return new Tree<EightQueensProblemSolutionAggregate>(new EightQueensProblemSolutionAggregate());
-                //    }
-
-                //    var gameResults = new MoveOrderInvariantTreeMapper2().Map(t.Value.ToStateTree(), NullProgressTracker.Instance)
-                //        .GetLeaves()
-                //        .Select(l => l.Value.GetResult());
-
-                //    var aggResult = new EightQueensProblemSolutionAggregate();
-                //    foreach (var result in gameResults)
-                //    {
-                //        if (result == null)
-                //            continue;
-
-                //        aggResult.Add(result.Value);
-                //    }
-
-                //    return new Tree<EightQueensProblemSolutionAggregate>(aggResult);
-                //})
-                .Map(new EightQueensProblemSolutionTreeMapper(3))
-                //.Map<EightQueensProblemSolutionAggregate, IGameState<GridMove, SingleScoreResult?>>(t =>
-                //{
-                //    return t.MapValue(v =>
-                //    {
-                //        var result = v.GetResult();
-                //        if (result.HasValue)
-                //            return new EightQueensProblemSolutionAggregate(result.Value);
-
-                //        return new EightQueensProblemSolutionAggregate();
-                //    });
-                //})
-                //.Map(new MoveOrderInvariantTreeMapper2())
+                .Map(new EightQueensProblemSolutionTreeMapper(MaxEvaluationDepth))
                 .GameTree(new SquareTreeAdapter(BoardSize))
                 .Build(() => new PiecesBoardState(new PiecesBoardStateConfig(BoardSize, new QueenPiece(), onlySafeMoves: true)));
 

@@ -6,14 +6,14 @@ namespace Faze.Core.Extensions
 {
     public static class TreeMapInfoExtensions
     {
-        public static string GetPathHash(this TreeMapInfo info, int? maxDepth = null, bool moveInvariant = false)
+        public static string GetPathHash(this TreeMapInfo info, int? maxDepth = null, bool ordered = false)
         {
             IEnumerable<int> path = info.GetPath();
 
             if (maxDepth.HasValue)
                 path = path.Take(maxDepth.Value);
 
-            if (moveInvariant)
+            if (ordered)
                 path = path.OrderBy(x => x);
 
             return string.Join(",", path);
