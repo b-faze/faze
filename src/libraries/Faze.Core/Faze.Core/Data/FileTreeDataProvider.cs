@@ -7,7 +7,6 @@ namespace Faze.Core.Data
     public class FileTreeDataProviderConfig
     {
         public bool UseCompression { get; set; }
-        public bool UseDecompression { get; set; }
     }
 
     public class FileTreeDataProvider<T> : IFileTreeDataProvider<T>
@@ -41,7 +40,7 @@ namespace Faze.Core.Data
         private Stream OpenRead(string file)
         {
             var fileStream = File.OpenRead(file);
-            if (config.UseDecompression)
+            if (config.UseCompression)
                 return new GZipStream(fileStream, CompressionMode.Decompress);
 
             return fileStream;

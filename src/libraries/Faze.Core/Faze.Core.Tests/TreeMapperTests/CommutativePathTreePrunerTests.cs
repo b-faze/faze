@@ -31,7 +31,7 @@ namespace Faze.Core.Tests.TreeMapperTests
         [InlineData(2, 5, 63, 21)]
         public void TestCases(int branchingFactor, int depth, int originalCount, int expectedCount)
         {
-            var tree = treeDataProvider.Load(new DynamicTreeOptions<string>(branchingFactor, depth, info => $"[{string.Join(",", info.GetPath())}]"));
+            var tree = treeDataProvider.Load(new DynamicTreeOptions<string>(branchingFactor, depth, info => $"[{info.GetPathHash()}]"));
 
             tree.SelectDepthFirst().Count().ShouldBe(originalCount);
 

@@ -15,7 +15,6 @@ namespace Faze.Examples.Gallery.Services
 
         public GalleryTreeDataProvider(IGalleryService galleryService, ITreeSerialiser<T> treeSerialiser) : base(treeSerialiser, new FileTreeDataProviderConfig
         {
-            UseDecompression = false,
             UseCompression = false
         })
         {
