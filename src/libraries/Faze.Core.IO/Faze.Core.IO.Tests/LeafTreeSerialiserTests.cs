@@ -8,13 +8,13 @@ using Xunit;
 
 namespace Faze.Core.IO.Tests
 {
-    public class JsonTreeSerialiserTests
+    public class LeafTreeSerialiserTests
     {
         private readonly ITreeSerialiser<int?> treeSerialiser;
 
-        public JsonTreeSerialiserTests()
+        public LeafTreeSerialiserTests()
         {
-            this.treeSerialiser = new JsonTreeSerialiser<int?>(new NullableIntSerialiser());
+            this.treeSerialiser = new LeafTreeSerialiser<int?>(new NullableIntSerialiser());
         }
 
         [Fact]
@@ -32,11 +32,11 @@ namespace Faze.Core.IO.Tests
             using (var ts = new StreamWriter(ms))
             {
                 treeSerialiser.Serialize(ts, tree);
+                ts.Flush();
                 content = ms.ToArray();
             }
 
             Tree<int?> deserialisedTree;
-
             using (var ms = new MemoryStream(content))
             using (var tr = new StreamReader(ms))
             {
@@ -44,6 +44,7 @@ namespace Faze.Core.IO.Tests
             }
 
             deserialisedTree.ShouldBe(tree);
+
         }
     }
 }
