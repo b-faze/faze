@@ -6,8 +6,7 @@
   "sort-media-by": "filename",
   "download-photos": "copy",
   "cleanup": true,
-  "theme": "flow",
-  "theme-style": "./src/pages/custom.css",
+  "theme-path": "./src/pages/theme",
   "footer": "b-faze 2021",
   "usage-stats": false
 }
