@@ -10,10 +10,9 @@ namespace Faze.Abstractions.Rendering
     /// <summary>
     /// Draws a tree that has had its nodes colored
     /// </summary>
-    public interface IPaintedTreeRenderer
+    public interface IPaintedTreeRenderer : IStreamer
     {
         Tree<T> GetVisible<T>(Tree<T> tree);
         void Draw(Tree<Color> tree);
-        void Save(Stream stream);
     }
 }

@@ -12,9 +12,19 @@ namespace Faze.Rendering.Video.Extensions
 {
     public static class ReversePipelineBuilderExtensions
     {
+        public static IReversePipelineBuilder<Stream> StreamStreamer(this IReversePipelineBuilder<IStreamer> builder)
+        {
+            return builder.Require<Stream>(stream => new StreamStreamer(stream));
+        }
+
         public static IReversePipelineBuilder<IEnumerable<Stream>> Merge(this IReversePipelineBuilder<Stream> builder)
         {
             return builder.Require<IEnumerable<Stream>>(streams => new ConcatenatedStream(streams));
+        }
+
+        public static IReversePipelineBuilder<IEnumerable<IStreamer>> MergeStreamers(this IReversePipelineBuilder<IStreamer> builder)
+        {
+            return builder.Require<IEnumerable<IStreamer>>(streamers => new EnumerableStreamer(streamers));
         }
 
         /// <summary>
@@ -24,9 +34,9 @@ namespace Faze.Rendering.Video.Extensions
         /// <param name="filename"></param>
         /// <param name="settings"></param>
         /// <returns></returns>
-        public static IReversePipelineBuilder<Stream> Video(this IReversePipelineBuilder builder, string filename, VideoFFMPEGSettings settings)
+        public static IReversePipelineBuilder<IStreamer> Video(this IReversePipelineBuilder builder, string filename, VideoFFMPEGSettings settings)
         {
-            return builder.Require<Stream>(frameStream =>
+            return builder.Require<IStreamer>(streamer =>
             {
                 var fps = settings.Fps;
                 var startInfo = new ProcessStartInfo
@@ -40,15 +50,16 @@ namespace Faze.Rendering.Video.Extensions
 
                 using (Process process = Process.Start(startInfo))
                 {
-                    using (frameStream)
-                    {         
-                        // TODO read with buffer to improve performance
-                        int b;
-                        while ((b = frameStream.ReadByte()) > -1)
-                        {
-                            process.StandardInput.BaseStream.WriteByte((byte)b);
-                        }
-                    }
+                    streamer.WriteToStream(process.StandardInput.BaseStream);
+                    //using (frameStream)
+                    //{         
+                    //    // TODO read with buffer to improve performance
+                    //    int b;
+                    //    while ((b = frameStream.ReadByte()) > -1)
+                    //    {
+                    //        process.StandardInput.BaseStream.WriteByte((byte)b);
+                    //    }
+                    //}
 
                     process.StandardInput.Flush();
                     process.StandardInput.Close();

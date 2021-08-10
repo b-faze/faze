@@ -25,7 +25,7 @@ namespace Faze.Examples.Gallery.Services
 
             using (var fs = File.OpenWrite(filePath))
             {
-                renderer.Save(fs);
+                renderer.WriteToStream(fs);
             }
         }
 
