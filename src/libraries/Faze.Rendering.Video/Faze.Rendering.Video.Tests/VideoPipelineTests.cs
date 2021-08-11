@@ -18,7 +18,7 @@ namespace Faze.Rendering.Video.Tests
 {
     public class VideoPipelineTests
     {
-        [Fact]
+        [Fact(Skip = "Manual")]
         public void CanPipeFramesToFFMPEG()
         {
             var pipeline = ReversePipelineBuilder.Create()
@@ -34,7 +34,7 @@ namespace Faze.Rendering.Video.Tests
             pipeline.Run(@"G:\test_images");
         }
 
-        [Fact]
+        [Fact(Skip = "Manual")]
         public void CanCreateIterativePipeline()
         {
             var treeSize = 3;

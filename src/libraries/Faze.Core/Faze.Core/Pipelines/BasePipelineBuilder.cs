@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Faze.Abstractions.Rendering;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Faze.Core.Pipelines

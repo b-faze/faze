@@ -97,6 +97,14 @@ namespace Faze.Core.Extensions
             });
         }
 
+        public static IReversePipelineBuilder<TIn> Iterate<TOut, TIn>(this IReversePipelineBuilder<IEnumerable<TOut>> builder, IIterater<TIn, TOut> iterater)
+        {
+            return builder.Require<TIn>(input =>
+            {
+                return iterater.GetEnumerable(input);
+            });
+        }
+
         public static IReversePipelineBuilder<Tree<T>> Evaluate<T>(this IReversePipelineBuilder<Tree<T>> builder)
         {
             return builder.Require<Tree<T>>(tree =>

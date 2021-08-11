@@ -326,7 +326,7 @@ namespace Faze.Core.TreeLinq
             return EvaluateHelper(tree, TreeMapInfo.Root(), maxDepth);
         }
 
-        public static Tree<T> EvaluateHelper<T>(this Tree<T> tree, TreeMapInfo info, int maxDepth)
+        private static Tree<T> EvaluateHelper<T>(this Tree<T> tree, TreeMapInfo info, int maxDepth)
         {
             if (info.Depth > maxDepth)
                 return tree;

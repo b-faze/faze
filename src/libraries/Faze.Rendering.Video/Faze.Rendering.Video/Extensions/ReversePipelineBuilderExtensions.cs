@@ -42,7 +42,7 @@ namespace Faze.Rendering.Video.Extensions
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "ffmpeg",
-                    Arguments = $"-y -f image2pipe -vcodec mjpeg -r {fps} -i - -vcodec mpeg4 -r {fps} {filename}",
+                    Arguments = $"-y -f image2pipe -vcodec mjpeg -r {fps} -i - -vcodec mpeg4 -r {fps} \"{filename}\"",
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
                     RedirectStandardError = true
@@ -50,7 +50,15 @@ namespace Faze.Rendering.Video.Extensions
 
                 using (Process process = Process.Start(startInfo))
                 {
-                    streamer.WriteToStream(process.StandardInput.BaseStream);
+                    try
+                    {
+                        streamer.WriteToStream(process.StandardInput.BaseStream);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
                     //using (frameStream)
                     //{         
                     //    // TODO read with buffer to improve performance

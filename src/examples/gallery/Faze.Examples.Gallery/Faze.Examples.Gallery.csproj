@@ -9,6 +9,7 @@
     <ProjectReference Include="..\..\..\libraries\Faze.Core.IO\Faze.Core.IO\Faze.Core.IO.csproj" />
     <ProjectReference Include="..\..\..\libraries\Faze.Core\Faze.Core\Faze.Core.csproj" />
     <ProjectReference Include="..\..\..\libraries\Faze.Engine\Faze.Engine\Faze.Engine.csproj" />
+    <ProjectReference Include="..\..\..\libraries\Faze.Rendering.Video\Faze.Rendering.Video\Faze.Rendering.Video.csproj" />
     <ProjectReference Include="..\..\..\libraries\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj" />
     <ProjectReference Include="..\..\games\Faze.Examples.Games\Faze.Examples.Games.csproj" />
   </ItemGroup>
