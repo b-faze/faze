@@ -10,16 +10,16 @@ namespace Faze.Utilities.Testing.Extensions
 {
     public static class TestImageRegressionServiceExtensions
     {
-        public static IReversePipelineBuilder<IPaintedTreeRenderer> TestImageDiffPipeline(this TestImageRegressionService service, string expectedImageId, string diffId = null)
+        public static IReversePipelineBuilder<IStreamer> TestImageDiffPipeline(this TestImageRegressionService service, string expectedImageId, string diffId = null)
         {
             return ReversePipelineBuilder.Create()
-                .Require<IPaintedTreeRenderer>(renderer => service.Compare(renderer, expectedImageId, diffId));
+                .Require<IStreamer>(renderer => service.Compare(renderer, expectedImageId, diffId));
         }
 
-        public static IReversePipelineBuilder<IPaintedTreeRenderer> GenerateTestCasePipeline(this TestImageRegressionService service, string expectedImageId)
+        public static IReversePipelineBuilder<IStreamer> GenerateTestCasePipeline(this TestImageRegressionService service, string expectedImageId)
         {
             return ReversePipelineBuilder.Create()
-                .Require<IPaintedTreeRenderer>(renderer => service.GenerateTestCase(renderer, expectedImageId));
+                .Require<IStreamer>(renderer => service.GenerateTestCase(renderer, expectedImageId));
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Faze.Abstractions.Core;
-using Faze.Examples.Gallery.Visualisations.EightQueensProblem;
-using System;
+using Faze.Examples.Gallery.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 

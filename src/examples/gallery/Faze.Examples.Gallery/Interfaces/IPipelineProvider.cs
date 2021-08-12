@@ -1,7 +1,5 @@
 ﻿using Faze.Abstractions.Core;
-using Faze.Examples.Gallery.Visualisations.EightQueensProblem;
-
-namespace Faze.Examples.Gallery
+namespace Faze.Examples.Gallery.Interfaces
 {
     public interface IPipelineProvider
     {

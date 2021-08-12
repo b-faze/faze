@@ -1,4 +1,5 @@
-﻿using Faze.Abstractions.Rendering;
+﻿using Faze.Abstractions.Core;
+using Faze.Abstractions.Rendering;
 using ImageDiff;
 using Shouldly;
 using System;
@@ -29,7 +30,7 @@ namespace Faze.Utilities.Testing
         /// <param name="expectedImageId"></param>
         /// <param name="diffOutputId">If set, the difference will be saved to this location</param>
         /// <returns></returns>
-        public void Compare(IPaintedTreeRenderer renderer, string expectedImageId, string diffOutputId = null)
+        public void Compare(IStreamer renderer, string expectedImageId, string diffOutputId = null)
         {
             var comparer = new BitmapComparer();
             var expectedImageFilename = GetExpectedImageFilename(expectedImageId);
@@ -67,7 +68,7 @@ namespace Faze.Utilities.Testing
             }
         }
 
-        internal void GenerateTestCase(IPaintedTreeRenderer renderer, string expectedImageId)
+        internal void GenerateTestCase(IStreamer renderer, string expectedImageId)
         {
             var filename = GetExpectedImageFilename(expectedImageId);
 

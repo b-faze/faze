@@ -1,6 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 
-namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
+namespace Faze.Examples.Gallery.Interfaces
 {
     public interface IVisualisationPipeline
     {

@@ -6,6 +6,8 @@ using Faze.Examples.Gallery.Services.Aggregates;
 using Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators;
 using Faze.Core.Extensions;
 using Faze.Core.TreeMappers;
+using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Extensions;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {

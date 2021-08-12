@@ -30,9 +30,9 @@ namespace Faze.Core.Extensions
             return builder.Require<IEnumerable<IStreamer>>(streamers => new EnumerableStreamer(streamers));
         }
 
-        public static IReversePipelineBuilder<IPaintedTreeRenderer> File(this IReversePipelineBuilder builder, string filename) 
+        public static IReversePipelineBuilder<IStreamer> File(this IReversePipelineBuilder builder, string filename) 
         {
-            return builder.Require<IPaintedTreeRenderer>(renderer => renderer.SaveToFile(filename));
+            return builder.Require<IStreamer>(renderer => renderer.SaveToFile(filename));
         }
 
         public static IReversePipelineBuilder<Tree<Color>> Render(this IReversePipelineBuilder<IStreamer> builder, IPaintedTreeRenderer renderer)

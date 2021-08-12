@@ -8,6 +8,8 @@ using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
 using System;
 using Faze.Core.TreeLinq;
+using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Extensions;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {

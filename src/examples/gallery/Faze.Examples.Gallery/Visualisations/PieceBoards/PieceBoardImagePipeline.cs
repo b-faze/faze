@@ -14,6 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Faze.Core.Extensions;
+using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Extensions;
 
 namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {

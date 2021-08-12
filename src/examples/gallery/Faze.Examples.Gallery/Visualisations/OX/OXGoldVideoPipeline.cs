@@ -12,6 +12,8 @@ using Faze.Examples.Games.OX;
 using Faze.Core.Adapters;
 using Faze.Engine.ResultTrees;
 using Faze.Engine.Simulators;
+using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Extensions;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {

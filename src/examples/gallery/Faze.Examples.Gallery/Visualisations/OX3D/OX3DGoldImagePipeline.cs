@@ -1,14 +1,14 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.GameResults;
-using Faze.Abstractions.Rendering;
 using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
-using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
 using System;
 using Faze.Core.TreeLinq;
 using Faze.Examples.Gallery.Visualisations.OX3D.DataGenerators;
+using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Extensions;
 
 namespace Faze.Examples.Gallery.Visualisations.OX3D
 {

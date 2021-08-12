@@ -1,5 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Examples.Gallery.Interfaces;
 using System.IO;
 
 namespace Faze.Examples.Gallery.Services

@@ -54,7 +54,6 @@ namespace Faze.Rendering.Video.Tests
                 .Video("video-border.mp4", new VideoFFMPEGSettings(24))
                 .Merge()
                 .Map(builder => builder
-                    .StreamRender()
                     .Render(renderer)
                 )
                 .Iterate(100, () =>

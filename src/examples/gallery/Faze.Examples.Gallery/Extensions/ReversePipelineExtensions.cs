@@ -1,8 +1,9 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
+using Faze.Examples.Gallery.Interfaces;
 using Faze.Rendering.Video.Extensions;
 
-namespace Faze.Examples.Gallery
+namespace Faze.Examples.Gallery.Extensions
 {
     public static class ReversePipelineExtensions
     {
