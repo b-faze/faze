@@ -8,10 +8,30 @@ using Faze.Core.Extensions;
 using Faze.Core.TreeMappers;
 using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.Gallery.Extensions;
+using Faze.Examples.Gallery.Services;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
-    public class EightQueensProblemImagePipeline : IVisualisationPipeline<EightQueensProblemImagePipelineConfig>
+    public class EightQueensProblemImagePipelineConfig : ISquareTreeRendererPipelineConfig
+    {
+        public int TreeSize { get; set; }
+        public int ImageSize { get; set; }
+        public float BorderProportion { get; set; }
+        public int MaxDepth { get; set; }
+        public bool BlackParentMoves { get; set; }
+        public bool BlackUnavailableMoves { get; set; }
+
+        public EightQueensProblemPainterConfig GetPainterConfig()
+        {
+            return new EightQueensProblemPainterConfig
+            {
+                BlackParentMoves = BlackParentMoves,
+                BlackUnavailableMoves = BlackUnavailableMoves
+            };
+        }
+    }
+
+    public class EightQueensProblemImagePipeline : BaseVisualisationPipeline<EightQueensProblemImagePipelineConfig>
     {
         private static readonly string DataId = EightQueensProblemExhaustiveDataPipeline.Id;
         private readonly IGalleryService galleryService;
@@ -24,21 +44,10 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         }
 
         public static readonly string Id = "Eight Queens Problem";
+        public override string GetId() => Id;
+        public override string GetDataId() => DataId;
 
-        string IVisualisationPipeline.Id => Id;
-        string IVisualisationPipeline.DataId => DataId;
-
-        public IPipeline Create(GalleryItemMetadata galleryMetaData)
-        {
-            if (galleryMetaData is GalleryItemMetadata<EightQueensProblemImagePipelineConfig> typedMetaData)
-            {
-                return Create(typedMetaData);
-            }
-
-            throw new NotSupportedException($"'{nameof(galleryMetaData)}' must be of generic type '{typeof(EightQueensProblemImagePipelineConfig)}'");
-        }
-
-        public IPipeline Create(GalleryItemMetadata<EightQueensProblemImagePipelineConfig> galleryMetaData)
+        public override IPipeline Create(GalleryItemMetadata<EightQueensProblemImagePipelineConfig> galleryMetaData)
         {
             var config = galleryMetaData.Config;
 
@@ -49,5 +58,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 .Map(new CommutativePathTreeMerger())
                 .LoadTree(DataId, treeDataProvider);
         }
+
+
     }
 }

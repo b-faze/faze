@@ -14,7 +14,7 @@ namespace Faze.Examples.Gallery.CLI.Extensions
         public static IServiceCollection AddSingletons<TInterface>(this IServiceCollection services, Assembly assembly)
         {
             var interfaceType = typeof(TInterface);
-            var types = assembly.GetTypes().Where(type => !type.IsInterface && type.GetInterfaces().Any(i => i == interfaceType)).ToArray();
+            var types = assembly.GetTypes().Where(type => !type.IsInterface && !type.IsAbstract && type.GetInterfaces().Any(i => i == interfaceType)).ToArray();
             foreach (var type in types)
             {
                 services.AddSingleton(interfaceType, type);

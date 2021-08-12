@@ -1,5 +1,4 @@
-﻿using Faze.Examples.Gallery.Visualisations.EightQueensProblem;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Faze.Examples.Gallery
 {

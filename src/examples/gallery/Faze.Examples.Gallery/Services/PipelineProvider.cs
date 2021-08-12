@@ -1,5 +1,4 @@
-﻿using Faze.Abstractions.Core;
-using Faze.Examples.Gallery.Interfaces;
+﻿using Faze.Examples.Gallery.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +10,7 @@ namespace Faze.Examples.Gallery.Services
 
         public PipelineProvider(IEnumerable<IVisualisationPipeline> pipelines)
         {
-            this.pipelines = pipelines.ToDictionary(x => x.Id, x => x);
+            this.pipelines = pipelines.ToDictionary(x => x.GetId(), x => x);
         }
 
         public IVisualisationPipeline GetPipeline(string id)

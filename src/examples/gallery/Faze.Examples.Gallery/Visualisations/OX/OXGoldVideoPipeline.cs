@@ -14,10 +14,20 @@ using Faze.Engine.ResultTrees;
 using Faze.Engine.Simulators;
 using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.Gallery.Extensions;
+using Faze.Examples.Gallery.Services;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
-    public class OXGoldVideoPipeline
+    public class OXGoldVideoPipelineConfig : ISquareTreeRendererPipelineConfig
+    {
+        public int TreeSize { get; set; }
+        public int ImageSize { get; set; }
+        public float BorderProportion { get; set; }
+        public int MaxDepth { get; set; }
+
+        public int LeafSimulations { get; set; }
+    }
+    public class OXGoldVideoPipeline : BaseVisualisationPipeline<OXGoldVideoPipelineConfig>
     {
         private readonly IGalleryService galleryService;
 
@@ -26,18 +36,24 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             this.galleryService = galleryService;
         }
 
-        public IPipeline Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, int maxDepth, int leafSimulations)
+        public static readonly string Id = "OX Gold Video";
+        public override string GetId() => Id;
+        public override string GetDataId() => null;
+
+        public override IPipeline Create(GalleryItemMetadata<OXGoldVideoPipelineConfig> galleryMetadata)
         {
+            var config = galleryMetadata.Config;
+
             return ReversePipelineBuilder.Create()
-                .GalleryVideo(galleryService, galleryMetaData)
+                .GalleryVideo(galleryService, galleryMetadata)
                 .Merge()
                 .Map(builder => builder
-                    .Render(new SquareTreeRenderer(rendererConfig))
+                    .Render(new SquareTreeRenderer(config.GetRendererOptions()))
                     .Paint(new GoldInterpolator())
                     .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
                 )
-                .Iterate(new WinLoseDrawResultsTreeIterater(new GameSimulator(), leafSimulations))
-                .LimitDepth(maxDepth)
+                .Iterate(new WinLoseDrawResultsTreeIterater(new GameSimulator(), config.LeafSimulations))
+                .LimitDepth(config.MaxDepth)
                 .GameTree(new SquareTreeAdapter(3))
                 .Build(() => OXState.Initial);
         }
