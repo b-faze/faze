@@ -337,6 +337,136 @@
       "variation": "1",
       "depth": 3
     },
+    "OX3D Gold 1 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1
+      },
+      "fileId": "OX3D Gold 1 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "1",
+      "depth": 1
+    },
+    "V2 OX3D Gold 1 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 1
+      },
+      "fileId": "V2 OX3D Gold 1 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "2",
+      "depth": 1
+    },
+    "OX3D Gold 2 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2
+      },
+      "fileId": "OX3D Gold 2 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "1",
+      "depth": 2
+    },
+    "V2 OX3D Gold 2 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 2
+      },
+      "fileId": "V2 OX3D Gold 2 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "2",
+      "depth": 2
+    },
+    "OX3D Gold 3 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3
+      },
+      "fileId": "OX3D Gold 3 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "1",
+      "depth": 3
+    },
+    "V2 OX3D Gold 3 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 3
+      },
+      "fileId": "V2 OX3D Gold 3 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "2",
+      "depth": 3
+    },
+    "OX3D Gold 4 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 4
+      },
+      "fileId": "OX3D Gold 4 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "1",
+      "depth": 4
+    },
+    "V2 OX3D Gold 4 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 4
+      },
+      "fileId": "V2 OX3D Gold 4 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "2",
+      "depth": 4
+    },
+    "OX3D Gold 5 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 5
+      },
+      "fileId": "OX3D Gold 5 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "1",
+      "depth": 5
+    },
+    "V2 OX3D Gold 5 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 5
+      },
+      "fileId": "V2 OX3D Gold 5 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX 3D Gold",
+      "variation": "2",
+      "depth": 5
+    },
     "8 Queens Problem Solutions depth 1.png": {
       "config": {
         "TreeSize": 8,
