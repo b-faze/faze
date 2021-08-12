@@ -35,12 +35,7 @@ namespace Faze.Core.Extensions
             return builder.Require<IPaintedTreeRenderer>(renderer => renderer.SaveToFile(filename));
         }
 
-        public static IReversePipelineBuilder<IPaintedTreeRenderer> StreamRender(this IReversePipelineBuilder<IStreamer> builder)
-        {
-            return builder.Require<IPaintedTreeRenderer>(renderer => renderer);
-        }
-
-        public static IReversePipelineBuilder<Tree<Color>> Render(this IReversePipelineBuilder<IPaintedTreeRenderer> builder, IPaintedTreeRenderer renderer)
+        public static IReversePipelineBuilder<Tree<Color>> Render(this IReversePipelineBuilder<IStreamer> builder, IPaintedTreeRenderer renderer)
         {
             return builder.Require<Tree<Color>>(tree =>
             {

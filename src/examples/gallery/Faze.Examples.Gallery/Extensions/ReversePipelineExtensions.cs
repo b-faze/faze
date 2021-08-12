@@ -6,9 +6,9 @@ namespace Faze.Examples.Gallery
 {
     public static class ReversePipelineExtensions
     {
-        public static IReversePipelineBuilder<IPaintedTreeRenderer> GallerySave(this IReversePipelineBuilder builder, IGalleryService galleryService, GalleryItemMetadata data)
+        public static IReversePipelineBuilder<IStreamer> GalleryImage(this IReversePipelineBuilder builder, IGalleryService galleryService, GalleryItemMetadata data)
         {
-            return builder.Require<IPaintedTreeRenderer>(renderer => galleryService.Save(renderer, data));
+            return builder.Require<IStreamer>(renderer => galleryService.Save(renderer, data));
         }
 
         public static IReversePipelineBuilder<IStreamer> GalleryVideo(this IReversePipelineBuilder builder, IGalleryService galleryService, GalleryItemMetadata data)

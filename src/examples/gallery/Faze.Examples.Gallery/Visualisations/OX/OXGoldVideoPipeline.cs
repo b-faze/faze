@@ -30,7 +30,6 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .GalleryVideo(galleryService, galleryMetaData)
                 .Merge()
                 .Map(builder => builder
-                    .StreamRender()
                     .Render(new SquareTreeRenderer(rendererConfig))
                     .Paint(new GoldInterpolator())
                     .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))

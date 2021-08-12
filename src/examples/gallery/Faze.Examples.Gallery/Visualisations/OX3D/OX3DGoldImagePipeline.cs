@@ -27,7 +27,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX3D
         public IPipeline Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, Func<WinLoseDrawResultAggregate, double> fn)
         {
             return ReversePipelineBuilder.Create()
-                .GallerySave(galleryService, galleryMetaData)
+                .GalleryImage(galleryService, galleryMetaData)
                 .Render(new SquareTreeRenderer(rendererConfig))
                 .Paint(new GoldInterpolator())
                 .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(fn))
