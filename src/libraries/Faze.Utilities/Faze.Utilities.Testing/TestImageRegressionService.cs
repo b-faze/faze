@@ -42,7 +42,7 @@ namespace Faze.Utilities.Testing
             using (var expectedBitmap = new Bitmap(expectedImageFilename))
             using (var memoryStream = new MemoryStream())
             {
-                renderer.Save(memoryStream);
+                renderer.WriteToStream(memoryStream);
                 var actualBitmap = new Bitmap(memoryStream);
 
                 var isEqual = comparer.Equals(actualBitmap, expectedBitmap);
@@ -73,7 +73,7 @@ namespace Faze.Utilities.Testing
 
             using (var fs = File.OpenWrite(filename))
             {
-                renderer.Save(fs);
+                renderer.WriteToStream(fs);
             }
         }
 

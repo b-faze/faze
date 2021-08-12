@@ -24,7 +24,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX.DataGenerators
 
         public IPipeline Create(string dataId, int simulations, int depth)
         {
-            ITreeMapper<IGameState<GridMove, WinLoseDrawResult?>, WinLoseDrawResultAggregate> resultsMapper = new WinLoseDrawResultsTreeMapper(new GameSimulator(), simulations);
+            var resultsMapper = new WinLoseDrawResultsTreeMapper(new GameSimulator(), simulations);
 
             var pipeline = ReversePipelineBuilder.Create()
                 .SaveTree(dataId, treeDataProvider)

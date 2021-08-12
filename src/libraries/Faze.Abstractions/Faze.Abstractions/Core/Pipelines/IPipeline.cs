@@ -28,4 +28,9 @@ namespace Faze.Abstractions.Core
         /// <param name="progress">Used to give progress feedback from within the pipeline</param>
         void Run(TInput input, IProgressTracker progress = null);
     }
+
+    public interface IPipeline<TInput, TOutput>
+    {
+        TOutput Run(TInput input, IProgressTracker progress = null);
+    }
 }
