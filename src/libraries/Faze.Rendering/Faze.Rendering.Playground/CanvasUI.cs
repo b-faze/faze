@@ -71,7 +71,7 @@ namespace Faze.Rendering.Playground
             pictureBox.Image?.Dispose();
             using (var ms = new MemoryStream())
             {
-                renderer.Save(ms);
+                renderer.WriteToStream(ms);
                 pictureBox.Image = Image.FromStream(ms);
             }
 

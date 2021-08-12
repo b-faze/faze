@@ -72,7 +72,7 @@ namespace Faze.Rendering.TreeRenderers
             DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, options.MaxDepth);
         }
 
-        public void Save(Stream stream)
+        public void WriteToStream(Stream stream)
         {
             using SKImage image = surface.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);

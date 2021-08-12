@@ -43,7 +43,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
 
             using (var ms = new MemoryStream())
             {
-                renderer.Save(ms);
+                renderer.WriteToStream(ms);
                 var img = Image.FromStream(ms);
             }
 
@@ -63,7 +63,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
 
             using (var ms = new MemoryStream())
             {
-                renderer.Save(ms);
+                renderer.WriteToStream(ms);
                 var img = Image.FromStream(ms);
             }
         }

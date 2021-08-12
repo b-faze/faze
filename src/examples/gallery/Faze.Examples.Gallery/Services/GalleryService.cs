@@ -1,4 +1,5 @@
-﻿using Faze.Abstractions.Rendering;
+﻿using Faze.Abstractions.Core;
+using Faze.Abstractions.Rendering;
 using System;
 using System.IO;
 
@@ -13,7 +14,7 @@ namespace Faze.Examples.Gallery.Services
             this.config = config;
         }
 
-        public void Save(IPaintedTreeRenderer renderer, GalleryItemMetadata data)
+        public void Save(IStreamer streamer, GalleryItemMetadata data)
         {
             var filePath = GetImageFilename(data);
 
@@ -25,7 +26,7 @@ namespace Faze.Examples.Gallery.Services
 
             using (var fs = File.OpenWrite(filePath))
             {
-                renderer.Save(fs);
+                streamer.WriteToStream(fs);
             }
         }
 

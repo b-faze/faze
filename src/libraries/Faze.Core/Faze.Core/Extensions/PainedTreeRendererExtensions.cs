@@ -12,7 +12,7 @@ namespace Faze.Core.Extensions
         {
             using (var fs = File.OpenWrite(filename))
             {
-                renderer.Save(fs);
+                renderer.WriteToStream(fs);
             }
         }
     }

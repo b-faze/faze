@@ -2,17 +2,42 @@
 using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Extensions;
+using Faze.Core.Pipelines;
+using Faze.Core.Streamers;
 using Faze.Core.TreeLinq;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 
 namespace Faze.Core.Extensions
 {
     public static class ReversePipelineExtensions
     {
+        public static IReversePipelineBuilder<Stream> StreamStreamer(this IReversePipelineBuilder<IStreamer> builder)
+        {
+            return builder.Require<Stream>(stream => new StreamStreamer(stream));
+        }
+
+        public static IReversePipelineBuilder<IEnumerable<Stream>> Merge(this IReversePipelineBuilder<Stream> builder)
+        {
+            return builder.Require<IEnumerable<Stream>>(streams => new ConcatenatedStream(streams));
+        }
+
+        public static IReversePipelineBuilder<IEnumerable<IStreamer>> Merge(this IReversePipelineBuilder<IStreamer> builder)
+        {
+            return builder.Require<IEnumerable<IStreamer>>(streamers => new EnumerableStreamer(streamers));
+        }
+
         public static IReversePipelineBuilder<IPaintedTreeRenderer> File(this IReversePipelineBuilder builder, string filename) 
         {
             return builder.Require<IPaintedTreeRenderer>(renderer => renderer.SaveToFile(filename));
+        }
+
+        public static IReversePipelineBuilder<IPaintedTreeRenderer> StreamRender(this IReversePipelineBuilder<IStreamer> builder)
+        {
+            return builder.Require<IPaintedTreeRenderer>(renderer => renderer);
         }
 
         public static IReversePipelineBuilder<Tree<Color>> Render(this IReversePipelineBuilder<IPaintedTreeRenderer> builder, IPaintedTreeRenderer renderer)
@@ -48,6 +73,13 @@ namespace Faze.Core.Extensions
             });
         }
 
+        public static IReversePipelineBuilder<IEnumerable<TIn>> Map<TOut, TIn>(this IReversePipelineBuilder<IEnumerable<TOut>> builder, Func<IReversePipelineBuilder<TOut>, IReversePipelineBuilder<TIn>> innerBuilderFactory)
+        {
+            var innerBuilder = (IReversePipelineBuilder<TOut, TIn>)innerBuilderFactory((IReversePipelineBuilder<TOut>)ReversePipelineBuilder.Create().Require<TOut>());
+            var pipeline = innerBuilder.Build();
+            return builder.Require<IEnumerable<TIn>>(items => items.Select(item => pipeline.Run(item)));
+        }
+
         public static IReversePipelineBuilder<Tree<TIn>> Map<TOut, TIn>(this IReversePipelineBuilder<Tree<TOut>> builder, Func<Tree<TIn>, Tree<TOut>> fn)
         {
             return builder.Require(fn);
@@ -67,7 +99,27 @@ namespace Faze.Core.Extensions
             {
                 return mapper.Map(tree, progress);
             });
-        }           
+        }
+
+        public static IReversePipelineBuilder<T> Iterate<T>(this IReversePipelineBuilder<IEnumerable<T>> builder, int n, Action fn)
+        {
+            return builder.Require<T>(input =>
+            {
+                return Enumerable.Range(0, n).Select(_ =>
+                {
+                    fn();
+                    return input;
+                });
+            });
+        }
+
+        public static IReversePipelineBuilder<TIn> Iterate<TOut, TIn>(this IReversePipelineBuilder<IEnumerable<TOut>> builder, IIterater<TIn, TOut> iterater)
+        {
+            return builder.Require<TIn>(input =>
+            {
+                return iterater.GetEnumerable(input);
+            });
+        }
 
         public static IReversePipelineBuilder<Tree<T>> Evaluate<T>(this IReversePipelineBuilder<Tree<T>> builder)
         {

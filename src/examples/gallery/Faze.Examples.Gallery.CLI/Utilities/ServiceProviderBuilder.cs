@@ -46,6 +46,7 @@ namespace Faze.Examples.Gallery.CLI.Utilities
 
                 .AddSingleton<OXSimulatedDataPipeline>()
                 .AddSingleton<OX3DSimulatedDataPipeline>()
+                .AddSingleton<OXGoldVideoPipeline>()
                 .AddSingleton<OXGoldImagePipeline>()
                 .AddSingleton<OX3DGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()

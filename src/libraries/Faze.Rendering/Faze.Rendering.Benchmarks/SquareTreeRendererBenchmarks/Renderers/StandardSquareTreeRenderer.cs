@@ -79,7 +79,7 @@ namespace Faze.Rendering.TreeRenderers
             this.bitmap?.Dispose();
         }
 
-        public void Save(Stream stream)
+        public void WriteToStream(Stream stream)
         {
             bitmap.Save(stream, ImageFormat.Png);
         }

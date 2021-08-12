@@ -14,14 +14,19 @@ namespace Faze.Core.Pipelines
             return new ReversePipelineBuilder();
         }
 
+        public IReversePipelineBuilder<T, T> Require<T>()
+        {
+            return new ReversePipelineBuilder<T, T>(input => input);
+        }
+
         public IReversePipelineBuilder<TRequired> Require<TRequired>(Action<TRequired> fn)
         {
-            return new PipelineBuilder<TRequired>(fn);
+            return new ReversePipelineBuilder<TRequired>(fn);
         }
 
         public IReversePipelineBuilder<TRequired> Require<TRequired>(Action<TRequired, IProgressTracker> fn)
         {
-            return new PipelineBuilder<TRequired>(fn);
+            return new ReversePipelineBuilder<TRequired>(fn);
         }
     }
 }
