@@ -19,7 +19,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 Album = Albums.OX,
                 PipelineId = OXGoldVideoPipeline.Id,
                 Depth = depth,
-                Variation = 1,
+                Variation = "1",
                 Config = new OXGoldVideoPipelineConfig
                 {
                     TreeSize = 3,

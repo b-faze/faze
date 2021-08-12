@@ -1,5 +1,185 @@
 {
   "itemMetadata": {
+    "Pawn Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Pawn",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Pawn Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Pawn",
+      "depth": 6
+    },
+    "Knight Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Knight",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Knight Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Knight",
+      "depth": 6
+    },
+    "Bishop Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Bishop",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Bishop Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Bishop",
+      "depth": 6
+    },
+    "Rook Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Rook",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Rook Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Rook",
+      "depth": 6
+    },
+    "Queen Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Queen",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Queen Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Queen",
+      "depth": 6
+    },
+    "King Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "King",
+        "OnlySafeMoves": false
+      },
+      "fileId": "King Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "King",
+      "depth": 6
+    },
+    "Pawn Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Pawn",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Pawn Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Pawn",
+      "depth": 6
+    },
+    "Knight Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Knight",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Knight Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Knight",
+      "depth": 6
+    },
+    "Bishop Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Bishop",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Bishop Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Bishop",
+      "depth": 6
+    },
+    "Rook Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Rook",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Rook Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Rook",
+      "depth": 6
+    },
+    "Queen Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Queen",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Queen Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "Queen",
+      "depth": 6
+    },
+    "King Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "King",
+        "OnlySafeMoves": false
+      },
+      "fileId": "King Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "Piece Board Depth",
+      "variation": "King",
+      "depth": 6
+    },
     "V1 OX Gold 1.png": {
       "config": {
         "TreeSize": 3,
@@ -10,7 +190,7 @@
       "fileId": "V1 OX Gold 1.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 1,
+      "variation": "1",
       "depth": 1
     },
     "V1 OX Gold 2.png": {
@@ -23,7 +203,7 @@
       "fileId": "V1 OX Gold 2.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 1,
+      "variation": "1",
       "depth": 2
     },
     "V1 OX Gold 3.png": {
@@ -36,7 +216,7 @@
       "fileId": "V1 OX Gold 3.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 1,
+      "variation": "1",
       "depth": 3
     },
     "V1 OX Gold 4.png": {
@@ -49,7 +229,7 @@
       "fileId": "V1 OX Gold 4.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 1,
+      "variation": "1",
       "depth": 4
     },
     "V1 OX Gold 5.png": {
@@ -62,7 +242,7 @@
       "fileId": "V1 OX Gold 5.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 1,
+      "variation": "1",
       "depth": 5
     },
     "V1 OX Gold 6.png": {
@@ -75,7 +255,7 @@
       "fileId": "V1 OX Gold 6.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 1,
+      "variation": "1",
       "depth": 6
     },
     "V1 OX Gold 7.png": {
@@ -88,7 +268,7 @@
       "fileId": "V1 OX Gold 7.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 1,
+      "variation": "1",
       "depth": 7
     },
     "V2 OX Gold 1.png": {
@@ -101,7 +281,7 @@
       "fileId": "V2 OX Gold 1.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 2,
+      "variation": "2",
       "depth": 1
     },
     "V2 OX Gold 2.png": {
@@ -114,7 +294,7 @@
       "fileId": "V2 OX Gold 2.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 2,
+      "variation": "2",
       "depth": 2
     },
     "V2 OX Gold 3.png": {
@@ -127,7 +307,7 @@
       "fileId": "V2 OX Gold 3.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 2,
+      "variation": "2",
       "depth": 3
     },
     "V2 OX Gold 4.png": {
@@ -140,7 +320,7 @@
       "fileId": "V2 OX Gold 4.png",
       "album": "OX",
       "pipelineId": "OX Gold",
-      "variation": 2,
+      "variation": "2",
       "depth": 4
     },
     "OX Gold 3.mp4": {
@@ -154,7 +334,7 @@
       "fileId": "OX Gold 3.mp4",
       "album": "OX",
       "pipelineId": "OX Gold Video",
-      "variation": 1,
+      "variation": "1",
       "depth": 3
     },
     "8 Queens Problem Solutions depth 1.png": {
@@ -169,7 +349,7 @@
       "fileId": "8 Queens Problem Solutions depth 1.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 1
     },
     "Var 2 8QP Solutions depth 1.png": {
@@ -184,7 +364,7 @@
       "fileId": "Var 2 8QP Solutions depth 1.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 1
     },
     "Var 3 8QP Solutions depth 1.png": {
@@ -199,7 +379,7 @@
       "fileId": "Var 3 8QP Solutions depth 1.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 1
     },
     "Var 4 8QP Solutions depth 1.png": {
@@ -214,7 +394,7 @@
       "fileId": "Var 4 8QP Solutions depth 1.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 1
     },
     "8 Queens Problem Solutions depth 2.png": {
@@ -229,7 +409,7 @@
       "fileId": "8 Queens Problem Solutions depth 2.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 2
     },
     "Var 2 8QP Solutions depth 2.png": {
@@ -244,7 +424,7 @@
       "fileId": "Var 2 8QP Solutions depth 2.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 2
     },
     "Var 3 8QP Solutions depth 2.png": {
@@ -259,7 +439,7 @@
       "fileId": "Var 3 8QP Solutions depth 2.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 2
     },
     "Var 4 8QP Solutions depth 2.png": {
@@ -274,7 +454,7 @@
       "fileId": "Var 4 8QP Solutions depth 2.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 2
     },
     "8 Queens Problem Solutions depth 3.png": {
@@ -289,7 +469,7 @@
       "fileId": "8 Queens Problem Solutions depth 3.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 3
     },
     "Var 2 8QP Solutions depth 3.png": {
@@ -304,7 +484,7 @@
       "fileId": "Var 2 8QP Solutions depth 3.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 3
     },
     "Var 3 8QP Solutions depth 3.png": {
@@ -319,7 +499,7 @@
       "fileId": "Var 3 8QP Solutions depth 3.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 3
     },
     "Var 4 8QP Solutions depth 3.png": {
@@ -334,7 +514,7 @@
       "fileId": "Var 4 8QP Solutions depth 3.png",
       "album": "Eight Queens Problem",
       "pipelineId": "Eight Queens Problem",
-      "variation": 1,
+      "variation": "1",
       "depth": 3
     }
   }

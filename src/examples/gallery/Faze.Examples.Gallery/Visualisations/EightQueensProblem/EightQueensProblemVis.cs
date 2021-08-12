@@ -24,7 +24,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 FileId = $"8 Queens Problem Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
-                Variation = 1,
+                Variation = "1",
                 Depth = depth,
                 Config = new EightQueensProblemImagePipelineConfig
                 {
@@ -44,7 +44,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 FileId = $"Var 2 8QP Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
-                Variation = 1,
+                Variation = "1",
                 Depth = depth,
                 Config = new EightQueensProblemImagePipelineConfig
                 {
@@ -63,7 +63,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 FileId = $"Var 3 8QP Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
-                Variation = 1,
+                Variation = "1",
                 Depth = depth,
                 Config = new EightQueensProblemImagePipelineConfig
                 {
@@ -81,7 +81,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 FileId = $"Var 4 8QP Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
-                Variation = 1,
+                Variation = "1",
                 Depth = depth,
                 Config = new EightQueensProblemImagePipelineConfig
                 {

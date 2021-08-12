@@ -14,7 +14,7 @@ namespace Faze.Examples.Gallery
         public string PipelineId { get; set; }
 
         [JsonProperty("variation")]
-        public int Variation { get; set; }
+        public string Variation { get; set; }
 
         [JsonProperty("depth")]
         public int Depth { get; set; }
