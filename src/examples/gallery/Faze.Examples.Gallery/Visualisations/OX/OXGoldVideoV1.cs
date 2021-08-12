@@ -30,7 +30,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
 
             var metaData = new GalleryItemMetadata
             {
-                FileName = id,
+                FileId = id,
                 Album = Albums.OX,
             };
 

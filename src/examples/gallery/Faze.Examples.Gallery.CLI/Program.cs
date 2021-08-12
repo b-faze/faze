@@ -19,10 +19,11 @@ namespace Faze.Examples.Gallery.CLI
 
             try
             {
-                result = await Parser.Default.ParseArguments<GenerateDataCommand, GenerateImagesCommand>(args)
+                result = await Parser.Default.ParseArguments<GenerateDataCommand, GenerateImagesCommand, GenerateSettingsCommand>(args)
                     .MapResult(
                         (GenerateDataCommand o) => mediator.Send(o),
                         (GenerateImagesCommand o) => mediator.Send(o),
+                        (GenerateSettingsCommand o) => mediator.Send(o),
                         (CheckImagesCommand o) => mediator.Send(o),
                         err => Task.FromResult(1));
 

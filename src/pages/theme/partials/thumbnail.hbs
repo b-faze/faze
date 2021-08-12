@@ -5,7 +5,6 @@
 <div class="albumList"
     data-sub-html="{{meta.caption}}"
     data-download-url="{{relative urls.download}}"
-    data-infohtml="{{>imgInfo}}"
 
     {{~#if isVideo~}}
         data-html="#media{{id}}"
@@ -59,4 +58,10 @@
             <img src="{{relative 'public/play.png'}}" />
         </div>
     {{/compare}}
+
+    <div class="itemInfoHtml" style="display:none;">
+        <div class="itemInfo">
+            {{>itemInfo (item_metadata @root.settings filename)}}
+        </div>
+    </div>
 </div>

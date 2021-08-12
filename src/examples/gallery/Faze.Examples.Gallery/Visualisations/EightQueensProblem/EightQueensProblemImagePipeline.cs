@@ -13,6 +13,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
     public class EightQueensProblemImagePipeline : IVisualisationPipeline<EightQueensProblemImagePipelineConfig>
     {
+        private static readonly string DataId = EightQueensProblemExhaustiveDataPipeline.Id;
         private readonly IGalleryService galleryService;
         private readonly IFileTreeDataProvider<EightQueensProblemSolutionAggregate> treeDataProvider;
 
@@ -25,6 +26,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         public static readonly string Id = "Eight Queens Problem";
 
         string IVisualisationPipeline.Id => Id;
+        string IVisualisationPipeline.DataId => DataId;
 
         public IPipeline Create(GalleryItemMetadata galleryMetaData)
         {
@@ -45,7 +47,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
                 .Render(new SquareTreeRenderer(config.GetRendererOptions()))
                 .Paint(new EightQueensProblemPainter(config.GetPainterConfig()))
                 .Map(new CommutativePathTreeMerger())
-                .LoadTree(EightQueensProblemExhaustiveDataPipeline.Id, treeDataProvider);
+                .LoadTree(DataId, treeDataProvider);
         }
     }
 }

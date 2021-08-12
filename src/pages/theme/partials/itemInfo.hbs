@@ -1,0 +1,21 @@
+<div>
+    <a class="badge badge-pipeline" title="Pipeline">
+        {{pipelineId}}
+    </a>
+    <a class="badge badge-variation" title="Variation">
+        Var {{variation}}
+    </a>
+    <span class="badge badge-depth" title="Depth">
+        Depth {{depth}}
+    </span>
+</div>
+
+<p>
+    {{description}}
+</p>
+
+<h1>Config</h1>
+
+<p>
+    {{>itemInfoConfig (object_key_values config)}}
+</p>

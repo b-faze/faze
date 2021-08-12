@@ -21,7 +21,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         {
             return new GalleryItemMetadata<EightQueensProblemImagePipelineConfig>
             {
-                FileName = $"8 Queens Problem Solutions depth {depth}.png",
+                FileId = $"8 Queens Problem Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
                 Variation = 1,
@@ -41,7 +41,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         {
             return new GalleryItemMetadata<EightQueensProblemImagePipelineConfig>
             {
-                FileName = $"Var 2 8QP Solutions depth {depth}.png",
+                FileId = $"Var 2 8QP Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
                 Variation = 1,
@@ -60,7 +60,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         {
             return new GalleryItemMetadata<EightQueensProblemImagePipelineConfig>
             {
-                FileName = $"Var 3 8QP Solutions depth {depth}.png",
+                FileId = $"Var 3 8QP Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
                 Variation = 1,
@@ -78,7 +78,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         {
             return new GalleryItemMetadata<EightQueensProblemImagePipelineConfig>
             {
-                FileName = $"Var 4 8QP Solutions depth {depth}.png",
+                FileId = $"Var 4 8QP Solutions depth {depth}.png",
                 Album = Albums.EightQueensProblem,
                 PipelineId = EightQueensProblemImagePipeline.Id,
                 Variation = 1,

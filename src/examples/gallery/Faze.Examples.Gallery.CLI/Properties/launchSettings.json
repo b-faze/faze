@@ -11,6 +11,10 @@
     "generate-images": {
       "commandName": "Project",
       "commandLineArgs": "generate-images"
+    },
+    "generate-settings": {
+      "commandName": "Project",
+      "commandLineArgs": "generate-settings --output \"../../../../../../pages/theme/settings.json\""
     }
   }
 }

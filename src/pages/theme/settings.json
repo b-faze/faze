@@ -1,12 +1,184 @@
 {
-    "simple": "yes!",
-    "complex": {
-        "a": "yes!!",
-        "8 Queens Problem Solutions depth 1.png": "ooooo"
+  "itemMetadata": {
+    "8 Queens Problem Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1,
+        "BlackParentMoves": true,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "8 Queens Problem Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 1
     },
-    "imageData": {
-        "8 Queens Problem Solutions depth 1.png": {
-            "hunch": "boo"
-        }
+    "Var 2 8QP Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "Var 2 8QP Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 1
+    },
+    "Var 3 8QP Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 3 8QP Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 1
+    },
+    "Var 4 8QP Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.1,
+        "MaxDepth": 1,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 4 8QP Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 1
+    },
+    "8 Queens Problem Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2,
+        "BlackParentMoves": true,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "8 Queens Problem Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 2
+    },
+    "Var 2 8QP Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "Var 2 8QP Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 2
+    },
+    "Var 3 8QP Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 3 8QP Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 2
+    },
+    "Var 4 8QP Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.1,
+        "MaxDepth": 2,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 4 8QP Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 2
+    },
+    "8 Queens Problem Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3,
+        "BlackParentMoves": true,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "8 Queens Problem Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 3
+    },
+    "Var 2 8QP Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "Var 2 8QP Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 3
+    },
+    "Var 3 8QP Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 3 8QP Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 3
+    },
+    "Var 4 8QP Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.1,
+        "MaxDepth": 3,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 4 8QP Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "Eight Queens Problem",
+      "variation": 1,
+      "depth": 3
     }
+  }
 }
