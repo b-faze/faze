@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Faze.Rendering.Video.Extensions
+namespace Faze.Core.Streamers
 {
-    public class EnumerableStreamer : IStreamer
+    internal class EnumerableStreamer : IStreamer
     {
         private readonly IEnumerable<IStreamer> streamers;
 

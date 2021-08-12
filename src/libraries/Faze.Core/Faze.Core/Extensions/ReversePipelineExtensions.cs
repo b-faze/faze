@@ -3,6 +3,7 @@ using Faze.Abstractions.GameStates;
 using Faze.Abstractions.Rendering;
 using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
+using Faze.Core.Streamers;
 using Faze.Core.TreeLinq;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,21 @@ namespace Faze.Core.Extensions
 {
     public static class ReversePipelineExtensions
     {
+        public static IReversePipelineBuilder<Stream> StreamStreamer(this IReversePipelineBuilder<IStreamer> builder)
+        {
+            return builder.Require<Stream>(stream => new StreamStreamer(stream));
+        }
+
+        public static IReversePipelineBuilder<IEnumerable<Stream>> Merge(this IReversePipelineBuilder<Stream> builder)
+        {
+            return builder.Require<IEnumerable<Stream>>(streams => new ConcatenatedStream(streams));
+        }
+
+        public static IReversePipelineBuilder<IEnumerable<IStreamer>> Merge(this IReversePipelineBuilder<IStreamer> builder)
+        {
+            return builder.Require<IEnumerable<IStreamer>>(streamers => new EnumerableStreamer(streamers));
+        }
+
         public static IReversePipelineBuilder<IPaintedTreeRenderer> File(this IReversePipelineBuilder builder, string filename) 
         {
             return builder.Require<IPaintedTreeRenderer>(renderer => renderer.SaveToFile(filename));

@@ -28,7 +28,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
         {
             return ReversePipelineBuilder.Create()
                 .GalleryVideo(galleryService, galleryMetaData)
-                .MergeStreamers()
+                .Merge()
                 .Map(builder => builder
                     .StreamRender()
                     .Render(new SquareTreeRenderer(rendererConfig))

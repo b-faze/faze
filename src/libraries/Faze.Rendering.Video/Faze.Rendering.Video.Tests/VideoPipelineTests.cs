@@ -22,7 +22,10 @@ namespace Faze.Rendering.Video.Tests
         public void CanPipeFramesToFFMPEG()
         {
             var pipeline = ReversePipelineBuilder.Create()
-                .Video("test.mp4", new VideoFFMPEGSettings(24))
+                .Video("test.mp4", new VideoFFMPEGSettings(24)
+                {
+                    ImageVCodec = FFMPEGVCodec.Mjpeg
+                })
                 .StreamStreamer()
                 .Merge()
                 .Require<string>(dir =>
@@ -49,7 +52,7 @@ namespace Faze.Rendering.Video.Tests
 
             var pipeline = ReversePipelineBuilder.Create()
                 .Video("video-border.mp4", new VideoFFMPEGSettings(24))
-                .MergeStreamers()
+                .Merge()
                 .Map(builder => builder
                     .StreamRender()
                     .Render(renderer)

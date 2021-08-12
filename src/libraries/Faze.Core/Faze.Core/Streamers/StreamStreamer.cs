@@ -1,9 +1,9 @@
 ﻿using Faze.Abstractions.Core;
 using System.IO;
 
-namespace Faze.Rendering.Video.Extensions
+namespace Faze.Core.Streamers
 {
-    public class StreamStreamer : IStreamer
+    internal class StreamStreamer : IStreamer
     {
         private readonly Stream baseStream;
 

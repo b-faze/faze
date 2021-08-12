@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Faze.Rendering.Video.Extensions
+namespace Faze.Core.Streamers
 {
-    public class ConcatenatedStream : Stream
+    internal class ConcatenatedStream : Stream
     {
         private readonly Queue<Stream> streams;
 

@@ -1,4 +1,5 @@
 ﻿using Faze.Abstractions.Core;
+using Faze.Core.Streamers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,21 +13,6 @@ namespace Faze.Rendering.Video.Extensions
 {
     public static class ReversePipelineBuilderExtensions
     {
-        public static IReversePipelineBuilder<Stream> StreamStreamer(this IReversePipelineBuilder<IStreamer> builder)
-        {
-            return builder.Require<Stream>(stream => new StreamStreamer(stream));
-        }
-
-        public static IReversePipelineBuilder<IEnumerable<Stream>> Merge(this IReversePipelineBuilder<Stream> builder)
-        {
-            return builder.Require<IEnumerable<Stream>>(streams => new ConcatenatedStream(streams));
-        }
-
-        public static IReversePipelineBuilder<IEnumerable<IStreamer>> MergeStreamers(this IReversePipelineBuilder<IStreamer> builder)
-        {
-            return builder.Require<IEnumerable<IStreamer>>(streamers => new EnumerableStreamer(streamers));
-        }
-
         /// <summary>
         /// Pipes a stream of JPEGs to ffmpeg
         /// </summary>
@@ -39,10 +25,11 @@ namespace Faze.Rendering.Video.Extensions
             return builder.Require<IStreamer>(streamer =>
             {
                 var fps = settings.Fps;
+                var imgVCodec = VideoFFMPEGSettings.GetVCodecArgument(settings.ImageVCodec);
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "ffmpeg",
-                    Arguments = $"-y -f image2pipe -vcodec png -r {fps} -i - -codec:v mpeg4 -q:v 2 -r {fps} \"{filename}\"",
+                    Arguments = $"-y -f image2pipe -vcodec {imgVCodec} - r {fps} -i - -codec:v mpeg4 -q:v 2 -r {fps} \"{filename}\"",
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
                     RedirectStandardError = true
