@@ -54,7 +54,7 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<PieceBoardImagePipeline>()
 
                 .AddSingletons<IDataGenerator>(galleryAssembly)
-                .AddSingletons<IImageGenerator2>(galleryAssembly)
+                .AddSingletons<IGalleryItemProvider>(galleryAssembly)
                 .AddSingletons<IVisualisationPipeline>(galleryAssembly)
 
                 .AddMediatR(programAssembly)

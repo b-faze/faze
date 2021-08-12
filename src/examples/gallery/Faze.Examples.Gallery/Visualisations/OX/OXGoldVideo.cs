@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
-    public class OXGoldVideo: IImageGenerator2
+    public class OXGoldVideo: IGalleryItemProvider
     {
         public IEnumerable<GalleryItemMetadata> GetMetaData()
         {

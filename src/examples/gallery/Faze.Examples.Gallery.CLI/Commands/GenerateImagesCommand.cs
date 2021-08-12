@@ -20,11 +20,11 @@ namespace Faze.Examples.Gallery.CLI.Commands
     public class GenerateImagesCommandHandler : IRequestHandler<GenerateImagesCommand, int>
     {
         private readonly IProgressManager progressManager;
-        private readonly IEnumerable<IImageGenerator2> generators;
+        private readonly IEnumerable<IGalleryItemProvider> generators;
         private readonly IPipelineProvider pipelineProvider;
         private readonly IGalleryService galleryService;
 
-        public GenerateImagesCommandHandler(IProgressManager progressManager, IEnumerable<IImageGenerator2> generators, IPipelineProvider pipelineProvider, IGalleryService galleryService)
+        public GenerateImagesCommandHandler(IProgressManager progressManager, IEnumerable<IGalleryItemProvider> generators, IPipelineProvider pipelineProvider, IGalleryService galleryService)
         {
             this.progressManager = progressManager;
             this.generators = generators;

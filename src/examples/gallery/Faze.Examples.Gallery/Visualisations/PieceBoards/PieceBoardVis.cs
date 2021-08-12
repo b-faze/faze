@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {
-    public class PieceBoardVis : IImageGenerator2
+    public class PieceBoardVis : IGalleryItemProvider
     {
         public IEnumerable<GalleryItemMetadata> GetMetaData()
         {

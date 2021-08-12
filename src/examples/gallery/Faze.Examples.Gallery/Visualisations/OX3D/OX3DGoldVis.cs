@@ -7,17 +7,8 @@ using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.Visualisations.OX3D
 {
-    public class OX3DGoldVis : IImageGenerator2
+    public class OX3DGoldVis : IGalleryItemProvider
     {
-        private readonly IGalleryService galleryService;
-        private readonly OX3DGoldImagePipeline pipelineProvider;
-
-        public OX3DGoldVis(IGalleryService galleryService, OX3DGoldImagePipeline pipelineProvider)
-        {
-            this.galleryService = galleryService;
-            this.pipelineProvider = pipelineProvider;
-        }
-
         public IEnumerable<GalleryItemMetadata> GetMetaData()
         {
             for (var depth = 1; depth < 6; depth++)

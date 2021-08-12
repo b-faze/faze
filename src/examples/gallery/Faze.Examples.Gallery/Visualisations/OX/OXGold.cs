@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
-    public class OXGold : IImageGenerator2
+    public class OXGold : IGalleryItemProvider
     {
         public IEnumerable<GalleryItemMetadata> GetMetaData()
         {

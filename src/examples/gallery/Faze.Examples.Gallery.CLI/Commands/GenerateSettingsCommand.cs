@@ -20,9 +20,9 @@ namespace Faze.Examples.Gallery.CLI.Commands
 
     public class GenerateSettingsCommandHandler : IRequestHandler<GenerateSettingsCommand, int>
     {
-        private readonly IEnumerable<IImageGenerator2> generators;
+        private readonly IEnumerable<IGalleryItemProvider> generators;
 
-        public GenerateSettingsCommandHandler(IEnumerable<IImageGenerator2> generators)
+        public GenerateSettingsCommandHandler(IEnumerable<IGalleryItemProvider> generators)
         {
             this.generators = generators;
         }

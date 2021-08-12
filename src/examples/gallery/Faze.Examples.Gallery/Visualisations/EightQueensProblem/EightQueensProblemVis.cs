@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
 {
-    public class EightQueensProblemVis : IImageGenerator2
+    public class EightQueensProblemVis : IGalleryItemProvider
     {
         public IEnumerable<GalleryItemMetadata> GetMetaData()
         {
