@@ -35,7 +35,7 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
             this.galleryService = galleryService;
         }
 
-        public static readonly string Id = "Piece Board Depth";
+        public static readonly string Id = "PB Depth";
         public override string GetId() => Id;
         public override string GetDataId() => null;
 

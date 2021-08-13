@@ -11,6 +11,11 @@
 @mobile-trigger: 400px;
 @slider-height: 400px;
 
+@pipeline-background: #007bff;
+@pipeline-color: #fff;
+@variation-background: #17a2b8;
+@variation-color:#fff;
+
 // -----------------------------------
 // Generic styles
 // -----------------------------------
@@ -248,14 +253,18 @@ nav.pagination a {
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+h1.badge {
+  font-size: 100%;
+}
+
 .badge-pipeline {
-  background-color: #007bff;
-  color: #fff;
+  background-color: @pipeline-background;
+  color: @pipeline-color;
 }
 
 .badge-variation {
-  background-color: #17a2b8;
-  color: #fff;
+  background-color: @variation-background;
+  color: @variation-color;
 }
 
 .badge-depth {
@@ -270,11 +279,43 @@ nav.pagination a {
   margin-top: 10px;
 }
 
+#media .albumList .caption.caption-visible {
+  opacity: 1;
+  background-color: fade(#000, 50%);
+}
+
+.caption2 {
+  display: block;
+}
+
 // -------------------
 // item info config
 // -------------------
 
 .config-table td {
   padding: 5px;
+}
+
+// --------------------
+// breadcrumb
+// --------------------
+
+.breadcrumb-badge {
+  padding: .25em .4em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem;
+}
+
+nav.breadcrumbs a.breadcrumb-pipeline {
+  background-color: @pipeline-background;
+  color: @pipeline-color;
+}
+
+nav.breadcrumbs a.breadcrumb-variation {
+  background-color: @variation-background;
+  color: @variation-color;
 }
 

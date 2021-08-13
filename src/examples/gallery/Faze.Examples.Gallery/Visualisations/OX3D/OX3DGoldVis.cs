@@ -26,7 +26,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX3D
                 Album = Albums.OX3D,
                 PipelineId = OX3DGoldImagePipeline.Id,
                 Depth = depth,
-                Variation = "1",
+                Variation = "Var 1",
                 Config = new OX3DGoldImagePipelineConfig
                 {
                     TreeSize = 3,
@@ -44,7 +44,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX3D
                 Album = Albums.OX3D,
                 PipelineId = OX3DGoldImagePipeline.Id,
                 Depth = depth,
-                Variation = "2",
+                Variation = "Var 2",
                 Config = new OX3DGoldImagePipelineConfig
                 {
                     TreeSize = 3,

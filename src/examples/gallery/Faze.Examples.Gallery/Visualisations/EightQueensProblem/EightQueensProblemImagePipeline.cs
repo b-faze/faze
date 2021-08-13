@@ -43,7 +43,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
             this.treeDataProvider = treeDataProvider;
         }
 
-        public static readonly string Id = "Eight Queens Problem";
+        public static readonly string Id = "8QP 1";
         public override string GetId() => Id;
         public override string GetDataId() => DataId;
 

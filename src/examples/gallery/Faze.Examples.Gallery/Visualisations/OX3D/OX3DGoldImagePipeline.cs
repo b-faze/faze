@@ -35,7 +35,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX3D
             this.treeDataProvider = treeDataProvider;
         }
 
-        public static readonly string Id = "OX 3D Gold";
+        public static readonly string Id = "OX3D Gold";
         public override string GetId() => Id;
         public override string GetDataId() => DataId;
 

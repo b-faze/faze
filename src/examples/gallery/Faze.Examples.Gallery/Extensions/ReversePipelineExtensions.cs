@@ -14,7 +14,7 @@ namespace Faze.Examples.Gallery.Extensions
 
         public static IReversePipelineBuilder<IStreamer> GalleryVideo(this IReversePipelineBuilder builder, IGalleryService galleryService, GalleryItemMetadata data)
         {
-            var filename = galleryService.GetImageFilename(data);
+            var filename = galleryService.GetItemFilename(data);
             return builder
                 .Video(filename, new VideoFFMPEGSettings(24));
         }

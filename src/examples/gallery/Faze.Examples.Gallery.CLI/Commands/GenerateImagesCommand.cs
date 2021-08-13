@@ -58,7 +58,7 @@ namespace Faze.Examples.Gallery.CLI.Commands
 
         private Task Generate(GalleryItemMetadata item, IProgressTracker progress)
         {
-            if (File.Exists(galleryService.GetImageFilename(item)))
+            if (File.Exists(galleryService.GetItemFilename(item)))
                 return Task.CompletedTask;
 
             var visPipeline = pipelineProvider.GetPipeline(item.PipelineId);

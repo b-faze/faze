@@ -8,6 +8,6 @@ namespace Faze.Examples.Gallery.Interfaces
     {
         void Save(IStreamer renderer, GalleryItemMetadata data);
         string GetDataFilename(string id);
-        string GetImageFilename(GalleryItemMetadata data);
+        string GetItemFilename(GalleryItemMetadata data);
     }
 }

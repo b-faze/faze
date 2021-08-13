@@ -11,12 +11,13 @@
   <!--
     Breadcrumbs of parent albums
   -->
-  <nav class="breadcrumbs">
+  {{>breadcrumbs (album_metadata this)}}
+  {{!-- <nav class="breadcrumbs">
     {{#each breadcrumbs~}}
       <a class="breadcrumb-item" href="{{relative url}}">{{title}}</a>&nbsp;/&nbsp;
     {{~/each~}}
     <a class="breadcrumb-item" href="{{relative album.url}}">{{album.title}}</a>
-  </nav>
+  </nav> --}}
 
   {{#if settings.featuredAlbum}}
   {{#if album.home}}
@@ -44,6 +45,8 @@
   <!--
     Nested albums, if any
   -->
+  {{>subAlbumHeader (album_metadata this)}}
+  <h1></h1>
   <div id="albums" class="justified-gallery">
     {{#each album.albums~}}
       {{! Hide the featured album from listings !}}
@@ -62,6 +65,7 @@
   <!--
     All photos and videos
   -->
+  <h1>All Items</h1>
   <ul id="media" class="clearfix justified-gallery">
     {{#each album.files~}}
       {{> thumbnail}}
