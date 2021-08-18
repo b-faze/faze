@@ -4,7 +4,6 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -22,17 +21,13 @@ namespace Faze.Rendering.TreeRenderers
         public int? MaxDepth { get; set; }
     }
 
-    public class SliceAndDiceTreeRenderer : IPaintedTreeRenderer
+    public class SliceAndDiceTreeRenderer : SkiaTreeRenderer, IPaintedTreeRenderer
     {
         private readonly SliceAndDiceTreeRendererOptions options;
-        private readonly SKSurface surface;
 
-        public SliceAndDiceTreeRenderer(SliceAndDiceTreeRendererOptions options)
+        public SliceAndDiceTreeRenderer(SliceAndDiceTreeRendererOptions options) : base(options.ImageSize)
         {
             this.options = options;
-            var imageSize = options.ImageSize;
-            var imageInfo = new SKImageInfo(imageSize, imageSize);
-            this.surface = SKSurface.Create(imageInfo);
         }
 
         public Tree<T> GetVisible<T>(Tree<T> tree)
@@ -45,14 +40,6 @@ namespace Faze.Rendering.TreeRenderers
             surface.Canvas.Clear();
 
             DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, options.ImageSize, options.ImageSize), 0, options.MaxDepth);
-        }
-
-        public void WriteToStream(Stream stream)
-        {
-            using SKImage image = surface.Snapshot();
-            using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
-
-            data.AsStream().CopyTo(stream);
         }
 
         private void DrawHelper(SKCanvas canvas, Tree<Color> node, SKRect rect, int depth, int? maxDepth = null)

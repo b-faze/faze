@@ -35,13 +35,13 @@ namespace Faze.Core.Pipelines
 
         public IPipeline<T> Build()
         {
-            return new DefaultPipeline<T>(Steps.Reverse());
+            return new Pipeline<T, object>(Steps.Reverse());
         }
 
         public IPipeline Build(Func<T> fn)
         {
             IPipelineStep newStep = new PipelineStep<object, T>(fn);
-            return new DefaultPipeline(Steps.Concat(new[] { newStep }).Reverse());
+            return new Pipeline<object, object>(Steps.Concat(new[] { newStep }).Reverse());
         }
     }
 }

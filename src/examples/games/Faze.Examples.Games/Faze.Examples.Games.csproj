@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\libraries\Faze.Abstractions\Faze.Abstractions\Faze.Abstractions.csproj" />
+    <ProjectReference Include="..\..\..\libraries\Faze.Core\Faze.Core\Faze.Core.csproj" />
   </ItemGroup>
 
 </Project>

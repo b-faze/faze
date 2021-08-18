@@ -4,6 +4,7 @@ using Faze.Abstractions.Rendering;
 using Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks;
 using Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers;
 using Faze.Rendering.TreeRenderers;
+using Faze.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,7 +27,7 @@ namespace Faze.Rendering.Benchmarks.RendererBenchmarks
         [GlobalSetup]
         public void Setup()
         {
-            tree = SquareTreeUtilities.CreateGreyPaintedSquareTree(TreeSize, 10);
+            tree = TreeUtilities.CreateGreyPaintedSquareTree(TreeSize, 10);
         }
 
         [Benchmark(Baseline = true)]
