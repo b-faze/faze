@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Faze.Core.IO\Faze.Core.IO\Faze.Core.IO.csproj" />
     <ProjectReference Include="..\..\Faze.Core\Faze.Core\Faze.Core.csproj" />
     <ProjectReference Include="..\..\Faze.Engine\Faze.Engine\Faze.Engine.csproj" />
+    <ProjectReference Include="..\..\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj" />
   </ItemGroup>
 
 </Project>
