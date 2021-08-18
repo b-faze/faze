@@ -1,0 +1,5 @@
+<nav class="breadcrumbs">
+    {{#each breadcrumbs~}}
+        <a class="breadcrumb-item {{cssClass}}" href="{{relative url}}">{{title}}</a>{{#if hasNext}}&nbsp;/&nbsp;{{/if}}
+    {{~/each~}}
+</nav>

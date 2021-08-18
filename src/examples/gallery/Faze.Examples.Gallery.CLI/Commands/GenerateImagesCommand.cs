@@ -3,6 +3,7 @@ using Faze.Abstractions.Core;
 using Faze.Examples.Gallery.Interfaces;
 using MediatR;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,34 +20,54 @@ namespace Faze.Examples.Gallery.CLI.Commands
     public class GenerateImagesCommandHandler : IRequestHandler<GenerateImagesCommand, int>
     {
         private readonly IProgressManager progressManager;
-        private readonly IEnumerable<IImageGenerator> generators;
+        private readonly IEnumerable<IGalleryItemProvider> generators;
+        private readonly IPipelineProvider pipelineProvider;
+        private readonly IGalleryService galleryService;
 
-        public GenerateImagesCommandHandler(IProgressManager progressManager, IEnumerable<IImageGenerator> generators)
+        public GenerateImagesCommandHandler(IProgressManager progressManager, IEnumerable<IGalleryItemProvider> generators, IPipelineProvider pipelineProvider, IGalleryService galleryService)
         {
             this.progressManager = progressManager;
             this.generators = generators;
+            this.pipelineProvider = pipelineProvider;
+            this.galleryService = galleryService;
         }
 
         public async Task<int> Handle(GenerateImagesCommand request, CancellationToken cancellationToken)
         {
-            var dataGeneratorArr = GetGenerators(request).ToArray();
-            using var outerProgress = progressManager.Start(dataGeneratorArr.Length, "generate-images");
+            var allData = GetMetaData(request);
+            using var outerProgress = progressManager.Start(allData.Count(), "generate-images");
 
-            for (var i = 0; i < dataGeneratorArr.Length; i++)
+            foreach (var item in allData)
             {
-                await dataGeneratorArr[i].Generate(outerProgress.Spawn());
+                await Generate(item, outerProgress.Spawn());
                 outerProgress.Tick();
             }
 
             return 0;
         }
 
-        private IEnumerable<IImageGenerator> GetGenerators(GenerateImagesCommand request) 
+        private IEnumerable<GalleryItemMetadata> GetMetaData(GenerateImagesCommand request) 
         {
-            if (string.IsNullOrEmpty(request.Album))
-                return generators;
+            var allMetaData = generators.SelectMany(g => g.GetMetaData());
 
-            return generators.Where(g => g.GetMetaData().Albums?.Contains(request.Album) ?? false);
+            if (string.IsNullOrEmpty(request.Album))
+                return allMetaData;
+
+            return allMetaData.Where(x => x.Album?.Contains(request.Album) ?? false);
+        }
+
+        private Task Generate(GalleryItemMetadata item, IProgressTracker progress)
+        {
+            if (File.Exists(galleryService.GetItemFilename(item)))
+                return Task.CompletedTask;
+
+            var visPipeline = pipelineProvider.GetPipeline(item.PipelineId);
+
+            var pipeline = visPipeline.Create(item);
+
+            pipeline.Run(progress);
+
+            return Task.CompletedTask;
         }
     }
 }

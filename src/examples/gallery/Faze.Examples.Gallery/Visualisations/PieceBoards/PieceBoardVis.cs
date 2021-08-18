@@ -1,104 +1,43 @@
-﻿using Faze.Abstractions.Core;
-using Faze.Abstractions.GameMoves;
-using Faze.Abstractions.GameResults;
-using Faze.Abstractions.GameStates;
-using Faze.Examples.Gallery.CLI.Visualisations.PieceBoards;
-using Faze.Examples.Gallery.Interfaces;
-using Faze.Examples.Gallery.Visualisations.PieceBoards;
-using Faze.Examples.Games.GridGames;
-using Faze.Examples.Games.GridGames.Pieces;
-using Faze.Rendering.TreeRenderers;
-using System;
+﻿using Faze.Examples.Gallery.Interfaces;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.Visualisations.PieceBoards
 {
-    public class PieceBoardVis : IImageGenerator
+    public class PieceBoardVis : IGalleryItemProvider
     {
-        private readonly IGalleryService galleryService;
-        private readonly PieceBoardImagePipeline pipelineProvider;
-
-        public PieceBoardVis(IGalleryService galleryService, PieceBoardImagePipeline pipelineProvider) 
-        {
-            this.galleryService = galleryService;
-            this.pipelineProvider = pipelineProvider;
-        }
-
-        public ImageGeneratorMetaData GetMetaData()
-        {
-            return new ImageGeneratorMetaData(new[] { Albums.PieceBoard });
-        }
-
-        public Task Generate(IProgressTracker progress)
+        public IEnumerable<GalleryItemMetadata> GetMetaData()
         {
             var maxDepth = 6;
-            progress.SetMaxTicks(maxDepth);
-            progress.SetMessage(Albums.PieceBoard);
 
-            Run(progress.Spawn(), "Pawn", i => new PiecesBoardStateConfig(i, new PawnPiece()));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Knight", i => new PiecesBoardStateConfig(i, new KnightPiece()));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Bishop", i => new PiecesBoardStateConfig(i, new BishopPiece()));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Rook", i => new PiecesBoardStateConfig(i, new RookPiece()));
-            progress.Tick();
-
-            Run(progress.Spawn(), "Queen", i => new PiecesBoardStateConfig(i, new QueenPiece()));
-            progress.Tick();
-
-            Run(progress.Spawn(), "King", i => new PiecesBoardStateConfig(i, new KingPiece()));
-            progress.Tick();
-
-            return Task.CompletedTask;
-        }
-
-        public Task Run(IProgressTracker progress, string gameName, Func<int, PiecesBoardStateConfig> gameFn)
-        {
-            var maxBoardSize = 5;
-            progress.SetMaxTicks(maxBoardSize);
-            progress.SetMessage(gameName);
-
-            for (var i = 3; i < maxBoardSize; i++)
+            for (var boardSize = 3; boardSize < 5; boardSize++)
             {
-                Run(progress, gameName, new PiecesBoardState(gameFn(i)), i);
-                progress.Tick();
+                yield return GetVariation(boardSize, maxDepth, PieceConfigType.Pawn);
+                yield return GetVariation(boardSize, maxDepth, PieceConfigType.Knight);
+                yield return GetVariation(boardSize, maxDepth, PieceConfigType.Bishop);
+                yield return GetVariation(boardSize, maxDepth, PieceConfigType.Rook);
+                yield return GetVariation(boardSize, maxDepth, PieceConfigType.Queen);
+                yield return GetVariation(boardSize, maxDepth, PieceConfigType.King);
             }
-
-            return Task.CompletedTask;
         }
 
-        private Task Run(IProgressTracker progress, string gameName, IGameState<GridMove, SingleScoreResult?> game, int boardSize)
+        private GalleryItemMetadata GetVariation(int boardSize, int maxDepth, PieceConfigType piece)
         {
-            var id = $"{gameName} Depth Painter {boardSize}.png";
-
-
-            var metaData = new GalleryItemMetadata
+            return new GalleryItemMetadata<PieceBoardImagePipelineConfig>
             {
-                FileName = id,
+                FileId = $"{piece} Depth Painter {boardSize}.png",
                 Album = Albums.PieceBoard,
+                PipelineId = PieceBoardImagePipeline.Id,
+                Depth = maxDepth,
+                Variation = piece.ToString(),
+                Config = new PieceBoardImagePipelineConfig
+                {
+                    TreeSize = boardSize,
+                    ImageSize = 500,
+                    MaxDepth = maxDepth,
+                    Piece = piece,
+                    OnlySafeMoves = false
+                }
             };
-
-            if (File.Exists(galleryService.GetImageFilename(metaData)))
-                return Task.CompletedTask;
-
-            var rendererConfig = new SquareTreeRendererOptions(boardSize, 500)
-            {
-                //MaxDepth = 3,
-                //BorderProportions = 0.1f
-            };
-
-            var pipeline = pipelineProvider.Create(metaData, rendererConfig, boardSize);
-            pipeline.Run(game, progress);
-
-            return Task.CompletedTask;
         }
     }
 }

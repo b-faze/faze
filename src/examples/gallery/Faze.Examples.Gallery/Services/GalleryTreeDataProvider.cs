@@ -1,11 +1,6 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Core.Data;
-using Faze.Core.TreeLinq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Faze.Examples.Gallery.Interfaces;
 
 namespace Faze.Examples.Gallery.Services
 {

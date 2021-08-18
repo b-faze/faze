@@ -1,7 +1,10 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
-using System;
+using Faze.Examples.Gallery.Interfaces;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using Faze.Examples.Gallery.Extensions;
 
 namespace Faze.Examples.Gallery.Services
 {
@@ -16,7 +19,7 @@ namespace Faze.Examples.Gallery.Services
 
         public void Save(IStreamer streamer, GalleryItemMetadata data)
         {
-            var filePath = GetImageFilename(data);
+            var filePath = GetItemFilename(data);
 
             var directory = Path.GetDirectoryName(filePath);
             if (!Directory.Exists(directory))
@@ -28,11 +31,13 @@ namespace Faze.Examples.Gallery.Services
             {
                 streamer.WriteToStream(fs);
             }
+
+            //fileMetadataService.ApplyMetadata(filePath, data);
         }
 
-        public string GetImageFilename(GalleryItemMetadata data)
+        public string GetItemFilename(GalleryItemMetadata data)
         {
-            var filename = Path.Combine(config.ImageBasePath, data.Album, data.FileName);
+            var filename = Path.Combine(config.ImageBasePath, data.Album, data.PipelineId, data.Variation, data.FileId);
 
             var directory = Path.GetDirectoryName(Path.GetFullPath(filename));
             if (!Directory.Exists(directory))

@@ -29,7 +29,7 @@ namespace Faze.Rendering.Video.Extensions
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "ffmpeg",
-                    Arguments = $"-y -f image2pipe -vcodec {imgVCodec} - r {fps} -i - -codec:v mpeg4 -q:v 2 -r {fps} \"{filename}\"",
+                    Arguments = $"-y -f image2pipe -vcodec {imgVCodec} -r {fps} -i - -codec:v mpeg4 -q:v 2 -r {fps} \"{filename}\"",
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
                     RedirectStandardError = true

@@ -8,11 +8,23 @@ using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
 using System;
 using Faze.Core.TreeLinq;
+using Faze.Examples.Gallery.Interfaces;
+using Faze.Examples.Gallery.Extensions;
+using Faze.Examples.Gallery.Services;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
-    public class OXGoldImagePipeline
+    public class OXGoldImagePipelineConfig : ISquareTreeRendererPipelineConfig
     {
+        public int TreeSize { get; set; }
+        public int ImageSize { get; set; }
+        public float BorderProportion { get; set; }
+        public int MaxDepth { get; set; }
+    }
+
+    public class OXGoldImagePipeline : BaseVisualisationPipeline<OXGoldImagePipelineConfig>
+    {
+        private static readonly string DataId = OXDataGeneratorExhaustive.Id;
         private readonly IGalleryService galleryService;
         private readonly IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
 
@@ -23,23 +35,23 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             this.treeDataProvider = treeDataProvider;
         }
 
-        public IPipeline Create(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, Func<WinLoseDrawResultAggregate, double> fn)
+        public static readonly string Id = "OX Gold";
+        public override GalleryPipelineMetadata GetMetadata() => new GalleryPipelineMetadata
         {
-            return ReversePipelineBuilder.Create()
-                .GallerySave(galleryService, galleryMetaData)
-                .Render(new SquareTreeRenderer(rendererConfig))
-                .Paint(new GoldInterpolator())
-                .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(fn))
-                .LoadTree(OXDataGenerator5.Id, treeDataProvider);
-        }
+            Id = Id,
+            DataId = DataId,
+            RelativeCodePath = "Visualisations/OX/OXGoldImagePipeline.cs"
+        };
 
-        public IPipeline CreateExhausive(GalleryItemMetadata galleryMetaData, SquareTreeRendererOptions rendererConfig, Func<WinLoseDrawResultAggregate, double> fn)
+        public override IPipeline Create(GalleryItemMetadata<OXGoldImagePipelineConfig> galleryMetadata)
         {
+            var config = galleryMetadata.Config;
+
             return ReversePipelineBuilder.Create()
-                .GallerySave(galleryService, galleryMetaData)
-                .Render(new SquareTreeRenderer(rendererConfig))
+                .GalleryImage(galleryService, galleryMetadata)
+                .Render(new SquareTreeRenderer(config.GetRendererOptions()))
                 .Paint(new GoldInterpolator())
-                .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(fn))
+                .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
                 .LoadTree(OXDataGeneratorExhaustive.Id, treeDataProvider);
         }
     }

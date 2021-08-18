@@ -1,0 +1,678 @@
+{
+  "itemMetadata": {
+    "Pawn Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Pawn",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Pawn Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Pawn",
+      "depth": 6
+    },
+    "Knight Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Knight",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Knight Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Knight",
+      "depth": 6
+    },
+    "Bishop Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Bishop",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Bishop Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Bishop",
+      "depth": 6
+    },
+    "Rook Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Rook",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Rook Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Rook",
+      "depth": 6
+    },
+    "Queen Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Queen",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Queen Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Queen",
+      "depth": 6
+    },
+    "King Depth Painter 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "King",
+        "OnlySafeMoves": false
+      },
+      "fileId": "King Depth Painter 3.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "King",
+      "depth": 6
+    },
+    "Pawn Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Pawn",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Pawn Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Pawn",
+      "depth": 6
+    },
+    "Knight Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Knight",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Knight Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Knight",
+      "depth": 6
+    },
+    "Bishop Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Bishop",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Bishop Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Bishop",
+      "depth": 6
+    },
+    "Rook Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Rook",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Rook Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Rook",
+      "depth": 6
+    },
+    "Queen Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "Queen",
+        "OnlySafeMoves": false
+      },
+      "fileId": "Queen Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "Queen",
+      "depth": 6
+    },
+    "King Depth Painter 4.png": {
+      "config": {
+        "TreeSize": 4,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6,
+        "Piece": "King",
+        "OnlySafeMoves": false
+      },
+      "fileId": "King Depth Painter 4.png",
+      "album": "Piece Board",
+      "pipelineId": "PB Depth",
+      "variation": "King",
+      "depth": 6
+    },
+    "V1 OX Gold 1.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1
+      },
+      "fileId": "V1 OX Gold 1.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 1",
+      "depth": 1
+    },
+    "V1 OX Gold 2.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2
+      },
+      "fileId": "V1 OX Gold 2.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 1",
+      "depth": 2
+    },
+    "V1 OX Gold 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3
+      },
+      "fileId": "V1 OX Gold 3.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 1",
+      "depth": 3
+    },
+    "V1 OX Gold 4.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 4
+      },
+      "fileId": "V1 OX Gold 4.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 1",
+      "depth": 4
+    },
+    "V1 OX Gold 5.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 5
+      },
+      "fileId": "V1 OX Gold 5.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 1",
+      "depth": 5
+    },
+    "V1 OX Gold 6.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 6
+      },
+      "fileId": "V1 OX Gold 6.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 1",
+      "depth": 6
+    },
+    "V1 OX Gold 7.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 7
+      },
+      "fileId": "V1 OX Gold 7.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 1",
+      "depth": 7
+    },
+    "V2 OX Gold 1.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 1
+      },
+      "fileId": "V2 OX Gold 1.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 2",
+      "depth": 1
+    },
+    "V2 OX Gold 2.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 2
+      },
+      "fileId": "V2 OX Gold 2.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 2",
+      "depth": 2
+    },
+    "V2 OX Gold 3.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 3
+      },
+      "fileId": "V2 OX Gold 3.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 2",
+      "depth": 3
+    },
+    "V2 OX Gold 4.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 4
+      },
+      "fileId": "V2 OX Gold 4.png",
+      "album": "OX",
+      "pipelineId": "OX Gold",
+      "variation": "Var 2",
+      "depth": 4
+    },
+    "OX Gold 3.mp4": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 3,
+        "LeafSimulations": 100
+      },
+      "fileId": "OX Gold 3.mp4",
+      "album": "OX",
+      "pipelineId": "OX Gold Video",
+      "variation": "Var 1",
+      "depth": 3
+    },
+    "OX3D Gold 1 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1
+      },
+      "fileId": "OX3D Gold 1 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 1",
+      "depth": 1
+    },
+    "V2 OX3D Gold 1 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 1
+      },
+      "fileId": "V2 OX3D Gold 1 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 2",
+      "depth": 1
+    },
+    "OX3D Gold 2 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2
+      },
+      "fileId": "OX3D Gold 2 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 1",
+      "depth": 2
+    },
+    "V2 OX3D Gold 2 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 2
+      },
+      "fileId": "V2 OX3D Gold 2 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 2",
+      "depth": 2
+    },
+    "OX3D Gold 3 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3
+      },
+      "fileId": "OX3D Gold 3 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 1",
+      "depth": 3
+    },
+    "V2 OX3D Gold 3 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 3
+      },
+      "fileId": "V2 OX3D Gold 3 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 2",
+      "depth": 3
+    },
+    "OX3D Gold 4 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 4
+      },
+      "fileId": "OX3D Gold 4 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 1",
+      "depth": 4
+    },
+    "V2 OX3D Gold 4 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 4
+      },
+      "fileId": "V2 OX3D Gold 4 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 2",
+      "depth": 4
+    },
+    "OX3D Gold 5 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.0,
+        "MaxDepth": 5
+      },
+      "fileId": "OX3D Gold 5 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 1",
+      "depth": 5
+    },
+    "V2 OX3D Gold 5 sim.png": {
+      "config": {
+        "TreeSize": 3,
+        "ImageSize": 500,
+        "BorderProportion": 0.07,
+        "MaxDepth": 5
+      },
+      "fileId": "V2 OX3D Gold 5 sim.png",
+      "album": "OX 3D",
+      "pipelineId": "OX3D Gold",
+      "variation": "Var 2",
+      "depth": 5
+    },
+    "8 Queens Problem Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1,
+        "BlackParentMoves": true,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "8 Queens Problem Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 1",
+      "depth": 1
+    },
+    "Var 2 8QP Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "Var 2 8QP Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 2",
+      "depth": 1
+    },
+    "Var 3 8QP Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 1,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 3 8QP Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 3",
+      "depth": 1
+    },
+    "Var 4 8QP Solutions depth 1.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.1,
+        "MaxDepth": 1,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 4 8QP Solutions depth 1.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 4",
+      "depth": 1
+    },
+    "8 Queens Problem Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2,
+        "BlackParentMoves": true,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "8 Queens Problem Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 1",
+      "depth": 2
+    },
+    "Var 2 8QP Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "Var 2 8QP Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 2",
+      "depth": 2
+    },
+    "Var 3 8QP Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 2,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 3 8QP Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 3",
+      "depth": 2
+    },
+    "Var 4 8QP Solutions depth 2.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.1,
+        "MaxDepth": 2,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 4 8QP Solutions depth 2.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 4",
+      "depth": 2
+    },
+    "8 Queens Problem Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3,
+        "BlackParentMoves": true,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "8 Queens Problem Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 1",
+      "depth": 3
+    },
+    "Var 2 8QP Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": true
+      },
+      "fileId": "Var 2 8QP Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 2",
+      "depth": 3
+    },
+    "Var 3 8QP Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.0,
+        "MaxDepth": 3,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 3 8QP Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 3",
+      "depth": 3
+    },
+    "Var 4 8QP Solutions depth 3.png": {
+      "config": {
+        "TreeSize": 8,
+        "ImageSize": 600,
+        "BorderProportion": 0.1,
+        "MaxDepth": 3,
+        "BlackParentMoves": false,
+        "BlackUnavailableMoves": false
+      },
+      "fileId": "Var 4 8QP Solutions depth 3.png",
+      "album": "Eight Queens Problem",
+      "pipelineId": "8QP 1",
+      "variation": "Var 4",
+      "depth": 3
+    }
+  },
+  "pipelineMetadata": {
+    "PB Depth": {
+      "id": "PB Depth",
+      "dataId": null,
+      "relativeCodePath": "Visualisations/PieceBoards/PieceBoardImagePipeline.cs"
+    },
+    "OX Gold": {
+      "id": "OX Gold",
+      "dataId": "OX_exhaustive",
+      "relativeCodePath": "Visualisations/OX/OXGoldImagePipeline.cs"
+    },
+    "OX Gold Video": {
+      "id": "OX Gold Video",
+      "dataId": null,
+      "relativeCodePath": "Visualisations/OX/OXGoldVideoPipeline.cs"
+    },
+    "OX3D Gold": {
+      "id": "OX3D Gold",
+      "dataId": "OX3D_depth6_sim100",
+      "relativeCodePath": "Visualisations/OX3D/OX3DGoldImagePipeline.cs"
+    },
+    "8QP 1": {
+      "id": "8QP 1",
+      "dataId": "EightQueensProblemSolutions_exhaustive",
+      "relativeCodePath": "Visualisations/EightQueensProblem/EightQueensProblemImagePipeline.cs"
+    }
+  }
+}

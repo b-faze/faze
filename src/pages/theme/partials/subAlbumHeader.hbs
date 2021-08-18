@@ -1,0 +1,7 @@
+{{#if isAlbumRoot}}
+    <h1 class="badge badge-pipeline">Pipelines</h1>
+{{/if}}
+
+{{#if isPipeline}}
+    {{>pipelineAlbumHeader (pipeline_metadata @root.settings id)}}
+{{/if}}
