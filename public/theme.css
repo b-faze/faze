@@ -148,5 +148,69 @@ nav.pagination a {
 #zip a {
   color: #3399ff;
 }
-/* Your custom styles goes here */
-
+.albumInfo {
+  margin-bottom: 20px;
+  margin-top: -10px;
+}
+.allItems {
+  margin-top: 10px;
+}
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+h1.badge {
+  font-size: 100%;
+}
+.badge-pipeline {
+  background-color: #007bff;
+  color: #fff;
+}
+.badge-variation {
+  background-color: #17a2b8;
+  color: #fff;
+}
+.badge-depth {
+  background-color: #d2d2d2;
+  color: #000;
+}
+.itemInfo h1 {
+  border-bottom: 1px solid #fff;
+  margin-bottom: 20px;
+  display: block;
+  margin-top: 10px;
+}
+#media .albumList .caption.caption-visible {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.caption2 {
+  display: block;
+}
+.config-table td {
+  padding: 5px;
+}
+.breadcrumb-badge {
+  padding: 0.25em 0.4em;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+nav.breadcrumbs a.breadcrumb-pipeline {
+  background-color: #007bff;
+  color: #fff;
+}
+nav.breadcrumbs a.breadcrumb-variation {
+  background-color: #17a2b8;
+  color: #fff;
+}

@@ -4,7 +4,7 @@
   <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, user-scalable=no" />
-      <title>Photo Gallery - Home</title>
+      <title>Faze Gallery - Home</title>
       <link rel="stylesheet" href="public/lightgallery/css/lightgallery.css" />
       <link rel="stylesheet" href="public/lightslider/css/lightslider.min.css" />
       <link rel="stylesheet" href="public/videojs/video-js.min.css" />
@@ -22,47 +22,47 @@
         Gallery title
       -->
       <header>
-        <h1><a href="index.html">Photo Gallery</a></h1>
+        <h1><a href="index.html">Faze Gallery</a></h1>
       </header>
     
       <!--
         Breadcrumbs of parent albums
       -->
       <nav class="breadcrumbs">
-    <a class="breadcrumb-item" href="index.html">Home</a>
-      </nav>
-    
+      <a class="breadcrumb-item " href="index.html">Home</a></nav>
     
       <!--
         Nested albums, if any
       -->
+      
+      <h1></h1>
       <div id="albums" class="justified-gallery">
             <a href="Eight-Queens-Problem.html">
-              <img src="media/small/Eight%20Queens%20Problem/8%20Queens%20Problem%20Solutions%20depth%201.png" alt="">
+              <img src="media/small/Eight%20Queens%20Problem/8QP%201/Var%201/8%20Queens%20Problem%20Solutions%20depth%201.png" alt="">
               <div class="caption" style="display: inline-block">
                 <h3>Eight Queens Problem</h3>
-                <div class="summary">12 photos</div>
+                <div class="summary">1 album, 36 photos</div>
               </div>
             </a>
             <a href="OX.html">
-              <img src="media/small/OX/OX%20Gold%201.png" alt="">
+              <img src="media/small/OX/OX%20Gold%20Video/Var%201/OX%20Gold%203.jpg" alt="">
               <div class="caption" style="display: inline-block">
                 <h3>OX</h3>
-                <div class="summary">14 photos, 1 video</div>
+                <div class="summary">2 albums, 33 photos, 3 videos</div>
               </div>
             </a>
             <a href="OX-3D.html">
-              <img src="media/small/OX%203D/OX3D%20Gold%201%20sim.png" alt="">
+              <img src="media/small/OX%203D/OX3D%20Gold/Var%201/OX3D%20Gold%201%20sim.png" alt="">
               <div class="caption" style="display: inline-block">
                 <h3>OX 3D</h3>
-                <div class="summary">12 photos</div>
+                <div class="summary">1 album, 30 photos</div>
               </div>
             </a>
             <a href="Piece-Board.html">
-              <img src="media/small/Piece%20Board/Bishop%20Depth%20Painter%203.png" alt="">
+              <img src="media/small/Piece%20Board/PB%20Depth/Bishop/Bishop%20Depth%20Painter%203.png" alt="">
               <div class="caption" style="display: inline-block">
                 <h3>Piece Board</h3>
-                <div class="summary">12 photos</div>
+                <div class="summary">1 album, 36 photos</div>
               </div>
             </a>
       </div>
@@ -70,8 +70,7 @@
       <!--
         All photos and videos
       -->
-      <ul id="media" class="clearfix justified-gallery">
-      </ul>
+     
     
       <!--
         Pagination
@@ -98,13 +97,10 @@
     <!-- VideoJS -->
     <script src="public/videojs/video.min.js"></script>
     <!-- LightGallery -->
-    <script src="public/lightgallery/js/lightgallery.js"></script>
-    <script src="public/lightslider/js/lightslider.min.js"></script>
-    <script src="public/lightgallery/js/lg-autoplay.js"></script>
-    <script src="public/lightgallery/js/lg-pager.js"></script>
-    <script src="public/lightgallery/js/lg-thumbnail.js"></script>
-    <script src="public/lightgallery/js/lg-video.js"></script>
+    <script src="public/lightgallery/js/lightgallery-all.min.js"></script>
     <script src="public/lightgallery/js/lg-exif.min.js"></script>
+    <!-- LightSlider + Justified Gallery -->
+    <script src="public/lightslider/js/lightslider.min.js"></script>
     <script src="public/justifiedgallery/jquery.justifiedGallery.min.js"></script>
 
     <script>
@@ -116,14 +112,16 @@
           download: true,
           counter: true,
           videojs: true,
-          exThumbImage: 'data-exthumbimage',
+          fullScreen: true,
+          zoom: true,
+          exThumbImage: 'data-exthumbimage'
         });
 
         // Init justified gallery for albums
         $("#albums").justifiedGallery({
           margins: 10,
-          rowHeight: 300,
-          maxRowHeight: 325,
+          rowHeight: 250,
+          maxRowHeight: 250,
         });
 
         // Init justified gallery for photos
@@ -132,7 +130,7 @@
           waitThumbnailsLoad: false,
           margins: 10,
           rowHeight: 250,
-          maxRowHeight: 275,
+          maxRowHeight: 250,
         });
       });
     </script>
