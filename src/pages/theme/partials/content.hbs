@@ -65,12 +65,18 @@
   <!--
     All photos and videos
   -->
-  <h1>All Items</h1>
-  <ul id="media" class="clearfix justified-gallery">
-    {{#each album.files~}}
-      {{> thumbnail}}
-    {{~/each}}
-  </ul>
+  {{#if album.files.length}}
+  <div class="allItems">
+    <h1>All Items</h1>
+    <ul id="media" class="clearfix justified-gallery">
+      {{#each album.files~}}
+        {{> thumbnail}}
+      {{~/each}}
+    </ul>
+  </div>
+
+  {{/if}}
+ 
 
   <!--
     Pagination
