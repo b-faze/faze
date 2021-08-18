@@ -33,17 +33,13 @@ namespace Faze.Rendering.TreeRenderers
         public int? MaxDepth { get; set; }
     }
 
-    public class SquareTreeRenderer : IPaintedTreeRenderer, IDisposable
+    public class SquareTreeRenderer : SkiaTreeRenderer, IPaintedTreeRenderer, IDisposable
     {
         private readonly SquareTreeRendererOptions options;
-        private readonly SKSurface surface;
 
-        public SquareTreeRenderer(SquareTreeRendererOptions options) 
+        public SquareTreeRenderer(SquareTreeRendererOptions options) : base(options.ImageSize)
         {
             this.options = options;
-            var imageSize = options.ImageSize;
-            var imageInfo = new SKImageInfo(imageSize, imageSize);
-            this.surface = SKSurface.Create(imageInfo);
         }
 
         public SKSurface Surface => surface;
@@ -70,14 +66,6 @@ namespace Faze.Rendering.TreeRenderers
 
             surface.Canvas.Clear();
             DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, options.MaxDepth);
-        }
-
-        public void WriteToStream(Stream stream)
-        {
-            using SKImage image = surface.Snapshot();
-            using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);
-
-            data.AsStream().CopyTo(stream);
         }
 
         private void DrawHelper(SKCanvas canvas, Tree<Color> node, SKRect viewportRect, SKRect rect, int depth, int? maxDepth = null)
