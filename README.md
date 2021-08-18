@@ -32,6 +32,7 @@ Everything in the gallery is produced from this repository in Faze.Examples.Gall
  Usages:
    generate-data [options]
    generate-images [options]
+   generate-settings [options]
    check-images [pptions]
    
  generate-data options:
@@ -39,6 +40,8 @@ Everything in the gallery is produced from this repository in Faze.Examples.Gall
   
  generate-images options:
    --album      Generates images for a given album  [string]
+ 
+ generate-settings options:
   
  check-images options:
    
