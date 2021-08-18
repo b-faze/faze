@@ -10,7 +10,7 @@ namespace Faze.Examples.Gallery.Services
 
         public PipelineProvider(IEnumerable<IVisualisationPipeline> pipelines)
         {
-            this.pipelines = pipelines.ToDictionary(x => x.GetId(), x => x);
+            this.pipelines = pipelines.ToDictionary(x => x.GetMetadata().Id);
         }
 
         public IVisualisationPipeline GetPipeline(string id)

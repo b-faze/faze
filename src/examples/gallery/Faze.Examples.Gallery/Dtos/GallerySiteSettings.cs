@@ -10,5 +10,8 @@ namespace Faze.Examples.Gallery
         /// </summary>
         [JsonProperty("itemMetadata")]
         public Dictionary<string, GalleryItemMetadata> ItemMetadata { get; set; }
+
+        [JsonProperty("pipelineMetadata")]
+        public Dictionary<string, GalleryPipelineMetadata> PipelineMetadata { get; set; }
     }
 }

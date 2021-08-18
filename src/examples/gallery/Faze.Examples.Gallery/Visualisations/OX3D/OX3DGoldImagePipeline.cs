@@ -36,8 +36,12 @@ namespace Faze.Examples.Gallery.Visualisations.OX3D
         }
 
         public static readonly string Id = "OX3D Gold";
-        public override string GetId() => Id;
-        public override string GetDataId() => DataId;
+        public override GalleryPipelineMetadata GetMetadata() => new GalleryPipelineMetadata
+        {
+            Id = Id,
+            DataId = DataId,
+            RelativeCodePath = "Visualisations/OX3D/OX3DGoldImagePipeline.cs"
+        };
 
         public override IPipeline Create(GalleryItemMetadata<OX3DGoldImagePipelineConfig> galleryMetaData)
         {

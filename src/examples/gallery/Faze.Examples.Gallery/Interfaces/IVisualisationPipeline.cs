@@ -4,8 +4,7 @@ namespace Faze.Examples.Gallery.Interfaces
 {
     public interface IVisualisationPipeline
     {
-        string GetId();
-        string GetDataId();
+        GalleryPipelineMetadata GetMetadata();
         IPipeline Create(GalleryItemMetadata galleryMetaData);
     }
 

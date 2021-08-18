@@ -34,6 +34,7 @@ module.exports = (context) => {
     });
 
     return {
+        id: album.title,
         breadcrumbs: breadcrumbData,
         isAlbumRoot: album.depth === albumRootDepth,
         isPipeline: album.depth === pipelineAlbumDepth,

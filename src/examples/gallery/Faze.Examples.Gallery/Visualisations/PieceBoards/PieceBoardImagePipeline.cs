@@ -36,8 +36,12 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
         }
 
         public static readonly string Id = "PB Depth";
-        public override string GetId() => Id;
-        public override string GetDataId() => null;
+        public override GalleryPipelineMetadata GetMetadata() => new GalleryPipelineMetadata
+        {
+            Id = Id,
+            DataId = null,
+            RelativeCodePath = "Visualisations/PieceBoards/PieceBoardImagePipeline.cs"
+        };
 
         public override IPipeline Create(GalleryItemMetadata<PieceBoardImagePipelineConfig> galleryMetadata)
         {

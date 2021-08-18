@@ -647,5 +647,32 @@
       "variation": "Var 4",
       "depth": 3
     }
+  },
+  "pipelineMetadata": {
+    "PB Depth": {
+      "id": "PB Depth",
+      "dataId": null,
+      "relativeCodePath": "Visualisations/PieceBoards/PieceBoardImagePipeline.cs"
+    },
+    "OX Gold": {
+      "id": "OX Gold",
+      "dataId": "OX_exhaustive",
+      "relativeCodePath": "Visualisations/OX/OXGoldImagePipeline.cs"
+    },
+    "OX Gold Video": {
+      "id": "OX Gold Video",
+      "dataId": null,
+      "relativeCodePath": "Visualisations/OX/OXGoldVideoPipeline.cs"
+    },
+    "OX3D Gold": {
+      "id": "OX3D Gold",
+      "dataId": "OX3D_depth6_sim100",
+      "relativeCodePath": "Visualisations/OX3D/OX3DGoldImagePipeline.cs"
+    },
+    "8QP 1": {
+      "id": "8QP 1",
+      "dataId": "EightQueensProblemSolutions_exhaustive",
+      "relativeCodePath": "Visualisations/EightQueensProblem/EightQueensProblemImagePipeline.cs"
+    }
   }
 }

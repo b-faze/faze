@@ -44,8 +44,12 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         }
 
         public static readonly string Id = "8QP 1";
-        public override string GetId() => Id;
-        public override string GetDataId() => DataId;
+        public override GalleryPipelineMetadata GetMetadata() => new GalleryPipelineMetadata
+        {
+            Id = Id,
+            DataId = DataId,
+            RelativeCodePath = "Visualisations/EightQueensProblem/EightQueensProblemImagePipeline.cs"
+        };
 
         public override IPipeline Create(GalleryItemMetadata<EightQueensProblemImagePipelineConfig> galleryMetaData)
         {

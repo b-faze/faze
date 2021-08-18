@@ -3,5 +3,5 @@
 {{/if}}
 
 {{#if isPipeline}}
-    <h1 class="badge badge-variation">Variations</h1>
+    {{>pipelineAlbumHeader (pipeline_metadata @root.settings id)}}
 {{/if}}

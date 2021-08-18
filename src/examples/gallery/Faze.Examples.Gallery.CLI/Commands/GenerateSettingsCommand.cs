@@ -21,21 +21,29 @@ namespace Faze.Examples.Gallery.CLI.Commands
     public class GenerateSettingsCommandHandler : IRequestHandler<GenerateSettingsCommand, int>
     {
         private readonly IEnumerable<IGalleryItemProvider> generators;
+        private readonly IEnumerable<IVisualisationPipeline> visPipelines;
 
-        public GenerateSettingsCommandHandler(IEnumerable<IGalleryItemProvider> generators)
+        public GenerateSettingsCommandHandler(IEnumerable<IGalleryItemProvider> generators, IEnumerable<IVisualisationPipeline> visPipelines)
         {
             this.generators = generators;
+            this.visPipelines = visPipelines;
         }
         public async Task<int> Handle(GenerateSettingsCommand request, CancellationToken cancellationToken)
         {
             var allData = generators.SelectMany(g => g.GetMetaData());
 
             var settings = GetOrCreateSiteSettings(request);
-            settings.ItemMetadata = allData.ToDictionary(x => x.FileId, x => x);
+            settings.ItemMetadata = allData.ToDictionary(x => x.FileId);
+            settings.PipelineMetadata = GetPipelinedata().ToDictionary(x => x.Id);
 
             await SaveSiteSettings(request, settings);
 
             return 0;
+        }
+
+        private IEnumerable<GalleryPipelineMetadata> GetPipelinedata()
+        {
+            return visPipelines.Select(p => p.GetMetadata());
         }
 
         private GallerySiteSettings GetOrCreateSiteSettings(GenerateSettingsCommand request) 

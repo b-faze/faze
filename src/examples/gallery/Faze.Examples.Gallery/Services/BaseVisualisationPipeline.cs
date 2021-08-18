@@ -6,8 +6,7 @@ namespace Faze.Examples.Gallery.Services
 {
     public abstract class BaseVisualisationPipeline<TConfig> : IVisualisationPipeline<TConfig>
     {
-        public abstract string GetId();
-        public abstract string GetDataId();
+        public abstract GalleryPipelineMetadata GetMetadata();
 
         public abstract IPipeline Create(GalleryItemMetadata<TConfig> galleryMetadata);
 
