@@ -22,7 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Faze.Core\Faze.Core\Faze.Core.csproj" />
     <ProjectReference Include="..\..\Faze.Rendering\Faze.Rendering\Faze.Rendering.csproj" />
-    <ProjectReference Include="..\Faze.Rendering.Video\Faze.Rendering.Video.FFMPEG.csproj" />
+    <ProjectReference Include="..\Faze.Rendering.Video.FFMPEG\Faze.Rendering.Video.FFMPEG.csproj" />
   </ItemGroup>
 
 </Project>

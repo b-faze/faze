@@ -2,15 +2,11 @@
 using Faze.Abstractions.GameResults;
 using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
-using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
-using System;
 using Faze.Core.TreeLinq;
-using Faze.Rendering.Video.FFMPEG.Extensions;
 using Faze.Examples.Games.OX;
 using Faze.Core.Adapters;
-using Faze.Engine.ResultTrees;
 using Faze.Engine.Simulators;
 using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.Gallery.Extensions;
