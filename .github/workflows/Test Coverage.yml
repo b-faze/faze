@@ -68,6 +68,7 @@ jobs:
         - 'src/libraries/Faze.Core/Faze.Core.Tests'
         - 'src/libraries/Faze.Core.IO/Faze.Core.IO.Tests'
         - 'src/libraries/Faze.Engine/Faze.Engine.Tests'
+        - 'src/libraries/Faze.Rendering.Video.FFMPEG'
         - 'src/examples/games/Faze.Examples.Games.Tests'
 
     steps:
