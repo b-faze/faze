@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Faze.Core.Tests.TreeLinqTests
+namespace Faze.Core.Tests.TreeTests
 {
-    public class TreeTests
+    public class CoreTreeTests
     {
         [Fact]
         public void TreeDoesNotEqualNull()
