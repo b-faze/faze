@@ -5,6 +5,12 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Version>2.0.0-pre.2</Version>
+    <Authors>b-faze;b-hub</Authors>
+    <Company>b-faze</Company>
+    <PackageProjectUrl>https://b-hub.gitbook.io/faze/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/b-faze/faze</RepositoryUrl>
+    <Description>A plugin for the video renderer pipeline which uses ffmpeg. ffmpeg needs to be installed separately</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,10 +18,6 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Xabe.FFmpeg" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Faze.Rendering.Video.Extensions
+namespace Faze.Rendering.Video.FFMPEG.Extensions
 {
     public static class ReversePipelineBuilderExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace Faze.Rendering.Video.Extensions
+﻿namespace Faze.Rendering.Video.FFMPEG.Extensions
 {
     public enum FFMPEGVCodec 
     {

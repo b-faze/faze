@@ -1,7 +1,7 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.Rendering;
 using Faze.Examples.Gallery.Interfaces;
-using Faze.Rendering.Video.Extensions;
+using Faze.Rendering.Video.FFMPEG.Extensions;
 
 namespace Faze.Examples.Gallery.Extensions
 {

@@ -7,7 +7,7 @@ using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
 using System;
 using Faze.Core.TreeLinq;
-using Faze.Rendering.Video.Extensions;
+using Faze.Rendering.Video.FFMPEG.Extensions;
 using Faze.Examples.Games.OX;
 using Faze.Core.Adapters;
 using Faze.Engine.ResultTrees;

@@ -51,9 +51,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.Games", "exam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Examples.Games.Tests", "examples\games\Faze.Examples.Games.Tests\Faze.Examples.Games.Tests.csproj", "{1F740570-60A8-4F36-BCB0-7F62D6CD75D0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering.Video", "libraries\Faze.Rendering.Video\Faze.Rendering.Video\Faze.Rendering.Video.csproj", "{BA49D41F-6573-4D1C-8420-2EC1032F2843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering.Video.FFMPEG", "libraries\Faze.Rendering.Video\Faze.Rendering.Video\Faze.Rendering.Video.FFMPEG.csproj", "{BA49D41F-6573-4D1C-8420-2EC1032F2843}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering.Video.Tests", "libraries\Faze.Rendering.Video\Faze.Rendering.Video.Tests\Faze.Rendering.Video.Tests.csproj", "{377A9781-E4AC-46F7-BEBE-D5112F4413B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faze.Rendering.Video.FFMPEG.Tests", "libraries\Faze.Rendering.Video\Faze.Rendering.Video.Tests\Faze.Rendering.Video.FFMPEG.Tests.csproj", "{377A9781-E4AC-46F7-BEBE-D5112F4413B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

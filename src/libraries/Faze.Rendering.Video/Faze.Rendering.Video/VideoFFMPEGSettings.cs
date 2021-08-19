@@ -1,4 +1,4 @@
-﻿namespace Faze.Rendering.Video.Extensions
+﻿namespace Faze.Rendering.Video.FFMPEG.Extensions
 {
     public class VideoFFMPEGSettings
     {
@@ -8,6 +8,9 @@
             ImageVCodec = FFMPEGVCodec.Png;
         }
 
+        /// <summary>
+        /// Frames per second
+        /// </summary>
         public int Fps { get; }
         public FFMPEGVCodec ImageVCodec { get; set; }
 

@@ -5,7 +5,7 @@
     <PackageProjectUrl>https://b-hub.gitbook.io/faze/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/b-faze/faze</RepositoryUrl>
     <Authors>b-faze;b-hub</Authors>
-    <Version>2.0.0-pre.1</Version>
+    <Version>2.0.0-pre.2</Version>
     <Company>b-faze</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

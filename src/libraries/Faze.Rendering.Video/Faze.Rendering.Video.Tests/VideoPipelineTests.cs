@@ -1,20 +1,16 @@
 using Faze.Core.Pipelines;
 using System;
 using Xunit;
-using Faze.Rendering.Video.Extensions;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Xabe.FFmpeg;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Text;
 using Faze.Core.Extensions;
 using Faze.Rendering.TreeRenderers;
 using Faze.Rendering.TreePainters;
 using Faze.Core.Data;
+using Faze.Rendering.Video.FFMPEG.Extensions;
 
-namespace Faze.Rendering.Video.Tests
+namespace Faze.Rendering.Video.FFMPEG.Tests
 {
     public class VideoPipelineTests
     {
