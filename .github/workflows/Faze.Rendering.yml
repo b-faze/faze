@@ -25,6 +25,8 @@ jobs:
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: '3.1.x'
+    - name: Install libfontconfig1 for SkiaSharp
+      run: sudo apt-get install -y libfontconfig1
     - name: Install dependencies
       run: dotnet restore "${{ env.SOLUTION_PATH }}"
     - name: Build
