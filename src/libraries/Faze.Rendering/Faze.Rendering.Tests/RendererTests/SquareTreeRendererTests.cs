@@ -68,15 +68,15 @@ namespace Faze.Rendering.Tests.RendererTests
         }
 
         [Theory]
-        [InlineData(1, 500, 1, 0, "dynamic_1_500_1_0", Skip = "github action fails")]
-        [InlineData(2, 500, 1, 0, "dynamic_2_500_1_0", Skip = "github action fails")]
-        [InlineData(2, 500, 2, 0, "dynamic_2_500_2_0", Skip = "github action fails")]
-        [InlineData(2, 500, 3, 0, "dynamic_2_500_3_0", Skip = "github action fails")]
-        [InlineData(2, 500, 3, 0.1, "dynamic_2_500_3_0.1", Skip = "github action fails")]
-        [InlineData(3, 500, 1, 0, "dynamic_3_500_1_0", Skip = "github action fails")]
-        [InlineData(3, 500, 2, 0, "dynamic_3_500_2_0", Skip = "github action fails")]
-        [InlineData(3, 500, 3, 0, "dynamic_3_500_3_0", Skip = "github action fails")]
-        [InlineData(3, 500, 3, 0.1, "dynamic_3_500_3_0.1", Skip = "github action fails")]
+        [InlineData(1, 500, 1, 0, "dynamic_1_500_1_0")]
+        [InlineData(2, 500, 1, 0, "dynamic_2_500_1_0")]
+        [InlineData(2, 500, 2, 0, "dynamic_2_500_2_0")]
+        [InlineData(2, 500, 3, 0, "dynamic_2_500_3_0")]
+        [InlineData(2, 500, 3, 0.1, "dynamic_2_500_3_0.1")]
+        [InlineData(3, 500, 1, 0, "dynamic_3_500_1_0")]
+        [InlineData(3, 500, 2, 0, "dynamic_3_500_2_0")]
+        [InlineData(3, 500, 3, 0, "dynamic_3_500_3_0")]
+        [InlineData(3, 500, 3, 0.1, "dynamic_3_500_3_0.1")]
         public void CompareDynamicTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
         {
             var rendererOptions = new SquareTreeRendererOptions(squareSize, imgSize)
