@@ -32,7 +32,7 @@ namespace Faze.Rendering.Tests.RendererTests
         }
 
         [Theory]
-        [InlineData(3, 500, 1, 0, "static_3_500_1_0", Skip = "github action fails")]
+        [InlineData(3, 500, 1, 0, "static_3_500_1_0")]
         public void CompareStaticTestCases(int squareSize, int imgSize, int depth, float borderProportion, string id)
         {
             var rendererOptions = new SquareTreeRendererOptions(squareSize, imgSize)
