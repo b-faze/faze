@@ -1,6 +1,7 @@
 ﻿using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Core.Extensions;
 using System.Collections.Generic;
 
 namespace Faze.Examples.Games.GridGames.Pieces
@@ -12,10 +13,10 @@ namespace Faze.Examples.Games.GridGames.Pieces
             (1, -2), (2, -1), (2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2)
         };
 
-        public IEnumerable<GridMove> GetPieceMoves(int knightPosIndex, int dimension)
+        public IEnumerable<GridMove> GetPieceMoves(GridMove pos, int dimension)
         {
-            var x = knightPosIndex % dimension;
-            var y = knightPosIndex / dimension;
+            var x = pos.GetX(dimension);
+            var y = pos.GetY(dimension);
 
             foreach (var offset in KnightsOffsets)
             {
