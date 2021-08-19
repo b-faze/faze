@@ -15,20 +15,20 @@ namespace Faze.Core.Pipelines
 
         public void Run(IProgressTracker progress = null)
         {
-            Run(progress);
+            RunInternal(progress);
         }
 
         public void Run(TInput input, IProgressTracker progress = null)
         {
-            Run(progress, input);
+            RunInternal(progress, input);
         }
 
         TOutput IPipeline<TInput, TOutput>.Run(TInput input, IProgressTracker progress)
         {
-            return (TOutput)Run(progress, input);
+            return (TOutput)RunInternal(progress, input);
         }
 
-        private object Run(IProgressTracker progress, object input = null)
+        private object RunInternal(IProgressTracker progress, object input = null)
         {
             progress = progress ?? NullProgressTracker.Instance;
 
