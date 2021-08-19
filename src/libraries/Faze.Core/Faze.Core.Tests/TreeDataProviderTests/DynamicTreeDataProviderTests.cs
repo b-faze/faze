@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Faze.Core.Tests.TreeTests
 {
-    public class DynamicTreeTests
+    public class DynamicTreeDataProviderTests
     {
         [Fact]
         public void CanCreateBinaryTree()
@@ -41,6 +41,5 @@ namespace Faze.Core.Tests.TreeTests
                 values.Count(c => c == d).ShouldBe((int)Math.Pow(size * size, d));
             }
 
-        }
-    }
+        }   }
 }
