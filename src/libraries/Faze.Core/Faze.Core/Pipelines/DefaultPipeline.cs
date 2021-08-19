@@ -56,18 +56,4 @@ namespace Faze.Core.Pipelines
             return input;
         }
     }
-    //internal class DefaultPipeline : IPipeline
-    //{
-    //    private Pipeline pipeline;
-
-    //    internal DefaultPipeline(Pipeline pipeline)
-    //    {
-    //        this.pipeline = pipeline;
-    //    }
-
-    //    public void Run(IProgressTracker progress)
-    //    {
-    //        pipeline.Run(progress);
-    //    }
-    //}
 }
