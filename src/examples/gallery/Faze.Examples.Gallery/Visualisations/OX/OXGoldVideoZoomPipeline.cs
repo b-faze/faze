@@ -24,7 +24,10 @@ namespace Faze.Examples.Gallery.Visualisations.OX
         public int ImageSize { get; set; }
         public float BorderProportion { get; set; }
         public int? MaxDepth { get; set; }
+
+        public int TotalFrames { get; set; }
         public int[] ZoomPath { get; set; }
+        public float ZoomStep { get; set; }
     }
     public class OXGoldVideoZoomPipeline : BaseVisualisationPipeline<OXGoldVideoZoomPipelineConfig>
     {
@@ -53,7 +56,6 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             var rendererOptions = config.GetRendererOptions();
             var zoomScale = 1f;
             var (zoomX, zoomY, targetZoomScale) = GetFinalViewport(config.ZoomPath, 3, rendererOptions.BorderProportion);
-            var totalFrames = 400;
 
             return ReversePipelineBuilder.Create()
                 .GalleryVideo(galleryService, galleryMetadata)
@@ -61,9 +63,9 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .Map(builder => builder
                     .Render(new SquareTreeRenderer(rendererOptions))
                 )
-                .Iterate(totalFrames, () =>
+                .Iterate(config.TotalFrames, () =>
                 {
-                    zoomScale *= 0.99f;
+                    zoomScale *= config.ZoomStep;
                     rendererOptions.Viewport = rendererOptions.Viewport.Zoom(zoomX, zoomY, zoomScale);
                 })
                 .Paint(new GoldInterpolator())
@@ -81,8 +83,9 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             foreach (GridMove moveIndex in path)
             {
                 // border compensation
-                x += 1 / (float)Math.Pow(dimension, depth) * borderProportion;
-                y += 1 / (float)Math.Pow(dimension, depth) * borderProportion;
+                var borderOffset = (1 / (float)Math.Pow(dimension, depth)) * borderProportion;
+                x += borderOffset;
+                y += borderOffset;
 
                 depth++;
 

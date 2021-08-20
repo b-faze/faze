@@ -25,8 +25,10 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                     TreeSize = 3,
                     ImageSize = 500,
                     MaxDepth = null,
-                    BorderProportion = 0.07f,
-                    ZoomPath = new[] { 1, 7, 0, 2, 4, 8, 6, 5 }
+                    BorderProportion = 0f,
+                    TotalFrames = 400,
+                    ZoomPath = new[] { 1, 7, 0, 2, 4, 8 },
+                    ZoomStep = 0.97f
                 }
             };
         }
