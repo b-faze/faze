@@ -27,7 +27,6 @@ namespace Faze.Examples.Gallery.Visualisations.OX
 
         public int TotalFrames { get; set; }
         public int[] ZoomPath { get; set; }
-        public float ZoomStep { get; set; }
     }
     public class OXGoldVideoZoomPipeline : BaseVisualisationPipeline<OXGoldVideoZoomPipelineConfig>
     {
@@ -52,10 +51,14 @@ namespace Faze.Examples.Gallery.Visualisations.OX
 
         public override IPipeline Create(GalleryItemMetadata<OXGoldVideoZoomPipelineConfig> galleryMetadata)
         {
+            var dimension = 3;
             var config = galleryMetadata.Config;
             var rendererOptions = config.GetRendererOptions();
-            var zoomScale = 1f;
-            var (zoomX, zoomY, targetZoomScale) = GetFinalViewport(config.ZoomPath, 3, rendererOptions.BorderProportion);
+            var (zoomX, zoomY, targetZoomScale) = GetFinalViewport(config.ZoomPath, dimension, rendererOptions.BorderProportion);
+            float progress = 0f;
+            float progressStep = 1f / config.TotalFrames;
+            IViewport originalViewport = rendererOptions.Viewport;
+            var maxDepth = config.ZoomPath.Length;
 
             return ReversePipelineBuilder.Create()
                 .GalleryVideo(galleryService, galleryMetadata)
@@ -65,8 +68,10 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 )
                 .Iterate(config.TotalFrames, () =>
                 {
-                    zoomScale *= config.ZoomStep;
-                    rendererOptions.Viewport = rendererOptions.Viewport.Zoom(zoomX, zoomY, zoomScale);
+                    progress += progressStep;
+                    var currentDepth = (float)Math.Pow(dimension, maxDepth * progress);
+                    var depthProgress = currentDepth / maxDepth;
+                    rendererOptions.Viewport = originalViewport.Tween(zoomX, zoomY, targetZoomScale, progress);
                 })
                 .Paint(new GoldInterpolator())
                 .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
@@ -74,6 +79,33 @@ namespace Faze.Examples.Gallery.Visualisations.OX
         }
 
         private static (float x, float y, float zoom) GetFinalViewport(int[] path, int dimension, float borderProportion)
+        {
+            float x = 0;
+            float y = 0;
+
+            int depth = 0;
+            float scale = 1;
+            foreach (GridMove moveIndex in path)
+            {
+                // border compensation
+                var borderOffset = (1 / (float)Math.Pow(dimension, depth)) * borderProportion;
+                x += borderOffset;
+                y += borderOffset;
+
+                depth++;
+
+                float dx = moveIndex.GetX(dimension);
+                float dy = moveIndex.GetY(dimension);
+
+                scale = (float)Math.Pow(dimension, depth);
+                x += dx / scale;
+                y += dy / scale;
+            }
+
+            return (x, y, 1 / scale);
+        }
+
+        private static (float x, float y, float zoom) GetFinalViewportOld(int[] path, int dimension, float borderProportion)
         {
             float x = 0;
             float y = 0;

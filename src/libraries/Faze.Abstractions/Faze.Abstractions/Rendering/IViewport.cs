@@ -26,6 +26,7 @@ namespace Faze.Abstractions.Rendering
 
         IViewport Zoom(float x, float y, float newScale);
         IViewport Pan(float dx, float dy);
+        IViewport Tween(float x, float y, float newScale, float f);
 
     }
 }

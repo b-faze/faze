@@ -26,9 +26,9 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                     ImageSize = 500,
                     MaxDepth = null,
                     BorderProportion = 0f,
-                    TotalFrames = 400,
+                    TotalFrames = 200,
                     ZoomPath = new[] { 1, 7, 0, 2, 4, 8 },
-                    ZoomStep = 0.97f
+                    //ZoomPath = new[] { 1 },
                 }
             };
         }

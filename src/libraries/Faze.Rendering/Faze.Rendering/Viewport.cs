@@ -43,5 +43,14 @@
         {
             return new Viewport(Left + dx, Top + dy, Scale);
         }
+
+        public IViewport Tween(float x, float y, float newScale, float f)
+        {
+            var dx = x - Left;
+            var dy = y - Top;
+            var ds = newScale - Scale;
+
+            return new Viewport(Left + f * dx, Top + f * dy, Scale + f * ds);
+        }
     }
 }
