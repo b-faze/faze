@@ -1,27 +1,25 @@
 ﻿using Faze.Examples.Gallery.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Faze.Examples.Gallery.Visualisations.Sudoku
 {
-    public class SudokuVis : IGalleryItemProvider
+    public class SudokuDepthVis : IGalleryItemProvider
     {
         public IEnumerable<GalleryItemMetadata> GetMetaData()
         {
             var depth = 3;
-            yield return new GalleryItemMetadata<SudokuVideoPipelineConfig>
+            yield return new GalleryItemMetadata<SudokuImagePipelineConfig>
             {
-                FileId = $"V1 Sudoku.mp4",
+                FileId = $"V1 Sudoku.png",
                 Album = Albums.Sudoku,
-                PipelineId = SudokuVideoPipeline.Id,
+                PipelineId = SudokuImagePipeline.Id,
                 Depth = depth,
                 Variation = "Var 1",
-                Config = new SudokuVideoPipelineConfig
+                Config = new SudokuImagePipelineConfig
                 {
                     ImageSize = 500,
                     MaxDepth = depth,
-                    LeafSimulations = 100
+                    BorderProportion = 0.1f
                 }
             };
         }

@@ -45,7 +45,7 @@ namespace Faze.Examples.Gallery.Visualisations.Sudoku
                 .GalleryImage(galleryService, galleryMetadata)
                 .Render(new SliceAndDiceTreeRenderer(config.GetRendererOptions()))
                 .Paint<SudokuStateWrapper>(new DepthTreePainter())
-                .LimitDepth(2)
+                .LimitDepth(config.MaxDepth)
                 .GameTree(new SudokuTreeAdapter())
                 .Build(() => new SudokuStateWrapper(SudokuState.Initial()));
         }

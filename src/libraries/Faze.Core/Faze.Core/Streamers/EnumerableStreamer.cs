@@ -12,10 +12,14 @@ namespace Faze.Core.Streamers
         {
             this.streamers = streamers;
         }
-        public void WriteToStream(Stream stream)
+        public void WriteToStream(Stream stream, IProgressTracker progress = null)
         {
+            progress = progress ?? NullProgressTracker.Instance;
+
+            var i = 0;
             foreach (var streamer in streamers)
             {
+                progress.SetMessage($"Streaming #{i++}...");
                 streamer.WriteToStream(stream);
             }
         }

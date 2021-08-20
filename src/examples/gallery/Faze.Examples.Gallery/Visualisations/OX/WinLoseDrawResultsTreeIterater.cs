@@ -20,8 +20,11 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             this.gameSimulator = gameSimulator;
             this.leafSimulations = leafSimulations;
         }
-        public IEnumerable<Tree<WinLoseDrawResultAggregate>> GetEnumerable(Tree<IGameState<GridMove, WinLoseDrawResult?>> stateTree)
+        public IEnumerable<Tree<WinLoseDrawResultAggregate>> GetEnumerable(Tree<IGameState<GridMove, WinLoseDrawResult?>> stateTree, IProgressTracker progress = null)
         {
+            progress = progress ?? NullProgressTracker.Instance;
+            progress.SetMaxTicks(leafSimulations);
+
             var resultTree = GetBaseResultTree(stateTree).Evaluate();
 
             for (var i = 0; i < leafSimulations; i++)
@@ -36,6 +39,8 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 }
 
                 yield return resultTree;
+
+                progress.Tick();
             }
         }
 

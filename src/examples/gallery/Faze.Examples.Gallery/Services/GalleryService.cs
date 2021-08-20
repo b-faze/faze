@@ -37,9 +37,9 @@ namespace Faze.Examples.Gallery.Services
 
         public string GetItemFilename(GalleryItemMetadata data)
         {
-            var filename = Path.Combine(config.ImageBasePath, data.Album, data.PipelineId, data.Variation, data.FileId);
+            var filename = Path.GetFullPath(Path.Combine(config.ImageBasePath, data.Album, data.PipelineId, data.Variation, data.FileId));
 
-            var directory = Path.GetDirectoryName(Path.GetFullPath(filename));
+            var directory = Path.GetDirectoryName(filename);
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 
@@ -48,9 +48,9 @@ namespace Faze.Examples.Gallery.Services
 
         public string GetDataFilename(string id)
         {
-            var filename = Path.Combine(config.DataBasePath, id);
+            var filename = Path.GetFullPath(Path.Combine(config.DataBasePath, id));
 
-            var directory = Path.GetDirectoryName(Path.GetFullPath(filename));
+            var directory = Path.GetDirectoryName(filename);
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 

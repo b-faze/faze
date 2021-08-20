@@ -297,15 +297,18 @@ namespace Faze.Core.TreeLinq
             return NormaliseSiblingsHelper(tree, tree.Value, tree.Value);
         }
 
-        public static Tree<double> NormaliseSiblingsHelper(this Tree<double> tree, double minValue, double maxValue)
+        private static Tree<double> NormaliseSiblingsHelper(this Tree<double> tree, double minValue, double maxValue)
         {
+            if (tree == null) 
+                return null;
+
             var value = maxValue > minValue ? (tree.Value - minValue) / (maxValue - minValue) : 0;
 
             if (tree.IsLeaf())
                 return new Tree<double>(value);
 
-            var childMaxValue = tree.Children.Select(child => child.Value).Max();
-            var childMinValue = tree.Children.Select(child => child.Value).Min();
+            var childMaxValue = tree.Children.Where(child => child != null).Select(child => child.Value).Max();
+            var childMinValue = tree.Children.Where(child => child != null).Select(child => child.Value).Min();
 
             return new Tree<double>(value, tree.Children?.Select(child => NormaliseSiblingsHelper(child, childMinValue, childMaxValue)));
         }

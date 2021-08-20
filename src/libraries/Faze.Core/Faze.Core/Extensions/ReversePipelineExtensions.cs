@@ -110,9 +110,9 @@ namespace Faze.Core.Extensions
 
         public static IReversePipelineBuilder<TIn> Iterate<TOut, TIn>(this IReversePipelineBuilder<IEnumerable<TOut>> builder, IIterater<TIn, TOut> iterater)
         {
-            return builder.Require<TIn>(input =>
+            return builder.Require<TIn>((input, progress) =>
             {
-                return iterater.GetEnumerable(input);
+                return iterater.GetEnumerable(input, progress);
             });
         }
 
