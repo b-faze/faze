@@ -19,7 +19,7 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
         public int TreeSize { get; set; }
         public int ImageSize { get; set; }
         public float BorderProportion { get; set; }
-        public int MaxDepth { get; set; }
+        public int? MaxDepth { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
         public PieceConfigType Piece { get; set; }

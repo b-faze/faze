@@ -19,7 +19,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
         public int TreeSize { get; set; }
         public int ImageSize { get; set; }
         public float BorderProportion { get; set; }
-        public int MaxDepth { get; set; }
+        public int? MaxDepth { get; set; }
     }
 
     public class OXGoldImagePipeline : BaseVisualisationPipeline<OXGoldImagePipelineConfig>
@@ -52,7 +52,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .Render(new SquareTreeRenderer(config.GetRendererOptions()))
                 .Paint(new GoldInterpolator())
                 .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
-                .LoadTree(OXDataGeneratorExhaustive.Id, treeDataProvider);
+                .LoadTree(DataId, treeDataProvider);
         }
     }
 }
