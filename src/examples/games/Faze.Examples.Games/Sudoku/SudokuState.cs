@@ -33,10 +33,21 @@ namespace Faze.Examples.Games.Sudoku
 
         public IEnumerable<SudokuMove> GetAvailableMoves()
         {
+            return GetAvailableMovePositions()
+                .SelectMany(p => Enumerable.Range(0, 9).Select(value => new SudokuMove(p, value)));
+        }
+
+        public IEnumerable<GridMove> GetAvailableMovePositions()
+        {
             return board
                 .Select((x, i) => new { x, i })
-                .Where(p => p.x.HasValue)
-                .SelectMany(p => Enumerable.Range(0, 9).Select(value => new SudokuMove(p.i, value)));
+                .Where(p => !p.x.HasValue)
+                .Select(p => new GridMove(p.i));
+        }
+        
+        public IEnumerable<GridMove> GetAvailableMoveValues(GridMove index)
+        {
+            return Enumerable.Range(0, 9).Select(value => new GridMove(value));
         }
 
         public WinLoseDrawResult? GetResult() => result;

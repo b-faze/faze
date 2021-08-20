@@ -1,6 +1,4 @@
 ﻿using Faze.Abstractions.Core;
-using Faze.Abstractions.GameResults;
-using Faze.Abstractions.GameStates;
 using Faze.Core.Adapters;
 using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
@@ -12,14 +10,12 @@ using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreePainters;
 using Faze.Rendering.TreeRenderers;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Faze.Examples.Gallery.Visualisations.Sudoku
 {
-    public class SudokuImagePipelineConfig : ISquareTreeRendererPipelineConfig
+    public class SudokuImagePipelineConfig : ISliceAndDiceTreeRendererPipelineConfig
     {
-        public int TreeSize { get; set; }
         public int ImageSize { get; set; }
         public float BorderProportion { get; set; }
         public int MaxDepth { get; set; }
@@ -27,13 +23,10 @@ namespace Faze.Examples.Gallery.Visualisations.Sudoku
     public class SudokuImagePipeline : BaseVisualisationPipeline<SudokuImagePipelineConfig>
     {
         private readonly IGalleryService galleryService;
-        private readonly IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
 
-        public SudokuImagePipeline(IGalleryService galleryService,
-            IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
+        public SudokuImagePipeline(IGalleryService galleryService)
         {
             this.galleryService = galleryService;
-            this.treeDataProvider = treeDataProvider;
         }
 
         public static readonly string Id = "Sudoku";
@@ -50,19 +43,11 @@ namespace Faze.Examples.Gallery.Visualisations.Sudoku
 
             return ReversePipelineBuilder.Create()
                 .GalleryImage(galleryService, galleryMetadata)
-                .Render(new SquareTreeRenderer(config.GetRendererOptions()))
-                .Paint<IGameState<SudokuMove, WinLoseDrawResult?>>(new DepthTreePainter())
+                .Render(new SliceAndDiceTreeRenderer(config.GetRendererOptions()))
+                .Paint<SudokuStateWrapper>(new DepthTreePainter())
+                .LimitDepth(2)
                 .GameTree(new SudokuTreeAdapter())
-                .Build(() => SudokuState.Initial());
-        }
-    }
-
-    public class SudokuTreeAdapter : IGameStateTreeAdapter<SudokuMove>
-    {
-        public IEnumerable<IGameState<SudokuMove, TResult>> GetChildren<TResult>(IGameState<SudokuMove, TResult> state)
-        {
-            var availableMoves = state.GetAvailableMoves();
-            return null;
+                .Build(() => new SudokuStateWrapper(SudokuState.Initial()));
         }
     }
 }

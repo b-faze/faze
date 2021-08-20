@@ -140,8 +140,16 @@ namespace Faze.Core.Extensions
                     ? state.ToStateTree(adapter)
                     : state.ToStateTree();
             });
-        }        
-        
+        }
+
+        public static IReversePipelineBuilder<T> GameTree<T>(this IReversePipelineBuilder<Tree<T>> builder, ITreeAdapter<T> adapter)
+        {
+            return builder.Require<T>(state =>
+            {
+                return state.ToStateTree(adapter);
+            });
+        }
+
         public static IPipeline LoadTree<TId, T>(this IReversePipelineBuilder<Tree<T>> builder, TId id, ITreeDataReader<TId, T> treeDataProvider)
         {
             return builder.Build(() =>

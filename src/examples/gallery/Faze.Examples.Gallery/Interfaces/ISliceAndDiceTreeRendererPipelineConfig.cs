@@ -1,10 +1,9 @@
 ﻿namespace Faze.Examples.Gallery.Interfaces
 {
-    public interface ISquareTreeRendererPipelineConfig
+    public interface ISliceAndDiceTreeRendererPipelineConfig
     {
-        int TreeSize { get; set; }
         int ImageSize { get; set; }
         float BorderProportion { get; set; }
         int MaxDepth { get; set; }
-    }    
+    }
 }
