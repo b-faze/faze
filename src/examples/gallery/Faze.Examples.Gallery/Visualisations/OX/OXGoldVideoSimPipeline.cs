@@ -52,7 +52,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                     .Paint(new GoldInterpolator())
                     .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
                 )
-                .Iterate(new WinLoseDrawResultsTreeIterater(new GameSimulator(), config.LeafSimulations))
+                .Iterate(new WinLoseDrawResultsTreeIterator(new GameSimulator(), config.LeafSimulations))
                 .LimitDepth(config.MaxDepth.Value)
                 .GameTree(new SquareTreeAdapter(3))
                 .Build(() => OXState.Initial);

@@ -69,6 +69,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .Iterate(config.TotalFrames, () =>
                 {
                     progress += progressStep;
+                    var depthStep = maxDepth * progressStep;
                     var currentDepth = (float)Math.Pow(dimension, maxDepth * progress);
                     var depthProgress = currentDepth / maxDepth;
                     rendererOptions.Viewport = originalViewport.Tween(zoomX, zoomY, targetZoomScale, progress);

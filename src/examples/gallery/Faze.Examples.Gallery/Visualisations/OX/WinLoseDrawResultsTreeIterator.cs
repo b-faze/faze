@@ -10,12 +10,12 @@ using System.Linq;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
-    public class WinLoseDrawResultsTreeIterater : IIterater<Tree<IGameState<GridMove, WinLoseDrawResult?>>, Tree<WinLoseDrawResultAggregate>>
+    public class WinLoseDrawResultsTreeIterator : IIterater<Tree<IGameState<GridMove, WinLoseDrawResult?>>, Tree<WinLoseDrawResultAggregate>>
     {
         private readonly IGameSimulator gameSimulator;
         private readonly int leafSimulations;
 
-        public WinLoseDrawResultsTreeIterater(IGameSimulator gameSimulator, int leafSimulations)
+        public WinLoseDrawResultsTreeIterator(IGameSimulator gameSimulator, int leafSimulations)
         {
             this.gameSimulator = gameSimulator;
             this.leafSimulations = leafSimulations;

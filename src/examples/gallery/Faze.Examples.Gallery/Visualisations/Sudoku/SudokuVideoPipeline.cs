@@ -59,7 +59,7 @@ namespace Faze.Examples.Gallery.Visualisations.Sudoku
                     .Map<double, double>(t => t.NormaliseSiblings())
                     .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
                 )
-                .Iterate(new WinLoseDrawResultsTreeIterater(new GameSimulator(), config.LeafSimulations))
+                .Iterate(new WinLoseDrawResultsTreeIterator(new GameSimulator(), config.LeafSimulations))
                 .LimitDepth(config.MaxDepth)
                 .Map<IGameState<GridMove, WinLoseDrawResult?>, SudokuStateWrapper>(t => t.MapValue(v => (IGameState<GridMove, WinLoseDrawResult?>)v))
                 .GameTree(new SudokuTreeAdapter())
