@@ -1,11 +1,13 @@
-﻿namespace Faze.Abstractions.Rendering
+﻿using System;
+
+namespace Faze.Abstractions.Rendering
 {
     internal class Viewport : IViewport
     {
         public Viewport(float left, float top, float scale)
         {
-            Left = left;
-            Top = top;
+            Left = Bound(left);
+            Top = Bound(top);
             Scale = scale;
         }
 
@@ -32,9 +34,9 @@
 
         public IViewport Zoom(float x, float y, float newScale)
         {
-            var scaleChange = newScale - Scale;
-            var dx = -x * scaleChange;
-            var dy = -y * scaleChange;
+            var ds = newScale - Scale;
+            var dx = -x * ds;
+            var dy = -y * ds;
 
             return new Viewport(Left + dx, Top + dy, newScale);
         }
@@ -46,11 +48,13 @@
 
         public IViewport Tween(float x, float y, float newScale, float f)
         {
+            var ds = newScale - Scale;
             var dx = x - Left;
             var dy = y - Top;
-            var ds = newScale - Scale;
 
             return new Viewport(Left + f * dx, Top + f * dy, Scale + f * ds);
         }
+
+        private float Bound(float n) => Math.Min(1, Math.Max(0, n));
     }
 }

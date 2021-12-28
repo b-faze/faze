@@ -15,6 +15,7 @@ using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Abstractions.GameMoves;
 using System;
 using Faze.Abstractions.Rendering;
+using System.Collections.Generic;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
@@ -69,10 +70,16 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .Iterate(config.TotalFrames, () =>
                 {
                     progress += progressStep;
-                    var depthStep = maxDepth * progressStep;
-                    var currentDepth = (float)Math.Pow(dimension, maxDepth * progress);
-                    var depthProgress = currentDepth / maxDepth;
-                    rendererOptions.Viewport = originalViewport.Tween(zoomX, zoomY, targetZoomScale, progress);
+                    var currentSize = (float)Math.Pow(dimension, progress * maxDepth);
+                    var newScale = 1 / currentSize;
+                    rendererOptions.Viewport = rendererOptions.Viewport.Zoom(zoomX, zoomY, newScale);
+                    var v = rendererOptions.Viewport;
+                    var centerX = v.Left + v.Scale / 2;
+                    var centerY = v.Top + v.Scale / 2;
+                    var offsetX = zoomX - centerX;
+                    var offsetY = zoomY - centerY;
+                    // center screen over zoom point
+                    rendererOptions.Viewport = v.Pan(offsetX, offsetY);
                 })
                 .Paint(new GoldInterpolator())
                 .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
@@ -103,38 +110,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 y += dy / scale;
             }
 
-            return (x, y, 1 / scale);
-        }
-
-        private static (float x, float y, float zoom) GetFinalViewportOld(int[] path, int dimension, float borderProportion)
-        {
-            float x = 0;
-            float y = 0;
-
-            int depth = 0;
-            float scale = 1;
-            foreach (GridMove moveIndex in path)
-            {
-                // border compensation
-                var borderOffset = (1 / (float)Math.Pow(dimension, depth)) * borderProportion;
-                x += borderOffset;
-                y += borderOffset;
-
-                depth++;
-
-                float dx = moveIndex.GetX(dimension);
-                float dy = moveIndex.GetY(dimension);
-
-                scale = (float)Math.Pow(dimension, depth);
-                x += dx / scale;
-                y += dy / scale;
-            }
-
-            //center zoom
-            x += 1 / (scale * 2);
-            y += 1 / (scale * 2);
-
-            return (x, y, 1/scale);
+            return (x + 1 / scale / 2, y + 1 / scale / 2, 1 / scale);
         }
     }
 }
