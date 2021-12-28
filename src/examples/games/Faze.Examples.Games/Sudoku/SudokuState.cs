@@ -76,7 +76,7 @@ namespace Faze.Examples.Games.Sudoku
                 return WinLoseDrawResult.Lose;
             
             if (board.All(b => b.HasValue))
-                return WinLoseDrawResult.Lose;
+                return WinLoseDrawResult.Win;
 
             return null;
         }
