@@ -96,13 +96,15 @@ namespace Faze.Core.Extensions
             });
         }
 
-        public static IReversePipelineBuilder<T> Iterate<T>(this IReversePipelineBuilder<IEnumerable<T>> builder, int n, Action fn)
+        public static IReversePipelineBuilder<T> Iterate<T>(this IReversePipelineBuilder<IEnumerable<T>> builder, int n, Action<float> fn)
         {
             return builder.Require<T>(input =>
             {
-                return Enumerable.Range(0, n).Select(_ =>
+                return Enumerable.Range(1, n)
+                    .Select(i => (float)i / n)
+                    .Select(progress =>
                 {
-                    fn();
+                    fn(progress);
                     return input;
                 });
             });

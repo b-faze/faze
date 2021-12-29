@@ -52,7 +52,7 @@ namespace Faze.Rendering.Video.FFMPEG.Tests
                 .Map(builder => builder
                     .Render(renderer)
                 )
-                .Iterate(100, () =>
+                .Iterate(100, _ =>
                 {
                     rendererOptions.BorderProportion += 0.002f;
                 })

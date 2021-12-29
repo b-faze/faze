@@ -55,11 +55,10 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             var dimension = 3;
             var config = galleryMetadata.Config;
             var rendererOptions = config.GetRendererOptions();
-            var (zoomX, zoomY, targetZoomScale) = GetFinalViewport(config.ZoomPath, dimension, rendererOptions.BorderProportion);
-            float progress = 0f;
-            float progressStep = 1f / config.TotalFrames;
+
             IViewport originalViewport = rendererOptions.Viewport;
             var maxDepth = config.ZoomPath.Length;
+            var nextViewport = GetViewportGenerator(config.ZoomPath, dimension, config.BorderProportion);
 
             return ReversePipelineBuilder.Create()
                 .GalleryVideo(galleryService, galleryMetadata)
@@ -67,50 +66,37 @@ namespace Faze.Examples.Gallery.Visualisations.OX
                 .Map(builder => builder
                     .Render(new SquareTreeRenderer(rendererOptions))
                 )
-                .Iterate(config.TotalFrames, () =>
+                .Iterate(config.TotalFrames, progress =>
                 {
-                    progress += progressStep;
-                    var currentSize = (float)Math.Pow(dimension, progress * maxDepth);
-                    var newScale = 1 / currentSize;
-                    rendererOptions.Viewport = rendererOptions.Viewport.Zoom(zoomX, zoomY, newScale);
-                    var v = rendererOptions.Viewport;
-                    var centerX = v.Left + v.Scale / 2;
-                    var centerY = v.Top + v.Scale / 2;
-                    var offsetX = zoomX - centerX;
-                    var offsetY = zoomY - centerY;
-                    // center screen over zoom point
-                    rendererOptions.Viewport = v.Pan(offsetX, offsetY);
+                    rendererOptions.Viewport = nextViewport(rendererOptions.Viewport, progress);
                 })
                 .Paint(new GoldInterpolator())
                 .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
                 .LoadTree(DataId, treeDataProvider);
         }
 
-        private static (float x, float y, float zoom) GetFinalViewport(int[] path, int dimension, float borderProportion)
+        private static Func<IViewport, float, IViewport> GetViewportGenerator(int[] path, int dimension, float borderProportion)
         {
-            float x = 0;
-            float y = 0;
+            var maxDepth = path.Length;
+            var finalViewport = SquareTreeRendererExtensions.GetFinalViewport(path, dimension, borderProportion);
+            var zoomCenterX = finalViewport.Left + finalViewport.Scale / 2;
+            var zoomCenterY = finalViewport.Top + finalViewport.Scale / 2;
 
-            int depth = 0;
-            float scale = 1;
-            foreach (GridMove moveIndex in path)
+            return (IViewport viewport, float progress) =>
             {
-                // border compensation
-                var borderOffset = (1 / (float)Math.Pow(dimension, depth)) * borderProportion;
-                x += borderOffset;
-                y += borderOffset;
+                var currentSize = (float)Math.Pow(dimension, progress * maxDepth);
+                var newScale = 1 / currentSize;
+                viewport = viewport.Zoom(zoomCenterX, zoomCenterY, newScale);
+                var centerX = viewport.Left + viewport.Scale / 2;
+                var centerY = viewport.Top + viewport.Scale / 2;
+                var offsetX = zoomCenterX - centerX;
+                var offsetY = zoomCenterY - centerY;
+                // try to center screen over zoom point
+                return viewport.Pan(offsetX, offsetY);
+            };
 
-                depth++;
-
-                float dx = moveIndex.GetX(dimension);
-                float dy = moveIndex.GetY(dimension);
-
-                scale = (float)Math.Pow(dimension, depth);
-                x += dx / scale;
-                y += dy / scale;
-            }
-
-            return (x + 1 / scale / 2, y + 1 / scale / 2, 1 / scale);
         }
+
+
     }
 }
