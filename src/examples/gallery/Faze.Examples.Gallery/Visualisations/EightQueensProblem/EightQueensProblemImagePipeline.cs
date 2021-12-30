@@ -20,6 +20,7 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         public int? MaxDepth { get; set; }
         public bool BlackParentMoves { get; set; }
         public bool BlackUnavailableMoves { get; set; }
+        public float? RelativeDepthFactor { get; set; }
 
         public EightQueensProblemPainterConfig GetPainterConfig()
         {

@@ -24,6 +24,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX3D
         public int? MaxDepth { get; set; }
 
         public int LeafSimulations { get; set; }
+        public float? RelativeDepthFactor { get; set; }
     }
     public class OX3DGoldVideoSimPipeline : BaseVisualisationPipeline<OX3DGoldVideoSimPipelineConfig>
     {

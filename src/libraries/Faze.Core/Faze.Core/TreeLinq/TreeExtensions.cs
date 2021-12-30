@@ -68,6 +68,24 @@ namespace Faze.Core.TreeLinq
 
         #endregion LimitDepth
 
+        #region Where
+
+        public static Tree<TValue> Where<TValue>(this Tree<TValue> tree, Func<Tree<TValue>, TreeMapInfo, bool> predicate)
+        {
+            return WhereHelper(tree, predicate, TreeMapInfo.Root());
+        }
+
+        private static Tree<TValue> WhereHelper<TValue>(Tree<TValue> tree, Func<Tree<TValue>, TreeMapInfo, bool> predicate, TreeMapInfo info)
+        {
+            if (!predicate(tree, info))
+                return null;
+
+            var children = tree.Children?.Select((child, i) => WhereHelper(child, predicate, info.Child(i)));
+            return new Tree<TValue>(tree.Value, children);
+        }
+
+        #endregion Where
+
         #region SelectDepthFirst
 
         public static IEnumerable<TValue> SelectDepthFirst<TValue>(this Tree<TValue> tree)

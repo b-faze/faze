@@ -20,6 +20,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
         public int ImageSize { get; set; }
         public float BorderProportion { get; set; }
         public int? MaxDepth { get; set; }
+        public float? RelativeDepthFactor { get; set; }
     }
 
     public class OXGoldImagePipeline : BaseVisualisationPipeline<OXGoldImagePipelineConfig>

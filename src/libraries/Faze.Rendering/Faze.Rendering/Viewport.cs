@@ -6,8 +6,8 @@ namespace Faze.Abstractions.Rendering
     {
         public Viewport(float left, float top, float scale)
         {
-            Left = Bound(left);
-            Top = Bound(top);
+            Left = Bound(left, scale);
+            Top = Bound(top, scale);
             Scale = scale;
         }
 
@@ -55,6 +55,6 @@ namespace Faze.Abstractions.Rendering
             return new Viewport(Left + f * dx, Top + f * dy, Scale + f * ds);
         }
 
-        private float Bound(float n) => Math.Min(1, Math.Max(0, n));
+        private float Bound(float n, float scale) => Math.Min(1-scale, Math.Max(0, n));
     }
 }

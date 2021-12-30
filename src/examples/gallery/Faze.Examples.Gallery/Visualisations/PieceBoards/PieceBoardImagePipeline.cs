@@ -24,6 +24,7 @@ namespace Faze.Examples.Gallery.Visualisations.PieceBoards
         [JsonConverter(typeof(StringEnumConverter))]
         public PieceConfigType Piece { get; set; }
         public bool OnlySafeMoves { get; set; }
+        public float? RelativeDepthFactor { get; set; }
     }
 
     public class PieceBoardImagePipeline : BaseVisualisationPipeline<PieceBoardImagePipelineConfig>

@@ -7,7 +7,7 @@ namespace Faze.Rendering.TreeRenderers
 {
     public static class SquareTreeRendererExtensions
     {
-        public static IViewport GetFinalViewport(int[] path, int dimension, float borderProportion)
+        public static IViewport GetViewport(int[] path, int dimension, float borderProportion)
         {
             float x = 0;
             float y = 0;

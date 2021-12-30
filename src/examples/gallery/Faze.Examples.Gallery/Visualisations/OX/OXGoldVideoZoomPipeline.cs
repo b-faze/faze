@@ -16,6 +16,7 @@ using Faze.Abstractions.GameMoves;
 using System;
 using Faze.Abstractions.Rendering;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
@@ -28,6 +29,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
 
         public int TotalFrames { get; set; }
         public int[] ZoomPath { get; set; }
+        public float? RelativeDepthFactor { get; set; }
     }
     public class OXGoldVideoZoomPipeline : BaseVisualisationPipeline<OXGoldVideoZoomPipelineConfig>
     {
@@ -78,7 +80,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
         private static Func<IViewport, float, IViewport> GetViewportGenerator(int[] path, int dimension, float borderProportion)
         {
             var maxDepth = path.Length;
-            var finalViewport = SquareTreeRendererExtensions.GetFinalViewport(path, dimension, borderProportion);
+            var finalViewport = SquareTreeRendererExtensions.GetViewport(path, dimension, borderProportion);
             var zoomCenterX = finalViewport.Left + finalViewport.Scale / 2;
             var zoomCenterY = finalViewport.Top + finalViewport.Scale / 2;
 
