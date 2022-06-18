@@ -33,7 +33,8 @@ namespace Faze.Rendering.Video.FFMPEG.Tests
             pipeline.Run(@"G:\test_images");
         }
 
-        [Fact(Skip = "Manual")]
+        //[Fact(Skip = "Manual")]
+        [Fact]
         public void CanCreateIterativePipeline()
         {
             var treeSize = 3;
