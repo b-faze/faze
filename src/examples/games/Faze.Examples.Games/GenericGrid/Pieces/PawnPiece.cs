@@ -1,6 +1,7 @@
 ﻿using Faze.Abstractions.GameMoves;
 using Faze.Abstractions.GameResults;
 using Faze.Abstractions.GameStates;
+using Faze.Core.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,10 +9,10 @@ namespace Faze.Examples.Games.GridGames.Pieces
 {
     public class PawnPiece : IPiece
     {
-        public IEnumerable<GridMove> GetPieceMoves(int posIndex, int dimension)
+        public IEnumerable<GridMove> GetPieceMoves(GridMove pos, int dimension)
         {
-            var x = posIndex % dimension;
-            var y = posIndex / dimension;
+            var x = pos.GetX(dimension);
+            var y = pos.GetY(dimension);
 
             var directions = new (int x, int y)[] { (-1, -1), (1, -1), (-1, 1), (1, 1) };
 

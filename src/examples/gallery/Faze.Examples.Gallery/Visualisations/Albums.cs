@@ -6,5 +6,6 @@
         public const string OX3D = "OX 3D";
         public const string PieceBoard = "Piece Board";
         public const string EightQueensProblem = "Eight Queens Problem";
+        public const string Sudoku = "Sudoku";
     }
 }

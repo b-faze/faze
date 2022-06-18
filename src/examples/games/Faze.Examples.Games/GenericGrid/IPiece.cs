@@ -5,7 +5,7 @@ namespace Faze.Examples.Games.GridGames
 {
     public interface IPiece
     {
-        IEnumerable<GridMove> GetPieceMoves(int posIndex, int dimension);
+        IEnumerable<GridMove> GetPieceMoves(GridMove pos, int dimension);
     }
 
 }

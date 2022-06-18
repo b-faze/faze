@@ -30,6 +30,16 @@ namespace Faze.Core.Extensions
             return new Tree<IGameState<TMove, TResult>>(state, children);
         }
 
+        public static Tree<T> ToStateTree<T>(this T state, ITreeAdapter<T> adapter)
+        {
+            if (state == null)
+                return null;
+
+            var children = adapter.GetChildren(state)?.Select(childState => ToStateTree(childState, adapter));
+
+            return new Tree<T>(state, children);
+        }
+
         public static Tree<TMove[]> ToPathTree<TMove, TResult>(this IGameState<TMove, TResult> state)
         {
             return ToPathTreeHelper(state, new TMove[0]);

@@ -11,7 +11,7 @@ namespace Faze.Core.Streamers
         {
             this.baseStream = stream;
         }
-        public void WriteToStream(Stream stream)
+        public void WriteToStream(Stream stream, IProgressTracker progress = null)
         {
             baseStream.CopyTo(stream);
         }

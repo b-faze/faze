@@ -17,9 +17,10 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem
         public int TreeSize { get; set; }
         public int ImageSize { get; set; }
         public float BorderProportion { get; set; }
-        public int MaxDepth { get; set; }
+        public int? MaxDepth { get; set; }
         public bool BlackParentMoves { get; set; }
         public bool BlackUnavailableMoves { get; set; }
+        public float? RelativeDepthFactor { get; set; }
 
         public EightQueensProblemPainterConfig GetPainterConfig()
         {

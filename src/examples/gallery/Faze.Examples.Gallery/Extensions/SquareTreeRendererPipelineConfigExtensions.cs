@@ -10,7 +10,8 @@ namespace Faze.Examples.Gallery.Extensions
             return new SquareTreeRendererOptions(config.TreeSize, config.ImageSize)
             {
                 BorderProportion = config.BorderProportion,
-                MaxDepth = config.MaxDepth
+                MaxDepth = config.MaxDepth,
+                RelativeDepthFactor = config.RelativeDepthFactor
             };
         }
     }

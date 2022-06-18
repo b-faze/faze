@@ -31,6 +31,7 @@ namespace Faze.Rendering.TreeRenderers
 
         public IViewport Viewport { get; set; }
         public int? MaxDepth { get; set; }
+        public float? RelativeDepthFactor { get; set; }
     }
 
     public class SquareTreeRenderer : SkiaTreeRenderer, IPaintedTreeRenderer, IDisposable
@@ -46,13 +47,45 @@ namespace Faze.Rendering.TreeRenderers
 
         public Tree<T> GetVisible<T>(Tree<T> tree)
         {
-            if (options.MaxDepth != null)
-                return tree.LimitDepth(options.MaxDepth.Value);
-
-            return tree;
+            var drawableTree = GetDrawable(tree);
+            return drawableTree.MapValue(v => v.Value);
         }
 
         public void Draw(Tree<Color> tree)
+        {
+            surface.Canvas.Clear();
+            var drawableTree = GetDrawable(tree);
+            DrawHelper(surface.Canvas, drawableTree);
+        }
+
+        private void DrawHelper(SKCanvas canvas, Tree<Drawable<Color>> node)
+        {
+            if (node == null)
+                return;
+
+            canvas.DrawRect(node.Value.Rect, new SKPaint() { Color = GetSKColor(node.Value) });
+
+            if (node.Children == null)
+                return;
+
+            foreach (var child in node.Children)
+            {
+                DrawHelper(canvas, child);
+            }
+        }
+
+        private SKColor GetSKColor(Drawable<Color> node)
+        {
+            var c = node.Value;
+            if (options.RelativeDepthFactor.HasValue)
+            {
+                var depthFactor = options.RelativeDepthFactor.Value * Math.Pow(1 - Math.Min(1, node.RelativeDepth), 2);
+                c = Color.FromArgb(c.A, (int)Math.Max(0, c.R - depthFactor), (int)Math.Max(0, c.G - depthFactor), (int)Math.Max(0, c.B - depthFactor));
+            }
+
+            return new SKColor((uint)c.ToArgb());
+        }
+        private Tree<Drawable<T>> GetDrawable<T>(Tree<T> node)
         {
             var imageSize = options.ImageSize;
             var viewport = options.Viewport;
@@ -64,22 +97,31 @@ namespace Faze.Rendering.TreeRenderers
             var viewportScaledRect = SKRect.Create(-viewportRect.Left / viewportScale, -viewportRect.Top / viewportScale, imageSize / viewportScale, imageSize / viewportScale);
             var scaledViewportRect = SKRect.Create(0, 0, viewportSize / viewportScale, viewportSize / viewportScale);
 
-            surface.Canvas.Clear();
-            DrawHelper(surface.Canvas, tree, scaledViewportRect, viewportScaledRect, 0, options.MaxDepth);
+            return GetDrawableHelper(node, scaledViewportRect, viewportScaledRect, 0, options.MaxDepth);
         }
 
-        private void DrawHelper(SKCanvas canvas, Tree<Color> node, SKRect viewportRect, SKRect rect, int depth, int? maxDepth = null)
+        private Tree<Drawable<T>> GetDrawableHelper<T>(Tree<T> node, SKRect viewportRect, SKRect rect, int depth, int? maxDepth = null)
         {
             if (node == null)
-                return;
+                return null;
 
             if (maxDepth.HasValue && depth > maxDepth.Value)
-                return;
+                return null;
 
-            canvas.DrawRect(rect, new SKPaint() { Color = new SKColor((uint)node.Value.ToArgb()) });
+            // rect is outside of the viewport
+            if (SKRect.Intersect(viewportRect, rect).IsEmpty)
+                return null;
+
+            var drawable = new Drawable<T>
+            {
+                Depth = depth,
+                RelativeDepth = rect.Width / viewportRect.Width,
+                Value = node.Value,
+                Rect = rect
+            };
 
             if (node.IsLeaf())
-                return;
+                return new Tree<Drawable<T>>(drawable);
 
             var scaledSize = rect.Width;
             var borderOffset = options.BorderProportion;
@@ -89,26 +131,31 @@ namespace Faze.Rendering.TreeRenderers
             var innerRect = SKRect.Create(rect.Left + borderSize, rect.Top + borderSize, innerRectSize, innerRectSize);
             var childSize = innerRectSize / options.Size;
 
-            if (childSize > options.MinChildDrawSize && childSize < innerRectSize)
+            if (childSize < options.MinChildDrawSize || childSize > innerRectSize)
+                return new Tree<Drawable<T>>(drawable);
+
+            var children = node.Children.Select((child, childIndex) =>
             {
-                var childIndex = 0;
-                foreach (var child in node.Children)
-                {
-                    var (x, y, _) = Utilities.Flatten(new[] { childIndex++ }, options.Size);
-                    var childRect = SKRect.Create(innerRect.Left + innerRectSize * x, innerRect.Top + innerRectSize * y, childSize, childSize);
+                var (x, y, _) = Utilities.Flatten(new[] { childIndex }, options.Size);
+                var childRect = SKRect.Create(innerRect.Left + innerRectSize * x, innerRect.Top + innerRectSize * y, childSize, childSize);
 
-                    var viewportIntersect = SKRect.Intersect(viewportRect, childRect);
-                    if (viewportIntersect.IsEmpty)
-                        continue;
+                return GetDrawableHelper(child, viewportRect, childRect, depth + 1, maxDepth);
+            });
 
-                    DrawHelper(canvas, child, viewportIntersect, childRect, depth + 1, maxDepth);
-                }
-            }
+            return new Tree<Drawable<T>>(drawable, children);
         }
 
         public void Dispose()
         {
             this.surface?.Dispose();
+        }
+
+        private class Drawable<T> 
+        {
+            public int Depth { get; set; }
+            public float RelativeDepth { get; set; }
+            public SKRect Rect { get; set; }
+            public T Value { get; set; }
         }
     }
 }

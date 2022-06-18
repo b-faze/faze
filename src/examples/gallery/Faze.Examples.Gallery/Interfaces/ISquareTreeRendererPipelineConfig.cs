@@ -5,6 +5,7 @@
         int TreeSize { get; set; }
         int ImageSize { get; set; }
         float BorderProportion { get; set; }
-        int MaxDepth { get; set; }
-    }
+        int? MaxDepth { get; set; }
+        float? RelativeDepthFactor { get; set; }
+    }    
 }
