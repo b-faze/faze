@@ -17,7 +17,7 @@ namespace Faze.Examples.Games.Tests.OX3DTests
 
         public OX3DStateTests()
         {
-            var gameStateTestingServiceConfig = new GameStateTestingServiceConfig<GridMove, WinLoseDrawResult?>(() => new OX3DState());
+            var gameStateTestingServiceConfig = new GameStateTestingServiceConfig<GridMove, WinLoseDrawResult?>(() => OX3DState.Initial());
             this.gameStateTestingService = new GameStateTestingService<GridMove, WinLoseDrawResult?>(gameStateTestingServiceConfig);
         }
 
