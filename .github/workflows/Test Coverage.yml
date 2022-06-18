@@ -46,7 +46,6 @@ jobs:
           continue-on-error: true
         - name: move-coverage
           run: find "${{ matrix.test }}/TestResults/" -type f -print0 | xargs -0 mv -t "${{ matrix.test }}/TestResults"
-          continue-on-error: true
         # You may pin to the exact commit or the version.
         # uses: coverallsapp/github-action@9ba913c152ae4be1327bfb9085dc806cedb44057
         - name: Coveralls GitHub Action
@@ -69,7 +68,6 @@ jobs:
         - 'src/libraries/Faze.Core/Faze.Core.Tests'
         - 'src/libraries/Faze.Core.IO/Faze.Core.IO.Tests'
         - 'src/libraries/Faze.Engine/Faze.Engine.Tests'
-        - 'src/libraries/Faze.Rendering.Video.FFMPEG'
         - 'src/examples/games/Faze.Examples.Games.Tests'
 
     steps:
