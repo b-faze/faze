@@ -1,6 +1,4 @@
 ﻿using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Options;
-using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace Faze.Examples.Gallery.API.Data
