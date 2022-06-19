@@ -1,3 +1,4 @@
+using Faze.Examples.Gallery.API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,11 @@ namespace Faze.Examples.Gallery.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Faze.Examples.Gallery.API", Version = "v1" });
             });
+
+            services.AddSingleton(new DatabaseConfig { Name = Configuration["DatabaseName"] });
+
+            services.AddSingleton<IDatabaseBootstrap, DatabaseBootstrap>();
+            services.AddSingleton<IVisualisationRepository, VisualisationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +57,9 @@ namespace Faze.Examples.Gallery.API
             {
                 endpoints.MapControllers();
             });
+
+            app.ApplicationServices.GetService<IDatabaseBootstrap>().Setup();
+
         }
     }
 }
