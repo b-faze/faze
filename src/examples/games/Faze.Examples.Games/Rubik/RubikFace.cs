@@ -1,31 +1,36 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Faze.Examples.Games.Rubik
 {
-    internal class RubikFace 
+    public class RubikFace 
     {
-        private RubikColor centerColor;
-
+        private RubikColor[] edge;
         public static RubikFace Solved(RubikColor centerColor) =>
-            new RubikFace(centerColor,
-                RubikFaceSide.Initial(centerColor),
-                RubikFaceSide.Initial(centerColor),
-                RubikFaceSide.Initial(centerColor),
-                RubikFaceSide.Initial(centerColor));
+            new RubikFace(centerColor, Enumerable.Range(0, 8).Select(i => centerColor));
 
-        private RubikFace(RubikColor centerColor, RubikFaceSide top, RubikFaceSide right, RubikFaceSide bottom, RubikFaceSide left)
+        private RubikFace(RubikColor center, IEnumerable<RubikColor> edge)
         {
-            this.centerColor = centerColor;
-            this.Top = top;
-            this.Right = right;
-            this.Bottom = bottom;
-            this.Left = left;
+            this.Center = center;
+            this.edge = edge.ToArray();
         }
 
-        public RubikFaceSide Top { get; }
-        public RubikFaceSide Right { get; }
-        public RubikFaceSide Bottom { get; }
-        public RubikFaceSide Left { get; }
+        public RubikColor Center { get; }
+        /// <summary>
+        /// Top -> Right -> Bottom -> Left
+        /// </summary>
+        public IEnumerable<RubikColor> Edge => edge;
+        public IEnumerable<RubikColor> Top => new RubikColor[] { edge[0], edge[1], edge[2] };
+        public IEnumerable<RubikColor> Right => new RubikColor[] { edge[2], edge[3], edge[4] };
+        public IEnumerable<RubikColor> Bottom => new RubikColor[] { edge[4], edge[5], edge[6] };
+        public IEnumerable<RubikColor> Left => new RubikColor[] { edge[6], edge[7], edge[0] };
+
+
+
+        public bool IsSolved()
+        {
+            return Edge.All(c => c == Center);
+        }
 
         public RubikFace Rotate(RubikMoveDirection direction)
         {
@@ -39,19 +44,38 @@ namespace Faze.Examples.Games.Rubik
             }
         }
 
+        public override string ToString()
+        {
+            return string.Join(",", Edge);
+        }
+
         private RubikFace RotateClockwise()
         {
-            return new RubikFace(centerColor, Left, Top, Right, Bottom);
+            var newEdge = new RubikColor[edge.Length];
+            for (var i = 0; i < edge.Length; i++)
+            {
+                newEdge[(i + 3) % 3] = edge[i];
+            }
+            return new RubikFace(Center, newEdge);
         }
 
         private RubikFace RotateAniclockwise()
         {
-            return new RubikFace(centerColor, Right, Bottom, Left, Top);
+            var newEdge = new RubikColor[edge.Length];
+            for (var i = 0; i < edge.Length; i++)
+            {
+                newEdge[i] = edge[(i + 3) % 3];
+            }
+            return new RubikFace(Center, newEdge);
         }
 
-        public RubikFace SetTop(RubikFaceSide newTop) => new RubikFace(centerColor, newTop, Right, Bottom, Left);
-        public RubikFace SetRight(RubikFaceSide newRight) => new RubikFace(centerColor, Top, newRight, Bottom, Left);
-        public RubikFace SetBottom(RubikFaceSide newBottom) => new RubikFace(centerColor, Top, Right, newBottom, Left);
-        public RubikFace SetLeft(RubikFaceSide newLeft) => new RubikFace(centerColor, Top, Right, Bottom, newLeft);
+        public RubikFace SetTop(RubikColor[] e) 
+            => new RubikFace(Center, new RubikColor[] { e[0], e[1], e[2], edge[3], edge[4], edge[5], edge[6], edge[7] });
+        public RubikFace SetRight(RubikColor[] e)
+            => new RubikFace(Center, new RubikColor[] { edge[0], edge[1], e[0], e[1], e[2], edge[5], edge[6], edge[7] });
+        public RubikFace SetBottom(RubikColor[] e)
+            => new RubikFace(Center, new RubikColor[] { edge[0], edge[1], edge[2], edge[3], e[0], e[1], e[2], edge[7] });
+        public RubikFace SetLeft(RubikColor[] e)
+            => new RubikFace(Center, new RubikColor[] { e[0], edge[1], edge[2], edge[3], edge[4], edge[5], e[0], e[1] });
     }
 }

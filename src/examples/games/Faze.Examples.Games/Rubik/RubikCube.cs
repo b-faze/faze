@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Linq;
 
 namespace Faze.Examples.Games.Rubik
 {
-    internal class RubikCube
+    public class RubikCube
     {
         public RubikFace Front { get; }
         public RubikFace Back { get; }
@@ -12,12 +13,12 @@ namespace Faze.Examples.Games.Rubik
         public RubikFace Bottom { get; }
 
         public static RubikCube Solved() => new RubikCube(
-            front: RubikFace.Solved(RubikColor.Red),
-            back: RubikFace.Solved(RubikColor.Purple),
-            left: RubikFace.Solved(RubikColor.Yellow),
-            right: RubikFace.Solved(RubikColor.Green),
-            top: RubikFace.Solved(RubikColor.Blue),
-            bottom: RubikFace.Solved(RubikColor.White)
+            front: RubikFace.Solved(RubikColor.R),
+            back: RubikFace.Solved(RubikColor.P),
+            left: RubikFace.Solved(RubikColor.Y),
+            right: RubikFace.Solved(RubikColor.G),
+            top: RubikFace.Solved(RubikColor.B),
+            bottom: RubikFace.Solved(RubikColor.W)
         );
 
         private RubikCube(RubikFace front, RubikFace back, RubikFace left, RubikFace right, RubikFace top, RubikFace bottom)
@@ -30,27 +31,55 @@ namespace Faze.Examples.Games.Rubik
             Bottom = bottom;
         }
 
+        public bool IsSolved()
+        {
+            return Front.IsSolved()
+                && Back.IsSolved()
+                && Left.IsSolved()
+                && Right.IsSolved()
+                && Top.IsSolved()
+                && Bottom.IsSolved();
+        }
+
         public RubikCube Move(RubikMove move)
         {
             var relativeCube = GetCubeFromPerspective(move.Face);
-            var newRelativeCube = relativeCube.Rotate(move.Direction);
+            var newRelativeCube = move.Direction == RubikMoveDirection.Clockwise
+                ? relativeCube.RotateClockwise(move.Direction)
+                : relativeCube.RotateAnticlockwise(move.Direction);
 
-            return GetCubeFromPerspective(RubikMoveFace.Front); // TODO: need to fix by inverting
+            return newRelativeCube.GetCubeFromPerspective(InvertPerspective(move.Face));
         }
 
-        private RubikCube Rotate(RubikMoveDirection direction) 
+        public override string ToString()
+        {
+            return $"Front[{Front}],\nBack[{Back}],\nLeft[{Left}],\nRight[{Right}],\nTop[{Top}],\nBottom[{Bottom}]";
+        }
+
+        private RubikCube RotateClockwise(RubikMoveDirection direction) 
         {
             var newFront = Front.Rotate(direction);
-            var newTop = Top.SetBottom(newFront.Top);
-            var newRight = Right.SetLeft(newFront.Right);
-            var newBottom = Bottom.SetTop(newFront.Bottom);
-            var newLeft = Left.SetRight(newFront.Left);
+            var newTop = Top.SetBottom(Left.Right.ToArray());
+            var newRight = Right.SetLeft(Top.Bottom.ToArray());
+            var newBottom = Bottom.SetTop(Right.Left.ToArray());
+            var newLeft = Left.SetRight(Bottom.Top.ToArray());
+
+            return new RubikCube(newFront, Back, newLeft, newRight, newTop, newBottom);
+        }
+
+        private RubikCube RotateAnticlockwise(RubikMoveDirection direction)
+        {
+            var newFront = Front.Rotate(direction);
+            var newTop = Top.SetBottom(Right.Left.ToArray());
+            var newRight = Right.SetLeft(Bottom.Top.ToArray());
+            var newBottom = Bottom.SetTop(Left.Right.ToArray());
+            var newLeft = Left.SetRight(Top.Bottom.ToArray());
 
             return new RubikCube(newFront, Back, newLeft, newRight, newTop, newBottom);
         }
 
         /// <summary>
-        /// Creates a new cube from the perspective of a new face
+        /// Creates a new cube from the perspective of the given face
         /// </summary>
         /// <param name="face"></param>
         /// <returns></returns>
@@ -76,6 +105,34 @@ namespace Faze.Examples.Games.Rubik
                 case RubikMoveFace.Bottom:
                     return new RubikCube(Bottom, Top, Right, Left, Front, Back);
             }
+
+            throw new NotSupportedException($"Unknown face '{face}'");
+        }
+
+        private static RubikMoveFace InvertPerspective(RubikMoveFace face)
+        {
+            switch (face)
+            {
+                case RubikMoveFace.Front:
+                    return RubikMoveFace.Front;
+
+                case RubikMoveFace.Back:
+                    return RubikMoveFace.Back;
+
+                case RubikMoveFace.Left:
+                    return RubikMoveFace.Right;
+
+                case RubikMoveFace.Right:
+                    return RubikMoveFace.Left;
+
+                case RubikMoveFace.Top:
+                    return RubikMoveFace.Bottom;
+
+                case RubikMoveFace.Bottom:
+                    return RubikMoveFace.Top;
+            }
+
+            throw new NotSupportedException($"Unknown face '{face}'");
         }
     }
 }
