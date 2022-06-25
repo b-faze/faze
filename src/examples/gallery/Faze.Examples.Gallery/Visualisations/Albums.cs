@@ -7,5 +7,6 @@
         public const string PieceBoard = "Piece Board";
         public const string EightQueensProblem = "Eight Queens Problem";
         public const string Sudoku = "Sudoku";
+        public const string Rubik = "Rubik";
     }
 }

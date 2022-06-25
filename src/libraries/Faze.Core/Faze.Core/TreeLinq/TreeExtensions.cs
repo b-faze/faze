@@ -320,6 +320,27 @@ namespace Faze.Core.TreeLinq
             if (tree == null) 
                 return null;
 
+            var value = maxValue > minValue ? (tree.Value - minValue) / (maxValue - minValue) : 0.5;
+
+            if (tree.IsLeaf())
+                return new Tree<double>(value);
+
+            var childMaxValue = tree.Children.Where(child => child != null).Select(child => child.Value).Max();
+            var childMinValue = tree.Children.Where(child => child != null).Select(child => child.Value).Min();
+
+            return new Tree<double>(value, tree.Children?.Select(child => NormaliseSiblingsHelper(child, childMinValue, childMaxValue)));
+        }
+
+        public static Tree<double> NormaliseDepth(this Tree<double> tree)
+        {
+            return NormaliseDepthHelper(tree, tree.Value, tree.Value);
+        }
+
+        private static Tree<double> NormaliseDepthHelper(this Tree<double> tree, double minValue, double maxValue)
+        {
+            if (tree == null)
+                return null;
+
             var value = maxValue > minValue ? (tree.Value - minValue) / (maxValue - minValue) : 0;
 
             if (tree.IsLeaf())
