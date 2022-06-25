@@ -32,6 +32,11 @@ namespace Faze.Examples.Games.Rubik
             return Edge.All(c => c == Center);
         }
 
+        public RubikFace Rotate180()
+        {
+            return RotateClockwise().RotateClockwise();
+        }
+
         public RubikFace Rotate(RubikMoveDirection direction)
         {
             if (direction == RubikMoveDirection.Clockwise)
@@ -44,22 +49,22 @@ namespace Faze.Examples.Games.Rubik
             }
         }
 
-        private RubikFace RotateClockwise()
+        public RubikFace RotateClockwise()
         {
             var newEdge = new RubikColor[edge.Length];
             for (var i = 0; i < edge.Length; i++)
             {
-                newEdge[(i + 3) % 3] = edge[i];
+                newEdge[(i + 2) % edge.Length] = edge[i];
             }
             return new RubikFace(Center, newEdge);
         }
 
-        private RubikFace RotateAniclockwise()
+        public RubikFace RotateAniclockwise()
         {
             var newEdge = new RubikColor[edge.Length];
             for (var i = 0; i < edge.Length; i++)
             {
-                newEdge[i] = edge[(i + 3) % 3];
+                newEdge[i] = edge[(i + 2) % edge.Length];
             }
             return new RubikFace(Center, newEdge);
         }

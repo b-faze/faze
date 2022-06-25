@@ -54,50 +54,63 @@ namespace Faze.Examples.Games.Tests.Rubik
             cube.Right.Left.ShouldAllBe(c => c == cube.Down.Center, "Bottom => Right");
         }
 
-        [Fact]
-        public void CanMixAndUndo()
+        [Theory]
+        [InlineData("F", "F'")]
+        [InlineData("B", "B'")]
+        [InlineData("L", "L'")]
+        [InlineData("R", "R'")]
+        [InlineData("U", "U'")]
+        [InlineData("D", "D'")]
+        [InlineData("F B", "B' F'")]
+        [InlineData("F B", "F' B'")]
+        [InlineData("F R", "R' F'")]
+        [InlineData("F B L", "L' B' F")]
+        [InlineData("F B L R U D", "D' U' R' L' B' F'")]
+        public void CanMixAndUndo(string mixSequence, string undoSequence)
         {
-            var faceSequence = new RubikMoveFace[]
-            {
-                RubikMoveFace.Front,
-                RubikMoveFace.Left,
-                RubikMoveFace.Back,
-            };
-
             var cube = RubikCube.Solved();
             cube.IsSolved().ShouldBeTrue();
 
-            // mix
-            foreach (var face in faceSequence)
-            {
-                cube = cube.Move(new RubikMove(face, RubikMoveDirection.Clockwise));
-            }
+            cube = RubikTestUtils.RunMoves(cube, mixSequence);
             cube.IsSolved().ShouldBeFalse();
 
-            // reverse mix
-            foreach (var face in faceSequence.Reverse())
-            {
-                cube = cube.Move(new RubikMove(face, RubikMoveDirection.Anticlockwise));
-            }
+            cube = RubikTestUtils.RunMoves(cube, undoSequence);
             cube.IsSolved().ShouldBeTrue();
         }
 
         [Fact]
-        public void CanMixClockwise()
+        public void GetCubeFromPerspective()
         {
-            var expectedCube = RubikNotationExtensions.ParseCube("R|RGYYYRWW,O|WWYYBOWW,G|GGGOOYYG,B|RRBBBBBB,W|ORRGGWWO,Y|GBOOOYRR");
-            //cube = RubikTestUtils.RunMoves(cube, "F R U' L");
+            // fake cube
+            var cube = RubikNotationExtensions.ParseCube("R|YRRRRRRR,O|ROOOOOOO,G|OGGGGGGG,B|GBBBBBBB,W|BWWWWWWW,Y|WYYYYYYY");
 
-            var cube = RubikCube.Solved();
-            cube.IsSolved().ShouldBeTrue();
+            // no change from front
+            var cubeFromFront = cube.GetCubeFromPerspective(RubikMoveFace.Front);
+            cubeFromFront.ShouldBe(RubikNotationExtensions.ParseCube("R|YRRRRRRR,O|ROOOOOOO,G|OGGGGGGG,B|GBBBBBBB,W|BWWWWWWW,Y|WYYYYYYY"));
 
-            // mix
+            var cubeFromBack = cube.GetCubeFromPerspective(RubikMoveFace.Back);
+            cubeFromBack.ShouldBe(RubikNotationExtensions.ParseCube("O|ROOOOOOO,R|YRRRRRRR,B|GBBBBBBB,G|OGGGGGGG,W|WWWWBWWW,Y|YYYYWYYY"));
 
-            cube = cube.Move(RubikMove.Parse("F"));
-            cube.ShouldBe(RubikNotationExtensions.ParseCube("R|RRRRRRRR,O|OOOOOOOO,G|GGYYYGGG,B|WBBBBBWW,W|WWWWGGGW,Y|BBBYYYYY"));
+            var cubeFromLeft = cube.GetCubeFromPerspective(RubikMoveFace.Left);
+            cubeFromLeft.ShouldBe(RubikNotationExtensions.ParseCube("G|OGGGGGGG,B|GBBBBBBB,O|ROOOOOOO,R|YRRRRRRR,W|WWWWWWBW,Y|YYWYYYYY"));
 
-            cube = cube.Move(RubikMove.Parse("R"));
-            cube.ShouldBe(RubikNotationExtensions.ParseCube("R|RRBYYRRR,O|GOOOOOWW,G|GGYYYGGG,B|WWWBBBBB,W|WWRRRGGW,Y|BBOOOYYY"));
+            var cubeFromRight = cube.GetCubeFromPerspective(RubikMoveFace.Right);
+            cubeFromRight.ShouldBe(RubikNotationExtensions.ParseCube("B|GBBBBBBB,G|OGGGGGGG,R|YRRRRRRR,O|ROOOOOOO,W|WWBWWWWW,Y|YYYYYYWY"));
+
+            var cubeFromUp = cube.GetCubeFromPerspective(RubikMoveFace.Up);
+            cubeFromUp.ShouldBe(RubikNotationExtensions.ParseCube("W|BWWWWWWW,Y|YYYYWYYY,G|GGOGGGGG,B|BBBBBBGB,O|OOOOROOO,R|YRRRRRRR"));
+
+            var cubeFromDown = cube.GetCubeFromPerspective(RubikMoveFace.Down);
+            cubeFromDown.ShouldBe(RubikNotationExtensions.ParseCube("Y|WYYYYYYY,W|WWWWBWWW,G|GGGGGGOG,B|BBGBBBBB,R|YRRRRRRR,O|OOOOROOO"));
+
+        }
+
+        [Fact]
+        public void CubeNotation()
+        {
+            var expectedNotation = "R|RRRRRRRR,O|OOOOOOOO,G|GGYYYGGG,B|WBBBBBWW,W|WWWWGGGW,Y|BBBYYYYY";
+            var cube = RubikNotationExtensions.ParseCube(expectedNotation);
+            cube.ToNotation().ShouldBe(expectedNotation);        
         }
     }
 }

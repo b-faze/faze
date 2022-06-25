@@ -17,18 +17,18 @@ namespace Faze.Examples.Games.Rubik
             back: RubikFace.Solved(RubikColor.Orange),
             left: RubikFace.Solved(RubikColor.Green),
             right: RubikFace.Solved(RubikColor.Blue),
-            top: RubikFace.Solved(RubikColor.White),
-            bottom: RubikFace.Solved(RubikColor.Yellow)
+            up: RubikFace.Solved(RubikColor.White),
+            down: RubikFace.Solved(RubikColor.Yellow)
         );
 
-        public RubikCube(RubikFace front, RubikFace back, RubikFace left, RubikFace right, RubikFace top, RubikFace bottom)
+        public RubikCube(RubikFace front, RubikFace back, RubikFace left, RubikFace right, RubikFace up, RubikFace down)
         {
             Front = front;
             Back = back;
             Left = left;
             Right = right;
-            Up = top;
-            Down = bottom;
+            Up = up;
+            Down = down;
         }
 
         public bool IsSolved()
@@ -77,9 +77,7 @@ namespace Faze.Examples.Games.Rubik
         /// <summary>
         /// Creates a new cube from the perspective of the given face
         /// </summary>
-        /// <param name="face"></param>
-        /// <returns></returns>
-        private RubikCube GetCubeFromPerspective(RubikMoveFace face) 
+        public RubikCube GetCubeFromPerspective(RubikMoveFace face) 
         {
             switch (face)
             {
@@ -87,19 +85,49 @@ namespace Faze.Examples.Games.Rubik
                     return new RubikCube(Front, Back, Left, Right, Up, Down);
 
                 case RubikMoveFace.Back:
-                    return new RubikCube(Back, Front, Right, Left, Up, Down);
+                    return new RubikCube(
+                        front: Back, 
+                        back: Front, 
+                        left: Right, 
+                        right: Left, 
+                        up: Up.Rotate180(), 
+                        down: Down.Rotate180());
 
                 case RubikMoveFace.Left:
-                    return new RubikCube(Left, Right, Back, Front, Up, Down);
+                    return new RubikCube(
+                        front: Left, 
+                        back: Right, 
+                        left: Back, 
+                        right: Front, 
+                        up: Up.RotateAniclockwise(), 
+                        down: Down.RotateClockwise());
 
                 case RubikMoveFace.Right:
-                    return new RubikCube(Right, Left, Front, Back, Up, Down);
+                    return new RubikCube(
+                        front: Right, 
+                        back: Left, 
+                        left: Front, 
+                        right: Back, 
+                        up: Up.RotateClockwise(), 
+                        down: Down.RotateAniclockwise());
 
                 case RubikMoveFace.Up:
-                    return new RubikCube(Up, Down, Right, Left, Back, Front);
+                    return new RubikCube(
+                        front: Up, 
+                        back: Down.Rotate180(), 
+                        left: Left.RotateClockwise(), 
+                        right: Right.RotateAniclockwise(), 
+                        up: Back.Rotate180(), 
+                        down: Front);
 
                 case RubikMoveFace.Down:
-                    return new RubikCube(Down, Up, Right, Left, Front, Back);
+                    return new RubikCube(
+                        front: Down, 
+                        back: Up.Rotate180(), 
+                        left: Left.RotateAniclockwise(), 
+                        right: Right.RotateClockwise(), 
+                        up: Front, 
+                        down: Back.Rotate180());
             }
 
             throw new NotSupportedException($"Unknown face '{face}'");
