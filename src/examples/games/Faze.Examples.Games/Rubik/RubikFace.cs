@@ -76,6 +76,6 @@ namespace Faze.Examples.Games.Rubik
         public RubikFace SetBottom(RubikColor[] e)
             => new RubikFace(Center, new RubikColor[] { edge[0], edge[1], edge[2], edge[3], e[0], e[1], e[2], edge[7] });
         public RubikFace SetLeft(RubikColor[] e)
-            => new RubikFace(Center, new RubikColor[] { e[0], edge[1], edge[2], edge[3], edge[4], edge[5], e[0], e[1] });
+            => new RubikFace(Center, new RubikColor[] { e[0], edge[1], edge[2], edge[3], edge[4], edge[5], e[1], e[2] });
     }
 }

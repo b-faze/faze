@@ -64,18 +64,33 @@ namespace Faze.Examples.Games.Tests.Rubik
         [InlineData("F B", "B' F'")]
         [InlineData("F B", "F' B'")]
         [InlineData("F R", "R' F'")]
+        [InlineData("U R", "R' U'")]
         [InlineData("F B L", "L' B' F")]
         [InlineData("F B L R U D", "D' U' R' L' B' F'")]
         public void CanMixAndUndo(string mixSequence, string undoSequence)
+        {
+            var summary = $"{mixSequence} -> {undoSequence}";
+
+            var cube = RubikCube.Solved();
+            cube.IsSolved().ShouldBeTrue(summary);
+
+            cube = RubikTestUtils.RunMoves(cube, mixSequence);
+            cube.IsSolved().ShouldBeFalse(summary);
+
+            cube = RubikTestUtils.RunMoves(cube, undoSequence);
+            cube.IsSolved().ShouldBeTrue(summary);
+        }
+
+        [Theory]
+        [InlineData("F", "R|RRRRRRRR,O|OOOOOOOO,G|GGYYYGGG,B|WBBBBBWW,W|WWWWGGGW,Y|BBBYYYYY")]
+        [InlineData("F R", "R|RRBYYRRR,O|GOOOOOWW,G|GGYYYGGG,B|WWWBBBBB,W|WWRRRGGW,Y|BBOOOYYY")]
+        public void CanMixAndCorrectState(string mixSequence, string expectedCubeNotation)
         {
             var cube = RubikCube.Solved();
             cube.IsSolved().ShouldBeTrue();
 
             cube = RubikTestUtils.RunMoves(cube, mixSequence);
-            cube.IsSolved().ShouldBeFalse();
-
-            cube = RubikTestUtils.RunMoves(cube, undoSequence);
-            cube.IsSolved().ShouldBeTrue();
+            cube.ToNotation().ShouldBe(expectedCubeNotation, mixSequence);
         }
 
         [Fact]
