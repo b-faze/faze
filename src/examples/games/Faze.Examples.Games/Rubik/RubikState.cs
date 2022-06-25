@@ -68,8 +68,8 @@ namespace Faze.Examples.Games.Rubik
             return new RubikMove?[]
             {
                 null,
-                new RubikMove(RubikMoveFace.Top, RubikMoveDirection.Anticlockwise),
-                new RubikMove(RubikMoveFace.Top, RubikMoveDirection.Clockwise),
+                new RubikMove(RubikMoveFace.Up, RubikMoveDirection.Anticlockwise),
+                new RubikMove(RubikMoveFace.Up, RubikMoveDirection.Clockwise),
                 null,
                 new RubikMove(RubikMoveFace.Left, RubikMoveDirection.Clockwise),
                 new RubikMove(RubikMoveFace.Front, RubikMoveDirection.Anticlockwise),
@@ -80,8 +80,8 @@ namespace Faze.Examples.Games.Rubik
                 new RubikMove(RubikMoveFace.Back, RubikMoveDirection.Clockwise),
                 new RubikMove(RubikMoveFace.Right, RubikMoveDirection.Anticlockwise),
                 null,
-                new RubikMove(RubikMoveFace.Bottom, RubikMoveDirection.Anticlockwise),
-                new RubikMove(RubikMoveFace.Bottom, RubikMoveDirection.Clockwise),
+                new RubikMove(RubikMoveFace.Down, RubikMoveDirection.Anticlockwise),
+                new RubikMove(RubikMoveFace.Down, RubikMoveDirection.Clockwise),
                 null
             };
         }

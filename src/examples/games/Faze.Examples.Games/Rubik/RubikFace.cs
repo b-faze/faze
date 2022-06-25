@@ -9,7 +9,7 @@ namespace Faze.Examples.Games.Rubik
         public static RubikFace Solved(RubikColor centerColor) =>
             new RubikFace(centerColor, Enumerable.Range(0, 8).Select(i => centerColor));
 
-        private RubikFace(RubikColor center, IEnumerable<RubikColor> edge)
+        public RubikFace(RubikColor center, IEnumerable<RubikColor> edge)
         {
             this.Center = center;
             this.edge = edge.ToArray();
@@ -42,11 +42,6 @@ namespace Faze.Examples.Games.Rubik
             {
                 return RotateAniclockwise();
             }
-        }
-
-        public override string ToString()
-        {
-            return string.Join(",", Edge);
         }
 
         private RubikFace RotateClockwise()

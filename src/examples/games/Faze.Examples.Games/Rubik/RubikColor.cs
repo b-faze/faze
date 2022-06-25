@@ -2,11 +2,11 @@
 {
     public enum RubikColor
     {
-        R,
-        G,
-        W,
-        B,
-        P,
-        Y
+        Red,
+        Green,
+        White,
+        Blue,
+        Orange,
+        Yellow
     }
 }

@@ -4,8 +4,8 @@
     {
         Left,
         Right,
-        Top,
-        Bottom,
+        Up,
+        Down,
         Front,
         Back
     }

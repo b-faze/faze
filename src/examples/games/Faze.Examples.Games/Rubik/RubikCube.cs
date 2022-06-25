@@ -9,26 +9,26 @@ namespace Faze.Examples.Games.Rubik
         public RubikFace Back { get; }
         public RubikFace Left { get; }
         public RubikFace Right { get; }
-        public RubikFace Top { get; }
-        public RubikFace Bottom { get; }
+        public RubikFace Up { get; }
+        public RubikFace Down { get; }
 
         public static RubikCube Solved() => new RubikCube(
-            front: RubikFace.Solved(RubikColor.R),
-            back: RubikFace.Solved(RubikColor.P),
-            left: RubikFace.Solved(RubikColor.Y),
-            right: RubikFace.Solved(RubikColor.G),
-            top: RubikFace.Solved(RubikColor.B),
-            bottom: RubikFace.Solved(RubikColor.W)
+            front: RubikFace.Solved(RubikColor.Red),
+            back: RubikFace.Solved(RubikColor.Orange),
+            left: RubikFace.Solved(RubikColor.Green),
+            right: RubikFace.Solved(RubikColor.Blue),
+            top: RubikFace.Solved(RubikColor.White),
+            bottom: RubikFace.Solved(RubikColor.Yellow)
         );
 
-        private RubikCube(RubikFace front, RubikFace back, RubikFace left, RubikFace right, RubikFace top, RubikFace bottom)
+        public RubikCube(RubikFace front, RubikFace back, RubikFace left, RubikFace right, RubikFace top, RubikFace bottom)
         {
             Front = front;
             Back = back;
             Left = left;
             Right = right;
-            Top = top;
-            Bottom = bottom;
+            Up = top;
+            Down = bottom;
         }
 
         public bool IsSolved()
@@ -37,8 +37,8 @@ namespace Faze.Examples.Games.Rubik
                 && Back.IsSolved()
                 && Left.IsSolved()
                 && Right.IsSolved()
-                && Top.IsSolved()
-                && Bottom.IsSolved();
+                && Up.IsSolved()
+                && Down.IsSolved();
         }
 
         public RubikCube Move(RubikMove move)
@@ -48,21 +48,17 @@ namespace Faze.Examples.Games.Rubik
                 ? relativeCube.RotateClockwise(move.Direction)
                 : relativeCube.RotateAnticlockwise(move.Direction);
 
-            return newRelativeCube.GetCubeFromPerspective(InvertPerspective(move.Face));
-        }
-
-        public override string ToString()
-        {
-            return $"Front[{Front}],\nBack[{Back}],\nLeft[{Left}],\nRight[{Right}],\nTop[{Top}],\nBottom[{Bottom}]";
+            var newCube = newRelativeCube.GetCubeFromPerspective(InvertPerspective(move.Face));
+            return newCube;
         }
 
         private RubikCube RotateClockwise(RubikMoveDirection direction) 
         {
             var newFront = Front.Rotate(direction);
-            var newTop = Top.SetBottom(Left.Right.ToArray());
-            var newRight = Right.SetLeft(Top.Bottom.ToArray());
-            var newBottom = Bottom.SetTop(Right.Left.ToArray());
-            var newLeft = Left.SetRight(Bottom.Top.ToArray());
+            var newTop = Up.SetBottom(Left.Right.ToArray());
+            var newRight = Right.SetLeft(Up.Bottom.ToArray());
+            var newBottom = Down.SetTop(Right.Left.ToArray());
+            var newLeft = Left.SetRight(Down.Top.ToArray());
 
             return new RubikCube(newFront, Back, newLeft, newRight, newTop, newBottom);
         }
@@ -70,10 +66,10 @@ namespace Faze.Examples.Games.Rubik
         private RubikCube RotateAnticlockwise(RubikMoveDirection direction)
         {
             var newFront = Front.Rotate(direction);
-            var newTop = Top.SetBottom(Right.Left.ToArray());
-            var newRight = Right.SetLeft(Bottom.Top.ToArray());
-            var newBottom = Bottom.SetTop(Left.Right.ToArray());
-            var newLeft = Left.SetRight(Top.Bottom.ToArray());
+            var newTop = Up.SetBottom(Right.Left.ToArray());
+            var newRight = Right.SetLeft(Down.Top.ToArray());
+            var newBottom = Down.SetTop(Left.Right.ToArray());
+            var newLeft = Left.SetRight(Up.Bottom.ToArray());
 
             return new RubikCube(newFront, Back, newLeft, newRight, newTop, newBottom);
         }
@@ -88,22 +84,22 @@ namespace Faze.Examples.Games.Rubik
             switch (face)
             {
                 case RubikMoveFace.Front:
-                    return new RubikCube(Front, Back, Left, Right, Top, Bottom);
+                    return new RubikCube(Front, Back, Left, Right, Up, Down);
 
                 case RubikMoveFace.Back:
-                    return new RubikCube(Back, Front, Right, Left, Top, Bottom);
+                    return new RubikCube(Back, Front, Right, Left, Up, Down);
 
                 case RubikMoveFace.Left:
-                    return new RubikCube(Left, Right, Back, Front, Top, Bottom);
+                    return new RubikCube(Left, Right, Back, Front, Up, Down);
 
                 case RubikMoveFace.Right:
-                    return new RubikCube(Right, Left, Front, Back, Top, Bottom);
+                    return new RubikCube(Right, Left, Front, Back, Up, Down);
 
-                case RubikMoveFace.Top:
-                    return new RubikCube(Top, Bottom, Right, Left, Back, Front);
+                case RubikMoveFace.Up:
+                    return new RubikCube(Up, Down, Right, Left, Back, Front);
 
-                case RubikMoveFace.Bottom:
-                    return new RubikCube(Bottom, Top, Right, Left, Front, Back);
+                case RubikMoveFace.Down:
+                    return new RubikCube(Down, Up, Right, Left, Front, Back);
             }
 
             throw new NotSupportedException($"Unknown face '{face}'");
@@ -125,11 +121,11 @@ namespace Faze.Examples.Games.Rubik
                 case RubikMoveFace.Right:
                     return RubikMoveFace.Left;
 
-                case RubikMoveFace.Top:
-                    return RubikMoveFace.Bottom;
+                case RubikMoveFace.Up:
+                    return RubikMoveFace.Down;
 
-                case RubikMoveFace.Bottom:
-                    return RubikMoveFace.Top;
+                case RubikMoveFace.Down:
+                    return RubikMoveFace.Up;
             }
 
             throw new NotSupportedException($"Unknown face '{face}'");
