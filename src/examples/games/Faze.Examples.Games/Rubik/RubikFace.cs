@@ -69,13 +69,17 @@ namespace Faze.Examples.Games.Rubik
             return new RubikFace(Center, newEdge);
         }
 
-        public RubikFace SetTop(RubikColor[] e) 
-            => new RubikFace(Center, new RubikColor[] { e[0], e[1], e[2], edge[3], edge[4], edge[5], edge[6], edge[7] });
-        public RubikFace SetRight(RubikColor[] e)
-            => new RubikFace(Center, new RubikColor[] { edge[0], edge[1], e[0], e[1], e[2], edge[5], edge[6], edge[7] });
-        public RubikFace SetBottom(RubikColor[] e)
-            => new RubikFace(Center, new RubikColor[] { edge[0], edge[1], edge[2], edge[3], e[0], e[1], e[2], edge[7] });
-        public RubikFace SetLeft(RubikColor[] e)
-            => new RubikFace(Center, new RubikColor[] { e[0], edge[1], edge[2], edge[3], edge[4], edge[5], e[1], e[2] });
+        public RubikFace SetEdge(RubikFace source, int[] souceEdgeIndex, int[] targetEdgeIndex)
+        {
+            var newEdge = new RubikColor[edge.Length];
+            edge.CopyTo(newEdge, 0);
+
+            for (var i = 0; i < 3; i++)
+            {
+                newEdge[targetEdgeIndex[i]] = source.edge[souceEdgeIndex[i]];
+            }
+
+            return new RubikFace(Center, newEdge);
+        }
     }
 }
