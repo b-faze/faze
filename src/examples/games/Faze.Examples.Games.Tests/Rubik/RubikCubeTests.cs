@@ -8,52 +8,6 @@ namespace Faze.Examples.Games.Tests.Rubik
 {
     public class RubikCubeTests
     {
-        [Fact]
-        public void CanRotateClockwise()
-        {
-            var cube = RubikCube.Solved();
-            cube = cube.Move(new RubikMove(RubikMoveFace.Front, RubikMoveDirection.Clockwise));
-            cube.Front.IsSolved().ShouldBeTrue("no change to rotated face");
-
-            // other faces updated
-            cube.Back.IsSolved().ShouldBeTrue("back remains solved");
-
-            cube.Up.IsSolved().ShouldBeFalse("top unsolved");
-            cube.Up.Bottom.ShouldAllBe(c => c == cube.Left.Center, "left => top");
-
-            cube.Down.IsSolved().ShouldBeFalse("bottom unsolved");
-            cube.Down.Top.ShouldAllBe(c => c == cube.Right.Center, "Right => Bottom");
-
-            cube.Left.IsSolved().ShouldBeFalse("left unsolved");
-            cube.Left.Right.ShouldAllBe(c => c == cube.Down.Center, "Bottom => Left");
-
-            cube.Right.IsSolved().ShouldBeFalse("right unsolved");
-            cube.Right.Left.ShouldAllBe(c => c == cube.Up.Center, "Top => Right");
-        }
-
-        [Fact]
-        public void CanRotateAnticlockwise()
-        {
-            var cube = RubikCube.Solved();
-            cube = cube.Move(new RubikMove(RubikMoveFace.Front, RubikMoveDirection.Anticlockwise));
-            cube.Front.IsSolved().ShouldBeTrue("no change to rotated face");
-
-            // other faces updated
-            cube.Back.IsSolved().ShouldBeTrue("back remains solved");
-
-            cube.Up.IsSolved().ShouldBeFalse("top unsolved");
-            cube.Up.Bottom.ShouldAllBe(c => c == cube.Right.Center, "right => top");
-
-            cube.Down.IsSolved().ShouldBeFalse("bottom unsolved");
-            cube.Down.Top.ShouldAllBe(c => c == cube.Left.Center, "Left => Bottom");
-
-            cube.Left.IsSolved().ShouldBeFalse("left unsolved");
-            cube.Left.Right.ShouldAllBe(c => c == cube.Up.Center, "Top => Left");
-
-            cube.Right.IsSolved().ShouldBeFalse("right unsolved");
-            cube.Right.Left.ShouldAllBe(c => c == cube.Down.Center, "Bottom => Right");
-        }
-
         [Theory]
         [InlineData("F", "F'")]
         [InlineData("B", "B'")]
@@ -65,25 +19,29 @@ namespace Faze.Examples.Games.Tests.Rubik
         [InlineData("F B", "F' B'")]
         [InlineData("F R", "R' F'")]
         [InlineData("U R", "R' U'")]
-        [InlineData("F B L", "L' B' F")]
+        [InlineData("F B L", "L' B' F'")]
         [InlineData("F B L R U D", "D' U' R' L' B' F'")]
+        [InlineData("F U F R F D F L F B", "B' F' L' F' D' F' R' F' U' F'")]
         public void CanMixAndUndo(string mixSequence, string undoSequence)
         {
             var summary = $"{mixSequence} -> {undoSequence}";
 
-            var cube = RubikCube.Solved();
-            cube.IsSolved().ShouldBeTrue(summary);
+            // fake cube
+            var originalCubeNotation = "R|ROGBWYBY,O|ROGBWYBY,G|ROGBWYBY,B|ROGBWYBY,W|ROGBWYBY,Y|ROGBWYBY";
+            var cube = RubikNotationExtensions.ParseCube(originalCubeNotation);
 
             cube = RubikTestUtils.RunMoves(cube, mixSequence);
-            cube.IsSolved().ShouldBeFalse(summary);
-
             cube = RubikTestUtils.RunMoves(cube, undoSequence);
-            cube.IsSolved().ShouldBeTrue(summary);
+
+            cube.ToNotation().ShouldBe(originalCubeNotation, summary);
         }
 
         [Theory]
         [InlineData("F", "R|RRRRRRRR,O|OOOOOOOO,G|GGYYYGGG,B|WBBBBBWW,W|WWWWGGGW,Y|BBBYYYYY")]
         [InlineData("F R", "R|RRBYYRRR,O|GOOOOOWW,G|GGYYYGGG,B|WWWBBBBB,W|WWRRRGGW,Y|BBOOOYYY")]
+        [InlineData("U R", "R|BBYYYRRR,O|WGGOOOWW,G|RRRGGGGG,B|BBOOOBBB,W|WWBRRWWW,Y|YYOOGYYY")]
+        [InlineData("U R R'", "R|BBBRRRRR,O|GGGOOOOO,G|RRRGGGGG,B|OOOBBBBB,W|WWWWWWWW,Y|YYYYYYYY")]
+        [InlineData("F B L", "R|BRRRRRGW,O|OOGYBOOO,G|WWWGYYYG,B|WBYYYBWW,W|OBBWGGOO,Y|RBBYGGRR")]
         public void CanMixAndCorrectState(string mixSequence, string expectedCubeNotation)
         {
             var cube = RubikCube.Solved();

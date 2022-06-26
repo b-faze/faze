@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators
 {
-    public class RubikDataGeneratorNoSim5 : IDataGenerator
+    public class RubikDataGenerator5 : IDataGenerator
     {
-        public const string Id = "Rubik_depth5_sim1";
+        public const string Id = "Rubik_depth5_sim5";
         private readonly RubikSimulatedDataPipeline pipelineProvider;
 
-        public RubikDataGeneratorNoSim5(RubikSimulatedDataPipeline pipelineProvider)
+        public RubikDataGenerator5(RubikSimulatedDataPipeline pipelineProvider)
         {
             this.pipelineProvider = pipelineProvider;
         }
@@ -24,7 +24,8 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators
         public Task Generate(IProgressTracker progress)
         {
             progress.SetMessage(Id);
-            pipelineProvider.Create(Id, 5, 1, 0).Run(progress);
+            // check 100 times if a solution is found by making 5 random moves
+            pipelineProvider.Create(Id, dataDepth: 5, simulations: 100, simulationDepth: 5).Run(progress);
 
             return Task.CompletedTask;
         }

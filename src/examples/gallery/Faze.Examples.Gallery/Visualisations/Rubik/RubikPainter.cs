@@ -26,7 +26,7 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik
                 .MapValue(v => v.GetWinsOverLoses());
 
             if (config.Normalise)
-                resultTree = resultTree.Normalise();
+                resultTree = resultTree.NormaliseSiblings();
 
             var colouredTree = resultTree
                 .MapValue(colorInterpolator);

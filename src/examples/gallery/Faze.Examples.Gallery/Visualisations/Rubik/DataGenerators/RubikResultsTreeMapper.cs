@@ -28,10 +28,28 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators
 
         public Tree<WinLoseDrawResultAggregate> Map(Tree<IGameState<GridMove, RubikResult?>> tree, IProgressTracker progress)
         {
-            var leafCount = tree.GetLeaves().Count();
+            var trimmedTree = StopWhenSolvedTree(tree);
+            var leafCount = trimmedTree.GetLeaves().Count();
             progress.SetMaxTicks(leafCount);
 
-            return tree.MapValueAgg((state, info) => GetResults(state, info, progress), () => new WinLoseDrawResultAggregate());
+            return trimmedTree.MapValueAgg((state, info) => GetResults(state, info, progress), () => new WinLoseDrawResultAggregate());
+        }
+
+        private Tree<IGameState<GridMove, RubikResult?>> StopWhenSolvedTree(Tree<IGameState<GridMove, RubikResult?>> tree, int depth = 0)
+        {
+            if (tree == null) 
+            {
+                return null;
+            }
+
+            // skip initial solved state
+            if (tree.Value.GetResult() == RubikResult.Solved && depth > 0)
+            {
+                return new Tree<IGameState<GridMove, RubikResult?>>(tree.Value);
+            }
+
+            var children = tree.Children?.Select(c => StopWhenSolvedTree(c, depth + 1));
+            return new Tree<IGameState<GridMove, RubikResult?>>(tree.Value, children);
         }
 
         private WinLoseDrawResultAggregate GetResults(IGameState<GridMove, RubikResult?> state, TreeMapInfo info, IProgressTracker progress)

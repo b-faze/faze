@@ -56,9 +56,9 @@ namespace Faze.Examples.Games.Rubik
         {
             var newFront = Front.Rotate(direction);
 
-            var newTop = Up.SetEdge(Left, new[] { 2, 3, 4 }, new[] { 4, 5, 6 });
+            var newTop = Up.SetEdge(Left, new[] { 4, 3, 2 }, new[] { 6, 5, 4 });
             var newRight = Right.SetEdge(Up, new[] { 6, 5, 4 }, new[] { 0, 7, 6 });
-            var newBottom = Down.SetEdge(Right, new[] { 0, 7, 6 }, new[] { 2, 1, 0 });
+            var newBottom = Down.SetEdge(Right, new[] { 6, 7, 0 }, new[] { 0, 1, 2 });
             var newLeft = Left.SetEdge(Down, new[] { 0, 1, 2 }, new[] { 2, 3, 4 });
 
             return new RubikCube(newFront, Back, newLeft, newRight, newTop, newBottom);
@@ -69,9 +69,9 @@ namespace Faze.Examples.Games.Rubik
             var newFront = Front.Rotate(direction);
 
             var newTop = Up.SetEdge(Right, new[] { 0, 7, 6 }, new[] { 6, 5, 4 });
-            var newRight = Right.SetEdge(Down, new[] { 0, 1, 2 }, new[] { 0, 7, 6 });
+            var newRight = Right.SetEdge(Down, new[] { 0, 1, 2 }, new[] { 6, 7, 0 });
             var newBottom = Down.SetEdge(Left, new[] { 2, 3, 4 }, new[] { 0, 1, 2 });
-            var newLeft = Left.SetEdge(Up, new[] { 6, 5, 4 }, new[] { 4, 3, 2});
+            var newLeft = Left.SetEdge(Up, new[] { 4, 5, 6 }, new[] { 2, 3, 4 });
 
             return new RubikCube(newFront, Back, newLeft, newRight, newTop, newBottom);
         }
