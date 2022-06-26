@@ -30,6 +30,19 @@ namespace Faze.Engine.Simulators
             }
 
             return result;
+        }        
+        
+        public TResult Simulate<TMove, TResult>(IGameState<TMove, TResult> state, int maxMoves)
+        {
+            TResult result;
+            while ((result = state.GetResult()) == null && maxMoves > 0)
+            {
+                var move = GetMove(state);
+                state = state.Move(move);
+                maxMoves--;
+            }
+
+            return result;
         }
 
         public TMove[] SimulatePath<TMove, TResult>(IGameState<TMove, TResult> state, int maxDepth)

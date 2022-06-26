@@ -307,7 +307,12 @@ namespace Faze.Core.TreeLinq
             var maxValue = tree.SelectDepthFirst().Max();
             var minValue = tree.SelectDepthFirst().Min();
 
-            return tree.MapValue(v => (v - minValue) / (maxValue - minValue));
+            var denominator = maxValue - minValue;
+            if (denominator < double.Epsilon) {
+                return tree.MapValue(v => 0d);
+            }
+
+            return tree.MapValue(v => (v - minValue) / denominator);
         }
 
         public static Tree<double> NormaliseSiblings(this Tree<double> tree)
@@ -320,7 +325,7 @@ namespace Faze.Core.TreeLinq
             if (tree == null) 
                 return null;
 
-            var value = maxValue > minValue ? (tree.Value - minValue) / (maxValue - minValue) : 0;
+            var value = maxValue > minValue ? (tree.Value - minValue) / (maxValue - minValue) : 0.5;
 
             if (tree.IsLeaf())
                 return new Tree<double>(value);
@@ -330,7 +335,6 @@ namespace Faze.Core.TreeLinq
 
             return new Tree<double>(value, tree.Children?.Select(child => NormaliseSiblingsHelper(child, childMinValue, childMaxValue)));
         }
-
 
         #endregion Normalise
 

@@ -10,5 +10,6 @@ namespace Faze.Abstractions.Engine
     public interface IGameSimulator
     {
         TResult Simulate<TMove, TResult>(IGameState<TMove, TResult> state);
+        TResult Simulate<TMove, TResult>(IGameState<TMove, TResult> state, int maxMoves);
     }
 }
