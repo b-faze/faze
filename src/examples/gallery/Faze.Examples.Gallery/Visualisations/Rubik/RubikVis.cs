@@ -37,16 +37,16 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik
         {
             return new GalleryItemMetadata<RubikImagePipelineConfig>
             {
-                FileId = $"Rubik_normalised_{depth}.png",
+                FileId = $"Rubik_expanded_low_{depth}.png",
                 Album = Albums.Rubik,
                 PipelineId = RubikImagePipeline.Id,
                 Depth = depth,
-                Variation = "normalised",
+                Variation = "expanded low values",
                 Config = new RubikImagePipelineConfig
                 {
                     ImageSize = 500,
                     MaxDepth = depth,
-                    Normalise = true,
+                    MappingType = RubikMappingType.ExpandLow,
                 }
             };
         }
@@ -55,16 +55,15 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik
         {
             return new GalleryItemMetadata<RubikImagePipelineConfig>
             {
-                FileId = $"Rubik_normalised+unavailable_{depth}.png",
+                FileId = $"Rubik_unavailable_{depth}.png",
                 Album = Albums.Rubik,
                 PipelineId = RubikImagePipeline.Id,
                 Depth = depth,
-                Variation = "normalised+unavailable",
+                Variation = "unavailable",
                 Config = new RubikImagePipelineConfig
                 {
                     ImageSize = 500,
                     MaxDepth = depth,
-                    Normalise = true,
                     UnavailablePaintType = RubikUnavailablePaintType.Black
                 }
             };

@@ -16,13 +16,13 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators
     public class RubikResultsTreeMapper : ITreeMapper<IGameState<GridMove, RubikResult?>, WinLoseDrawResultAggregate>
     {
         private readonly IGameSimulator engine;
-        private readonly int simulations;
+        private readonly int totalSimulations;
         private readonly int maxSimulationDepth;
 
-        public RubikResultsTreeMapper(IGameSimulator engine, int leafSimulations, int maxSimulationDepth)
+        public RubikResultsTreeMapper(IGameSimulator engine, int totalSimulations, int maxSimulationDepth)
         {
             this.engine = engine;
-            this.simulations = leafSimulations;
+            this.totalSimulations = totalSimulations;
             this.maxSimulationDepth = maxSimulationDepth;
         }
 
@@ -37,16 +37,12 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators
 
         private Tree<IGameState<GridMove, RubikResult?>> StopWhenSolvedTree(Tree<IGameState<GridMove, RubikResult?>> tree, int depth = 0)
         {
-            if (tree == null) 
-            {
+            if (tree == null)
                 return null;
-            }
 
             // skip initial solved state
             if (tree.Value.GetResult() == RubikResult.Solved && depth > 0)
-            {
                 return new Tree<IGameState<GridMove, RubikResult?>>(tree.Value);
-            }
 
             var children = tree.Children?.Select(c => StopWhenSolvedTree(c, depth + 1));
             return new Tree<IGameState<GridMove, RubikResult?>>(tree.Value, children);
@@ -55,6 +51,9 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators
         private WinLoseDrawResultAggregate GetResults(IGameState<GridMove, RubikResult?> state, TreeMapInfo info, IProgressTracker progress)
         {
             progress.SetMessage(string.Join(",", info.GetPath()));
+
+            // always the same number of options (12) at each depth
+            var simulations = totalSimulations / (int)Math.Pow(12, info.Depth);
 
             var resultAggregate = new WinLoseDrawResultAggregate();
             for (var i = 0; i < simulations; i++)

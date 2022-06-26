@@ -25,7 +25,7 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators
         {
             progress.SetMessage(Id);
             // check 100 times if a solution is found by making 5 random moves
-            pipelineProvider.Create(Id, dataDepth: 5, simulations: 100, simulationDepth: 5).Run(progress);
+            pipelineProvider.Create(Id, dataDepth: 5, simulations: (int)Math.Pow(12, 5), simulationDepth: 5).Run(progress);
 
             return Task.CompletedTask;
         }

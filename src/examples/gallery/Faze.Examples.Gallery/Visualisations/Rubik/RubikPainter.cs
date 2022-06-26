@@ -3,6 +3,7 @@ using Faze.Abstractions.GameResults;
 using Faze.Abstractions.Rendering;
 using Faze.Core.TreeLinq;
 using Faze.Rendering.ColorInterpolators;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -27,6 +28,9 @@ namespace Faze.Examples.Gallery.Visualisations.Rubik
 
             if (config.Normalise)
                 resultTree = resultTree.NormaliseSiblings();
+
+            if (config.MappingType == RubikMappingType.ExpandLow)
+                resultTree = resultTree.MapValue(v => Math.Log(Math.Sqrt(v) / 0.59 + 1));
 
             var colouredTree = resultTree
                 .MapValue(colorInterpolator);
