@@ -46,7 +46,7 @@ namespace Faze.Examples.Gallery.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Faze.Examples.Gallery.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.yaml", "Faze.Examples.Gallery.API v1"));
             }
 
             app.UseRouting();

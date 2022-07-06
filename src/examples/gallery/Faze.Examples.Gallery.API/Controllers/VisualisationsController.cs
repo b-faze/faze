@@ -28,6 +28,8 @@ namespace Faze.Examples.Gallery.API.Controllers
         }
 
         [HttpGet("visualisations/{id}")]
+        [ProducesResponseType(typeof(Visualisation), statusCode:200)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> Get(string id)
         {
             var result = await repository.Get(id);
@@ -38,6 +40,7 @@ namespace Faze.Examples.Gallery.API.Controllers
         }
 
         [HttpPost("visualisations/")]
+        [ProducesResponseType(typeof(Visualisation), statusCode: 200)]
         public async Task<IActionResult> Post(Visualisation vis)
         {
             var result = await repository.Create(vis);
