@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace Faze.Examples.Gallery.API.Controllers
 {
     [ApiController]
-    [Route("visualisations")]
     public class VisualisationsController : ControllerBase
     {
         private readonly ILogger<VisualisationsController> logger;
@@ -22,10 +21,28 @@ namespace Faze.Examples.Gallery.API.Controllers
             this.repository = repository;
         }
 
-        [HttpGet]
-        public Task<IEnumerable<Visualisation>> Get()
+        [HttpGet("visualisations/")]
+        public Task<IEnumerable<Visualisation>> GetAll()
         {
-            return repository.GetAllAsync();
+            return repository.GetAll();
+        }
+
+        [HttpGet("visualisations/{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var result = await repository.Get(id);
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        [HttpPost("visualisations/")]
+        public async Task<IActionResult> Post(Visualisation vis)
+        {
+            var result = await repository.Create(vis);
+
+            return Ok(result);
         }
     }
 }
