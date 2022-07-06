@@ -38,7 +38,7 @@ namespace Faze.Rendering.Benchmarks.SquareTreeRendererBenchmarks.Renderers
             DrawHelper(surface.Canvas, tree, SKRect.Create(0, 0, imageSize, imageSize), 0, options.MaxDepth);
         }
 
-        public void WriteToStream(Stream stream)
+        public void WriteToStream(Stream stream, IProgressTracker progress = null)
         {
             using SKImage image = surface.Snapshot();
             using SKData data = image.Encode(SKEncodedImageFormat.Png, 100);

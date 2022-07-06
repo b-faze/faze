@@ -96,13 +96,15 @@ namespace Faze.Core.Extensions
             });
         }
 
-        public static IReversePipelineBuilder<T> Iterate<T>(this IReversePipelineBuilder<IEnumerable<T>> builder, int n, Action fn)
+        public static IReversePipelineBuilder<T> Iterate<T>(this IReversePipelineBuilder<IEnumerable<T>> builder, int n, Action<float> fn)
         {
             return builder.Require<T>(input =>
             {
-                return Enumerable.Range(0, n).Select(_ =>
+                return Enumerable.Range(1, n)
+                    .Select(i => (float)i / n)
+                    .Select(progress =>
                 {
-                    fn();
+                    fn(progress);
                     return input;
                 });
             });
@@ -110,9 +112,9 @@ namespace Faze.Core.Extensions
 
         public static IReversePipelineBuilder<TIn> Iterate<TOut, TIn>(this IReversePipelineBuilder<IEnumerable<TOut>> builder, IIterater<TIn, TOut> iterater)
         {
-            return builder.Require<TIn>(input =>
+            return builder.Require<TIn>((input, progress) =>
             {
-                return iterater.GetEnumerable(input);
+                return iterater.GetEnumerable(input, progress);
             });
         }
 
@@ -140,8 +142,16 @@ namespace Faze.Core.Extensions
                     ? state.ToStateTree(adapter)
                     : state.ToStateTree();
             });
-        }        
-        
+        }
+
+        public static IReversePipelineBuilder<T> GameTree<T>(this IReversePipelineBuilder<Tree<T>> builder, ITreeAdapter<T> adapter)
+        {
+            return builder.Require<T>(state =>
+            {
+                return state.ToStateTree(adapter);
+            });
+        }
+
         public static IPipeline LoadTree<TId, T>(this IReversePipelineBuilder<Tree<T>> builder, TId id, ITreeDataReader<TId, T> treeDataProvider)
         {
             return builder.Build(() =>

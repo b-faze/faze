@@ -68,6 +68,24 @@ namespace Faze.Core.TreeLinq
 
         #endregion LimitDepth
 
+        #region Where
+
+        public static Tree<TValue> Where<TValue>(this Tree<TValue> tree, Func<Tree<TValue>, TreeMapInfo, bool> predicate)
+        {
+            return WhereHelper(tree, predicate, TreeMapInfo.Root());
+        }
+
+        private static Tree<TValue> WhereHelper<TValue>(Tree<TValue> tree, Func<Tree<TValue>, TreeMapInfo, bool> predicate, TreeMapInfo info)
+        {
+            if (!predicate(tree, info))
+                return null;
+
+            var children = tree.Children?.Select((child, i) => WhereHelper(child, predicate, info.Child(i)));
+            return new Tree<TValue>(tree.Value, children);
+        }
+
+        #endregion Where
+
         #region SelectDepthFirst
 
         public static IEnumerable<TValue> SelectDepthFirst<TValue>(this Tree<TValue> tree)
@@ -289,7 +307,12 @@ namespace Faze.Core.TreeLinq
             var maxValue = tree.SelectDepthFirst().Max();
             var minValue = tree.SelectDepthFirst().Min();
 
-            return tree.MapValue(v => (v - minValue) / (maxValue - minValue));
+            var denominator = maxValue - minValue;
+            if (denominator < double.Epsilon) {
+                return tree.MapValue(v => 0d);
+            }
+
+            return tree.MapValue(v => (v - minValue) / denominator);
         }
 
         public static Tree<double> NormaliseSiblings(this Tree<double> tree)
@@ -297,19 +320,21 @@ namespace Faze.Core.TreeLinq
             return NormaliseSiblingsHelper(tree, tree.Value, tree.Value);
         }
 
-        public static Tree<double> NormaliseSiblingsHelper(this Tree<double> tree, double minValue, double maxValue)
+        private static Tree<double> NormaliseSiblingsHelper(this Tree<double> tree, double minValue, double maxValue)
         {
-            var value = maxValue > minValue ? (tree.Value - minValue) / (maxValue - minValue) : 0;
+            if (tree == null) 
+                return null;
+
+            var value = maxValue > minValue ? (tree.Value - minValue) / (maxValue - minValue) : 0.5;
 
             if (tree.IsLeaf())
                 return new Tree<double>(value);
 
-            var childMaxValue = tree.Children.Select(child => child.Value).Max();
-            var childMinValue = tree.Children.Select(child => child.Value).Min();
+            var childMaxValue = tree.Children.Where(child => child != null).Select(child => child.Value).Max();
+            var childMinValue = tree.Children.Where(child => child != null).Select(child => child.Value).Min();
 
             return new Tree<double>(value, tree.Children?.Select(child => NormaliseSiblingsHelper(child, childMinValue, childMaxValue)));
         }
-
 
         #endregion Normalise
 

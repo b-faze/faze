@@ -22,7 +22,7 @@ namespace Faze.Rendering.Video.FFMPEG.Extensions
         /// <returns></returns>
         public static IReversePipelineBuilder<IStreamer> Video(this IReversePipelineBuilder builder, string filename, VideoFFMPEGSettings settings)
         {
-            return builder.Require<IStreamer>(streamer =>
+            return builder.Require<IStreamer>((streamer, progress) =>
             {
                 var fps = settings.Fps;
                 var imgVCodec = VideoFFMPEGSettings.GetVCodecArgument(settings.ImageVCodec);
@@ -37,7 +37,7 @@ namespace Faze.Rendering.Video.FFMPEG.Extensions
 
                 using (Process process = Process.Start(startInfo))
                 {
-                    streamer.WriteToStream(process.StandardInput.BaseStream);
+                    streamer.WriteToStream(process.StandardInput.BaseStream, progress);
 
                     process.StandardInput.Flush();
                     process.StandardInput.Close();

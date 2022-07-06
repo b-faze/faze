@@ -32,7 +32,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX3D.DataGenerators
                 .Map(resultsMapper)
                 .LimitDepth(depth)
                 .GameTree(new SquareTreeAdapter(3))
-                .Build(() => new OX3DState());
+                .Build(() => OX3DState.Initial());
 
             return pipeline;
         }

@@ -14,6 +14,7 @@ using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Examples.Gallery.Visualisations.OX3D;
 using Faze.Examples.Gallery.Visualisations.OX3D.DataGenerators;
 using Faze.Examples.Gallery.Visualisations.PieceBoards;
+using Faze.Examples.Gallery.Visualisations.Rubik.DataGenerators;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -47,8 +48,9 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<ITreeSerialiser<EightQueensProblemSolutionAggregate>, JsonTreeSerialiser<EightQueensProblemSolutionAggregate>>()
 
                 .AddSingleton<OXSimulatedDataPipeline>()
+                .AddSingleton<RubikSimulatedDataPipeline>()
                 .AddSingleton<OX3DSimulatedDataPipeline>()
-                .AddSingleton<OXGoldVideoPipeline>()
+                .AddSingleton<OXGoldVideoSimPipeline>()
                 .AddSingleton<OXGoldImagePipeline>()
                 .AddSingleton<OX3DGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()

@@ -11,6 +11,7 @@ namespace Faze.Examples.Games.GridGames
 {
     public class OX3DState : IGameState<GridMove, WinLoseDrawResult?>
     {
+        private const int dimention = 3;
         public int Dimention => 3;
         public int TotalPlayers => 2;
         public PlayerIndex CurrentPlayerIndex => p1Turn ? PlayerIndex.P1 : PlayerIndex.P2;
@@ -20,11 +21,12 @@ namespace Faze.Examples.Games.GridGames
         private bool?[,,] pMoves;
         private List<GridMove> availableMoves;
 
-        public OX3DState()
+        public static OX3DState Initial()
         {
-            pMoves = new bool?[Dimention, Dimention, Dimention];
-            availableMoves = Enumerable.Range(0, 9).SelectMany(x => Enumerable.Repeat(x, Dimention)).Select(x => new GridMove(x)).ToList();
-            winningStates = GetWinningStates(Dimention).ToList();
+            var pMoves = new bool?[dimention, dimention, dimention];
+            var availableMoves = Enumerable.Range(0, 9).SelectMany(x => Enumerable.Repeat(x, dimention)).Select(x => new GridMove(x)).ToList();
+            var winningStates = GetWinningStates(dimention).ToList();
+            return new OX3DState(pMoves, availableMoves, p1Turn: true, winningStates);
         }
 
         private OX3DState(bool?[,,] pMoves, List<GridMove> availableMoves, bool p1Turn, List<List<int[]>> winningStates)

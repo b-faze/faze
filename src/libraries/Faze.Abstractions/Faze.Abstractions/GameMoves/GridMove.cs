@@ -31,6 +31,19 @@ namespace Faze.Abstractions.GameMoves
             return new GridMove(index);
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj is GridMove m)
+                return index.Equals(m.index);
+
+            return index.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return index.GetHashCode();
+        }
+
         public override string ToString()
         {
             return index.ToString();
