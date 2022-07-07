@@ -12,6 +12,8 @@ namespace Faze.Examples.Gallery.API.Data
         Task<IEnumerable<Visualisation>> GetAll();
         Task<Visualisation> Get(string id);
         Task<Visualisation> Create(Visualisation vis);
+        Task<Visualisation> Update(Visualisation vis);
+        Task Delete(string id);
     }
 
     public class VisualisationRepository : RepositoryBase, IVisualisationRepository
@@ -28,6 +30,11 @@ namespace Faze.Examples.Gallery.API.Data
             return vis;
         }
 
+        public Task Delete(string id)
+        {
+            return db.ExecuteAsync("DELETE FROM visualisation WHERE id = @id",new { id });
+        }
+
         public Task<Visualisation> Get(string id)
         {
             return db.QueryFirstOrDefaultAsync<Visualisation>("SELECT * FROM visualisation WHERE id = @id", new { id });
@@ -36,6 +43,13 @@ namespace Faze.Examples.Gallery.API.Data
         public Task<IEnumerable<Visualisation>> GetAll()
         {
             return db.QueryAsync<Visualisation>("SELECT * FROM visualisation");
+        }
+
+        public async Task<Visualisation> Update(Visualisation vis)
+        {
+            await db.ExecuteAsync("UPDATE visualisation SET name = @Name WHERE id = @Id", vis);
+
+            return vis;
         }
     }
 }

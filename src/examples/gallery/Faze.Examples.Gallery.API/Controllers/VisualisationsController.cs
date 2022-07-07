@@ -29,23 +29,42 @@ namespace Faze.Examples.Gallery.API.Controllers
 
         [HttpGet("visualisations/{id}")]
         [ProducesResponseType(typeof(Visualisation), statusCode:200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(typeof(string), statusCode:404)]
         public async Task<IActionResult> Get(string id)
         {
             var result = await repository.Get(id);
             if (result == null)
-                return NotFound();
+                return NotFound(id);
 
             return Ok(result);
         }
 
         [HttpPost("visualisations/")]
         [ProducesResponseType(typeof(Visualisation), statusCode: 200)]
-        public async Task<IActionResult> Post(Visualisation vis)
+        public async Task<IActionResult> Create(Visualisation vis)
         {
             var result = await repository.Create(vis);
 
             return Ok(result);
+        }
+
+        [HttpPut("visualisations/{id}")]
+        [ProducesResponseType(typeof(Visualisation), statusCode: 200)]
+        public async Task<IActionResult> Update(string id, Visualisation vis)
+        {
+            vis.Id = id;
+            var result = await repository.Update(vis);
+
+            return Ok(result);
+        }
+
+        [HttpDelete("visualisations/{id}")]
+        [ProducesResponseType(typeof(string), statusCode: 200)]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await repository.Delete(id);
+
+            return Ok(id);
         }
     }
 }
