@@ -1,20 +1,21 @@
 ﻿using Faze.Abstractions.Core;
 using Faze.Abstractions.GameResults;
-using Faze.Abstractions.Rendering;
 using Faze.Core.Extensions;
 using Faze.Core.Pipelines;
-using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Rendering.ColorInterpolators;
 using Faze.Rendering.TreeRenderers;
-using System;
 using Faze.Core.TreeLinq;
 using Faze.Examples.Gallery.Interfaces;
 using Faze.Examples.Gallery.Extensions;
 using Faze.Examples.Gallery.Services;
+using Faze.Core.Adapters;
+using Faze.Abstractions.GameMoves;
+using Faze.Abstractions.GameStates;
+using Faze.Examples.Games.OX;
 
 namespace Faze.Examples.Gallery.Visualisations.OX
 {
-    public class OXGoldImagePipelineConfig : ISquareTreeRendererPipelineConfig
+    public class OXDepthImagePipelineConfig : ISquareTreeRendererPipelineConfig
     {
         public int TreeSize { get; set; }
         public int ImageSize { get; set; }
@@ -23,37 +24,35 @@ namespace Faze.Examples.Gallery.Visualisations.OX
         public float? RelativeDepthFactor { get; set; }
     }
 
-    public class OXGoldImagePipeline : BaseVisualisationPipeline<OXGoldImagePipelineConfig>
+    public class OXDepthImagePipeline : BaseVisualisationPipeline<OXDepthImagePipelineConfig>
     {
-        private static readonly string DataId = OXDataGeneratorExhaustive.Id;
         private readonly IGalleryService galleryService;
-        private readonly IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider;
 
-        public OXGoldImagePipeline(IGalleryService galleryService,
-            IFileTreeDataProvider<WinLoseDrawResultAggregate> treeDataProvider)
+        public OXDepthImagePipeline(IGalleryService galleryService)
         {
             this.galleryService = galleryService;
-            this.treeDataProvider = treeDataProvider;
         }
 
-        public static readonly string Id = "OX Gold";
+        public static readonly string Id = "OX Depth";
         public override GalleryPipelineMetadata GetMetadata() => new GalleryPipelineMetadata
         {
             Id = Id,
-            DataId = DataId,
-            RelativeCodePath = "Visualisations/OX/OXGoldImagePipeline.cs"
+            RelativeCodePath = "Visualisations/OX/OXDepthImagePipeline.cs"
         };
 
-        public override IPipeline Create(GalleryItemMetadata<OXGoldImagePipelineConfig> galleryMetadata)
+        public override IPipeline Create(GalleryItemMetadata<OXDepthImagePipelineConfig> galleryMetadata)
         {
             var config = galleryMetadata.Config;
+            var maxDepth = config.MaxDepth ?? 1;
 
             return ReversePipelineBuilder.Create()
                 .GalleryImage(galleryService, galleryMetadata)
                 .Render(new SquareTreeRenderer(config.GetRendererOptions()))
-                .Paint(new GoldInterpolator())
-                .Map<double, WinLoseDrawResultAggregate>(t => t.MapValue(v => v.GetWinsOverLoses()))
-                .LoadTree(DataId, treeDataProvider);
+                .Paint(new TurboInterpolator())
+                .Map<double, IGameState<GridMove, WinLoseDrawResult?>>(t => t.MapValue((_, info) => (double)info.Depth / maxDepth))
+                .LimitDepth(maxDepth)
+                .GameTree(new SquareTreeAdapter(3))
+                .Build(() => OXState.Initial);
         }
     }
 

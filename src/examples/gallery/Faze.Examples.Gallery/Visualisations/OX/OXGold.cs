@@ -41,7 +41,7 @@ namespace Faze.Examples.Gallery.Visualisations.OX
             };
         }
 
-        private GalleryItemMetadata GetVariation2(int depth) 
+        private GalleryItemMetadata GetVariation2(int depth)
         {
             return new GalleryItemMetadata<OXGoldImagePipelineConfig>
             {
