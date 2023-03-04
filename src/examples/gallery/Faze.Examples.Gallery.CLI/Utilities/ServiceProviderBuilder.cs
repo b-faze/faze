@@ -51,6 +51,7 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<RubikSimulatedDataPipeline>()
                 .AddSingleton<OX3DSimulatedDataPipeline>()
                 .AddSingleton<OXGoldVideoSimPipeline>()
+                .AddSingleton<OXDepthImagePipeline>()
                 .AddSingleton<OXGoldImagePipeline>()
                 .AddSingleton<OX3DGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()

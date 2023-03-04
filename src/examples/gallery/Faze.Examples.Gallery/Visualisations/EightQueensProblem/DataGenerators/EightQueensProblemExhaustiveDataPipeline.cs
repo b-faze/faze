@@ -41,15 +41,15 @@ namespace Faze.Examples.Gallery.Visualisations.EightQueensProblem.DataGenerators
         {
             progress.SetMessage(Id);
 
-            CreatePipeline(Id).Run(progress); 
+            CreatePipeline().Run(progress); 
 
             return Task.CompletedTask;
         }
 
-        private IPipeline CreatePipeline(string dataId)
+        private IPipeline CreatePipeline()
         {
             var pipeline = ReversePipelineBuilder.Create()
-                .SaveTree(dataId, treeDataProvider)
+                .SaveTree(Id, treeDataProvider)
                 .Map(new EightQueensProblemSolutionTreeMapper(MaxEvaluationDepth))
                 .GameTree(new SquareTreeAdapter(BoardSize))
                 .Build(() => new PiecesBoardState(new PiecesBoardStateConfig(BoardSize, new QueenPiece(), onlySafeMoves: true)));
