@@ -8,5 +8,6 @@
         public const string EightQueensProblem = "Eight Queens Problem";
         public const string Sudoku = "Sudoku";
         public const string Rubik = "Rubik";
+        public const string Heart = "Heart";
     }
 }

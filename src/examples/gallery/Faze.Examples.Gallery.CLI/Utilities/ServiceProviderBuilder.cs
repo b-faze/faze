@@ -9,6 +9,7 @@ using Faze.Examples.Gallery.Services;
 using Faze.Examples.Gallery.Services.Aggregates;
 using Faze.Examples.Gallery.Services.Serialisers;
 using Faze.Examples.Gallery.Visualisations.EightQueensProblem;
+using Faze.Examples.Gallery.Visualisations.Heart;
 using Faze.Examples.Gallery.Visualisations.OX;
 using Faze.Examples.Gallery.Visualisations.OX.DataGenerators;
 using Faze.Examples.Gallery.Visualisations.OX3D;
@@ -55,6 +56,7 @@ namespace Faze.Examples.Gallery.CLI.Utilities
                 .AddSingleton<OXGoldImagePipeline>()
                 .AddSingleton<OX3DGoldImagePipeline>()
                 .AddSingleton<PieceBoardImagePipeline>()
+                .AddSingleton<HeartSimulatedDataPipeline>()
 
                 .AddSingletons<IDataGenerator>(galleryAssembly)
                 .AddSingletons<IGalleryItemProvider>(galleryAssembly)

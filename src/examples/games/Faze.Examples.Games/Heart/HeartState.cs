@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Faze.Examples.Games.Heart
 {
-    public class HeartState : IGameState<GridMove, HeartResult?>
+    public class HeartState : IGameState<GridMove, WinLoseDrawResult?>
     {
         const int maxPlayerMoves = 4;
 
@@ -36,7 +36,7 @@ namespace Faze.Examples.Games.Heart
             return p2Hand.Select(ToGridMove);
         }
 
-        public HeartResult? GetResult()
+        public WinLoseDrawResult? GetResult()
         {
             if (moves.Length < maxPlayerMoves * 2) 
                 return null;
@@ -84,14 +84,13 @@ namespace Faze.Examples.Games.Heart
                 }
             }
 
-            return new HeartResult
-            {
-                P1Points = p1Points,
-                P2Points = p2Points
-            };
+            if (p1Points == p2Points)
+                return WinLoseDrawResult.Draw;
+
+            return p1Points > p2Points ? WinLoseDrawResult.Win : WinLoseDrawResult.Lose;
         }
 
-        public IGameState<GridMove, HeartResult?> Move(GridMove gridMove)
+        public IGameState<GridMove, WinLoseDrawResult?> Move(GridMove gridMove)
         {
             var p1Turn = CurrentPlayerIndex == PlayerIndex.P1;
             var hand = p1Turn ? p1Hand : p2Hand;
