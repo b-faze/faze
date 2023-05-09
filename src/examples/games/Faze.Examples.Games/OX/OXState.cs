@@ -32,8 +32,6 @@ namespace Faze.Examples.Games.OX
             this.p2Moves = p2Moves;
         }
 
-        public int Dimension => 3;
-        public int TotalPlayers => 2;
         public PlayerIndex CurrentPlayerIndex => p1Turn ? PlayerIndex.P1 : PlayerIndex.P2;
 
         public IEnumerable<GridMove> GetAvailableMoves() => GetResult() != null ? new GridMove[0].AsEnumerable() : availableMoves;
